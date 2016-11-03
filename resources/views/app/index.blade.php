@@ -1,24 +1,67 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>keytalent</title>
-	<script src="/vendor/js/jquery.min.js"></script>
-    <script src="/vendor/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/vendor/css/bootstrap.min.css" media="screen" title="no title">
-</head>
-<body >
 
+@extends('layout.default')
+
+@section('content')
 <div id="app">
-     <h1>Hello App!</h1>
-  <p>
-    <!-- use router-link component for navigation. -->
-    <!-- specify the link by passing the `to` prop. -->
-    <!-- <router-link> will be rendered as an `<a>` tag by default -->
-    <router-link to="/foo">Go to Foo</router-link>
-    <router-link to="/bar">Go to Bar</router-link>
-  </p>
-</div>
- <script src="{{ elixir('js/app.js') }}"></script>
+
+
+  <div class="container-fluid">
+    <div class="navbar-header">
+    </div>
+    <div class="navbar-collapse collapse">
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+          <img alt="Keytalentwtc" width="160" src="../img/keytalentwtc.png">
+        </a>
+        <ul class="nav navbar-nav navbar-right">
+
+          <router-link to="/">Hi</router-link>
+          <router-link to="/about">about</router-link>
+          <router-link to="/admins">admins</router-link>
+
+        </div>
+      </div>
+    </div>
+    <br><br>
+
+
+    <div class="container">
+      <br><br>
+    
+
+       <router-view></router-view>
+
+    </div>
+
+
+   </div>
+   <script src="{{ elixir('js/app.js') }}"></script>
+
+   @stop
 
 
 
@@ -27,5 +70,18 @@
 
 
 
-</body>
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

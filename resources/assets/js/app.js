@@ -1,26 +1,58 @@
+/**
+*Created by AbelOrihuelaMendoza
+*29/10/2016
+*/
+
+/*------------------------------INIT -----------------------------------*/
+
 var Vue = require('vue/dist/vue.js');
-
-var VueResource = require('vue-resource/dist/vue-resource.js');
 var VueRouter = require('vue-router/dist/vue-router.js');
+var VueResource = require('vue-resource/dist/vue-resource.js');
 
-
-Vue.use(VueResource);
 Vue.use(VueRouter);
-
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
+Vue.use(VueResource);
 
 
-const routes = [
-  { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar }
-]
+
+
+/*----------------------------IMPORT MODULS-----------------------------*/
+
+import MntAdmins from './components/moduls/mnt-admins/mnt-admins.vue';
+/*------------------------IMPORT A COMPONENTS---------------------------*/
+
+
+import ALogin from './components/a-components/a-login/a-login.vue';
+
+
+
+
+
+/*------------------------------ ROUTER --------------------------------*/
+/*It was great to see everyone--fue genial verlos a todos*/
 
 
 const router = new VueRouter({
-  routes // short for routes: routes
+	mode: 'hash',
+	routes :[{
+		path: '/',
+		component: ALogin
+	},
+	{
+		path: '/about',
+		component: MntAdmins
+	},
+	{
+		path: '/admins',
+		component: MntAdmins
+	},
+	{
+		path: '*',
+		redirect: '/'
+	}]
 })
 
+
+/*------------------------------- DEFINE APP -------------------------------------*/
 
 const app = new Vue({
   router,
@@ -28,6 +60,7 @@ const app = new Vue({
   	message: "Keytalent"
   }
 }).$mount('#app')
+
 
 
 
