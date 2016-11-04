@@ -19,17 +19,44 @@ class UsersController extends Controller
 	}
     public function store(Request $request){
 
+        /*
+
+        $opciones = [
+        'cost' => 12,
+        ];
+        $newpass= password_hash($request->password, PASSWORD_BCRYPT, $opciones)."\n";
+
+        return $newpass;
+        */
 
 
-    	$user = User::where("email", "=" , $request->email)->first();
-    	//$password =Crypt::decrypt($user->password);
+
+        $user = User::where("email", "=" , $request->email)->first();
+        $hash  = $user->password;
+        $password = $request->password;
+
+        $validate = false;
+
+        $validate = password_verify ( $password ,  $hash );
+
+        if($validate){
+
+            return "yes".$validate;
+
+        }else{
+
+          return "no".$validate;
+
+      }
+      
 
 
+    /*
    
 
     	if($user){
 
-    		if(Hash::check($password, $user->password)){
+    		if(Hash($password, $user->password)){
 
     			return "User".$password;
     
@@ -43,6 +70,8 @@ class UsersController extends Controller
     	}else{
     		return "User no existe".$password;
     	}
+
+        */
     	
 
 

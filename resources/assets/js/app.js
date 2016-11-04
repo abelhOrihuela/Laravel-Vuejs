@@ -24,9 +24,6 @@ import MntAdmins from './components/moduls/mnt-admins/mnt-admins.vue';
 import ALogin from './components/a-components/a-login/a-login.vue';
 
 
-
-
-
 /*------------------------------ ROUTER --------------------------------*/
 /*It was great to see everyone--fue genial verlos a todos*/
 

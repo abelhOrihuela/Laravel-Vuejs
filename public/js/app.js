@@ -17080,7 +17080,7 @@ var app = new Vue({
 }).$mount('#app');
 
 },{"./components/a-components/a-login/a-login.vue":8,"./components/moduls/mnt-admins/mnt-admins.vue":10,"vue-resource/dist/vue-resource.js":3,"vue-router/dist/vue-router.js":4,"vue/dist/vue.js":6}],8:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -17088,21 +17088,24 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
 
   props: {
-    todos: Array,
-    admin: {
-      email: String,
-      password: String
-    },
-    customer: {
-      email: String,
-      password: String
-    }
+    todos: Array
   },
 
   data: function data() {
+    customer: {}
+    admin: {}
 
     return {
-      null: null
+      admin: {
+        email: "",
+        password: ""
+
+      },
+      customer: {
+        email: "",
+        password: ""
+      }
+
     };
   },
 
@@ -17139,10 +17142,7 @@ exports.default = {
     loginAdmin: function loginAdmin() {
 
       var resource = this.$resource();
-      var admin = {
-        email: "egonzalez@wtc-talent.com",
-        password: "wtc141a"
-      };
+      var admin = this.admin;
 
       this.$http.post('admin/login', admin).then(function (response) {}, function (error) {});
     },
@@ -17166,7 +17166,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"jumbotron\">\n\n\n  <div class=\"row\">\n    <div>\n\n      <!-- Nav tabs -->\n      <ul class=\"nav nav-tabs\" role=\"tablist\">\n        <li role=\"presentation\" class=\"active\"><a href=\"#home\" aria-controls=\"home\" role=\"tab\" data-toggle=\"tab\">Admin</a></li>\n        <li role=\"presentation\"><a href=\"#profile\" aria-controls=\"profile\" role=\"tab\" data-toggle=\"tab\">Candidate</a></li>\n\n\n      </ul>\n\n      <!-- Tab panes -->\n      <div class=\"tab-content\">\n        <div role=\"tabpanel\" class=\"tab-pane active\" id=\"home\">\n          <br>\n          <div class=\"col-sm-6\">\n            <form class=\"form-horizontal\" @submit.prevent=\"loginAdmin\">\n              <div class=\"form-group\">\n                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <div class=\"checkbox\">\n                    <label>\n                      <input type=\"checkbox\"> Remember me\n                    </label>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n                </div>\n              </div>\n            </form>\n          </div>\n\n        </div>\n        <div role=\"tabpanel\" class=\"tab-pane\" id=\"profile\">\n          <br>\n\n          <div class=\"col-sm-6\">\n            <form class=\"form-horizontal\" @submit.prevent=\"fetchImageProfile\">\n              <div class=\"form-group\">\n                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <div class=\"checkbox\">\n                    <label>\n                      <input type=\"checkbox\"> Remember me\n                    </label>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n                </div>\n              </div>\n            </form>\n          </div>\n\n\n        </div>\n\n      </div>\n\n    </div>\n  </div>\n  \n\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"jumbotron\">\n\n\n\n\n  <div class=\"row\">\n    <div>\n\n      <!-- Nav tabs -->\n      <ul class=\"nav nav-tabs\" role=\"tablist\">\n        <li role=\"presentation\" class=\"active\"><a href=\"#home\" aria-controls=\"home\" role=\"tab\" data-toggle=\"tab\">Admin</a></li>\n        <li role=\"presentation\"><a href=\"#profile\" aria-controls=\"profile\" role=\"tab\" data-toggle=\"tab\">Candidate</a></li>\n\n\n      </ul>\n\n      <!-- Tab panes -->\n      <div class=\"tab-content\">\n        <div role=\"tabpanel\" class=\"tab-pane active\" id=\"home\">\n          <br>\n          <div class=\"col-sm-6\">\n            <form class=\"form-horizontal\" @submit.prevent=\"loginAdmin\">\n              <div class=\"form-group\">\n                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"email\" v-model=\"admin.email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n                </div>\n\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"password\" v-model=\"admin.password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <div class=\"checkbox\">\n                    <label>\n                      <input type=\"checkbox\"> Remember me\n                    </label>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n                </div>\n              </div>\n\n              --{{ admin }}--\n            </form>\n          </div>\n\n        </div>\n        <div role=\"tabpanel\" class=\"tab-pane\" id=\"profile\">\n          <br>\n\n          <div class=\"col-sm-6\">\n            <form class=\"form-horizontal\" @submit.prevent=\"fetchImageProfile\">\n              <div class=\"form-group\">\n                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <div class=\"checkbox\">\n                    <label>\n                      <input type=\"checkbox\"> Remember me\n                    </label>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n                </div>\n              </div>\n            </form>\n          </div>\n\n\n        </div>\n\n      </div>\n\n    </div>\n  </div>\n  \n\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
