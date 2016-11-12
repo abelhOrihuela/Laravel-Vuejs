@@ -41,12 +41,12 @@ Route::group(['prefix' => 'api'], function () {
   ]);
 
 
-	/*RETURN ALL CANDIDATES 
+	/*RETURN ALL CANDIDATES */
   Route::get('candidates', [
       'uses' => 'CandidatesController@index',
       'as'   => 'candidates_index_path',
   ]);
-  */
+  
 
   /**
 

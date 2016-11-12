@@ -1,15 +1,14 @@
     <script>
 
       import ATable from '../../a-components/a-table/a-table.vue';
-      import { admins } from '../../js/constants_restful.js';
+      import { candidates } from '../../js/constants_restful.js';
 
 
       export default{
 
-       template: require('./mnt-admins.html'),
-
         props:{
-         
+          admins: Array,
+          columns: Array
         },
         components:{
           'a-table': ATable
@@ -18,8 +17,7 @@
 
         data: function(){
          return {
-           admins: [],
-           columns: []
+          null
         }
 
       },
@@ -68,3 +66,9 @@
 
     </script>
 
+    <template>
+      <div class="row">
+        <a-table :items="admins" :columns="columns">
+        </a-table>
+      </div>
+    </template>

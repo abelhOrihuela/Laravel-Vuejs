@@ -1,5 +1,11 @@
   <script>
 
+  import constants from '../../js/constants_restful.js';
+
+  import { apiRoot } from '../../js/constants_restful.js';
+
+  
+
     export default{
 
       props:{
@@ -10,20 +16,24 @@
         customer:{
 
         }
+
         admin:{
           
         }
 
 
        return {
+      
         admin:{
           email: "",
-          password: ""
+          password: "",
+          authenticated: false
 
         },
         customer: {
           email: "",
-          password: ""
+          password: "",
+          authenticated: false
         }
 
       }
@@ -32,7 +42,7 @@
     ,
 
     http: {
-      root: '/api',
+      root: apiRoot,
       headers: {
         'X-CSRF-TOKEN' : document.querySelector('#token').getAttribute('value')
       }
@@ -51,6 +61,7 @@
         fetchImageProfile: function(){
 
         var resource= this.$resource('user');
+
 
         resource.get().then((response) => {
 
@@ -72,7 +83,23 @@
         var admin =this.admin;
 
         this.$http.post('admin/login', admin)
-                .then(function(response){
+            .then(function(response){
+
+              console.log(response.body);
+
+              if(response.body.token!=undefined){
+                localStorage.setItem('id_token', response.body.token);
+                this.admin.authenticated=true;
+                this.admin.password= "";
+
+                var router= this.$router;
+                router.push({name: 'dashboard'});
+
+              }else if(response.body.user_not_exist){
+
+                console.log("User not exist");
+              }
+              
 
             }, function (error){
 
@@ -160,8 +187,6 @@
                       <button type="submit"  class="btn btn-default">Sign in</button>
                     </div>
                   </div>
-
-                  --{{ admin }}--
                 </form>
               </div>
 

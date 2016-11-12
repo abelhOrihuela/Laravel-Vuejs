@@ -40,7 +40,7 @@
         <ul class="nav navbar-nav navbar-right">
 
           <router-link to="/">Hi</router-link>
-          <router-link to="/about">about</router-link>
+          <router-link to="/dashboard">dashboard</router-link>
           <router-link to="/admins">admins</router-link>
 
         </div>

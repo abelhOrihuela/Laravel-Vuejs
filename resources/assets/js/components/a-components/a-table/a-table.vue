@@ -1,107 +1,106 @@
-<script>
-  export default{
+    <script>
+      export default{
 
-   props: {
-      items: Array,
-      start: 5,
-      limit: 0,
-      pagination: null,
-      total: 6,
-      columns: Array
-    },
-    data: function () {
+          template: require('./a-table.html'),
 
-      searchQuery: ''
-      var sortOrders = {}
-      this.columns.forEach(function (key) {
-        sortOrders[key] = 1
-      })
-      return {
-        sortKey: '',
-        sortOrders: sortOrders
-      }
-    },
-    created: function() {
+        /*PROPS*/
+
+        props: {
+          items: Array,
+          columns: Array,
+          total: Number
+        },
+
+      /**
+      * function data
+      * @return {object}
+      */
+      data: function () {
+
+        console.log("init");
+        console.log(this.items.length);
+
+        searchQuery: ''
+        
+        
+        var sortOrders = {}
+        this.columns.forEach(function (key) {
+          sortOrders[key] = 1
+        })
+        return {
+          sortKey: '',
+          sortOrders: sortOrders,
+          start: 0,
+          limit: 0,
+          pagination: 0,
+          filterKey:''
+        }
+      },
+
+      ready: function(){
+        console.log("init2");
+        console.log(this.items.length);
+      },
+      created: function() {
+        console.log("init3");
+        console.log(this.items.length);
+
+        this.limit = parseInt(5);
+        this.start=0;
+
+      },
+      watch: {
+        pagination: function() {
+
+          console.log("init3");
+          console.log(this.items.length);
+
+          this.limit = parseInt(this.pagination);
+
+          if(this.limit != this.start && this.start > 0)
+            this.start = parseInt(this.pagination);
+          this.limit = this.start + parseInt(this.pagination);
+         
+        }
+      },
+
+      methods: {
       
-      this.limit = parseInt(this.pagination);
-      this.start=0;
+        paginate: function(direction) {
+          console.log("init");
+          console.log(this.items);
 
-    },
-    watch: {
-      pagination: function() {
-        this.limit = parseInt(this.pagination);
 
-        if(this.limit != this.start && this.start > 0)
-          this.start = parseInt(this.pagination);
-        this.limit = this.start + parseInt(this.pagination);
-      }
-    },
-
-    methods: {
-      paginate: function(direction) {
-        if(direction === 'next') {
-          this.start += parseInt(this.pagination);
-          this.limit += parseInt(this.pagination);
-        }
-        else if(direction === 'previous') {
-          this.limit -= parseInt(this.pagination);
-          this.start -= parseInt(this.pagination);
-        }
+          if(direction === 'next') {
+            this.start += parseInt(this.pagination);
+            this.limit += parseInt(this.pagination);
+          }
+          else if(direction === 'previous') {
+            this.limit -= parseInt(this.pagination);
+            this.start -= parseInt(this.pagination);
+          }
+        },
+        sortBy: function (key) {
+          this.sortKey = key
+          this.sortOrders[key] = this.sortOrders[key] * -1
+        },
       },
-      sortBy: function (key) {
-        this.sortKey = key
-        this.sortOrders[key] = this.sortOrders[key] * -1
-      },
+
+      filters: {
+        paginate: function( start, limit) {
+      
     },
 
-    filters: {
-      paginate: function() {
-        return this.items.slice(this.start,this.limit);
+        reverse: function(value){
+       
+         return value.split('').reverse().join('');
+        },
+        capitalize: function (value){
+          return value.toUpperCase();
+        }
       }
     }
-    
 
-  }
-
-</script>
-
-<template >
-
-<div>
-<div>
-<table class="table table-striped">
-    <thead class="bg-primary">
-
-      <tr>
-        <th v-for="key in columns" @click="sortBy(key)" >
-          {{key | capitalize}}
-          <span class="arrow"
-          :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
-        </span>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-
-    <tr v-for=" item in items">
-      <td v-for="key in columns">
-        {{ item[key] }}
-      </td>
-    </tr>
-  </tbody>
-
-</table>
+  </script>
 
 
-  {{ columns }}
-     <li v-for="key in columns">{{ key }}</li>
-</div>
-</div>
-
-
-
-      
-
-
-
-</template>

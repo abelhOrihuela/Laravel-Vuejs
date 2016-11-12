@@ -1,0 +1,23 @@
+commit 101d83125898e03756de93ebb1c508a13887ec86
+Author: Abelh Orihuela <abelorihuelamendoza@hotmail.com>
+Date:   Thu Nov 3 23:16:25 2016 -0600
+
+    First steps for auth
+
+commit 86bc57555b014bf10eef34088193473c3704c68d
+Author: Abelh Orihuela <abelorihuelamendoza@hotmail.com>
+Date:   Wed Nov 2 22:33:34 2016 -0600
+
+    Refactor code components && create component for admins
+
+commit a9eea3826e9e3a07086a3c33bed436330c0bc247
+Author: Abelh Orihuela <abelorihuelamendoza@hotmail.com>
+Date:   Thu Oct 27 21:38:00 2016 -0500
+
+    Test router
+
+commit 42884287f131583f9db91193b61ee9c17906631f
+Author: Abelh Orihuela <abelorihuelamendoza@hotmail.com>
+Date:   Wed Oct 26 00:23:24 2016 -0500
+
+    Base app

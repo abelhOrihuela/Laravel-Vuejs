@@ -1,0 +1,54 @@
+ <div>
+  <div class="col-sm-1 pull-right">
+
+    <select v-model="pagination" class="form-control">
+    <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+    </select>
+
+  </div>
+  <input name="query" v-model="filterKey" class="form-control" placeholder="Search">
+  <div class="row">
+    <table class="table table-striped">
+      <thead class="bg-primary">
+        <tr>
+        <th v-repeat="key in columns" @click="sortBy(key)" >
+          {{key | capitalize}}
+          <span class="arrow"
+          :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+        </span>
+      </th>
+    </thead>
+    <tbody>
+    <tr v-repeat="item in items ">
+        <td v-repeat="key in columns">
+          {{ item[key] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  <div class="col-md-12 center">
+    <ul class="pager">
+      <li>
+        <button @click="paginate('previous')" :disabled="start <= 0">
+          Previous
+        </button>
+      </li>
+      <li>
+        <button @click="paginate('next')" :disabled="limit >= total">
+          Next
+        </button>
+      </li>
+
+      {{ "hola" | reverse }}
+    </ul>
+  </div>
+</div>
+--{{start}}::{{ limit }}::{{ total }}--
+</div>
+
+

@@ -17026,9 +17026,17 @@ var _mntAdmins = require('./components/moduls/mnt-admins/mnt-admins.vue');
 
 var _mntAdmins2 = _interopRequireDefault(_mntAdmins);
 
+var _mntCandidates = require('./components/moduls/mnt-candidates/mnt-candidates.vue');
+
+var _mntCandidates2 = _interopRequireDefault(_mntCandidates);
+
 var _aLogin = require('./components/a-components/a-login/a-login.vue');
 
 var _aLogin2 = _interopRequireDefault(_aLogin);
+
+var _aSignin = require('./components/a-components/a-signin/a-signin.vue');
+
+var _aSignin2 = _interopRequireDefault(_aSignin);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17046,6 +17054,8 @@ var VueResource = require('vue-resource/dist/vue-resource.js');
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
+Vue.config.debug = false;
+
 /*----------------------------IMPORT MODULS-----------------------------*/
 
 /*------------------------IMPORT A COMPONENTS---------------------------*/
@@ -17053,21 +17063,25 @@ Vue.use(VueResource);
 /*------------------------------ ROUTER --------------------------------*/
 /*It was great to see everyone--fue genial verlos a todos*/
 
+var routes = [{
+	path: '/',
+	component: _aLogin2.default,
+	name: 'home'
+}, {
+	path: '/dashboard',
+	component: _mntAdmins2.default,
+	name: 'dashboard'
+}, {
+	path: '/admins',
+	component: _mntAdmins2.default
+}, {
+	path: '*',
+	redirect: '/'
+}];
+
 var router = new VueRouter({
 	mode: 'hash',
-	routes: [{
-		path: '/',
-		component: _aLogin2.default
-	}, {
-		path: '/about',
-		component: _mntAdmins2.default
-	}, {
-		path: '/admins',
-		component: _mntAdmins2.default
-	}, {
-		path: '*',
-		redirect: '/'
-	}]
+	routes: routes
 });
 
 /*------------------------------- DEFINE APP -------------------------------------*/
@@ -17079,12 +17093,19 @@ var app = new Vue({
 	}
 }).$mount('#app');
 
-},{"./components/a-components/a-login/a-login.vue":8,"./components/moduls/mnt-admins/mnt-admins.vue":10,"vue-resource/dist/vue-resource.js":3,"vue-router/dist/vue-router.js":4,"vue/dist/vue.js":6}],8:[function(require,module,exports){
-"use strict";
+},{"./components/a-components/a-login/a-login.vue":8,"./components/a-components/a-signin/a-signin.vue":9,"./components/moduls/mnt-admins/mnt-admins.vue":15,"./components/moduls/mnt-candidates/mnt-candidates.vue":16,"vue-resource/dist/vue-resource.js":3,"vue-router/dist/vue-router.js":4,"vue/dist/vue.js":6}],8:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _constants_restful = require('../../js/constants_restful.js');
+
+var _constants_restful2 = _interopRequireDefault(_constants_restful);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
 
   props: {
@@ -17093,24 +17114,28 @@ exports.default = {
 
   data: function data() {
     customer: {}
+
     admin: {}
 
     return {
+
       admin: {
         email: "",
-        password: ""
+        password: "",
+        authenticated: false
 
       },
       customer: {
         email: "",
-        password: ""
+        password: "",
+        authenticated: false
       }
 
     };
   },
 
   http: {
-    root: '/api',
+    root: _constants_restful.apiRoot,
     headers: {
       'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
     }
@@ -17144,7 +17169,22 @@ exports.default = {
       var resource = this.$resource();
       var admin = this.admin;
 
-      this.$http.post('admin/login', admin).then(function (response) {}, function (error) {});
+      this.$http.post('admin/login', admin).then(function (response) {
+
+        console.log(response.body);
+
+        if (response.body.token != undefined) {
+          localStorage.setItem('id_token', response.body.token);
+          this.admin.authenticated = true;
+          this.admin.password = "";
+
+          var router = this.$router;
+          router.push({ name: 'dashboard' });
+        } else if (response.body.user_not_exist) {
+
+          console.log("User not exist");
+        }
+      }, function (error) {});
     },
 
     /*function: loginCustomer
@@ -17166,7 +17206,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"jumbotron\">\n\n\n\n\n  <div class=\"row\">\n    <div>\n\n      <!-- Nav tabs -->\n      <ul class=\"nav nav-tabs\" role=\"tablist\">\n        <li role=\"presentation\" class=\"active\"><a href=\"#home\" aria-controls=\"home\" role=\"tab\" data-toggle=\"tab\">Admin</a></li>\n        <li role=\"presentation\"><a href=\"#profile\" aria-controls=\"profile\" role=\"tab\" data-toggle=\"tab\">Candidate</a></li>\n\n\n      </ul>\n\n      <!-- Tab panes -->\n      <div class=\"tab-content\">\n        <div role=\"tabpanel\" class=\"tab-pane active\" id=\"home\">\n          <br>\n          <div class=\"col-sm-6\">\n            <form class=\"form-horizontal\" @submit.prevent=\"loginAdmin\">\n              <div class=\"form-group\">\n                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"email\" v-model=\"admin.email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n                </div>\n\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"password\" v-model=\"admin.password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <div class=\"checkbox\">\n                    <label>\n                      <input type=\"checkbox\"> Remember me\n                    </label>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n                </div>\n              </div>\n\n              --{{ admin }}--\n            </form>\n          </div>\n\n        </div>\n        <div role=\"tabpanel\" class=\"tab-pane\" id=\"profile\">\n          <br>\n\n          <div class=\"col-sm-6\">\n            <form class=\"form-horizontal\" @submit.prevent=\"fetchImageProfile\">\n              <div class=\"form-group\">\n                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <div class=\"checkbox\">\n                    <label>\n                      <input type=\"checkbox\"> Remember me\n                    </label>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n                </div>\n              </div>\n            </form>\n          </div>\n\n\n        </div>\n\n      </div>\n\n    </div>\n  </div>\n  \n\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"jumbotron\">\n\n\n\n\n  <div class=\"row\">\n    <div>\n\n      <!-- Nav tabs -->\n      <ul class=\"nav nav-tabs\" role=\"tablist\">\n        <li role=\"presentation\" class=\"active\"><a href=\"#home\" aria-controls=\"home\" role=\"tab\" data-toggle=\"tab\">Admin</a></li>\n        <li role=\"presentation\"><a href=\"#profile\" aria-controls=\"profile\" role=\"tab\" data-toggle=\"tab\">Candidate</a></li>\n\n\n      </ul>\n\n      <!-- Tab panes -->\n      <div class=\"tab-content\">\n        <div role=\"tabpanel\" class=\"tab-pane active\" id=\"home\">\n          <br>\n          <div class=\"col-sm-6\">\n            <form class=\"form-horizontal\" @submit.prevent=\"loginAdmin\">\n              <div class=\"form-group\">\n                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"email\" v-model=\"admin.email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n                </div>\n\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"password\" v-model=\"admin.password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <div class=\"checkbox\">\n                    <label>\n                      <input type=\"checkbox\"> Remember me\n                    </label>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n                </div>\n              </div>\n            </form>\n          </div>\n\n        </div>\n        <div role=\"tabpanel\" class=\"tab-pane\" id=\"profile\">\n          <br>\n\n          <div class=\"col-sm-6\">\n            <form class=\"form-horizontal\" @submit.prevent=\"fetchImageProfile\">\n              <div class=\"form-group\">\n                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <div class=\"checkbox\">\n                    <label>\n                      <input type=\"checkbox\"> Remember me\n                    </label>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n                </div>\n              </div>\n            </form>\n          </div>\n\n\n        </div>\n\n      </div>\n\n    </div>\n  </div>\n  \n\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17177,7 +17217,54 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-aee1e4aa", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":5,"vue-hot-reload-api":2}],9:[function(require,module,exports){
+},{"../../js/constants_restful.js":13,"vue":5,"vue-hot-reload-api":2}],9:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _auth = require('../../js/auth.js');
+
+var _auth2 = _interopRequireDefault(_auth);
+
+var _constants_restful = require('../../js/constants_restful.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  data: function data() {
+    return {
+      email: null,
+      password: null,
+      error: false
+    };
+  },
+
+
+  methods: {
+    signin: function signin(event) {
+      event.preventDefault();
+      _auth2.default.signin(this, true, this.email, this.password);
+    }
+  }
+
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"jumbotron\">\n  <div class=\"row\">\n    <div class=\"alert alert-danger\" v-if=\"error\">\n      <p>There was an error, unable to sign in with those credentials.</p>\n    </div>\n    <form autocomplete=\"off\" v-on:submit=\"signin\">\n      <div class=\"form-group\">\n        <label for=\"email\">E-mail</label>\n        <input type=\"email\" id=\"email\" class=\"form-control\" placeholder=\"gavin.belson@hooli.com\" v-model=\"email\" required=\"\">\n      </div>\n      <div class=\"form-group\">\n        <label for=\"password\">Password</label>\n        <input type=\"password\" id=\"password\" class=\"form-control\" v-model=\"password\" required=\"\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n    </form>\n  </div>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-34b736a2", module.exports)
+  } else {
+    hotAPI.update("_v-34b736a2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../../js/auth.js":12,"../../js/constants_restful.js":13,"vue":5,"vue-hot-reload-api":2}],10:[function(require,module,exports){
+module.exports = ' <div>\n  <div class="col-sm-1 pull-right">\n\n    <select v-model="pagination" class="form-control">\n    <option value="3">3</option>\n      <option value="5">5</option>\n      <option value="10">10</option>\n      <option value="20">20</option>\n    </select>\n\n  </div>\n  <input name="query" v-model="filterKey" class="form-control" placeholder="Search">\n  <div class="row">\n    <table class="table table-striped">\n      <thead class="bg-primary">\n        <tr>\n        <th v-repeat="key in columns" @click="sortBy(key)" >\n          {{key | capitalize}}\n          <span class="arrow"\n          :class="sortOrders[key] > 0 ? \'asc\' : \'dsc\'">\n        </span>\n      </th>\n    </thead>\n    <tbody>\n    <tr v-repeat="item in items ">\n        <td v-repeat="key in columns">\n          {{ item[key] }}\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n<div class="row">\n  <div class="col-md-12 center">\n    <ul class="pager">\n      <li>\n        <button @click="paginate(\'previous\')" :disabled="start <= 0">\n          Previous\n        </button>\n      </li>\n      <li>\n        <button @click="paginate(\'next\')" :disabled="limit >= total">\n          Next\n        </button>\n      </li>\n\n      {{ "hola" | reverse }}\n    </ul>\n  </div>\n</div>\n--{{start}}::{{ limit }}::{{ total }}--\n</div>\n\n\n';
+},{}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17185,33 +17272,58 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
 
+  template: require('./a-table.html'),
+
+  /*PROPS*/
+
   props: {
     items: Array,
-    start: 5,
-    limit: 0,
-    pagination: null,
-    total: 6,
-    columns: Array
+    columns: Array,
+    total: Number
   },
+
+  /**
+  * function data
+  * @return {object}
+  */
   data: function data() {
 
+    console.log("init");
+    console.log(this.items.length);
+
     searchQuery: '';
+
     var sortOrders = {};
     this.columns.forEach(function (key) {
       sortOrders[key] = 1;
     });
     return {
       sortKey: '',
-      sortOrders: sortOrders
+      sortOrders: sortOrders,
+      start: 0,
+      limit: 0,
+      pagination: 0,
+      filterKey: ''
     };
   },
-  created: function created() {
 
-    this.limit = parseInt(this.pagination);
+  ready: function ready() {
+    console.log("init2");
+    console.log(this.items.length);
+  },
+  created: function created() {
+    console.log("init3");
+    console.log(this.items.length);
+
+    this.limit = parseInt(5);
     this.start = 0;
   },
   watch: {
     pagination: function pagination() {
+
+      console.log("init3");
+      console.log(this.items.length);
+
       this.limit = parseInt(this.pagination);
 
       if (this.limit != this.start && this.start > 0) this.start = parseInt(this.pagination);
@@ -17220,7 +17332,11 @@ exports.default = {
   },
 
   methods: {
+
     paginate: function paginate(direction) {
+      console.log("init");
+      console.log(this.items);
+
       if (direction === 'next') {
         this.start += parseInt(this.pagination);
         this.limit += parseInt(this.pagination);
@@ -17236,14 +17352,18 @@ exports.default = {
   },
 
   filters: {
-    paginate: function paginate() {
-      return this.items.slice(this.start, this.limit);
+    paginate: function paginate(start, limit) {},
+
+    reverse: function reverse(value) {
+
+      return value.split('').reverse().join('');
+    },
+    capitalize: function capitalize(value) {
+      return value.toUpperCase();
     }
   }
-
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div>\n<div>\n<table class=\"table table-striped\">\n    <thead class=\"bg-primary\">\n\n      <tr>\n        <th v-for=\"key in columns\" @click=\"sortBy(key)\">\n          {{key | capitalize}}\n          <span class=\"arrow\" :class=\"sortOrders[key] > 0 ? 'asc' : 'dsc'\">\n        </span>\n      </th>\n    </tr>\n  </thead>\n  <tbody>\n\n    <tr v-for=\" item in items\">\n      <td v-for=\"key in columns\">\n        {{ item[key] }}\n      </td>\n    </tr>\n  </tbody>\n\n</table>\n\n\n  {{ columns }}\n     <li v-for=\"key in columns\">{{ key }}</li>\n</div>\n</div>\n\n\n\n      \n\n\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17254,7 +17374,99 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-498c7c75", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":5,"vue-hot-reload-api":2}],10:[function(require,module,exports){
+},{"./a-table.html":10,"vue":5,"vue-hot-reload-api":2}],12:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var Vue = require('vue/dist/vue.js');
+var VueRouter = require('vue-router/dist/vue-router.js');
+var VueResource = require('vue-resource/dist/vue-resource.js');
+
+Vue.use(VueRouter);
+Vue.use(VueResource);
+
+exports.default = {
+    user: {
+        authenticated: false,
+        profile: null,
+        perfil: null
+    },
+
+    check: function check() {
+        var _this = this;
+
+        if (localStorage.getItem('id_token') !== null) {
+            this.http.get('api/user').then(function (response) {
+                _this.user.authenticated = true;
+                _this.user.profile = response.data.data;
+            });
+        }
+    },
+    signin: function signin(context, profile, email, password) {
+        console.log("Signin auth");
+        console.log(profile);
+        console.log(email);
+        console.log(password);
+        console.log("------------");
+
+        if (profile) {
+            this.signinAdmin(email, password);
+        } else {
+            this.signinCustomer(email, password);
+        }
+    },
+    signinAdmin: function signinAdmin(email, password) {
+        console.log("Signin admin");
+
+        console.log(email);
+        console.log(password);
+
+        var admin = {
+            email: email,
+            password: password
+        };
+
+        Vue.http.headers = {
+            'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
+        };
+
+        Vue.http.post('api/admin/login', {
+            name: name,
+            email: email,
+            password: password
+        }).then(function (response) {
+            context.success = true;
+        }, function (response) {
+            context.response = response.data;
+            context.error = true;
+        });
+    },
+    signinCustomer: function signinCustomer(email, password) {
+        console.log("Signin customer");
+
+        console.log(email);
+        console.log(password);
+    },
+    signout: function signout() {},
+    register: function register(context, profile, name, email, password) {}
+};
+
+},{"vue-resource/dist/vue-resource.js":3,"vue-router/dist/vue-router.js":4,"vue/dist/vue.js":6}],13:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var apiRoot = exports.apiRoot = "/api";
+var loginAdmin = exports.loginAdmin = "admin/login";
+var admins = exports.admins = "admins";
+var candidates = exports.candidates = "candidates";
+
+},{}],14:[function(require,module,exports){
+module.exports = '<div class="row">\n	<a-table :items="admins" :columns="columns" :total="admins.length">\n	</a-table>\n</div>';
+},{}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17264,6 +17476,85 @@ Object.defineProperty(exports, "__esModule", {
 var _aTable = require('../../a-components/a-table/a-table.vue');
 
 var _aTable2 = _interopRequireDefault(_aTable);
+
+var _constants_restful = require('../../js/constants_restful.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+
+  template: require('./mnt-admins.html'),
+
+  props: {},
+  components: {
+    'a-table': _aTable2.default
+
+  },
+
+  data: function data() {
+    return {
+      admins: [],
+      columns: []
+    };
+  },
+
+  http: {
+    root: '/api',
+    headers: {
+      'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
+    }
+  },
+
+  methods: {
+
+    /*function: fetchImageProfile
+    *
+    * Get image profile
+    *
+    */
+    getAdmins: function getAdmins() {
+      var _this = this;
+
+      this.columns = ['username', 'position', 'email', 'created_at'];
+
+      var resource = this.$resource(_constants_restful.admins);
+
+      resource.get().then(function (response) {
+
+        _this.admins = response.body;
+      });
+    }
+  },
+
+  created: function created() {
+
+    this.getAdmins();
+  }
+
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-95a3f2b2", module.exports)
+  } else {
+    hotAPI.update("_v-95a3f2b2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../../a-components/a-table/a-table.vue":11,"../../js/constants_restful.js":13,"./mnt-admins.html":14,"vue":5,"vue-hot-reload-api":2}],16:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _aTable = require('../../a-components/a-table/a-table.vue');
+
+var _aTable2 = _interopRequireDefault(_aTable);
+
+var _constants_restful = require('../../js/constants_restful.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17279,7 +17570,6 @@ exports.default = {
   },
 
   data: function data() {
-
     return {
       null: null
     };
@@ -17304,7 +17594,7 @@ exports.default = {
 
       this.columns = ['username', 'position', 'email', 'created_at'];
 
-      var resource = this.$resource('admins');
+      var resource = this.$resource(admins);
 
       resource.get().then(function (response) {
 
@@ -17320,17 +17610,17 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n      <div class=\"row\">\n \n\n\n<a-table :items=\"admins\" :columns=\"columns\"></a-table>\n\n      </div>\n\n    "
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"row\">\n  <a-table :items=\"admins\" :columns=\"columns\">\n  </a-table>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-95a3f2b2", module.exports)
+    hotAPI.createRecord("_v-32a0f4a7", module.exports)
   } else {
-    hotAPI.update("_v-95a3f2b2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-32a0f4a7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-table/a-table.vue":9,"vue":5,"vue-hot-reload-api":2}]},{},[7]);
+},{"../../a-components/a-table/a-table.vue":11,"../../js/constants_restful.js":13,"vue":5,"vue-hot-reload-api":2}]},{},[7]);
 
 //# sourceMappingURL=app.js.map

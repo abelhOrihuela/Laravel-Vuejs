@@ -17,66 +17,37 @@ class UsersController extends Controller
 
 		return $admins;
 	}
-    public function store(Request $request){
+  public function create(Request $request){
 
-        /*
-
-        $opciones = [
-        'cost' => 12,
-        ];
-        $newpass= password_hash($request->password, PASSWORD_BCRYPT, $opciones)."\n";
-
-        return $newpass;
-        */
+    $options = [
+    'cost' => 12,
+    ];
+    $newpass= password_hash($request->password, PASSWORD_BCRYPT, $opciones)."\n";
+  }
 
 
+  public function store(Request $request){
 
-        $user = User::where("email", "=" , $request->email)->first();
-        $hash  = $user->password;
-        $password = $request->password;
+    $user = User::where("email", "=" , $request->email)->first();
 
-        $validate = false;
+    if($user){
+      $hash  = $user->password;
+      $password = $request->password;
+      $validate = false;
+      $validate = password_verify ( $password ,  $hash );
+      if($validate){
 
-        $validate = password_verify ( $password ,  $hash );
+        $token= hash('ripemd160', 'The quick brown fox jumped over the lazy dog.');
+        return response()->json(['user' => $user, 'token' => $hash, 'type_user' => 1 ]);
 
-        if($validate){
+      }else{
 
-            return "yes".$validate;
-
-        }else{
-
-          return "no".$validate;
-
+        return response()->json(['password_incorrect' => true ]);
       }
-      
-
-
-    /*
-   
-
-    	if($user){
-
-    		if(Hash($password, $user->password)){
-
-    			return "User".$password;
-    
-
-    		}else{
-    			return "Password incorrect ".$password;
-    		}
-
-    		
-
-    	}else{
-    		return "User no existe".$password;
-    	}
-
-        */
-    	
-
-
-
-    	
-
     }
+    else{
+
+      abort(404);
+    }
+  }
 }
