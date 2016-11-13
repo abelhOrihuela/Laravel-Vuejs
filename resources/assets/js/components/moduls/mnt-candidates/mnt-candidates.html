@@ -1,0 +1,11 @@
+<div>
+	<form id="search" >
+    Search <input name="query" v-model="searchQuery" class="form-control">
+  </form>
+      <div class="row">
+        <a-table :data="admins"
+        :columns="columns"
+        :filter-key="searchQuery">
+      </a-table>
+    </div>
+</div>

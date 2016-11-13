@@ -17,7 +17,7 @@
 
         data: function(){
          return {
-          null
+searchQuery: ''
         }
 
       },
@@ -65,10 +65,3 @@
       }
 
     </script>
-
-    <template>
-      <div class="row">
-        <a-table :items="admins" :columns="columns">
-        </a-table>
-      </div>
-    </template>

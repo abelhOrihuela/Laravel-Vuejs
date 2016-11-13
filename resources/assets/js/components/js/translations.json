@@ -1,0 +1,14 @@
+{
+	header: {
+            title: {
+                en: 'Hello',
+                fr: 'Bonjour'
+            }
+        },
+    admin: {
+        	updated_at:{
+        		en: 'hi',
+        		es: 'hi'
+        	}
+        }
+}

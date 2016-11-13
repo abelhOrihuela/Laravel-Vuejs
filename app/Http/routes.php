@@ -40,6 +40,12 @@ Route::group(['prefix' => 'api'], function () {
       'as'   => 'user_store_path',
   ]);
 
+  /*RETURN SESSION ADMIN */
+  Route::get('admin/candidates/{id}', [
+      'uses' => 'UsersController@candidates',
+      'as'   => 'user_candidates_path',
+  ]);
+
 
 	/*RETURN ALL CANDIDATES */
   Route::get('candidates', [

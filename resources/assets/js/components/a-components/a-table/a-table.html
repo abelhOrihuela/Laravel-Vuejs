@@ -1,54 +1,45 @@
- <div>
-  <div class="col-sm-1 pull-right">
-
-    <select v-model="pagination" class="form-control">
-    <option value="3">3</option>
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="20">20</option>
-    </select>
-
-  </div>
-  <input name="query" v-model="filterKey" class="form-control" placeholder="Search">
-  <div class="row">
-    <table class="table table-striped">
-      <thead class="bg-primary">
+<div class="col-sm-12">
+  <div class="container-table">
+    <div class="row">
+      <div class="col-sm-6">
+      <form  class="form" id="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-2">
+  
+      <div>
+        <select v-model="pagination" class="form-control">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="40">40</option>
+        </select>
+      </div>
+    </div>
+    </div>
+    <table>
+      <thead>
         <tr>
-        <th v-repeat="key in columns" @click="sortBy(key)" >
-          {{key | capitalize}}
-          <span class="arrow"
-          :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
-        </span>
-      </th>
+          <th v-for="key in columns"
+          @click="sortBy(key)"
+          :class="{ active: sortKey == key }">
+          {{ key | capitalize }}
+          <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+          </span>
+        </th>
+      </tr>
     </thead>
     <tbody>
-    <tr v-repeat="item in items ">
-        <td v-repeat="key in columns">
-          {{ item[key] }}
+      <tr v-for="entry in filteredData" @click="selectElement(entry)">
+        <td v-for="key in columns">
+          {{entry[key]}}
         </td>
       </tr>
     </tbody>
   </table>
+ 
 </div>
-<div class="row">
-  <div class="col-md-12 center">
-    <ul class="pager">
-      <li>
-        <button @click="paginate('previous')" :disabled="start <= 0">
-          Previous
-        </button>
-      </li>
-      <li>
-        <button @click="paginate('next')" :disabled="limit >= total">
-          Next
-        </button>
-      </li>
-
-      {{ "hola" | reverse }}
-    </ul>
-  </div>
 </div>
---{{start}}::{{ limit }}::{{ total }}--
-</div>
-
-

@@ -60,10 +60,22 @@ const router = new VueRouter({
 /*------------------------------- DEFINE APP -------------------------------------*/
 
 const app = new Vue({
+	mixins: [
+        require('vue-i18n-mixin')
+    ],
 	router,
 	data:{
-		message: "Keytalent"
-	}
+		message: 'Keytalent',
+		locale: 'en'
+	},
+	translations: {
+        header: {
+            title: {
+                en: 'Hello',
+                fr: 'Bonjour'
+            }
+        }
+    }
 }).$mount('#app')
 
 

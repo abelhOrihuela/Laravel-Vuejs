@@ -1,106 +1,86 @@
-    <script>
-      export default{
+<script>
+	export default{
 
-          template: require('./a-table.html'),
+		template: require('./a-table.html'),
+		props: {
+			data: Array,
+			columns: Array,
+			total: Number,
+			select: Function
 
-        /*PROPS*/
+		},
 
-        props: {
-          items: Array,
-          columns: Array,
-          total: Number
-        },
-
-      /**
-      * function data
-      * @return {object}
-      */
-      data: function () {
-
-        console.log("init");
-        console.log(this.items.length);
-
-        searchQuery: ''
-        
-        
-        var sortOrders = {}
-        this.columns.forEach(function (key) {
-          sortOrders[key] = 1
-        })
-        return {
-          sortKey: '',
-          sortOrders: sortOrders,
-          start: 0,
-          limit: 0,
-          pagination: 0,
-          filterKey:''
-        }
-      },
-
-      ready: function(){
-        console.log("init2");
-        console.log(this.items.length);
-      },
-      created: function() {
-        console.log("init3");
-        console.log(this.items.length);
-
-        this.limit = parseInt(5);
-        this.start=0;
-
-      },
-      watch: {
-        pagination: function() {
-
-          console.log("init3");
-          console.log(this.items.length);
-
-          this.limit = parseInt(this.pagination);
-
-          if(this.limit != this.start && this.start > 0)
-            this.start = parseInt(this.pagination);
-          this.limit = this.start + parseInt(this.pagination);
-         
-        }
-      },
-
-      methods: {
-      
-        paginate: function(direction) {
-          console.log("init");
-          console.log(this.items);
+		data: function () {
+			var sortOrders = {}
+			this.columns.forEach(function (key) {
+				sortOrders[key] = 1
+			})
+			return {
+				sortKey: '',
+				sortOrders: sortOrders,
+				pagination: 10,
+				filterKey: '',
+				start: 0,
+				limit: 5
+			}
+		},
+		computed: {
+			filteredData: function () {
+				var sortKey = this.sortKey
+				var filterKey = this.filterKey && this.filterKey.toLowerCase()
+				var order = this.sortOrders[sortKey] || 1
+				var data = this.data
+				if (filterKey) {
+					data = data.filter(function (row) {
+						return Object.keys(row).some(function (key) {
+							return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+						})
+					})
+				}
+				if (sortKey) {
+					data = data.slice().sort(function (a, b) {
+						a = a[sortKey]
+						b = b[sortKey]
+						return (a === b ? 0 : a > b ? 1 : -1) * order
+					})
+				}
+				return data.slice(0,this.pagination);
+			}
+		},
+		filters: {
+			capitalize: function (str) {
+				return str.charAt(0).toUpperCase() + str.slice(1)
+			}
+		},
+		methods: {
+			sortBy: function (key) {
+				this.sortKey = key
+				this.sortOrders[key] = this.sortOrders[key] * -1
+			},
 
 
-          if(direction === 'next') {
-            this.start += parseInt(this.pagination);
-            this.limit += parseInt(this.pagination);
-          }
-          else if(direction === 'previous') {
-            this.limit -= parseInt(this.pagination);
-            this.start -= parseInt(this.pagination);
-          }
-        },
-        sortBy: function (key) {
-          this.sortKey = key
-          this.sortOrders[key] = this.sortOrders[key] * -1
-        },
-      },
 
-      filters: {
-        paginate: function( start, limit) {
-      
-    },
+			paginate: function(direction) {
 
-        reverse: function(value){
-       
-         return value.split('').reverse().join('');
-        },
-        capitalize: function (value){
-          return value.toUpperCase();
-        }
-      }
-    }
+				console.log("Direction");
+				console.log(direction);
+				if(direction === 'next') {
+					this.start += parseInt(this.pagination);
+					this.limit += parseInt(this.pagination);
+				}
+				else if(direction === 'previous') {
+					this.limit -= parseInt(this.pagination);
+					this.start -= parseInt(this.pagination);
+				}
+			},
 
-  </script>
+			selectElement: function(entry){
+				this.select(entry);
+
+			}
+		}
+		
+	}
+</script>
 
 

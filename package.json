@@ -12,5 +12,8 @@
     "vue": "^2.0.3",
     "vue-resource": "^1.0.3",
     "vue-router": "^2.0.1"
+  },
+  "dependencies": {
+    "vue-i18n-mixin": "^0.1.0"
   }
 }
