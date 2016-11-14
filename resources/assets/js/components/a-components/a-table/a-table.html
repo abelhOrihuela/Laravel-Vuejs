@@ -24,10 +24,10 @@
       <thead>
         <tr>
           <th v-for="key in columns"
-          @click="sortBy(key)"
+          @click="sortBy(key.key)"
           :class="{ active: sortKey == key }">
-          {{ key | capitalize }}
-          <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+         {{ translate('people.'+key.label) }}
+          <span class="arrow" :class="sortOrders[key.key] > 0 ? 'asc' : 'dsc'">
           </span>
         </th>
       </tr>
@@ -35,11 +35,12 @@
     <tbody>
       <tr v-for="entry in filteredData" @click="selectElement(entry)">
         <td v-for="key in columns">
-          {{entry[key]}}
+          {{entry[key.key]}}
         </td>
       </tr>
     </tbody>
   </table>
+
  
 </div>
 </div>

@@ -1,31 +1,58 @@
 <script>
+  /*
+  *Config module
+  */
+  import { translations } from '../../js/translations.js';
+  import { tableAdmins } from '../../js/config-app/tables.js';
 
-  import ATable from '../../a-components/a-table/a-table.vue';
-  import { admins, candidatesAdmin } from '../../js/constants_restful.js';
+  /*
+  *Constants
+  */
+  import { admins, candidates_admin } from '../../js/constants_restful.js';
 
-  import { translations_mnt_admins } from '../../js/translations.js';
+  /*
+  *Components
+  */
 
-
+  import  ATable from '../../a-components/a-table/a-table.vue';
+  
 
   export default{
-
+    /*--Tenplate--*/
 
     template: require('./mnt-admins.html'),
+
+    /*--Mixins--*/
+
     mixins: [
     require('vue-i18n-mixin')
     ],
+
+    /*--Translate--*/
+
+    translations: translations,
+
+    /*--Properties--*/
+
     props:{
 
     },
+
+    /*--Components--*/
+
     components:{
       'a-table': ATable
 
     },
 
-    data: function(){
+     /*Data
+     *All properties of module
+     */
+
+     data: function(){
       return {
         admins: [],
-        columns: [],
+        columns: tableAdmins,
         searchQuery:'',
         flagTable: true,
         flagDetailSelected: false,
@@ -35,9 +62,6 @@
       }
 
     },
-
-    translations: translations_mnt_admins,
-
 
     http: {
       root: '/api',
@@ -54,7 +78,7 @@
 *
 */
 getAdmins: function(){
-  this.columns= ['username', 'type', 'email', 'created_at'];
+  
   var resource= this.$resource(admins);
   resource.get().then((response) => {
     this.admins=response.body;
@@ -74,7 +98,6 @@ candidates: function(id){
 
 
   });
-
 },
 showTable: function(){
   this.adminSelected={};
@@ -85,6 +108,7 @@ showTable: function(){
 
 created: function(){
   this.getAdmins();
+
 },
 }
 </script>

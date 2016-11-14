@@ -1,7 +1,13 @@
 <script>
+ import { translations } from '../../js/translations.js';
+
 	export default{
 
+
 		template: require('./a-table.html'),
+		mixins: [
+        require('vue-i18n-mixin')
+    ],
 		props: {
 			data: Array,
 			columns: Array,
@@ -9,6 +15,7 @@
 			select: Function
 
 		},
+		translations: translations,
 
 		data: function () {
 			var sortOrders = {}
@@ -21,7 +28,8 @@
 				pagination: 10,
 				filterKey: '',
 				start: 0,
-				limit: 5
+				limit: 5,
+				 locale: 'es'
 			}
 		},
 		computed: {
@@ -45,11 +53,23 @@
 					})
 				}
 				return data.slice(0,this.pagination);
+				//return data;
 			}
 		},
 		filters: {
 			capitalize: function (str) {
 				return str.charAt(0).toUpperCase() + str.slice(1)
+			},
+			translateTable: function(column){
+
+				var text='';
+
+		
+ 
+   
+
+        return text;
+
 			}
 		},
 		methods: {
@@ -75,6 +95,7 @@
 			},
 
 			selectElement: function(entry){
+				console.log("Seelect table");
 				this.select(entry);
 
 			}

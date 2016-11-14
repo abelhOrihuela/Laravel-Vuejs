@@ -1,11 +1,112 @@
 <div>
-	<form id="search" >
-    Search <input name="query" v-model="searchQuery" class="form-control">
-  </form>
-      <div class="row">
-        <a-table :data="admins"
-        :columns="columns"
-        :filter-key="searchQuery">
-      </a-table>
-    </div>
+	<div v-if="flagTable">
+		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">
+		</a-table>
+	</div>
+
+	<div class="row" v-if="flagDetailSelected">
+
+		<div class="col-sm-4  " @click="showTable()">
+			<div class="back-section">
+				<i class="glyphicon glyphicon-chevron-left" v-text="translate('general.back')">
+				</i>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="container-detail" v-if="flagDetailSelected">
+		<div class="container-detail-header">
+			<label v-text="translate('people.candidates.selected')"></label>
+		</div>
+		<div class="container-detail-section">
+
+
+
+			<div class="row">
+				<div class="col-sm-3">
+					<div>
+						<label v-text="translate('people.name')"></label>
+					</div>
+					<div>
+						{{ candidateSelected.username }}
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div>
+						<label v-text="translate('people.position')"></label>
+					</div>
+					<div>
+						{{ candidateSelected.position }}
+					</div>
+				</div>
+
+
+				<div class="col-sm-3">
+					<div>
+						<label v-text="translate('people.email')"></label>
+					</div>
+					<div>
+						{{ candidateSelected.email }}
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div>
+						<label v-text="translate('people.name')"></label>
+					</div>
+					<div>
+						{{ candidateSelected.username }}
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+
+			    <div class="col-sm-3">
+					<div>
+						<label v-text="translate('people.gender')"></label>
+					</div>
+					<div>
+						{{ candidateSelected.gender }}
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div>
+						<label v-text="translate('people.location')"></label>
+					</div>
+					<div>
+						{{ candidateSelected.location }}
+					</div>
+				</div>
+
+				<div class="col-sm-3">
+					<div>
+						<label v-text="translate('people.birthdate')"></label>
+					</div>
+					<div>
+						{{ candidateSelected.day }} /
+						{{ candidateSelected.month }} /
+						{{ candidateSelected.year }}
+					</div>
+				</div>		
+
+			</div>
+		</div>
+	</div>
+
+	<div  v-if="flagDetailSelected">
+	<div  v-for="experience in candidateSelected.experiences" >
+		{{ experience.name_business }}
+	</div>
+		
+	</div>
 </div>
+
+
+
+
+

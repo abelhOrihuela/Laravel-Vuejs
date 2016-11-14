@@ -11,11 +11,13 @@ body {
 
 table {
   width: 100%;
-  border: 2px solid #4261b9;
+  border: 2px solid #D6DBDF  ;
   border-radius: 3px;
   background-color: #fff;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 8px 8px 10px #BFC9CA;
+  font-size: 13px;
 }
 
 th {
@@ -72,4 +74,29 @@ th.active .arrow {
   background-color: #4261b9;
   color: rgba(255,255,255,0.66);
   border-radius: 40px 5px 5px 5px;
+  
+}
+.container-detail{
+  border: 1px solid  gray;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-shadow: 8px 8px 10px #BFC9CA;
+  border-radius: 2px;
+}
+.container-detail-header{
+  width: 100%;
+  background-color: gray;
+  text-align: center;
+  
+}
+
+.container-detail-section{
+  padding:10px;
+}
+.row{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.row label{
+  color: #4261b9;
 }

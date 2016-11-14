@@ -93,7 +93,7 @@
                 this.admin.password= "";
 
                 var router= this.$router;
-                router.push({name: 'dashboard'});
+                router.push({name: 'candidates'});
 
               }else if(response.body.user_not_exist){
 

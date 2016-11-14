@@ -17434,9 +17434,9 @@ var routes = [{
 	component: _aLogin2.default,
 	name: 'home'
 }, {
-	path: '/dashboard',
-	component: _mntAdmins2.default,
-	name: 'dashboard'
+	path: '/candidates',
+	component: _mntCandidates2.default,
+	name: 'candidates'
 }, {
 	path: '/admins',
 	component: _mntAdmins2.default
@@ -17453,6 +17453,12 @@ var router = new VueRouter({
 /*------------------------------- DEFINE APP -------------------------------------*/
 
 var app = new Vue({
+
+	config: {
+		//silent : true,
+		//debug: true
+	},
+
 	mixins: [require('vue-i18n-mixin')],
 	router: router,
 	data: {
@@ -17469,7 +17475,7 @@ var app = new Vue({
 	}
 }).$mount('#app');
 
-},{"./components/a-components/a-login/a-login.vue":44,"./components/a-components/a-signin/a-signin.vue":45,"./components/moduls/mnt-admins/mnt-admins.vue":52,"./components/moduls/mnt-candidates/mnt-candidates.vue":53,"vue-i18n-mixin":38,"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":42}],44:[function(require,module,exports){
+},{"./components/a-components/a-login/a-login.vue":44,"./components/a-components/a-signin/a-signin.vue":45,"./components/moduls/mnt-admins/mnt-admins.vue":53,"./components/moduls/mnt-candidates/mnt-candidates.vue":55,"vue-i18n-mixin":38,"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":42}],44:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17555,7 +17561,7 @@ exports.default = {
           this.admin.password = "";
 
           var router = this.$router;
-          router.push({ name: 'dashboard' });
+          router.push({ name: 'candidates' });
         } else if (response.body.user_not_exist) {
 
           console.log("User not exist");
@@ -17593,7 +17599,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-aee1e4aa", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/constants_restful.js":49,"vue":41,"vue-hot-reload-api":37}],45:[function(require,module,exports){
+},{"../../js/constants_restful.js":50,"vue":41,"vue-hot-reload-api":37}],45:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17638,8 +17644,8 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-34b736a2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/auth.js":48,"../../js/constants_restful.js":49,"vue":41,"vue-hot-reload-api":37}],46:[function(require,module,exports){
-module.exports = '<div class="col-sm-12">\n  <div class="container-table">\n    <div class="row">\n      <div class="col-sm-6">\n      <form  class="form" id="search">\n        <div class="form-group">\n          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">\n        </div>\n      </form>\n    </div>\n    <div class="col-sm-2">\n  \n      <div>\n        <select v-model="pagination" class="form-control">\n          <option value="5">5</option>\n          <option value="10">10</option>\n          <option value="20">20</option>\n          <option value="40">40</option>\n        </select>\n      </div>\n    </div>\n    </div>\n    <table>\n      <thead>\n        <tr>\n          <th v-for="key in columns"\n          @click="sortBy(key)"\n          :class="{ active: sortKey == key }">\n          {{ key | capitalize }}\n          <span class="arrow" :class="sortOrders[key] > 0 ? \'asc\' : \'dsc\'">\n          </span>\n        </th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr v-for="entry in filteredData" @click="selectElement(entry)">\n        <td v-for="key in columns">\n          {{entry[key]}}\n        </td>\n      </tr>\n    </tbody>\n  </table>\n \n</div>\n</div>';
+},{"../../js/auth.js":48,"../../js/constants_restful.js":50,"vue":41,"vue-hot-reload-api":37}],46:[function(require,module,exports){
+module.exports = '<div class="col-sm-12">\n  <div class="container-table">\n    <div class="row">\n      <div class="col-sm-6">\n      <form  class="form" id="search">\n        <div class="form-group">\n          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">\n        </div>\n      </form>\n    </div>\n    <div class="col-sm-2">\n  \n      <div>\n        <select v-model="pagination" class="form-control">\n          <option value="5">5</option>\n          <option value="10">10</option>\n          <option value="20">20</option>\n          <option value="40">40</option>\n        </select>\n      </div>\n    </div>\n    </div>\n    <table>\n      <thead>\n        <tr>\n          <th v-for="key in columns"\n          @click="sortBy(key.key)"\n          :class="{ active: sortKey == key }">\n         {{ translate(\'people.\'+key.label) }}\n          <span class="arrow" :class="sortOrders[key.key] > 0 ? \'asc\' : \'dsc\'">\n          </span>\n        </th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr v-for="entry in filteredData" @click="selectElement(entry)">\n        <td v-for="key in columns">\n          {{entry[key.key]}}\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n \n</div>\n</div>';
 },{}],47:[function(require,module,exports){
 'use strict';
 
@@ -17651,11 +17657,14 @@ var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
 
+var _translations = require('../../js/translations.js');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
 
 	template: require('./a-table.html'),
+	mixins: [require('vue-i18n-mixin')],
 	props: {
 		data: Array,
 		columns: Array,
@@ -17663,6 +17672,7 @@ exports.default = {
 		select: Function
 
 	},
+	translations: _translations.translations,
 
 	data: function data() {
 		var sortOrders = {};
@@ -17675,7 +17685,8 @@ exports.default = {
 			pagination: 10,
 			filterKey: '',
 			start: 0,
-			limit: 5
+			limit: 5,
+			locale: 'es'
 		};
 	},
 	computed: {
@@ -17699,11 +17710,18 @@ exports.default = {
 				});
 			}
 			return data.slice(0, this.pagination);
+			//return data;
 		}
 	},
 	filters: {
 		capitalize: function capitalize(str) {
 			return str.charAt(0).toUpperCase() + str.slice(1);
+		},
+		translateTable: function translateTable(column) {
+
+			var text = '';
+
+			return text;
 		}
 	},
 	methods: {
@@ -17726,6 +17744,7 @@ exports.default = {
 		},
 
 		selectElement: function selectElement(entry) {
+			console.log("Seelect table");
 			this.select(entry);
 		}
 	}
@@ -17742,7 +17761,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-498c7c75", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./a-table.html":46,"babel-runtime/core-js/object/keys":1,"vue":41,"vue-hot-reload-api":37}],48:[function(require,module,exports){
+},{"../../js/translations.js":51,"./a-table.html":46,"babel-runtime/core-js/object/keys":1,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],48:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17825,38 +17844,236 @@ exports.default = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
+                value: true
+});
+var tableAdmins = exports.tableAdmins = [{ label: "username", key: 'username' }, { label: "type", key: 'type' }, { label: "email", key: 'email' }, { label: "created_at", key: 'created_at' }];
+
+},{}],50:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var apiRoot = exports.apiRoot = "/api";
 var loginAdmin = exports.loginAdmin = "admin/login";
 var admins = exports.admins = "admins";
 var candidates = exports.candidates = "candidates";
-var candidatesAdmin = exports.candidatesAdmin = "admin/candidates{/id}";
+var candidates_admin = exports.candidates_admin = "admin/candidates{/id}";
+var candidates_experince = exports.candidates_experince = "candidate{/id}";
 
-},{}],50:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var translations_mnt_admins = exports.translations_mnt_admins = {
-    header: {
-        title: {
-            en: 'Hello',
-            fr: 'Bonjour'
-        }
-    },
-    admin: {
+var translations = exports.translations = {
+    people: {
         updated_at: {
             en: 'Update',
-            es: 'Actulizado'
+            es: 'Feacha Actulizado'
+        },
+        created_at: {
+            en: 'Created',
+            es: 'Fecha Creación'
+        },
+        name: {
+            en: 'Name',
+            es: 'Nombre'
+        },
+        username: {
+            en: 'Username',
+            es: 'Usuario'
+        },
+        email: {
+            en: 'Email',
+            es: 'Correo Electronico'
+        },
+        profiles_register: {
+            en: 'Candidates Register',
+            es: 'Candidatos Registrados'
+        },
+        type: {
+            en: 'Type',
+            es: 'Tipo'
+        },
+        position: {
+            en: 'Professional Profile',
+            es: 'Perfil Profesional'
+        },
+        candidates: {
+            selected: {
+                en: 'Candidate Selected',
+                es: 'Candidato Seleccionado'
+            }
+        },
+        admins: {
+            selected: {
+                en: 'Admin Selected',
+                es: 'Administrador Seleccionado'
+            }
+        },
+        gender: {
+            en: 'Gender',
+            es: 'Genero'
+        },
+        birthdate: {
+            en: 'Birthdate',
+            es: 'Fecha de Nacimiento'
+        },
+        location: {
+            en: 'Locate',
+            es: 'Lugar de Residencia'
+        },
+
+        back: {
+            en: 'Back',
+            es: 'Regresar'
         }
+    },
+    general: {
+        back: {
+            en: 'Back',
+            es: 'Regresar'
+        }
+
     }
 };
 
-},{}],51:[function(require,module,exports){
-module.exports = '<div>\n	<div class="row" v-show="flagTable">\n	<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">\n	</a-table>\n</div>\n<div class="row" v-show="flagDetailSelected">\n	<div class="col-sm-4 back-section " @click="showTable()"><i class="glyphicon glyphicon-chevron-left"></i>{{ "BACK" }}</div>\n\n</div>\n\n<div v-show="flagDetailSelected">\n<div class="row" >\n\n<div class="col-sm-3">\n	<div>\n		<label>name</label>\n	</div>\n	<div>\n		{{ adminSelected.username }}\n	</div>\n</div>\n\n<div class="col-sm-3">\n	<div>\n		<label>name</label>\n	</div>\n	<div>\n		{{ adminSelected.email }}\n	</div>\n</div>\n\n\n<div class="col-sm-3">\n	<div>\n		<label>name</label>\n	</div>\n	<div>\n		{{ adminSelected.type }}\n	</div>\n</div>\n\n<div class="col-sm-3">\n	<div>\n		<label>name</label>\n	</div>\n	<div>\n		{{ adminSelected.created_at }}\n	</div>\n</div>\n\n\n	\n</div>\n\n<div class="row">\n	<div class="col-sm-3">\n	<div>\n		<label v-text="translate(\'admin.updated_at\')"></label>\n	</div>\n	<div>\n		{{ adminSelected.updated_at }}\n	</div>\n</div>\n\n<div class="col-sm-2">\n	<div>\n		<label>{{ "COUNTREGCANDIDATES" }}</label>\n	</div>\n	<div>\n		{{ adminCandidatesRegisters }}\n	</div>\n</div>\n</div>\n	</div>\n\n</div>';
 },{}],52:[function(require,module,exports){
+module.exports = '<div>\n	<div class="row" v-show="flagTable">\n		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">\n		</a-table>\n	</div>\n	<div class="row" v-show="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n	<div class="container-detail" v-show="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.admins.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n			<div class="row" >\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.email }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.type\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.type }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.created_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.created_at }}\n					</div>\n				</div>\n\n\n\n			</div>\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.updated_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.updated_at }}\n					</div>\n				</div>\n\n				<div class="col-sm-2">\n					<div>\n						<label v-text="translate(\'people.profiles_register\')"></label>\n					</div>\n					<div>\n						{{ adminCandidatesRegisters }}\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>\n</div>';
+},{}],53:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _translations = require('../../js/translations.js');
+
+var _tables = require('../../js/config-app/tables.js');
+
+var _constants_restful = require('../../js/constants_restful.js');
+
+var _aTable = require('../../a-components/a-table/a-table.vue');
+
+var _aTable2 = _interopRequireDefault(_aTable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+*Constants
+*/
+
+/*
+*Config module
+*/
+exports.default = {
+  /*--Tenplate--*/
+
+  template: require('./mnt-admins.html'),
+
+  /*--Mixins--*/
+
+  mixins: [require('vue-i18n-mixin')],
+
+  /*--Translate--*/
+
+  translations: _translations.translations,
+
+  /*--Properties--*/
+
+  props: {},
+
+  /*--Components--*/
+
+  components: {
+    'a-table': _aTable2.default
+
+  },
+
+  /*Data
+  *All properties of module
+  */
+
+  data: function data() {
+    return {
+      admins: [],
+      columns: _tables.tableAdmins,
+      searchQuery: '',
+      flagTable: true,
+      flagDetailSelected: false,
+      adminSelected: {},
+      adminCandidatesRegisters: 0,
+      locale: 'es'
+    };
+  },
+
+  http: {
+    root: '/api',
+    headers: {
+      'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
+    }
+  },
+
+  methods: {
+
+    /*function: fetchImageProfile
+    *
+    * Get image profile
+    *
+    */
+    getAdmins: function getAdmins() {
+      var _this = this;
+
+      var resource = this.$resource(_constants_restful.admins);
+      resource.get().then(function (response) {
+        _this.admins = response.body;
+      });
+    },
+    select: function select(entry) {
+      this.candidates(entry.id);
+      this.adminSelected = entry;
+      this.flagTable = false;
+      this.flagDetailSelected = true;
+    },
+    candidates: function candidates(id) {
+      var _this2 = this;
+
+      var resource = this.$resource(candidatesAdmin);
+      resource.get({ id: id }).then(function (candidates) {
+        _this2.adminCandidatesRegisters = candidates.body.candidates;
+      });
+    },
+    showTable: function showTable() {
+      this.adminSelected = {};
+      this.flagTable = true;
+      this.flagDetailSelected = false;
+    }
+  },
+
+  created: function created() {
+    this.getAdmins();
+  }
+};
+
+/*
+*Components
+*/
+if (module.exports.__esModule) module.exports = module.exports.default
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-95a3f2b2", module.exports)
+  } else {
+    hotAPI.update("_v-95a3f2b2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../../a-components/a-table/a-table.vue":47,"../../js/config-app/tables.js":49,"../../js/constants_restful.js":50,"../../js/translations.js":51,"./mnt-admins.html":52,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],54:[function(require,module,exports){
+module.exports = '<div>\n	<div v-if="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n\n\n	<div class="container-detail" v-if="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.candidates.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n\n\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.position\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.position }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.email }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n			</div>\n\n			<div class="row">\n\n			    <div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.gender\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.gender }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.location\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.location }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.birthdate\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.day }} /\n						{{ candidateSelected.month }} /\n						{{ candidateSelected.year }}\n					</div>\n				</div>		\n\n			</div>\n		</div>\n	</div>\n\n	<div  v-if="flagDetailSelected">\n	<div  v-for="experience in candidateSelected.experiences" >\n		{{ experience.name_business }}\n	</div>\n		\n	</div>\n</div>\n\n\n\n\n\n';
+},{}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17875,7 +18092,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
 
-  template: require('./mnt-admins.html'),
+  template: require('./mnt-candidates.html'),
+  translations: _translations.translations,
   mixins: [require('vue-i18n-mixin')],
   props: {},
   components: {
@@ -17885,18 +18103,15 @@ exports.default = {
 
   data: function data() {
     return {
-      admins: [],
-      columns: [],
       searchQuery: '',
+      experiences: [],
+      candidates: [],
+      columns: this.columns = [{ label: "username", key: 'username' }, { label: "position", key: 'position' }, { label: "email", key: 'email' }, { label: "created_at", key: 'created_at' }, { label: "updated_at", key: 'updated_at' }],
       flagTable: true,
       flagDetailSelected: false,
-      adminSelected: {},
-      adminCandidatesRegisters: 0,
       locale: 'es'
     };
   },
-
-  translations: _translations.translations_mnt_admins,
 
   http: {
     root: '/api',
@@ -17915,113 +18130,38 @@ exports.default = {
     getAdmins: function getAdmins() {
       var _this = this;
 
-      this.columns = ['username', 'type', 'email', 'created_at'];
-      var resource = this.$resource(_constants_restful.admins);
+      var resource = this.$resource(_constants_restful.candidates);
       resource.get().then(function (response) {
-        _this.admins = response.body;
+        _this.candidates = response.body;
       });
     },
+    getExperience: function getExperience(id) {
+      var _this2 = this;
+
+      var resource = this.$resource(_constants_restful.candidates_experince);
+      resource.get({ id: id }).then(function (response) {
+        _this2.experiences = response.body;
+      });
+    },
+
     select: function select(entry) {
-      this.candidates(entry.id);
-      this.adminSelected = entry;
+      //this.getExperience(entry.id);
+
+      this.candidateSelected = entry;
       this.flagTable = false;
       this.flagDetailSelected = true;
     },
-    candidates: function candidates(id) {
-      var _this2 = this;
-
-      var resource = this.$resource(_constants_restful.candidatesAdmin);
-      resource.get({ id: id }).then(function (candidates) {
-        _this2.adminCandidatesRegisters = candidates.body.candidates;
-      });
-    },
     showTable: function showTable() {
-      this.adminSelected = {};
+      this.candidateSelected = {};
       this.flagTable = true;
       this.flagDetailSelected = false;
     }
   },
 
   created: function created() {
-    this.getAdmins();
-  }
-};
-if (module.exports.__esModule) module.exports = module.exports.default
-if (module.hot) {(function () {  module.hot.accept()
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  if (!module.hot.data) {
-    hotAPI.createRecord("_v-95a3f2b2", module.exports)
-  } else {
-    hotAPI.update("_v-95a3f2b2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
-  }
-})()}
-},{"../../a-components/a-table/a-table.vue":47,"../../js/constants_restful.js":49,"../../js/translations.js":50,"./mnt-admins.html":51,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],53:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _aTable = require('../../a-components/a-table/a-table.vue');
-
-var _aTable2 = _interopRequireDefault(_aTable);
-
-var _constants_restful = require('../../js/constants_restful.js');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-
-  props: {
-    admins: Array,
-    columns: Array
-  },
-  components: {
-    'a-table': _aTable2.default
-
-  },
-
-  data: function data() {
-    return {
-      searchQuery: ''
-    };
-  },
-
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
-    }
-  },
-
-  methods: {
-
-    /*function: fetchImageProfile
-    *
-    * Get image profile
-    *
-    */
-    getAdmins: function getAdmins() {
-      var _this = this;
-
-      this.columns = ['username', 'position', 'email', 'created_at'];
-
-      var resource = this.$resource(admins);
-
-      resource.get().then(function (response) {
-
-        _this.admins = response.body;
-      });
-    }
-  },
-
-  created: function created() {
 
     this.getAdmins();
   }
-
 };
 if (module.exports.__esModule) module.exports = module.exports.default
 if (module.hot) {(function () {  module.hot.accept()
@@ -18034,6 +18174,6 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-32a0f4a7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-table/a-table.vue":47,"../../js/constants_restful.js":49,"vue":41,"vue-hot-reload-api":37}]},{},[43]);
+},{"../../a-components/a-table/a-table.vue":47,"../../js/constants_restful.js":50,"../../js/translations.js":51,"./mnt-candidates.html":54,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}]},{},[43]);
 
 //# sourceMappingURL=app.js.map

@@ -38,9 +38,9 @@ const routes =[{
 	name: 'home'
 },
 {
-	path: '/dashboard',
-	component: MntAdmins,
-	name: 'dashboard'
+	path: '/candidates',
+	component: MntCandidates,
+	name: 'candidates'
 },
 {
 	path: '/admins',
@@ -60,6 +60,12 @@ const router = new VueRouter({
 /*------------------------------- DEFINE APP -------------------------------------*/
 
 const app = new Vue({
+
+	config:{
+      //silent : true,
+      //debug: true
+	}
+	,
 	mixins: [
         require('vue-i18n-mixin')
     ],
@@ -76,7 +82,7 @@ const app = new Vue({
             }
         }
     }
-}).$mount('#app')
+}).$mount('#app');
 
 
 
