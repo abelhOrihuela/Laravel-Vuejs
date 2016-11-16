@@ -1,4 +1,4 @@
-<div>
+<div class="container-a">
 	<div v-if="flagTable">
 		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">
 		</a-table>
@@ -92,21 +92,20 @@
 						{{ candidateSelected.month }} /
 						{{ candidateSelected.year }}
 					</div>
-				</div>		
+				</div>
 
 			</div>
 		</div>
 	</div>
 
 	<div  v-if="flagDetailSelected">
-	<div  v-for="experience in candidateSelected.experiences" >
-		{{ experience.name_business }}
+
+	<div>
+		<a-table :data="candidateSelected.experiences" :columns="columnsExperience" :total="candidateSelected.experiences.length" :select="select">
+		</a-table>
 	</div>
-		
+
 	</div>
+
+
 </div>
-
-
-
-
-

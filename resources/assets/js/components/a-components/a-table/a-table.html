@@ -1,7 +1,7 @@
-<div class="col-sm-12">
-  <div class="container-table">
-    <div class="row">
-      <div class="col-sm-6">
+<div class="container-component">
+
+  <div class="row">
+    <div class="col-sm-6">
       <form  class="form" id="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" v-model="filterKey">
@@ -9,7 +9,7 @@
       </form>
     </div>
     <div class="col-sm-2">
-  
+
       <div>
         <select v-model="pagination" class="form-control">
           <option value="5">5</option>
@@ -19,28 +19,37 @@
         </select>
       </div>
     </div>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th v-for="key in columns"
-          @click="sortBy(key.key)"
-          :class="{ active: sortKey == key }">
-         {{ translate('people.'+key.label) }}
-          <span class="arrow" :class="sortOrders[key.key] > 0 ? 'asc' : 'dsc'">
-          </span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="entry in filteredData" @click="selectElement(entry)">
-        <td v-for="key in columns">
-          {{entry[key.key]}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
 
- 
-</div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <table>
+        <thead>
+          <tr>
+            <th v-for="key in columns"
+            @click="sortBy(key.key)"
+            :class="{ active: sortKey == key }">
+            {{ translate('people.'+key.label) }}
+            <span class="arrow" :class="sortOrders[key.key] > 0 ? 'asc' : 'dsc'">
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">
+          <td v-for="key in columns">
+            {{entry[key.key]}}
+          </td>
+        </tr>
+        <tr v-if="!filteredData.length>0">
+          <td style="text-align: center">
+            No existen registros
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
 </div>

@@ -17645,12 +17645,12 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../js/auth.js":48,"../../js/constants_restful.js":50,"vue":41,"vue-hot-reload-api":37}],46:[function(require,module,exports){
-module.exports = '<div class="col-sm-12">\n  <div class="container-table">\n    <div class="row">\n      <div class="col-sm-6">\n      <form  class="form" id="search">\n        <div class="form-group">\n          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">\n        </div>\n      </form>\n    </div>\n    <div class="col-sm-2">\n  \n      <div>\n        <select v-model="pagination" class="form-control">\n          <option value="5">5</option>\n          <option value="10">10</option>\n          <option value="20">20</option>\n          <option value="40">40</option>\n        </select>\n      </div>\n    </div>\n    </div>\n    <table>\n      <thead>\n        <tr>\n          <th v-for="key in columns"\n          @click="sortBy(key.key)"\n          :class="{ active: sortKey == key }">\n         {{ translate(\'people.\'+key.label) }}\n          <span class="arrow" :class="sortOrders[key.key] > 0 ? \'asc\' : \'dsc\'">\n          </span>\n        </th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr v-for="entry in filteredData" @click="selectElement(entry)">\n        <td v-for="key in columns">\n          {{entry[key.key]}}\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n \n</div>\n</div>';
+module.exports = '<div class="container-component">\n\n  <div class="row">\n    <div class="col-sm-6">\n      <form  class="form" id="search">\n        <div class="form-group">\n          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">\n        </div>\n      </form>\n    </div>\n    <div class="col-sm-2">\n\n      <div>\n        <select v-model="pagination" class="form-control">\n          <option value="5">5</option>\n          <option value="10">10</option>\n          <option value="20">20</option>\n          <option value="40">40</option>\n        </select>\n      </div>\n    </div>\n\n  </div>\n\n  <div class="row">\n    <div class="col-sm-12">\n      <table>\n        <thead>\n          <tr>\n            <th v-for="key in columns"\n            @click="sortBy(key.key)"\n            :class="{ active: sortKey == key }">\n            {{ translate(\'people.\'+key.label) }}\n            <span class="arrow" :class="sortOrders[key.key] > 0 ? \'asc\' : \'dsc\'">\n            </span>\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">\n          <td v-for="key in columns">\n            {{entry[key.key]}}\n          </td>\n        </tr>\n        <tr v-if="!filteredData.length>0">\n          <td style="text-align: center">\n            No existen registros\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n\n</div>\n';
 },{}],47:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _keys = require('babel-runtime/core-js/object/keys');
@@ -17662,93 +17662,87 @@ var _translations = require('../../js/translations.js');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+  template: require('./a-table.html'),
+  mixins: [require('vue-i18n-mixin')],
+  props: {
+    data: Array,
+    columns: Array,
+    total: Number,
+    select: Function
 
-	template: require('./a-table.html'),
-	mixins: [require('vue-i18n-mixin')],
-	props: {
-		data: Array,
-		columns: Array,
-		total: Number,
-		select: Function
+  },
+  translations: _translations.translations,
 
-	},
-	translations: _translations.translations,
+  data: function data() {
+    var sortOrders = {};
+    this.columns.forEach(function (key) {
+      sortOrders[key] = 1;
+    });
+    return {
+      sortKey: '',
+      sortOrders: sortOrders,
+      pagination: 5,
+      filterKey: '',
+      start: 0,
+      limit: 5,
+      locale: 'es'
+    };
+  },
+  computed: {
+    filteredData: function filteredData() {
+      var sortKey = this.sortKey;
+      var filterKey = this.filterKey && this.filterKey.toLowerCase();
+      var order = this.sortOrders[sortKey] || 1;
+      var data = this.data;
+      if (filterKey) {
+        data = data.filter(function (row) {
+          return (0, _keys2.default)(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filterKey) > -1;
+          });
+        });
+      }
+      if (sortKey) {
+        data = data.slice().sort(function (a, b) {
+          a = a[sortKey];
+          b = b[sortKey];
+          return (a === b ? 0 : a > b ? 1 : -1) * order;
+        });
+      }
+      return data.slice(0, this.pagination);
+      //return data;
+    }
+  },
+  filters: {
+    capitalize: function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+    translateTable: function translateTable(column) {
+      var text = '';
+      return text;
+    }
+  },
+  methods: {
+    sortBy: function sortBy(key) {
+      this.sortKey = key;
+      this.sortOrders[key] = this.sortOrders[key] * -1;
+    },
+    paginate: function paginate(direction) {
+      console.log("Direction");
+      console.log(direction);
+      if (direction === 'next') {
+        this.start += parseInt(this.pagination);
+        this.limit += parseInt(this.pagination);
+      } else if (direction === 'previous') {
+        this.limit -= parseInt(this.pagination);
+        this.start -= parseInt(this.pagination);
+      }
+    },
 
-	data: function data() {
-		var sortOrders = {};
-		this.columns.forEach(function (key) {
-			sortOrders[key] = 1;
-		});
-		return {
-			sortKey: '',
-			sortOrders: sortOrders,
-			pagination: 10,
-			filterKey: '',
-			start: 0,
-			limit: 5,
-			locale: 'es'
-		};
-	},
-	computed: {
-		filteredData: function filteredData() {
-			var sortKey = this.sortKey;
-			var filterKey = this.filterKey && this.filterKey.toLowerCase();
-			var order = this.sortOrders[sortKey] || 1;
-			var data = this.data;
-			if (filterKey) {
-				data = data.filter(function (row) {
-					return (0, _keys2.default)(row).some(function (key) {
-						return String(row[key]).toLowerCase().indexOf(filterKey) > -1;
-					});
-				});
-			}
-			if (sortKey) {
-				data = data.slice().sort(function (a, b) {
-					a = a[sortKey];
-					b = b[sortKey];
-					return (a === b ? 0 : a > b ? 1 : -1) * order;
-				});
-			}
-			return data.slice(0, this.pagination);
-			//return data;
-		}
-	},
-	filters: {
-		capitalize: function capitalize(str) {
-			return str.charAt(0).toUpperCase() + str.slice(1);
-		},
-		translateTable: function translateTable(column) {
-
-			var text = '';
-
-			return text;
-		}
-	},
-	methods: {
-		sortBy: function sortBy(key) {
-			this.sortKey = key;
-			this.sortOrders[key] = this.sortOrders[key] * -1;
-		},
-
-		paginate: function paginate(direction) {
-
-			console.log("Direction");
-			console.log(direction);
-			if (direction === 'next') {
-				this.start += parseInt(this.pagination);
-				this.limit += parseInt(this.pagination);
-			} else if (direction === 'previous') {
-				this.limit -= parseInt(this.pagination);
-				this.start -= parseInt(this.pagination);
-			}
-		},
-
-		selectElement: function selectElement(entry) {
-			console.log("Seelect table");
-			this.select(entry);
-		}
-	}
-
+    selectElement: function selectElement(entry) {
+      console.log("Seelect table");
+      this.select(entry);
+    }
+  }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
 if (module.hot) {(function () {  module.hot.accept()
@@ -17844,9 +17838,13 @@ exports.default = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-                value: true
+  value: true
 });
 var tableAdmins = exports.tableAdmins = [{ label: "username", key: 'username' }, { label: "type", key: 'type' }, { label: "email", key: 'email' }, { label: "created_at", key: 'created_at' }];
+
+var tableCandidates = exports.tableCandidates = [{ label: "username", key: 'username' }, { label: "position", key: 'position' }, { label: "email", key: 'email' }, { label: "created_at", key: 'created_at' }, { label: "updated_at", key: 'updated_at' }];
+
+var tableExperience = exports.tableExperience = [{ label: "name_business", key: 'name_business' }, { label: "name_job", key: 'name_job' }, { label: "turn_business", key: 'turn_business' }, { label: "created_at", key: 'created_at' }];
 
 },{}],50:[function(require,module,exports){
 "use strict";
@@ -17875,7 +17873,7 @@ var translations = exports.translations = {
         },
         created_at: {
             en: 'Created',
-            es: 'Fecha Creación'
+            es: 'Fecha Registro'
         },
         name: {
             en: 'Name',
@@ -17937,11 +17935,29 @@ var translations = exports.translations = {
             es: 'Regresar'
         }
 
+    },
+    profiles: {
+        name_business: {
+            en: 'Company',
+            es: 'Compañia'
+        },
+        name_job: {
+            en: 'Position',
+            es: 'Puesto'
+        },
+        turn_business: {
+            en: 'Turn Businnes',
+            es: 'Giro'
+        },
+        created_at: {
+            en: 'Created',
+            es: 'Fecha Registro'
+        }
     }
 };
 
 },{}],52:[function(require,module,exports){
-module.exports = '<div>\n	<div class="row" v-show="flagTable">\n		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">\n		</a-table>\n	</div>\n	<div class="row" v-show="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n	<div class="container-detail" v-show="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.admins.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n			<div class="row" >\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.email }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.type\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.type }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.created_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.created_at }}\n					</div>\n				</div>\n\n\n\n			</div>\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.updated_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.updated_at }}\n					</div>\n				</div>\n\n				<div class="col-sm-2">\n					<div>\n						<label v-text="translate(\'people.profiles_register\')"></label>\n					</div>\n					<div>\n						{{ adminCandidatesRegisters }}\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>\n</div>';
+module.exports = '<div class="container-a">\n	<div class="row" v-show="flagTable">\n		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">\n		</a-table>\n	</div>\n	<div class="row" v-show="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n	<div class="container-detail" v-show="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.admins.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n			<div class="row" >\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.email }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.type\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.type }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.created_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.created_at }}\n					</div>\n				</div>\n\n\n\n			</div>\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.updated_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.updated_at }}\n					</div>\n				</div>\n\n				<div class="col-sm-2">\n					<div>\n						<label v-text="translate(\'people.profiles_register\')"></label>\n					</div>\n					<div>\n						{{ adminCandidatesRegisters }}\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>\n</div>\n';
 },{}],53:[function(require,module,exports){
 'use strict';
 
@@ -18072,7 +18088,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../a-components/a-table/a-table.vue":47,"../../js/config-app/tables.js":49,"../../js/constants_restful.js":50,"../../js/translations.js":51,"./mnt-admins.html":52,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],54:[function(require,module,exports){
-module.exports = '<div>\n	<div v-if="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n\n\n	<div class="container-detail" v-if="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.candidates.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n\n\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.position\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.position }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.email }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n			</div>\n\n			<div class="row">\n\n			    <div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.gender\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.gender }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.location\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.location }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.birthdate\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.day }} /\n						{{ candidateSelected.month }} /\n						{{ candidateSelected.year }}\n					</div>\n				</div>		\n\n			</div>\n		</div>\n	</div>\n\n	<div  v-if="flagDetailSelected">\n	<div  v-for="experience in candidateSelected.experiences" >\n		{{ experience.name_business }}\n	</div>\n		\n	</div>\n</div>\n\n\n\n\n\n';
+module.exports = '<div class="container-a">\n	<div v-if="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n\n\n	<div class="container-detail" v-if="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.candidates.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n\n\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.position\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.position }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.email }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n			</div>\n\n			<div class="row">\n\n			    <div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.gender\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.gender }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.location\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.location }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.birthdate\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.day }} /\n						{{ candidateSelected.month }} /\n						{{ candidateSelected.year }}\n					</div>\n				</div>\n\n			</div>\n		</div>\n	</div>\n\n	<div  v-if="flagDetailSelected">\n\n	<div>\n		<a-table :data="candidateSelected.experiences" :columns="columnsExperience" :total="candidateSelected.experiences.length" :select="select">\n		</a-table>\n	</div>\n\n	</div>\n\n\n</div>\n';
 },{}],55:[function(require,module,exports){
 'use strict';
 
@@ -18087,6 +18103,8 @@ var _aTable2 = _interopRequireDefault(_aTable);
 var _constants_restful = require('../../js/constants_restful.js');
 
 var _translations = require('../../js/translations.js');
+
+var _tables = require('../../js/config-app/tables.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18106,7 +18124,8 @@ exports.default = {
       searchQuery: '',
       experiences: [],
       candidates: [],
-      columns: this.columns = [{ label: "username", key: 'username' }, { label: "position", key: 'position' }, { label: "email", key: 'email' }, { label: "created_at", key: 'created_at' }, { label: "updated_at", key: 'updated_at' }],
+      columns: _tables.tableCandidates,
+      columnsExperience: _tables.tableExperience,
       flagTable: true,
       flagDetailSelected: false,
       locale: 'es'
@@ -18145,8 +18164,6 @@ exports.default = {
     },
 
     select: function select(entry) {
-      //this.getExperience(entry.id);
-
       this.candidateSelected = entry;
       this.flagTable = false;
       this.flagDetailSelected = true;
@@ -18157,9 +18174,7 @@ exports.default = {
       this.flagDetailSelected = false;
     }
   },
-
   created: function created() {
-
     this.getAdmins();
   }
 };
@@ -18174,6 +18189,6 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-32a0f4a7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-table/a-table.vue":47,"../../js/constants_restful.js":50,"../../js/translations.js":51,"./mnt-candidates.html":54,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}]},{},[43]);
+},{"../../a-components/a-table/a-table.vue":47,"../../js/config-app/tables.js":49,"../../js/constants_restful.js":50,"../../js/translations.js":51,"./mnt-candidates.html":54,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}]},{},[43]);
 
 //# sourceMappingURL=app.js.map

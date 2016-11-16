@@ -11,7 +11,7 @@ body {
 
 table {
   width: 100%;
-  border: 2px solid #D6DBDF  ;
+  border: 2px solid #D6DBDF;
   border-radius: 3px;
   background-color: #fff;
   margin-left: auto;
@@ -74,10 +74,10 @@ th.active .arrow {
   background-color: #4261b9;
   color: rgba(255,255,255,0.66);
   border-radius: 40px 5px 5px 5px;
-  
+
 }
 .container-detail{
-  border: 1px solid  gray;
+  border: 2px solid #D6DBDF;
   margin-top: 20px;
   margin-bottom: 20px;
   box-shadow: 8px 8px 10px #BFC9CA;
@@ -85,9 +85,9 @@ th.active .arrow {
 }
 .container-detail-header{
   width: 100%;
-  background-color: gray;
+  background-color: #E5E7E9;
   text-align: center;
-  
+
 }
 
 .container-detail-section{
@@ -99,4 +99,16 @@ th.active .arrow {
 }
 .row label{
   color: #4261b9;
+}
+
+.container-a{
+
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.container-component{
+  width: 100%;
 }

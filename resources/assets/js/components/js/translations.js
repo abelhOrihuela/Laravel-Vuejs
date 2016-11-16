@@ -6,7 +6,7 @@ export const translations={
         	},
             created_at:{
                 en: 'Created',
-                es: 'Fecha Creación'
+                es: 'Fecha Registro'
             },
             name:{
                 en: 'Name',
@@ -68,5 +68,23 @@ export const translations={
             es: 'Regresar'
         }
 
+    },
+    profiles:{
+      name_business:{
+        en: 'Company',
+        es: 'Compañia'
+      },
+      name_job:{
+        en: 'Position',
+        es: 'Puesto'
+      },
+      turn_business:{
+        en: 'Turn Businnes',
+        es: 'Giro'
+      },
+      created_at:{
+          en: 'Created',
+          es: 'Fecha Registro'
+      }
     }
 }
