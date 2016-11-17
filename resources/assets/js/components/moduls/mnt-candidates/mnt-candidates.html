@@ -65,7 +65,7 @@
 
 			<div class="row">
 
-			    <div class="col-sm-3">
+				<div class="col-sm-3">
 					<div>
 						<label v-text="translate('people.gender')"></label>
 					</div>
@@ -94,16 +94,46 @@
 					</div>
 				</div>
 
+				<div class="col-sm-3">
+					<label v-text="translate('people.phone')"></label>
+					<div class="">
+						{{ candidateSelected.code }} / {{ candidateSelected.phone }}
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-sm-3">
+					<label v-text="translate('people.category')"></label>
+					<div class="">
+						{{ candidateSelected.category_candidate.name }}
+					</div>
+				</div>
+
+
+
+				<div class="col-sm-3">
+					<label v-text="translate('people.subcategory')"></label>
+					<div class="">
+						{{ candidateSelected.subcategory_candidate.name }}
+					</div>
+				</div>
+
+
+
+
 			</div>
 		</div>
 	</div>
 
 	<div  v-if="flagDetailSelected">
 
-	<div>
-		<a-table :data="candidateSelected.experiences" :columns="columnsExperience" :total="candidateSelected.experiences.length" :select="select">
-		</a-table>
-	</div>
+		<div>
+			<a-table :data="candidateSelected.experiences" :columns="columnsExperience" :total="candidateSelected.experiences.length" :select="select">
+			</a-table>
+		</div>
 
 	</div>
 

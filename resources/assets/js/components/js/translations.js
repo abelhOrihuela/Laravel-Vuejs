@@ -60,6 +60,23 @@ export const translations={
             back:{
                 en: 'Back',
                 es: 'Regresar'
+            },
+            code:{
+                en: 'Back',
+                es: 'Regresar'
+            },
+            phone:{
+                en: 'Phone',
+                es: 'Telefono'
+            },
+            category:{
+              en: 'Category',
+              es: 'Categoria'
+            },
+            subcategory:{
+              en: 'SubCategory',
+              es: 'SubCategoria'
+
             }
         },
     general:{

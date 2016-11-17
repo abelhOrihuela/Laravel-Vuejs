@@ -30,7 +30,7 @@
             <th v-for="key in columns"
             @click="sortBy(key.key)"
             :class="{ active: sortKey == key }">
-            {{ translate('people.'+key.label) }}
+            {{ translate('table.'+key.label) }}
             <span class="arrow" :class="sortOrders[key.key] > 0 ? 'asc' : 'dsc'">
             </span>
           </th>

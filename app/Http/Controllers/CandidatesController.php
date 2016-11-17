@@ -23,8 +23,11 @@ class CandidatesController extends Controller
     	$candidates=Candidate::all();
 
     	foreach ($candidates as $candidate) {
-    		$candidate->experiences;
+    	  $candidate->experiences;
+				$candidate->categoryCandidate;
+				$candidate->subcategoryCandidate;
         }
+
     	return $candidates;
     }
 

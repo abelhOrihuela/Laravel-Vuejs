@@ -17475,7 +17475,7 @@ var app = new Vue({
 	}
 }).$mount('#app');
 
-},{"./components/a-components/a-login/a-login.vue":44,"./components/a-components/a-signin/a-signin.vue":45,"./components/moduls/mnt-admins/mnt-admins.vue":53,"./components/moduls/mnt-candidates/mnt-candidates.vue":55,"vue-i18n-mixin":38,"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":42}],44:[function(require,module,exports){
+},{"./components/a-components/a-login/a-login.vue":44,"./components/a-components/a-signin/a-signin.vue":45,"./components/moduls/mnt-admins/mnt-admins.vue":54,"./components/moduls/mnt-candidates/mnt-candidates.vue":56,"vue-i18n-mixin":38,"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":42}],44:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17645,7 +17645,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../js/auth.js":48,"../../js/constants_restful.js":50,"vue":41,"vue-hot-reload-api":37}],46:[function(require,module,exports){
-module.exports = '<div class="container-component">\n\n  <div class="row">\n    <div class="col-sm-6">\n      <form  class="form" id="search">\n        <div class="form-group">\n          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">\n        </div>\n      </form>\n    </div>\n    <div class="col-sm-2">\n\n      <div>\n        <select v-model="pagination" class="form-control">\n          <option value="5">5</option>\n          <option value="10">10</option>\n          <option value="20">20</option>\n          <option value="40">40</option>\n        </select>\n      </div>\n    </div>\n\n  </div>\n\n  <div class="row">\n    <div class="col-sm-12">\n      <table>\n        <thead>\n          <tr>\n            <th v-for="key in columns"\n            @click="sortBy(key.key)"\n            :class="{ active: sortKey == key }">\n            {{ translate(\'people.\'+key.label) }}\n            <span class="arrow" :class="sortOrders[key.key] > 0 ? \'asc\' : \'dsc\'">\n            </span>\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">\n          <td v-for="key in columns">\n            {{entry[key.key]}}\n          </td>\n        </tr>\n        <tr v-if="!filteredData.length>0">\n          <td style="text-align: center">\n            No existen registros\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n\n</div>\n';
+module.exports = '<div class="container-component">\n\n  <div class="row">\n    <div class="col-sm-6">\n      <form  class="form" id="search">\n        <div class="form-group">\n          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">\n        </div>\n      </form>\n    </div>\n    <div class="col-sm-2">\n\n      <div>\n        <select v-model="pagination" class="form-control">\n          <option value="5">5</option>\n          <option value="10">10</option>\n          <option value="20">20</option>\n          <option value="40">40</option>\n        </select>\n      </div>\n    </div>\n\n  </div>\n\n  <div class="row">\n    <div class="col-sm-12">\n      <table>\n        <thead>\n          <tr>\n            <th v-for="key in columns"\n            @click="sortBy(key.key)"\n            :class="{ active: sortKey == key }">\n            {{ translate(\'table.\'+key.label) }}\n            <span class="arrow" :class="sortOrders[key.key] > 0 ? \'asc\' : \'dsc\'">\n            </span>\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">\n          <td v-for="key in columns">\n            {{entry[key.key]}}\n          </td>\n        </tr>\n        <tr v-if="!filteredData.length>0">\n          <td style="text-align: center">\n            No existen registros\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n\n</div>\n';
 },{}],47:[function(require,module,exports){
 'use strict';
 
@@ -17657,7 +17657,7 @@ var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _translations = require('../../js/translations.js');
+var _table = require('../../js/translate/table.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17671,7 +17671,7 @@ exports.default = {
     select: Function
 
   },
-  translations: _translations.translations,
+  translations: _table.translations,
 
   data: function data() {
     var sortOrders = {};
@@ -17755,7 +17755,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-498c7c75", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/translations.js":51,"./a-table.html":46,"babel-runtime/core-js/object/keys":1,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],48:[function(require,module,exports){
+},{"../../js/translate/table.js":51,"./a-table.html":46,"babel-runtime/core-js/object/keys":1,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],48:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17863,6 +17863,89 @@ var candidates_experince = exports.candidates_experince = "candidate{/id}";
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _table;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var translations = exports.translations = {
+  table: (_table = {
+
+    updated_at: {
+      en: 'Update',
+      es: 'Feacha Actulizado'
+    },
+    created_at: {
+      en: 'Created',
+      es: 'Fecha Registro'
+    },
+    name: {
+      en: 'Name',
+      es: 'Nombre'
+    },
+    username: {
+      en: 'Username',
+      es: 'Usuario'
+    },
+    email: {
+      en: 'Email',
+      es: 'Correo Electronico'
+    },
+    profiles_register: {
+      en: 'Candidates Register',
+      es: 'Candidatos Registrados'
+    },
+    type: {
+      en: 'Type',
+      es: 'Tipo'
+    },
+    position: {
+      en: 'Professional Profile',
+      es: 'Perfil Profesional'
+    },
+
+    gender: {
+      en: 'Gender',
+      es: 'Genero'
+    },
+    birthdate: {
+      en: 'Birthdate',
+      es: 'Fecha de Nacimiento'
+    },
+    location: {
+      en: 'Locate',
+      es: 'Lugar de Residencia'
+    },
+    name_business: {
+      en: 'Company',
+      es: 'Compañia'
+    },
+    name_job: {
+      en: 'Position',
+      es: 'Puesto'
+    },
+    turn_business: {
+      en: 'Turn Businnes',
+      es: 'Giro'
+    }
+  }, _defineProperty(_table, 'created_at', {
+    en: 'Created',
+    es: 'Fecha Registro'
+  }), _defineProperty(_table, 'back', {
+    en: 'Back',
+    es: 'Regresar'
+  }), _defineProperty(_table, 'back', {
+    en: 'Back',
+    es: 'Regresar'
+  }), _table)
+};
+
+},{}],52:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var translations = exports.translations = {
@@ -17927,6 +18010,23 @@ var translations = exports.translations = {
         back: {
             en: 'Back',
             es: 'Regresar'
+        },
+        code: {
+            en: 'Back',
+            es: 'Regresar'
+        },
+        phone: {
+            en: 'Phone',
+            es: 'Telefono'
+        },
+        category: {
+            en: 'Category',
+            es: 'Categoria'
+        },
+        subcategory: {
+            en: 'SubCategory',
+            es: 'SubCategoria'
+
         }
     },
     general: {
@@ -17956,9 +18056,9 @@ var translations = exports.translations = {
     }
 };
 
-},{}],52:[function(require,module,exports){
-module.exports = '<div class="container-a">\n	<div class="row" v-show="flagTable">\n		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">\n		</a-table>\n	</div>\n	<div class="row" v-show="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n	<div class="container-detail" v-show="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.admins.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n			<div class="row" >\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.email }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.type\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.type }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.created_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.created_at }}\n					</div>\n				</div>\n\n\n\n			</div>\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.updated_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.updated_at }}\n					</div>\n				</div>\n\n				<div class="col-sm-2">\n					<div>\n						<label v-text="translate(\'people.profiles_register\')"></label>\n					</div>\n					<div>\n						{{ adminCandidatesRegisters }}\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>\n</div>\n';
 },{}],53:[function(require,module,exports){
+module.exports = '<div class="container-a">\n	<div class="row" v-show="flagTable">\n		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">\n		</a-table>\n	</div>\n	<div class="row" v-show="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n	<div class="container-detail" v-show="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.admins.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n			<div class="row" >\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.email }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.type\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.type }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.created_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.created_at }}\n					</div>\n				</div>\n\n\n\n			</div>\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.updated_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.updated_at }}\n					</div>\n				</div>\n\n				<div class="col-sm-2">\n					<div>\n						<label v-text="translate(\'people.profiles_register\')"></label>\n					</div>\n					<div>\n						{{ adminCandidatesRegisters }}\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>\n</div>\n';
+},{}],54:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18087,9 +18187,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-95a3f2b2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-table/a-table.vue":47,"../../js/config-app/tables.js":49,"../../js/constants_restful.js":50,"../../js/translations.js":51,"./mnt-admins.html":52,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],54:[function(require,module,exports){
-module.exports = '<div class="container-a">\n	<div v-if="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n\n\n	<div class="container-detail" v-if="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.candidates.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n\n\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.position\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.position }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.email }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n			</div>\n\n			<div class="row">\n\n			    <div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.gender\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.gender }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.location\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.location }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.birthdate\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.day }} /\n						{{ candidateSelected.month }} /\n						{{ candidateSelected.year }}\n					</div>\n				</div>\n\n			</div>\n		</div>\n	</div>\n\n	<div  v-if="flagDetailSelected">\n\n	<div>\n		<a-table :data="candidateSelected.experiences" :columns="columnsExperience" :total="candidateSelected.experiences.length" :select="select">\n		</a-table>\n	</div>\n\n	</div>\n\n\n</div>\n';
-},{}],55:[function(require,module,exports){
+},{"../../a-components/a-table/a-table.vue":47,"../../js/config-app/tables.js":49,"../../js/constants_restful.js":50,"../../js/translations.js":52,"./mnt-admins.html":53,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],55:[function(require,module,exports){
+module.exports = '<div class="container-a">\n	<div v-if="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n\n\n	<div class="container-detail" v-if="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.candidates.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n\n\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.position\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.position }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.email }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n			</div>\n\n			<div class="row">\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.gender\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.gender }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.location\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.location }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.birthdate\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.day }} /\n						{{ candidateSelected.month }} /\n						{{ candidateSelected.year }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<label v-text="translate(\'people.phone\')"></label>\n					<div class="">\n						{{ candidateSelected.code }} / {{ candidateSelected.phone }}\n					</div>\n				</div>\n\n			</div>\n\n			<div class="row">\n\n				<div class="col-sm-3">\n					<label v-text="translate(\'people.category\')"></label>\n					<div class="">\n						{{ candidateSelected.category_candidate.name }}\n					</div>\n				</div>\n\n\n\n				<div class="col-sm-3">\n					<label v-text="translate(\'people.subcategory\')"></label>\n					<div class="">\n						{{ candidateSelected.subcategory_candidate.name }}\n					</div>\n				</div>\n\n\n\n\n			</div>\n		</div>\n	</div>\n\n	<div  v-if="flagDetailSelected">\n\n		<div>\n			<a-table :data="candidateSelected.experiences" :columns="columnsExperience" :total="candidateSelected.experiences.length" :select="select">\n			</a-table>\n		</div>\n\n	</div>\n\n\n</div>\n';
+},{}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18189,6 +18289,6 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-32a0f4a7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-table/a-table.vue":47,"../../js/config-app/tables.js":49,"../../js/constants_restful.js":50,"../../js/translations.js":51,"./mnt-candidates.html":54,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}]},{},[43]);
+},{"../../a-components/a-table/a-table.vue":47,"../../js/config-app/tables.js":49,"../../js/constants_restful.js":50,"../../js/translations.js":52,"./mnt-candidates.html":55,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}]},{},[43]);
 
 //# sourceMappingURL=app.js.map

@@ -1,5 +1,5 @@
 <script>
-import { translations } from '../../js/translations.js';
+import { translations } from '../../js/translate/table.js';
 
 export default{
   template: require('./a-table.html'),
