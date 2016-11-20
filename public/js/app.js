@@ -4252,6 +4252,20 @@ return VueRouter;
 
 })));
 },{}],41:[function(require,module,exports){
+!function(e,t){"object"==typeof
+exports&&"object"==typeof module?module.exports=t(require("vue")):"function"==typeof define&&define.amd?define("VueToastMobile",["vue"],t):"object"==typeof exports?exports.VueToastMobile=t(require("vue")):e.VueToastMobile=t(e.vue)}(this,function(__WEBPACK_EXTERNAL_MODULE_5__){return function(e){function t(s){if(n[s])return n[s].exports;var o=n[s]={i:s,l:!1,exports:{}};return e[s].call(o.exports,o,o.exports,t),o.l=!0,o.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,t,n){Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:n})},t.n=function(e){var n=e&&e.__esModule?function(){return e["default"]}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="/lib/",t(t.s=6)}([function(e,t,n){"use strict";function s(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(t,"__esModule",{value:!0});var o=n(5),i=s(o),r=i["default"].extend(n(1)),a=[],u=function(){if(a.length>0){var e=a[0];return a.splice(0,1),e}return new r({el:document.createElement("div")})},c=function(e){e&&a.push(e)},l=function(e){e.target.parentNode&&e.target.parentNode.removeChild(e.target)};r.prototype.close=function(){this.visible=!1,this.$el.addEventListener("transitionend",l),this.closed=!0,c(this)};var d=function(){var e=arguments.length<=0||void 0===arguments[0]?{}:arguments[0],t=e.duration||3e3,n=u();return n.closed=!1,clearTimeout(n.timer),n.message="string"==typeof e?e:e.message,n.position=e.position||"middle",n.className=e.className||"",n.iconClass=e.iconClass||"",document.body.appendChild(n.$el),i["default"].nextTick(function(){n.visible=!0,n.$el.removeEventListener("transitionend",l),n.timer=setTimeout(function(){n.closed||n.close()},t)}),n};t["default"]=d},function(e,t,n){var s,o;n(4),s=n(3);var i=n(2);o=s=s||{},"object"!=typeof s["default"]&&"function"!=typeof s["default"]||(o=s=s["default"]),"function"==typeof o&&(o=o.options),o.render=i.render,o.staticRenderFns=i.staticRenderFns,e.exports=s},function(module,exports){module.exports={render:function(){with(this)return _h("transition",{attrs:{name:"mint-toast-pop"}},[_h("div",{directives:[{name:"show",rawName:"v-show",value:visible,expression:"visible"}],staticClass:"mint-toast","class":customClass,style:{padding:""===iconClass?"10px":"20px"}},[""!==iconClass?_h("i",{staticClass:"mint-toast-icon","class":iconClass}):_e()," ",_h("span",{staticClass:"mint-toast-text",style:{"padding-top":""===iconClass?"0":"10px"}},[_s(message)])])])},staticRenderFns:[]}},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t["default"]={props:{message:String,className:{type:String,"default":""},position:{type:String,"default":"middle"},iconClass:{type:String,"default":""}},data:function(){return{visible:!1}},computed:{customClass:function(){var e=[];switch(this.position)
+  {case"success":
+  e.push("btn btn-success");
+  break;
+  case"error":e.push("btn btn-danger");
+  break;
+  case"warning":e.push("btn btn-warning");
+  break;
+  default:e.push("is-placemiddle")}return e.push(this.className),e.join(" ")}}}},function(e,t){},function(e,t){e.exports=__WEBPACK_EXTERNAL_MODULE_5__},function(e,t,n){e.exports=n(0)}])});
+
+},{"vue":43}],42:[function(require,module,exports){
+!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.vueToasts=e():t.vueToasts=e()}(this,function(){return function(t){function e(s){if(o[s])return o[s].exports;var i=o[s]={exports:{},id:s,loaded:!1};return t[s].call(i.exports,i,i.exports,e),i.loaded=!0,i.exports}var o={};return e.m=t,e.c=o,e.p="/dist/",e(0)}([function(t,e,o){"use strict";function s(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0}),o(1);var i=o(2),n=s(i);e["default"]=n["default"],t.exports=e["default"]},function(t,e){"use strict";Object.assign||Object.defineProperty(Object,"assign",{enumerable:!1,configurable:!0,writable:!0,value:function(t,e){if(void 0===t||null===t)throw new TypeError("Cannot convert first argument to object");for(var o=Object(t),s=1;s<arguments.length;s++){var i=arguments[s];if(void 0!==i&&null!==i)for(var n=Object.keys(Object(i)),r=0,u=n.length;u>r;r++){var a=n[r],c=Object.getOwnPropertyDescriptor(i,a);void 0!==c&&c.enumerable&&(o[a]=i[a])}}return o}})},function(t,e,o){"use strict";function s(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0}),o(3);var i=o(7),n=s(i),r=o(8),u=s(r),a=(o(12),{maxToasts:6,position:"left bottom"});e["default"]={template:n["default"],data:function(){return{toasts:[],options:a}},computed:{classesOfPosition:function(){return this._updateClassesOfPosition(this.options.position)},directionOfJumping:function(){return this._updateDirectionOfJumping(this.options.position)}},methods:{showToast:function(t,e){return this._addToast(t,e),this._moveToast(),this},setOptions:function(t){return this.options=Object.assign(this.options,t||{}),this},_addToast:function(t){var e=arguments.length<=1||void 0===arguments[1]?{}:arguments[1];t&&(e.directionOfJumping=this.directionOfJumping,this.toasts.unshift({message:t,options:e,isDestroyed:!1}))},_moveToast:function(t){var e=this.options.maxToasts>0?this.options.maxToasts:9999;this.toasts=this.toasts.reduceRight(function(t,o,s){return o.isDestroyed?t:s+1>=e?t:[o].concat(t)},[])},_updateClassesOfPosition:function(t){return t.split(" ").reduce(function(t,e){return t["--"+e.toLowerCase()]=!0,t},{})},_updateDirectionOfJumping:function(t){return t.match(/top/i)?"+":"-"}},components:{"vue-toast":u["default"]}},t.exports=e["default"]},function(t,e){},,,,function(t,e){t.exports='<div class=vue-toast-manager_container :class=classesOfPosition><vue-toast v-for="toast in toasts" :message=toast.message :options=toast.options :destroyed.sync=toast.isDestroyed :position=$index></vue-toast></div>'},function(t,e,o){"use strict";function s(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0}),o(9);var i=o(11),n=s(i),r={theme:"default",timeLife:5e3,closeBtn:!1};e["default"]={template:n["default"],props:{message:{required:!0},position:{type:Number,required:!0},destroyed:{twoWay:!0,type:Boolean,required:!0},options:{type:Object,coerce:function(t){return Object.assign({},r,t)}}},data:function(){return{isShow:!1}},computed:{theme:function(){return"_"+this.options.theme},style:function(){return"transform: translateY("+this.options.directionOfJumping+100*this.position+"%)"}},ready:function(){var t=this;setTimeout(function(){t.isShow=!0},50),this.options.closeBtn||this._startLazyAutoDestroy()},detached:function(){clearTimeout(this.timerDestroy)},methods:{remove:function(){return this._clearTimer(),this.destroyed=!0,this.$remove().$destroy(),this},_startLazyAutoDestroy:function(){var t=this;this._clearTimer(),this.timerDestroy=setTimeout(function(){t.$remove().$destroy()},this.options.timeLife)},_clearTimer:function(){this.timerDestroy&&clearTimeout(this.timerDestroy)},_startTimer:function(){this.options.closeBtn||this._startLazyAutoDestroy()},_stopTimer:function(){this.options.closeBtn||this._clearTimer()}}},t.exports=e["default"]},function(t,e){},,function(t,e){t.exports="<div class=vue-toast_container @mouseover=_stopTimer @mouseleave=_startTimer :style=style :class=[theme] v-show=isShow transition><div class=vue-toast_message><span v-html=message></span> <span class=vue-toast_close-btn v-if=options.closeBtn @click=remove></span></div></div>"},function(t,e){"use strict";function o(t){return"number"==typeof t&&isFinite(t)}Object.defineProperty(e,"__esModule",{value:!0}),e.isNumber=o}])});
+},{}],43:[function(require,module,exports){
 (function (process){
 /*!
  * Vue.js v2.0.3
@@ -9868,7 +9882,7 @@ setTimeout(function () {
 module.exports = Vue$2;
 
 }).call(this,require('_process'))
-},{"_process":36}],42:[function(require,module,exports){
+},{"_process":36}],44:[function(require,module,exports){
 /*!
  * Vue.js v2.0.3
  * (c) 2014-2016 Evan You
@@ -17385,7 +17399,7 @@ return Vue$3;
 
 })));
 
-},{}],43:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 'use strict';
 
 var _mntAdmins = require('./components/moduls/mnt-admins/mnt-admins.vue');
@@ -17424,7 +17438,12 @@ Vue.config.debug = false;
 
 /*----------------------------IMPORT MODULS-----------------------------*/
 
+Vue.component('mnt-admins', _mntAdmins2.default);
+
 /*------------------------IMPORT A COMPONENTS---------------------------*/
+Vue.component('mnt-candidates', _mntCandidates2.default);
+
+Vue.component('a-login', _aLogin2.default);
 
 /*------------------------------ ROUTER --------------------------------*/
 /*It was great to see everyone--fue genial verlos a todos*/
@@ -17455,6 +17474,7 @@ var router = new VueRouter({
 var app = new Vue({
 
 	config: {
+
 		//silent : true,
 		//debug: true
 	},
@@ -17475,7 +17495,9 @@ var app = new Vue({
 	}
 }).$mount('#app');
 
-},{"./components/a-components/a-login/a-login.vue":44,"./components/a-components/a-signin/a-signin.vue":45,"./components/moduls/mnt-admins/mnt-admins.vue":54,"./components/moduls/mnt-candidates/mnt-candidates.vue":56,"vue-i18n-mixin":38,"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":42}],44:[function(require,module,exports){
+},{"./components/a-components/a-login/a-login.vue":47,"./components/a-components/a-signin/a-signin.vue":48,"./components/moduls/mnt-admins/mnt-admins.vue":57,"./components/moduls/mnt-candidates/mnt-candidates.vue":61,"vue-i18n-mixin":38,"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":44}],46:[function(require,module,exports){
+module.exports = '<div class="jumbotron">\n\n\n\n\n	<div class="row">\n		<div>\n\n			<!-- Nav tabs -->\n			<ul class="nav nav-tabs" role="tablist">\n				<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Admin</a></li>\n				<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Candidate</a></li>\n\n\n			</ul>\n\n			<!-- Tab panes -->\n			<div class="tab-content">\n				<div role="tabpanel" class="tab-pane active" id="home">\n					<br>\n					<div class="col-sm-6">\n						<form class="form-horizontal" @submit.prevent="loginAdmin">\n							<div class="form-group">\n								<label for="inputEmail3" class="col-sm-2 control-label">Email</label>\n								<div class="col-sm-10">\n									<input type="email" v-model="admin.email"class="form-control" id="inputEmail3" placeholder="Email">\n								</div>\n\n							</div>\n							<div class="form-group">\n								<label for="inputPassword3" class="col-sm-2 control-label">Password</label>\n								<div class="col-sm-10">\n									<input type="password"  v-model="admin.password" class="form-control" id="inputPassword3" placeholder="Password">\n								</div>\n							</div>\n							<div class="form-group">\n								<div class="col-sm-offset-2 col-sm-10">\n									<div class="checkbox">\n										<label>\n											<input type="checkbox"> Remember me\n										</label>\n									</div>\n								</div>\n							</div>\n							<div class="form-group">\n								<div class="col-sm-offset-2 col-sm-10">\n									<button type="submit"  class="btn btn-default">Sign in</button>\n								</div>\n							</div>\n						</form>\n					</div>\n\n				</div>\n				<div role="tabpanel" class="tab-pane" id="profile">\n					<br>\n\n					<div class="col-sm-6">\n						<form class="form-horizontal" @submit.prevent="fetchImageProfile">\n							<div class="form-group">\n								<label for="inputEmail3" class="col-sm-2 control-label">Email</label>\n								<div class="col-sm-10">\n									<input type="email" class="form-control" id="inputEmail3" placeholder="Email">\n								</div>\n							</div>\n							<div class="form-group">\n								<label for="inputPassword3" class="col-sm-2 control-label">Password</label>\n								<div class="col-sm-10">\n									<input type="password"  class="form-control" id="inputPassword3" placeholder="Password">\n								</div>\n							</div>\n							<div class="form-group">\n								<div class="col-sm-offset-2 col-sm-10">\n									<div class="checkbox">\n										<label>\n											<input type="checkbox"> Remember me\n										</label>\n									</div>\n								</div>\n							</div>\n							<div class="form-group">\n								<div class="col-sm-offset-2 col-sm-10">\n									<button type="submit"  class="btn btn-default">Sign in</button>\n								</div>\n							</div>\n						</form>\n					</div>\n\n\n				</div>\n\n			</div>\n\n		</div>\n	</div>\n\n\n</div>\n';
+},{}],47:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17486,9 +17508,15 @@ var _constants_restful = require('../../js/constants_restful.js');
 
 var _constants_restful2 = _interopRequireDefault(_constants_restful);
 
+var _vueToastMobile = require('vue-toast-mobile');
+
+var _vueToastMobile2 = _interopRequireDefault(_vueToastMobile);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+
+  template: require('./a-login.html'),
 
   props: {
     todos: Array
@@ -17553,8 +17581,6 @@ exports.default = {
 
       this.$http.post('admin/login', admin).then(function (response) {
 
-        console.log(response.body);
-
         if (response.body.token != undefined) {
           localStorage.setItem('id_token', response.body.token);
           this.admin.authenticated = true;
@@ -17562,11 +17588,30 @@ exports.default = {
 
           var router = this.$router;
           router.push({ name: 'candidates' });
-        } else if (response.body.user_not_exist) {
+          (0, _vueToastMobile2.default)({
+            message: 'Welcome',
+            position: 'success',
+            iconClass: 'glyphicon glyphicon-ok',
+            duration: 4000
+          });
+        } else if (response.body.password_incorrect) {
 
-          console.log("User not exist");
+          (0, _vueToastMobile2.default)({
+            message: 'nada',
+            position: 'warning',
+            duration: 4000,
+            iconClass: 'glyphicon glyphicon-remove'
+          });
         }
-      }, function (error) {});
+      }, function (error) {
+
+        (0, _vueToastMobile2.default)({
+          message: 'nada',
+          position: 'error',
+          duration: 4000,
+          iconClass: 'glyphicon glyphicon-remove'
+        });
+      });
     },
 
     /*function: loginCustomer
@@ -17588,7 +17633,6 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"jumbotron\">\n\n\n\n\n  <div class=\"row\">\n    <div>\n\n      <!-- Nav tabs -->\n      <ul class=\"nav nav-tabs\" role=\"tablist\">\n        <li role=\"presentation\" class=\"active\"><a href=\"#home\" aria-controls=\"home\" role=\"tab\" data-toggle=\"tab\">Admin</a></li>\n        <li role=\"presentation\"><a href=\"#profile\" aria-controls=\"profile\" role=\"tab\" data-toggle=\"tab\">Candidate</a></li>\n\n\n      </ul>\n\n      <!-- Tab panes -->\n      <div class=\"tab-content\">\n        <div role=\"tabpanel\" class=\"tab-pane active\" id=\"home\">\n          <br>\n          <div class=\"col-sm-6\">\n            <form class=\"form-horizontal\" @submit.prevent=\"loginAdmin\">\n              <div class=\"form-group\">\n                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"email\" v-model=\"admin.email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n                </div>\n\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"password\" v-model=\"admin.password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <div class=\"checkbox\">\n                    <label>\n                      <input type=\"checkbox\"> Remember me\n                    </label>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n                </div>\n              </div>\n            </form>\n          </div>\n\n        </div>\n        <div role=\"tabpanel\" class=\"tab-pane\" id=\"profile\">\n          <br>\n\n          <div class=\"col-sm-6\">\n            <form class=\"form-horizontal\" @submit.prevent=\"fetchImageProfile\">\n              <div class=\"form-group\">\n                <label for=\"inputEmail3\" class=\"col-sm-2 control-label\">Email</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <label for=\"inputPassword3\" class=\"col-sm-2 control-label\">Password</label>\n                <div class=\"col-sm-10\">\n                  <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <div class=\"checkbox\">\n                    <label>\n                      <input type=\"checkbox\"> Remember me\n                    </label>\n                  </div>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-offset-2 col-sm-10\">\n                  <button type=\"submit\" class=\"btn btn-default\">Sign in</button>\n                </div>\n              </div>\n            </form>\n          </div>\n\n\n        </div>\n\n      </div>\n\n    </div>\n  </div>\n  \n\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17599,7 +17643,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-aee1e4aa", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/constants_restful.js":50,"vue":41,"vue-hot-reload-api":37}],45:[function(require,module,exports){
+},{"../../js/constants_restful.js":53,"./a-login.html":46,"vue":43,"vue-hot-reload-api":37,"vue-toast-mobile":41}],48:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17644,9 +17688,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-34b736a2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/auth.js":48,"../../js/constants_restful.js":50,"vue":41,"vue-hot-reload-api":37}],46:[function(require,module,exports){
+},{"../../js/auth.js":51,"../../js/constants_restful.js":53,"vue":43,"vue-hot-reload-api":37}],49:[function(require,module,exports){
 module.exports = '<div class="container-component">\n\n  <div class="row">\n    <div class="col-sm-6">\n      <form  class="form" id="search">\n        <div class="form-group">\n          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">\n        </div>\n      </form>\n    </div>\n    <div class="col-sm-2">\n\n      <div>\n        <select v-model="pagination" class="form-control">\n          <option value="5">5</option>\n          <option value="10">10</option>\n          <option value="20">20</option>\n          <option value="40">40</option>\n        </select>\n      </div>\n    </div>\n\n  </div>\n\n  <div class="row">\n    <div class="col-sm-12">\n      <table>\n        <thead>\n          <tr>\n            <th v-for="key in columns"\n            @click="sortBy(key.key)"\n            :class="{ active: sortKey == key }">\n            {{ translate(\'table.\'+key.label) }}\n            <span class="arrow" :class="sortOrders[key.key] > 0 ? \'asc\' : \'dsc\'">\n            </span>\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">\n          <td v-for="key in columns">\n            {{entry[key.key]}}\n          </td>\n        </tr>\n        <tr v-if="!filteredData.length>0">\n          <td style="text-align: center">\n            No existen registros\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n\n</div>\n';
-},{}],47:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17755,7 +17799,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-498c7c75", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/translate/table.js":51,"./a-table.html":46,"babel-runtime/core-js/object/keys":1,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],48:[function(require,module,exports){
+},{"../../js/translate/table.js":54,"./a-table.html":49,"babel-runtime/core-js/object/keys":1,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17834,7 +17878,7 @@ exports.default = {
     register: function register(context, profile, name, email, password) {}
 };
 
-},{"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":42}],49:[function(require,module,exports){
+},{"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":44}],52:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17846,7 +17890,7 @@ var tableCandidates = exports.tableCandidates = [{ label: "username", key: 'user
 
 var tableExperience = exports.tableExperience = [{ label: "name_business", key: 'name_business' }, { label: "name_job", key: 'name_job' }, { label: "turn_business", key: 'turn_business' }, { label: "created_at", key: 'created_at' }];
 
-},{}],50:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17859,7 +17903,7 @@ var candidates = exports.candidates = "candidates";
 var candidates_admin = exports.candidates_admin = "admin/candidates{/id}";
 var candidates_experince = exports.candidates_experince = "candidate{/id}";
 
-},{}],51:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17942,7 +17986,7 @@ var translations = exports.translations = {
   }), _table)
 };
 
-},{}],52:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18056,9 +18100,9 @@ var translations = exports.translations = {
     }
 };
 
-},{}],53:[function(require,module,exports){
-module.exports = '<div class="container-a">\n	<div class="row" v-show="flagTable">\n		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">\n		</a-table>\n	</div>\n	<div class="row" v-show="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n	<div class="container-detail" v-show="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.admins.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n			<div class="row" >\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.email }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.type\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.type }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.created_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.created_at }}\n					</div>\n				</div>\n\n\n\n			</div>\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.updated_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.updated_at }}\n					</div>\n				</div>\n\n				<div class="col-sm-2">\n					<div>\n						<label v-text="translate(\'people.profiles_register\')"></label>\n					</div>\n					<div>\n						{{ adminCandidatesRegisters }}\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>\n</div>\n';
-},{}],54:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
+module.exports = '<div class="container-a">\n\n	<button type="button" name="button" @click="showTime">SHOW TIME</button>\n	<vue-toast v-ref:toast></vue-toast>\n  \n	<div class="row" v-show="flagTable">\n		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">\n		</a-table>\n	</div>\n	<div class="row" v-show="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n	<div class="container-detail" v-show="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.admins.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n			<div class="row" >\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.email }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.type\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.type }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.created_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.created_at }}\n					</div>\n				</div>\n\n\n\n			</div>\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.updated_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.updated_at }}\n					</div>\n				</div>\n\n				<div class="col-sm-2">\n					<div>\n						<label v-text="translate(\'people.profiles_register\')"></label>\n					</div>\n					<div>\n						{{ adminCandidatesRegisters }}\n					</div>\n				</div>\n\n			</div>\n		</div>\n	</div>\n</div>\n';
+},{}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18075,15 +18119,16 @@ var _aTable = require('../../a-components/a-table/a-table.vue');
 
 var _aTable2 = _interopRequireDefault(_aTable);
 
+var _vueToast = require('vue-toast');
+
+var _vueToast2 = _interopRequireDefault(_vueToast);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*
-*Constants
+*Components
 */
 
-/*
-*Config module
-*/
 exports.default = {
   /*--Tenplate--*/
 
@@ -18104,7 +18149,8 @@ exports.default = {
   /*--Components--*/
 
   components: {
-    'a-table': _aTable2.default
+    'a-table': _aTable2.default,
+    'vue-toast': _vueToast2.default
 
   },
 
@@ -18113,6 +18159,7 @@ exports.default = {
   */
 
   data: function data() {
+    console.log(_vueToast2.default);
     return {
       admins: [],
       columns: _tables.tableAdmins,
@@ -18131,6 +18178,10 @@ exports.default = {
       'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
     }
   },
+  attached: function attached() {
+    this.resetOptions();
+  },
+
 
   methods: {
 
@@ -18144,10 +18195,12 @@ exports.default = {
 
       var resource = this.$resource(_constants_restful.admins);
       resource.get().then(function (response) {
+
         _this.admins = response.body;
       });
     },
     select: function select(entry) {
+
       this.candidates(entry.id);
       this.adminSelected = entry;
       this.flagTable = false;
@@ -18156,7 +18209,7 @@ exports.default = {
     candidates: function candidates(id) {
       var _this2 = this;
 
-      var resource = this.$resource(candidatesAdmin);
+      var resource = this.$resource(_constants_restful.candidates_admin);
       resource.get({ id: id }).then(function (candidates) {
         _this2.adminCandidatesRegisters = candidates.body.candidates;
       });
@@ -18165,16 +18218,30 @@ exports.default = {
       this.adminSelected = {};
       this.flagTable = true;
       this.flagDetailSelected = false;
+    },
+    showTime: function showTime() {
+      this.$refs.toast.showToast(new Date(), {
+        theme: 'success',
+        timeLife: 5000,
+        closeBtn: true
+      });
     }
   },
 
   created: function created() {
+
     this.getAdmins();
-  }
+  },
+  ready: function ready() {}
+
 };
 
 /*
-*Components
+*Constants
+*/
+
+/*
+*Config module
 */
 if (module.exports.__esModule) module.exports = module.exports.default
 if (module.hot) {(function () {  module.hot.accept()
@@ -18187,9 +18254,33 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-95a3f2b2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-table/a-table.vue":47,"../../js/config-app/tables.js":49,"../../js/constants_restful.js":50,"../../js/translations.js":52,"./mnt-admins.html":53,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],55:[function(require,module,exports){
-module.exports = '<div class="container-a">\n	<div v-if="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n\n\n	<div class="container-detail" v-if="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.candidates.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n\n\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.position\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.position }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.email }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n			</div>\n\n			<div class="row">\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.gender\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.gender }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.location\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.location }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.birthdate\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.day }} /\n						{{ candidateSelected.month }} /\n						{{ candidateSelected.year }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<label v-text="translate(\'people.phone\')"></label>\n					<div class="">\n						{{ candidateSelected.code }} / {{ candidateSelected.phone }}\n					</div>\n				</div>\n\n			</div>\n\n			<div class="row">\n\n				<div class="col-sm-3">\n					<label v-text="translate(\'people.category\')"></label>\n					<div class="">\n						{{ candidateSelected.category_candidate.name }}\n					</div>\n				</div>\n\n\n\n				<div class="col-sm-3">\n					<label v-text="translate(\'people.subcategory\')"></label>\n					<div class="">\n						{{ candidateSelected.subcategory_candidate.name }}\n					</div>\n				</div>\n\n\n\n\n			</div>\n		</div>\n	</div>\n\n	<div  v-if="flagDetailSelected">\n\n		<div>\n			<a-table :data="candidateSelected.experiences" :columns="columnsExperience" :total="candidateSelected.experiences.length" :select="select">\n			</a-table>\n		</div>\n\n	</div>\n\n\n</div>\n';
-},{}],56:[function(require,module,exports){
+},{"../../a-components/a-table/a-table.vue":50,"../../js/config-app/tables.js":52,"../../js/constants_restful.js":53,"../../js/translations.js":55,"./mnt-admins.html":56,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38,"vue-toast":42}],58:[function(require,module,exports){
+module.exports = '<div id="modal-template">\n  <transition name="modal">\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container">\n\n          <div class="modal-header">\n            <slot name="header">\n              default header\n            </slot>\n          </div>\n\n          <div class="modal-body">\n            <slot name="body">\n              default body\n            </slot>\n          </div>\n\n          <div class="modal-footer">\n            <slot name="footer">\n              default footer\n              <button class="modal-default-button" @click="$emit(\'close\')">\n                OK\n              </button>\n            </slot>\n          </div>\n        </div>\n      </div>\n    </div>\n  </transition>\n</div>\n';
+},{}],59:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+
+  template: require('./add-candidate.html')
+
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-c3c22d9c", module.exports)
+  } else {
+    hotAPI.update("_v-c3c22d9c", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"./add-candidate.html":58,"vue":43,"vue-hot-reload-api":37}],60:[function(require,module,exports){
+module.exports = '<div class="container-a">\n<!--	<div> <vue-toast v-ref:toast></vue-toast> </div>-->\n\n<div style="text-align: right">\n	<button id="show-modal" @click="showModal = true" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>\n	<button id="show-modal" @click="showModal = true" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>\n\n</div>\n\n\n<add-candidate v-if="showModal" @close="showModal = false"></add-candidate>\n	<div v-if="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n\n\n	<div class="container-detail" v-if="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.candidates.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n\n\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.position\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.position }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.email }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.username }}\n					</div>\n				</div>\n			</div>\n\n			<div class="row">\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.gender\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.gender }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.location\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.location }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.birthdate\')"></label>\n					</div>\n					<div>\n						{{ candidateSelected.day }} /\n						{{ candidateSelected.month }} /\n						{{ candidateSelected.year }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<label v-text="translate(\'people.phone\')"></label>\n					<div class="">\n						{{ candidateSelected.code }} / {{ candidateSelected.phone }}\n					</div>\n				</div>\n\n			</div>\n\n			<div class="row">\n\n				<div class="col-sm-3">\n					<label v-text="translate(\'people.category\')"></label>\n					<div class="">\n						{{ candidateSelected.category_candidate.name }}\n					</div>\n				</div>\n\n\n\n				<div class="col-sm-3">\n					<label v-text="translate(\'people.subcategory\')"></label>\n					<div class="">\n						{{ candidateSelected.subcategory_candidate.name }}\n					</div>\n				</div>\n\n\n\n\n			</div>\n		</div>\n	</div>\n\n\n\n	<div  v-if="flagDetailSelected">\n\n		<div>\n			<a-table :data="candidateSelected.experiences" :columns="columnsExperience" :total="candidateSelected.experiences.length" :select="select">\n			</a-table>\n		</div>\n	</div>\n\n\n</div>\n';
+},{}],61:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18199,6 +18290,14 @@ Object.defineProperty(exports, "__esModule", {
 var _aTable = require('../../a-components/a-table/a-table.vue');
 
 var _aTable2 = _interopRequireDefault(_aTable);
+
+var _addCandidate = require('./add-candidate/add-candidate.vue');
+
+var _addCandidate2 = _interopRequireDefault(_addCandidate);
+
+var _vueToastMobile = require('vue-toast-mobile');
+
+var _vueToastMobile2 = _interopRequireDefault(_vueToastMobile);
 
 var _constants_restful = require('../../js/constants_restful.js');
 
@@ -18214,8 +18313,17 @@ exports.default = {
   translations: _translations.translations,
   mixins: [require('vue-i18n-mixin')],
   props: {},
+  notifications: {
+
+    showLoginError: {
+      message: 'Failed to authenticate',
+      type: 'error'
+    }
+
+  },
   components: {
-    'a-table': _aTable2.default
+    'a-table': _aTable2.default,
+    'add-candidate': _addCandidate2.default
 
   },
 
@@ -18228,7 +18336,8 @@ exports.default = {
       columnsExperience: _tables.tableExperience,
       flagTable: true,
       flagDetailSelected: false,
-      locale: 'es'
+      locale: 'es',
+      showModal: false
     };
   },
 
@@ -18289,6 +18398,6 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-32a0f4a7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-table/a-table.vue":47,"../../js/config-app/tables.js":49,"../../js/constants_restful.js":50,"../../js/translations.js":52,"./mnt-candidates.html":55,"vue":41,"vue-hot-reload-api":37,"vue-i18n-mixin":38}]},{},[43]);
+},{"../../a-components/a-table/a-table.vue":50,"../../js/config-app/tables.js":52,"../../js/constants_restful.js":53,"../../js/translations.js":55,"./add-candidate/add-candidate.vue":59,"./mnt-candidates.html":60,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38,"vue-toast-mobile":41}]},{},[45]);
 
 //# sourceMappingURL=app.js.map

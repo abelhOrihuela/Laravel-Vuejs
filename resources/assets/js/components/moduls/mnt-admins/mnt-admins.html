@@ -1,4 +1,8 @@
 <div class="container-a">
+
+	<button type="button" name="button" @click="showTime">SHOW TIME</button>
+	<vue-toast v-ref:toast></vue-toast>
+  
 	<div class="row" v-show="flagTable">
 		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">
 		</a-table>
@@ -78,6 +82,7 @@
 						{{ adminCandidatesRegisters }}
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>

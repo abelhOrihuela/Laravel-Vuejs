@@ -1,4 +1,14 @@
 <div class="container-a">
+<!--	<div> <vue-toast v-ref:toast></vue-toast> </div>-->
+
+<div style="text-align: right">
+	<button id="show-modal" @click="showModal = true" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>
+	<button id="show-modal" @click="showModal = true" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
+
+</div>
+
+
+<add-candidate v-if="showModal" @close="showModal = false"></add-candidate>
 	<div v-if="flagTable">
 		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">
 		</a-table>
@@ -128,13 +138,14 @@
 		</div>
 	</div>
 
+
+
 	<div  v-if="flagDetailSelected">
 
 		<div>
 			<a-table :data="candidateSelected.experiences" :columns="columnsExperience" :total="candidateSelected.experiences.length" :select="select">
 			</a-table>
 		</div>
-
 	</div>
 
 

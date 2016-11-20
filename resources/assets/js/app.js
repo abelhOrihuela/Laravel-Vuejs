@@ -12,6 +12,13 @@ var VueResource = require('vue-resource/dist/vue-resource.js');
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
+
+
+
+
+
+
+
 Vue.config.debug = false;
 
 
@@ -20,13 +27,19 @@ Vue.config.debug = false;
 /*----------------------------IMPORT MODULS-----------------------------*/
 
 import MntAdmins from './components/moduls/mnt-admins/mnt-admins.vue';
+Vue.component('mnt-admins', MntAdmins);
 import MntCandidates from './components/moduls/mnt-candidates/mnt-candidates.vue';
 /*------------------------IMPORT A COMPONENTS---------------------------*/
-
+Vue.component('mnt-candidates', MntCandidates);
 
 import ALogin from './components/a-components/a-login/a-login.vue';
+Vue.component('a-login', ALogin);
 
 import Asignin from './components/a-components/a-signin/a-signin.vue';
+
+
+
+
 
 
 /*------------------------------ ROUTER --------------------------------*/
@@ -62,6 +75,7 @@ const router = new VueRouter({
 const app = new Vue({
 
 	config:{
+
       //silent : true,
       //debug: true
 	}
@@ -83,10 +97,3 @@ const app = new Vue({
         }
     }
 }).$mount('#app');
-
-
-
-
-
-
-

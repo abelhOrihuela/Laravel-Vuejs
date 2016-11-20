@@ -1,6 +1,11 @@
 <script>
 
 import ATable from '../../a-components/a-table/a-table.vue';
+import AddCandidate from './add-candidate/add-candidate.vue'
+
+
+
+import Toast from 'vue-toast-mobile';
 import { candidates, candidates_experince } from '../../js/constants_restful.js';
 import { translations } from '../../js/translations.js';
 import { tableCandidates , tableExperience} from '../../js/config-app/tables.js';
@@ -16,8 +21,17 @@ export default{
   props:{
 
   },
+  notifications:{
+
+    showLoginError: {
+      message: 'Failed to authenticate',
+      type: 'error'
+    }
+
+  },
   components:{
-    'a-table': ATable
+    'a-table': ATable,
+    'add-candidate': AddCandidate
 
   },
 
@@ -30,7 +44,8 @@ export default{
       columnsExperience: tableExperience,
       flagTable: true,
       flagDetailSelected: false,
-      locale: 'es'
+      locale: 'es',
+      showModal: false
     }
 
   },
@@ -51,6 +66,7 @@ export default{
     *
     */
     getAdmins: function(){
+
       var resource= this.$resource(candidates);
       resource.get().then((response) => {
         this.candidates=response.body;
