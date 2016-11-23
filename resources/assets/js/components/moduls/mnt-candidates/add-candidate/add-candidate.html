@@ -1,0 +1,155 @@
+<div class="">
+
+  <form class="form-horizontal col-sm-8" method="post" @submit.prevent="newCandidate">
+
+    <div class="form-group">
+               <label class="col-sm-2 control-label">username</label>
+               <div class="col-sm-10">
+                 <input type="text" name="" class="form-control" v-model="candidate.username">
+               </div>
+             </div>
+
+             <div class="form-group">
+               <label class="col-sm-2 control-label">gender</label>
+               <div class="col-sm-10">
+                 <div class="col-sm-5">
+
+                   <input type="radio" id="one" value="Mujer" v-model="candidate.gender">
+                   <label class="control-label">woman</label>
+
+                 </div>
+
+                 <div class="col-sm-5">
+
+                   <input type="radio" id="two" value="Hombre" v-model="candidate.gender">
+                   <label class="control-label">men</label>
+
+                 </div>
+
+               </div>
+             </div>
+
+
+
+             <div class="form-group">
+                <label class="col-sm-2 control-label">email</label>
+                <div class="col-sm-10">
+                  <input type="email" name="" class="form-control" v-model="candidate.email">
+                </div>
+              </div>
+
+              <div class="form-group" id="location-group">
+                <label for="email" class="col-sm-2 control-label">location</label>
+                <div class="col-sm-3">
+                  <select name="location" id="location" class="form-control input-sm" v-model="candidate.location">
+                    <option value=""> -Seleccionar- </option>
+                    <option value="Aguascalientes">Aguascalientes</option>
+                    <option value="Baja California">Baja California</option>
+                    <option value="Baja California Sur">Baja California Sur</option>
+                    <option value="Campeche">Campeche</option>
+                    <option value="Chiapas">Chiapas</option>
+                    <option value="Chihuahua">Chihuahua</option>
+                    <option value="Coahuila">Coahuila</option>
+                    <option value="Colima">Colima</option>
+                    <option value="Distrito Federal">Distrito Federal</option>
+                    <option value="Durango">Durango</option>
+                    <option value="Estado de México">Estado de México</option>
+                    <option value="Guanajuato">Guanajuato</option>
+                    <option value="Guerrero">Guerrero</option>
+                    <option value="Hidalgo">Hidalgo</option>
+                    <option value="Jalisco">Jalisco</option>
+                    <option value="Michoacán">Michoacán</option>
+                    <option value="Morelos">Morelos</option>
+                    <option value="Nayarit">Nayarit</option>
+                    <option value="Nuevo León">Nuevo León</option>
+                    <option value="Oaxaca">Oaxaca</option>
+                    <option value="Puebla">Puebla</option>
+                    <option value="Querétaro">Querétaro</option>
+                    <option value="Quintana Roo">Quintana Roo</option>
+                    <option value="San Luis Potosí">San Luis Potosí</option>
+                    <option value="Sinaloa">Sinaloa</option>
+                    <option value="Sonora">Sonora</option>
+                    <option value="Tabasco">Tabasco</option>
+                    <option value="Tamaulipas">Tamaulipas</option>
+                    <option value="Tlaxcala">Tlaxcala</option>
+                    <option value="Veracruz">Veracruz</option>
+                    <option value="Yucatán">Yucatán</option>
+                    <option value="Zacatecas">Zacatecas</option>
+                  </select>
+                </div>
+              </div>
+
+
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">birthday</label>
+                <div class="col-sm-10">
+                  <input type="date" name="" class="form-control" v-model="candidate.birthday">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">code</label>
+                <div class="col-sm-4">
+                  <input type="number" name="" class="form-control" v-model="candidate.code">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">phone</label>
+                <div class="col-sm-4">
+                  <input type="number" name="" class="form-control" v-model="candidate.phone">
+                </div>
+              </div>
+
+
+
+
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">position</label>
+                <div class="col-sm-10">
+                  <input type="email" name="" class="form-control" v-model="candidate.position">
+                </div>
+              </div>
+
+
+
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">category</label>
+                <div class="col-sm-10">
+                  <select  class="form-control" @click="fetchSubCategories()"
+                  v-model="candidate.category">
+                  <option v-for="category in categories" v-bind:value="category.id">
+                    {{ category.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">subcategory</label>
+              <div class="col-sm-10">
+                <select v-model="candidate.subcategory" class="form-control">
+                  <option v-for="category in subcategories" v-bind:value="category.id">
+                  {{ category.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="col-sm-2">
+              <input type="submit" name="" value="send" class="btn btn-success">
+            </div>
+
+
+
+  </form>
+
+</div>

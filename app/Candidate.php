@@ -19,4 +19,8 @@ class Candidate extends Model
   public function subcategoryCandidate(){
     return $this->belongsTo(SubCategory::class, 'subcategory');
   }
+
+  public function photo(){
+    return $this->hasOne(Photo::class, 'id'); 
+  }
 }

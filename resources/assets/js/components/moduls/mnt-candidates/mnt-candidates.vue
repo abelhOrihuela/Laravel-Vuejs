@@ -21,14 +21,7 @@ export default{
   props:{
 
   },
-  notifications:{
 
-    showLoginError: {
-      message: 'Failed to authenticate',
-      type: 'error'
-    }
-
-  },
   components:{
     'a-table': ATable,
     'add-candidate': AddCandidate
@@ -45,7 +38,8 @@ export default{
       flagTable: true,
       flagDetailSelected: false,
       locale: 'es',
-      showModal: false
+      showModal: false,
+      showNewCandidate: false
     }
 
   },
@@ -90,6 +84,23 @@ export default{
       this.flagTable=true;
       this.flagDetailSelected=false;
     },
+    addCandidate: function(){
+      this.flagTable=false;
+      this.flagDetailSelected=false;
+      this.showNewCandidate=true;
+
+    },
+    cancelAddCandidate:  function(){
+      this.flagTable=true;
+      this.flagDetailSelected=false;
+      this.showNewCandidate=false;
+    },
+    getNewCandidate: function(entry){
+      console.log("---------------------------------");
+      console.log(entry);
+      console.log("---------------------------------");
+      this.candidates.push(entry);
+    }
   },
   created: function(){
     this.getAdmins();
