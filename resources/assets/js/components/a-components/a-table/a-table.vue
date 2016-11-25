@@ -69,8 +69,7 @@ export default{
       this.sortOrders[key] = this.sortOrders[key] * -1
     },
     paginate: function(direction) {
-      console.log("Direction");
-      console.log(direction);
+
       if(direction === 'next') {
         this.start += parseInt(this.pagination);
         this.limit += parseInt(this.pagination);
@@ -82,7 +81,6 @@ export default{
     },
 
     selectElement: function(entry){
-      console.log("Seelect table");
       this.select(entry);
     }
   }

@@ -1,10 +1,9 @@
 <div class="">
-
-  <form class="form-horizontal col-sm-8" method="post" @submit.prevent="newCandidate">
+  <form class="form-horizontal col-sm-8" name="form" method="post" @submit.prevent="newCandidate">
 
     <div class="form-group">
                <label class="col-sm-2 control-label">username</label>
-               <div class="col-sm-10">
+               <div class="col-sm-10" v-bind:class="{ 'has-success': validation.username, 'has-error':  !validation.username}" >
                  <input type="text" name="" class="form-control" v-model="candidate.username">
                </div>
              </div>
@@ -13,36 +12,28 @@
                <label class="col-sm-2 control-label">gender</label>
                <div class="col-sm-10">
                  <div class="col-sm-5">
-
                    <input type="radio" id="one" value="Mujer" v-model="candidate.gender">
                    <label class="control-label">woman</label>
-
                  </div>
 
                  <div class="col-sm-5">
-
                    <input type="radio" id="two" value="Hombre" v-model="candidate.gender">
                    <label class="control-label">men</label>
-
                  </div>
-
                </div>
              </div>
 
-
-
              <div class="form-group">
                 <label class="col-sm-2 control-label">email</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10" v-bind:class="{ 'has-success': validation.email, 'has-error':  !validation.email}">
                   <input type="email" name="" class="form-control" v-model="candidate.email">
                 </div>
               </div>
 
               <div class="form-group" id="location-group">
                 <label for="email" class="col-sm-2 control-label">location</label>
-                <div class="col-sm-3">
+                <div class="col-sm-3" v-bind:class="{ 'has-success': validation.location, 'has-error':  !validation.location}">
                   <select name="location" id="location" class="form-control input-sm" v-model="candidate.location">
-                    <option value=""> -Seleccionar- </option>
                     <option value="Aguascalientes">Aguascalientes</option>
                     <option value="Baja California">Baja California</option>
                     <option value="Baja California Sur">Baja California Sur</option>
@@ -83,22 +74,24 @@
 
               <div class="form-group">
                 <label class="col-sm-2 control-label">birthday</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10"
+                v-bind:class="{ 'has-success': validation.birthday, 'has-error':  !validation.birthday}">
                   <input type="date" name="" class="form-control" v-model="candidate.birthday">
                 </div>
               </div>
 
+
               <div class="form-group">
                 <label class="col-sm-2 control-label">code</label>
-                <div class="col-sm-4">
-                  <input type="number" name="" class="form-control" v-model="candidate.code">
+                <div class="col-sm-4"  v-bind:class="{ 'has-success': validation.code, 'has-error':  !validation.code}" >
+                  <input type="text" name="" class="form-control" v-model="candidate.code">
                 </div>
               </div>
 
               <div class="form-group">
                 <label class="col-sm-2 control-label">phone</label>
-                <div class="col-sm-4">
-                  <input type="number" name="" class="form-control" v-model="candidate.phone">
+                <div class="col-sm-4"  v-bind:class="{ 'has-success': validation.phone, 'has-error':  !validation.phone}">
+                  <input type="text" name="" class="form-control" v-model="candidate.phone">
                 </div>
               </div>
 
@@ -108,8 +101,8 @@
 
               <div class="form-group">
                 <label class="col-sm-2 control-label">position</label>
-                <div class="col-sm-10">
-                  <input type="email" name="" class="form-control" v-model="candidate.position">
+                <div class="col-sm-10" v-bind:class="{ 'has-success': validation.position, 'has-error':  !validation.position}">
+                  <input type="text" name="" class="form-control" v-model="candidate.position">
                 </div>
               </div>
 
@@ -118,7 +111,7 @@
 
               <div class="form-group">
                 <label class="col-sm-2 control-label">category</label>
-                <div class="col-sm-10">
+                <div class="col-sm-10" v-bind:class="{ 'has-success': validation.category, 'has-error':  !validation.category}">
                   <select  class="form-control" @click="fetchSubCategories()"
                   v-model="candidate.category">
                   <option v-for="category in categories" v-bind:value="category.id">
@@ -131,7 +124,7 @@
 
             <div class="form-group">
               <label class="col-sm-2 control-label">subcategory</label>
-              <div class="col-sm-10">
+              <div class="col-sm-10" v-bind:class="{ 'has-success': validation.subcategory, 'has-error':  !validation.subcategory}">
                 <select v-model="candidate.subcategory" class="form-control">
                   <option v-for="category in subcategories" v-bind:value="category.id">
                   {{ category.name }}
@@ -141,10 +134,7 @@
             </div>
 
 
-
-
-
-            <div class="col-sm-2">
+            <div class="col-sm-2" v-if="formIsValid()">
               <input type="submit" name="" value="send" class="btn btn-success">
             </div>
 

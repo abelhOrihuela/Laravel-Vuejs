@@ -96,10 +96,9 @@ export default{
       this.showNewCandidate=false;
     },
     getNewCandidate: function(entry){
-      console.log("---------------------------------");
-      console.log(entry);
-      console.log("---------------------------------");
       this.candidates.push(entry);
+      this.showNewCandidate=false;
+      this.select(entry);
     }
   },
   created: function(){
