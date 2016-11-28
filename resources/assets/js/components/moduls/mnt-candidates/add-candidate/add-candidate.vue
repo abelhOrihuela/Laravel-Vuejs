@@ -92,9 +92,6 @@ export default{
 
     this.$http.post('candidate/new', candidate)
     .then(function(response){
-      console.log("---------------------------------");
-      console.log(response.body);
-      console.log("---------------------------------");
 
       this.getCandidateNew(response.body);
 
@@ -113,7 +110,7 @@ export default{
 
   },
   formIsValid: function(){
-    return validate.valid(this,this.validation, 9);
+    return validate.valid(this,this.validation, validate.countProperties(this,this.validation));
   }
 
 },

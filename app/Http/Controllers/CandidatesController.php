@@ -20,11 +20,22 @@ class CandidatesController extends Controller
 	function index(){
 		$candidates=Candidate::all();
 
+		/*
+		$users = DB::table('users')
+		->where('votes', '>', 100)
+		->orWhere('name', 'John')
+		->get();
+		*/
+
 		foreach ($candidates as $candidate) {
 			$candidate->experiences;
+			$candidate->experienceWtc;
 			$candidate->categoryCandidate;
 			$candidate->subcategoryCandidate;
+			$candidate->languages;
+			$candidate->idioms;
 			$candidate->photo;
+			$candidate->economic;
 		}
 
 		return $candidates;
@@ -32,7 +43,6 @@ class CandidatesController extends Controller
 
 	/**
 	* Select one Candidate
-	*
 	* @param int $id: id candidate
 	* @return Object:Candidate
 	*/
@@ -40,13 +50,23 @@ class CandidatesController extends Controller
 	function show($id){
 		$candidate=Candidate::where("id", "=", $id)->first();
 		$candidate->experiences;
+		$candidate->experienceWtc;
 		$candidate->categoryCandidate;
 		$candidate->subcategoryCandidate;
+		$candidate->languages;
+		$candidate->idioms;
 		$candidate->photo;
+		$candidate->economic;
 
 		return $candidate;
 	}
 
+
+	/**
+	* Create one Candidate
+	* @param Request 
+	* @return Object:Candidate
+	*/
 	function create(Request $request){
 		$day=0;
 		$month=0;

@@ -2,6 +2,7 @@ body {
   font-family: Helvetica Neue, Arial, sans-serif;
   font-size: 14px;
   color: #444;
+  margin-bottom: 100px;
 }
 .container-table{
   width: 90%;
@@ -9,7 +10,7 @@ body {
   margin-right: auto;
 }
 
-table {
+.table-a {
   width: 100%;
   border: 2px solid #D6DBDF;
   border-radius: 3px;
@@ -19,8 +20,15 @@ table {
   box-shadow: 8px 8px 10px #BFC9CA;
   font-size: 13px;
 }
+.table-a tr{
+  border: 1px solid #D5DBDB;
+}
 
-th {
+tr{
+  border-bottom: 1px solid #D5DBDB;
+}
+
+.table-a th {
   background-color: #4261b9;
   color: rgba(255,255,255,0.66);
   cursor: pointer;
@@ -30,20 +38,20 @@ th {
   user-select: none;
 }
 
-td {
+.table-a td {
   background-color: #f9f9f9;
 }
 
-th, td {
+.table-a th, td {
   min-width: 120px;
   padding: 10px 20px;
 }
 
-th.active {
+.table-a th.active {
   color: #fff;
 }
 
-th.active .arrow {
+.table-a th.active .arrow {
   opacity: 1;
 }
 
@@ -97,7 +105,7 @@ th.active .arrow {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.row label{
+.label-a{
   color: #4261b9;
 }
 
@@ -140,23 +148,25 @@ th.active .arrow {
 }
 
 .modal-container {
-  width: 800px;
   margin: 0px auto;
-  padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
 }
-
+.modal-header{
+  background-color: #4261b9;
+    color: white;
+}
 .modal-header h3 {
   margin-top: 0;
-  color: #42b983;
+  color: white;
 }
 
 .modal-body {
   margin: 20px 0;
+  padding: 20px 30px;
 }
 
 .modal-default-button {
@@ -263,3 +273,9 @@ th.active .arrow {
 
 
 /* Demo purposes only */
+.tab-header{
+  background-color: #504f63;
+  color: white;
+  padding: 1px;
+  padding-left: 10px;
+}

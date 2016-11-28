@@ -13,6 +13,12 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'user_store_path',
   ]);
 
+
+  Route::get('admins', [
+    'uses' => 'UsersController@index',
+    'as'   => 'admins_index_path',
+  ]);
+
   /* RETURN SESSION ADMIN */
   Route::get('admin/candidates/{id}', [
     'uses' => 'UsersController@candidates',
@@ -48,5 +54,11 @@ Route::group(['prefix' => 'api'], function () {
     'uses' => 'CandidatesController@create',
     'as'   => 'candidate_create_path'
   ]);
+
+  Route::post('image/profile',[
+    'uses' => 'PhotosController@create',
+    'as'   => 'photo_create_path'
+  ]);
+
 
 });

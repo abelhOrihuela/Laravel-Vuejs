@@ -35,7 +35,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-          <img alt="Keytalentwtc" width="160" src="../img/keytalentwtc.png">
+          <img alt="" width="160" src="../img/keytalentwtc.png">
         </a>
         <ul class="nav navbar-nav navbar-right">
 
@@ -50,7 +50,7 @@
 
     <div class="container">
       <br><br>
-    
+
 
        <router-view></router-view>
 
@@ -61,26 +61,3 @@
    <script src="{{ elixir('js/app.js') }}"></script>
 
    @stop
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

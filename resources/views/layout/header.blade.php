@@ -7,7 +7,7 @@
       <span class="icon-bar"></span>
     </button>
     <a class="navbar-brand" href="/">
-      <img alt="Keytalentwtc" width="160" src="../img/keytalentwtc.png">
+      <img alt="Keytalentwtc" width="160" src="..">
     </a>
     <ul class="nav navbar-nav navbar-right">
 
@@ -15,4 +15,3 @@
   <li><a href="/customer/login"  class="btn btn-lg"><span class="glyphicon glyphicon-stats"></span> Acceso cliente</a></li>
 </div>
 </div>
-

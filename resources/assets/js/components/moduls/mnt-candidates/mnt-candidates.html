@@ -4,7 +4,6 @@
 	<div style="text-align: right">
 		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>
 		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
-
 	</div>
 
 
@@ -37,141 +36,108 @@
 	<div class="container-detail-section">
 
 		<div class="row">
-
-
-
-
-
-		</div>
-
-		<div class="row">
-
-
-
-				<div class="col-xs-6 col-md-3">
-					<figure class="snip1559 tumbnails">
-		  <div class="profile-image"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample2.jpg" alt="profile-sample2" /></div>
-		  <figcaption>
-		    <h3>{{ candidateSelected.username }}</h3>
-		    <h5>{{ candidateSelected.position }}</h5>
-				<br><br>
-		    <div class="icons">
-		      <a href="#"> <i class="glyphicon glyphicon-picture"></i></a>
-		      <a href="#"> <i class="glyphicon glyphicon-save-file"></i></a>
-		    </div>
-		  </figcaption>
-		</figure>
-				</div>
-
-
-
-
-			<div class="row col-sm-7">
-
-				<div class="col-sm-3">
-					<div>
-						<label v-text="translate('people.name')"></label>
+			<div class="col-xs-6 col-md-4">
+				<figure class="snip1559 tumbnails">
+					<div v-if="candidateSelected.photo"class="profile-image">
+						<img :src="candidateSelected.photo.name_photo" alt="" />
 					</div>
-					<div>
-						{{ candidateSelected.username }}
+
+					<div v-if="!candidateSelected.photo"class="profile-image">
+						<img src="../img/default.png" alt="" />
 					</div>
-				</div>
-
-				<div class="col-sm-3">
-					<div>
-						<label v-text="translate('people.position')"></label>
-					</div>
-					<div>
-						{{ candidateSelected.position }}
-					</div>
-				</div>
-
-			</div>
-		</div>
+					<figcaption>
+						<div class="icons">
 
 
+							<add-photo
+													v-if="showModalPhoto"
+													@close="showModalPhoto = false"
+													:getphoto="getPhoto"
+													:candidate="candidateSelected.id">
+							</add-photo>
 
-		<div class="row">
 
-
-
-
-
-
-
-			<div class="col-sm-3">
-				<div>
-					<label v-text="translate('people.email')"></label>
-				</div>
-				<div>
-					{{ candidateSelected.email }}
-				</div>
+							 <i class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>
+							 <i class="glyphicon glyphicon-save-file"></i>
+						</div>
+					</figcaption>
+				</figure>
 			</div>
 
-
-		</div>
-
-		<div class="row">
-
-			<div class="col-sm-3">
-				<div>
-					<label v-text="translate('people.gender')"></label>
+			<div class="col-xs-6 col-md-8">
+				<div class="tab-header">
+					<h4>{{ candidateSelected.username }}</h4>
 				</div>
-				<div>
-					{{ candidateSelected.gender }}
-				</div>
+
+				<table class="table table-condensed">
+					<tr>
+						<td>
+							<label class="label-a" v-text="translate('people.position')"></label>
+						</td>
+						<td>
+							{{ candidateSelected.position }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label class="label-a"  v-text="translate('people.email')"></label>
+						</td>
+						<td>
+							{{ candidateSelected.email }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label class="label-a"  v-text="translate('people.gender')"></label>
+						</td>
+						<td>
+							{{ candidateSelected.gender }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label class="label-a"  v-text="translate('people.location')"></label>
+						</td>
+						<td>
+							{{ candidateSelected.location }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label class="label-a" v-text="translate('people.birthdate')"></label>
+						</td>
+						<td>
+							{{ candidateSelected.day }} /
+							{{ candidateSelected.month }} /
+							{{ candidateSelected.year }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label class="label-a" v-text="translate('people.phone')"></label>
+						</td>
+						<td>
+							{{ candidateSelected.code }} / {{ candidateSelected.phone }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label class="label-a" v-text="translate('people.category')"></label>
+						</td>
+						<td>
+							{{ candidateSelected.category_candidate.name }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label class="label-a" v-text="translate('people.subcategory')"></label>
+						</td>
+						<td>
+							{{ candidateSelected.subcategory_candidate.name }}
+						</td>
+					</tr>
+				</table>
 			</div>
-
-			<div class="col-sm-3">
-				<div>
-					<label v-text="translate('people.location')"></label>
-				</div>
-				<div>
-					{{ candidateSelected.location }}
-				</div>
-			</div>
-
-			<div class="col-sm-3">
-				<div>
-					<label v-text="translate('people.birthdate')"></label>
-				</div>
-				<div>
-					{{ candidateSelected.day }} /
-					{{ candidateSelected.month }} /
-					{{ candidateSelected.year }}
-				</div>
-			</div>
-
-			<div class="col-sm-3">
-				<label v-text="translate('people.phone')"></label>
-				<div class="">
-					{{ candidateSelected.code }} / {{ candidateSelected.phone }}
-				</div>
-			</div>
-
-		</div>
-
-		<div class="row">
-
-			<div class="col-sm-3">
-				<label v-text="translate('people.category')"></label>
-				<div class="">
-					{{ candidateSelected.category_candidate.name }}
-				</div>
-			</div>
-
-
-
-			<div class="col-sm-3">
-				<label v-text="translate('people.subcategory')"></label>
-				<div class="">
-					{{ candidateSelected.subcategory_candidate.name }}
-				</div>
-			</div>
-
-
-
-
 		</div>
 	</div>
 </div>
@@ -185,6 +151,8 @@
 		</a-table>
 	</div>
 </div>
+
+
 
 
 </div>

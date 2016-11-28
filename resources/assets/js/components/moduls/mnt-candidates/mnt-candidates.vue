@@ -1,7 +1,10 @@
 <script>
 
 import ATable from '../../a-components/a-table/a-table.vue';
-import AddCandidate from './add-candidate/add-candidate.vue'
+import AddCandidate from './add-candidate/add-candidate.vue';
+import AddPhoto from '../../a-components/add-photo/add-photo.vue';
+import  service  from '../../js/utilities/service.js';
+
 
 
 
@@ -24,7 +27,8 @@ export default{
 
   components:{
     'a-table': ATable,
-    'add-candidate': AddCandidate
+    'add-candidate': AddCandidate,
+    'add-photo': AddPhoto
 
   },
 
@@ -39,7 +43,9 @@ export default{
       flagDetailSelected: false,
       locale: 'es',
       showModal: false,
-      showNewCandidate: false
+      showNewCandidate: false,
+      showPersonalInformation: false,
+      showModalPhoto: false
     }
 
   },
@@ -74,8 +80,9 @@ export default{
       });
     }
     ,
-    select: function(entry){
-      this.candidateSelected=entry;
+    select: function(data){
+
+      this.candidateSelected=data;
       this.flagTable=false;
       this.flagDetailSelected=true;
     },
@@ -95,10 +102,31 @@ export default{
       this.flagDetailSelected=false;
       this.showNewCandidate=false;
     },
-    getNewCandidate: function(entry){
-      this.candidates.push(entry);
+    getNewCandidate: function(data){
+      this.candidates.push(data);
       this.showNewCandidate=false;
-      this.select(entry);
+      this.select(data);
+    },
+    getPhoto: function(data, status){
+      this.showModalPhoto=false;
+      this.candidateSelected.photo=data;
+
+      service.showSuccess(this, 'Operacion Exitosa');
+    },
+    getCandidateId: function($id, update){
+
+      var resource= this.$resource('candidate{/id}');
+      resource.get({id : $id }).then(function(response){
+        if(update){
+          var index=service.getIndiceObject(this, this.candidates, 'id', response.body.id );
+          if(index>-1){
+
+          }
+        }else{
+        }
+      }, function(error){
+
+      });
     }
   },
   created: function(){
