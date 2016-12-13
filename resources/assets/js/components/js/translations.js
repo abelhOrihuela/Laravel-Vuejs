@@ -77,6 +77,58 @@ export const translations={
               en: 'SubCategory',
               es: 'SubCategoria'
 
+            },
+            institutation:{
+              en: 'Institucion',
+              es: 'Institucion'
+            },
+            career:{
+              en: 'Carrera',
+              es: 'Carrera'
+            },
+            level_academic:{
+              en: 'Nivel Academico',
+              es: 'Nivel Academico'
+            },
+            start_date:{
+              en: 'Year Entry',
+              es: 'Fecha Inicio'
+            },
+            end_date:{
+              en: 'Year Exit',
+              es: 'Fecha Fin'
+            },
+            comments:{
+              en: 'Comments',
+              es: 'Comentarios'
+            },
+            options:{
+              en: 'Options',
+              es: 'Opciones'
+            },
+            name_business:{
+              en: 'Company',
+              es: 'Compañia'
+            },
+            name_job:{
+              en: 'Position',
+              es: 'Posición'
+            },
+            turn_business:{
+              en: 'Turn Business',
+              es: 'Giro'
+            },
+            admission_date:{
+              en: 'Periodo',
+              es: 'Fecha Inicio'
+            },
+            departure_date:{
+              en: 'Periodo',
+              es: 'Fecha Fin'
+            },
+            now:{
+              en: 'Actual',
+              es: 'Actual'
             }
         },
     general:{

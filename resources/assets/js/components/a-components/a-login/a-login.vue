@@ -4,6 +4,7 @@ import constants from '../../js/constants_restful.js';
 import Toast from 'vue-toast-mobile';
 
 import { apiRoot } from '../../js/constants_restful.js';
+import  service  from '../../js/utilities/service.js';
 
 
 
@@ -95,34 +96,19 @@ export default{
 
           var router= this.$router;
           router.push({name: 'candidates'});
-          Toast({
-            message: 'Welcome',
-            position: 'success',
-            iconClass: 'glyphicon glyphicon-ok',
-            duration: 4000
-          });
+          service.showSuccess(this, 'Welcome');
 
 
         }else if(response.body.password_incorrect){
 
-          Toast({
-            message: 'nada',
-            position: 'warning',
-            duration: 4000,
-            iconClass: 'glyphicon glyphicon-remove',
-          });
+          service.showWarning(this, 'Password Incorrect ! ');
 
         }
 
 
       }, function (error){
 
-        Toast({
-          message: 'nada',
-          position: 'error',
-          duration: 4000,
-          iconClass: 'glyphicon glyphicon-remove',
-        });
+        service.showError(this, 'User not exist ! ');
 
       });
 

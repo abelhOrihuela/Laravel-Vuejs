@@ -10,7 +10,11 @@ export default{
     data: Array,
     columns: Array,
     total: Number,
-    select: Function
+    select: Function,
+    showSearch:{
+      type: Boolean,
+      default: true
+    }
 
   },
   translations: translations,

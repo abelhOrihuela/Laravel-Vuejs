@@ -85,17 +85,12 @@ export default{
     *
     */
     getAdmins: function(){
-
       var resource= this.$resource(admins);
       resource.get().then((response) => {
-
-
         this.admins=response.body;
       });
-
     },
     select: function(entry){
-
       this.candidates(entry.id);
       this.adminSelected=entry;
       this.flagTable=false;
@@ -105,43 +100,18 @@ export default{
       var resource= this.$resource(candidates_admin);
       resource.get({id : id }).then((candidates) => {
         this.adminCandidatesRegisters=candidates.body.candidates;
-
-
       });
     },
     showTable: function(){
       this.adminSelected={};
       this.flagTable=true;
       this.flagDetailSelected=false;
-    },
-    showTime() {
-      this.$refs.toast.showToast(new Date, {
-        theme: 'success',
-        timeLife: 5000,
-        closeBtn:true
-      })
     }
-
-
-
-
-
-
-
-
   },
-
   created: function(){
-
     this.getAdmins();
-
-
   },
   ready: function() {
-
-
-
-  }
-  ,
+  },
 }
 </script>

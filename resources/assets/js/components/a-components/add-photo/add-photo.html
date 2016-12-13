@@ -1,0 +1,53 @@
+<div class="container-component">
+  <transition name="modal">
+
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container" style="width: 50%">
+          <div class="modal-header">
+            <div class="row">
+              <div class="col-sm-10">
+                <slot name="header">
+                  default header{{ candidate }}
+                </slot>
+              </div>
+              <div class="col-sm-2">
+                <button class="btn btn-keytalent" @click="$emit('close')">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <slot name="body">
+              <div class="row">
+                <div class="col-sm-3" v-if="!image">
+                  Select an image
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div v-if="!image">
+                    <input name="profile" class="form-control" type="file"
+                    accept="image/x-png,image/gif,image/jpeg" @change="onFileChange">
+                  </div>
+                  <div v-if="image">
+                    <img style="width: 300px; height: 300px" :src="image" enctype="" />
+                  </div>
+                </div>
+              </div>
+            </slot>
+          </div>
+
+          <div class="modal-footer" v-if="image">
+            <slot name="footer">
+              <input type="submit" name="" @click="newPhoto" value="send" class="btn btn-success">
+              <button class="btn btn-danger" @click="removeImage">Remove image</button>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</transition>
+</div>

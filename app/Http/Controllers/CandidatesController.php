@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Candidate;
 use Session;
+use PDF;
 
 class CandidatesController extends Controller
 {
@@ -36,6 +37,7 @@ class CandidatesController extends Controller
 			$candidate->idioms;
 			$candidate->photo;
 			$candidate->economic;
+			$candidate->academics;
 		}
 
 		return $candidates;
@@ -64,7 +66,7 @@ class CandidatesController extends Controller
 
 	/**
 	* Create one Candidate
-	* @param Request 
+	* @param Request
 	* @return Object:Candidate
 	*/
 	function create(Request $request){
@@ -99,5 +101,17 @@ class CandidatesController extends Controller
 			abort(404);
 		}
 		return $request;
+	}
+
+	function getPdf($id){
+
+//		$pdf=PDF::loadView('app.candidate');
+
+		$pdf=PDF::loadView('app.candidate')
+		->save(public_path().'/my_stored_file.pdf')
+		->stream('download.pdf');
+
+		return $pdf;
+
 	}
 }

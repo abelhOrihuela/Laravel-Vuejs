@@ -1,8 +1,8 @@
 <div class="container-component">
 
-  <div class="row">
+  <div class="row" v-if="showSearch">
     <div class="col-sm-6">
-      <form  class="form" id="search">
+      <form  class="form" id="search" >
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" v-model="filterKey">
         </div>
@@ -26,6 +26,7 @@
     <div class="col-sm-12">
       <table class="table-a">
         <thead>
+      
           <tr>
             <th v-for="key in columns"
             @click="sortBy(key.key)"

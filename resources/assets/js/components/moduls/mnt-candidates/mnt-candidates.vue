@@ -4,32 +4,34 @@ import ATable from '../../a-components/a-table/a-table.vue';
 import AddCandidate from './add-candidate/add-candidate.vue';
 import AddPhoto from '../../a-components/add-photo/add-photo.vue';
 import  service  from '../../js/utilities/service.js';
+import  filter  from '../../js/utilities/filters.js';
 
-
-
-
-import Toast from 'vue-toast-mobile';
-import { candidates, candidates_experince } from '../../js/constants_restful.js';
+import { http, candidates, candidates_experince } from '../../js/constants_restful.js';
 import { translations } from '../../js/translations.js';
 import { tableCandidates , tableExperience} from '../../js/config-app/tables.js';
 
 
 export default{
-
+  /*TEMPLATE*/
   template: require('./mnt-candidates.html'),
+  /*RESOURCE HTTP*/
+  http:http,
+  /*TRANSLATIONS*/
   translations: translations,
-  mixins: [
-    require('vue-i18n-mixin')
-  ],
-  props:{
-
-  },
-
+  mixins: [require('vue-i18n-mixin')],
+  /*PROPERTIES*/
+  props:{},
+  /*COMPONENTS*/
   components:{
     'a-table': ATable,
     'add-candidate': AddCandidate,
     'add-photo': AddPhoto
-
+  },
+  filters:{
+    trueOrFalse: function(value){
+      console.log(value);
+      return filter.trueOrFalse(this,value);
+    }
   },
 
   data: function(){
@@ -45,19 +47,10 @@ export default{
       showModal: false,
       showNewCandidate: false,
       showPersonalInformation: false,
-      showModalPhoto: false
-    }
-
-  },
-
-
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN' : document.querySelector('#token').getAttribute('value')
+      showModalPhoto: false,
+      optionTab: 1
     }
   },
-
   methods:{
 
     /*function: fetchImageProfile
@@ -85,6 +78,7 @@ export default{
       this.candidateSelected=data;
       this.flagTable=false;
       this.flagDetailSelected=true;
+      this.optionTab= 1;
     },
     showTable: function(){
       this.candidateSelected={};
@@ -127,6 +121,30 @@ export default{
       }, function(error){
 
       });
+    },
+    selectTab: function(option){
+      this.optionTab=option;
+
+    },
+    downloadPdf: function(){
+
+      var $id=this.candidateSelected.id;
+
+      var resource= this.$resource('pdf{/id}');
+      resource.get({id : $id }).then(function(response){
+
+        console.log(response);
+
+        var link = document.createElement("a");
+        link.download = "PDF";
+        link.href = "../my_stored_file.pdf";
+        link.click();
+
+
+      }, function(error){
+
+      });
+
     }
   },
   created: function(){

@@ -4,6 +4,8 @@ Route::get('/', function () {
   return view('app.index');
 });
 
+
+
 /* NAMESPACE FOR ACCESS MODE API */
 Route::group(['prefix' => 'api'], function () {
 
@@ -59,6 +61,11 @@ Route::group(['prefix' => 'api'], function () {
     'uses' => 'PhotosController@create',
     'as'   => 'photo_create_path'
   ]);
+
+  Route::get('pdf/{id}',[
+    'uses' => 'CandidatesController@getPdf',
+    'as'   => 'photo_create_path']
+  );
 
 
 });
