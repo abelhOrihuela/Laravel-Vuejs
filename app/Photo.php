@@ -12,7 +12,7 @@ class Photo extends Model
 
 
     public function candidate(){
-      return $this->belongsTo(Candidate::class, 'candidate_id');
+      return $this->belongsTo(Candidate::class, 'id');
     }
 
 

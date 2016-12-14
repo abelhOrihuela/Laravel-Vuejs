@@ -137,9 +137,9 @@ tr{
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, .1);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity .3sl ease;
 }
 
 .modal-wrapper {
@@ -159,6 +159,12 @@ tr{
   background-color: #4261b9;
     color: white;
 }
+
+.danger{
+  background-color: red;
+    color: white;
+}
+
 .modal-header h3 {
   margin-top: 0;
   color: white;
@@ -340,4 +346,8 @@ tr{
 .btn-options{
   display: inline-block;
   padding: 4px 5px !important;
+}
+.btn-red{
+  background-color: red;
+  color: white;
 }

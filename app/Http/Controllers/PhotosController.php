@@ -30,7 +30,7 @@ class PhotosController extends Controller
     fclose($destination);
 
 
-    $photo = Photo::firstOrNew(array('id' => $request->candidate));
+    $photo = Photo::firstOrNew(array('candidate_id' => $request->candidate));
 
     //$photo=Photo::where("candidate_id", "=", $request->candidate)->first();
     $photo->name_photo=$fileName;
