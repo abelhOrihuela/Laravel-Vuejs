@@ -257,96 +257,10 @@
 
 <div class="panel panel-default" v-if="optionTab==2">
 	<div class="panel-body">
-
-		<div class="row">
-
-
-			<div class="col-sm-3">
-				<label class="label-a" v-text="translate('people.name_business')"></label>
-			</div>
-			<div class="col-sm-3">
-
-				<label class="label-a" v-text="translate('people.position')"></label>
-			</div>
-			<div class="col-sm-2">
-
-				<label class="label-a" v-text="translate('people.turn_business')"></label>
-			</div>
-			<div class="col-sm-1">
-
-				<label class="label-a" v-text="translate('people.admission_date')"></label>
-			</div>
-			<div class="col-sm-1">
-
-				<label class="label-a" v-text="translate('people.departure_date')"></label>
-			</div>
-
-
-
-			<div class="col-sm-1">
-				<label class="label-a" v-text="translate('people.now')"></label>
-			</div>
-
-			<div class="col-sm-1">
-				<label class="label-a" v-text="translate('people.options')"></label>
-			</div>
-
-
-
-		</div>
-		<div class="row" v-for="experience in candidateSelected.experiences">
-			<div class="col-sm-3">
-				{{ experience.name_business }}
-			</div>
-			<div class="col-sm-3">
-				{{ experience.name_job }}
-			</div>
-			<div class="col-sm-2">
-				{{ experience.turn_business }}
-			</div>
-			<div class="col-sm-1">
-				{{ experience.admission_date }}
-			</div>
-			<div class="col-sm-1">
-				{{ experience.departure_date }}
-			</div>
-
-			<div class="col-sm-1">
-
-				<div style="font-size: 20px;">
-					{{ experience.now | trueOrFalse }}
-				</div>
-
-				<!---
-				<input type="checkbox" name="name"
-				v-bind:true-value="1"
-				v-bind:false-value="0"
-				v-model="experience.now">
-			-->
-		</div>
-
-		<div class="col-sm-1" style="display: inline-block;">
-
-			<button  id="show-modal"
-			@click="editExperience()"
-			class="btn btn-success btn-options">
-			<i class="glyphicon glyphicon-pencil"></i>
-		</button>
-
-
-
-		<button  id="show-modal"
-		@click="deleteExperience(experience)"
-		class="btn btn-danger btn-options">
-		<i class="glyphicon glyphicon glyphicon-remove">
-		</i>
-	</button>
-
-</div>
-
-</div>
-
-</div>
+		<mnt-experience
+		:experiences="candidateSelected.experiences">
+	</mnt-experience>
+	</div>
 </div>
 
 <div class="panel panel-default" v-if="optionTab==3">
@@ -480,11 +394,7 @@ v-if="showModalPhoto"
 :candidate="candidateSelected.id">
 </add-photo>
 
-<delete-academic
-	v-if="showModalDeleteExperince"
-	:experience="experienceSelect"
-	@close="showModalDeleteExperince = false">
-</delete-academic>
+
 
 
 <add-candidate

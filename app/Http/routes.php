@@ -68,4 +68,10 @@ Route::group(['prefix' => 'api'], function () {
   );
 
 
+  Route::delete('experience/delete/{id}',[
+    'uses' => 'CandidateExperiencesController@destroy',
+    'as'   => 'experience_destroy_path']
+  );
+
+
 });

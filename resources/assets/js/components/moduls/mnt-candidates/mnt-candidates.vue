@@ -1,9 +1,14 @@
 <script>
-
+/*-----------------------------------------------------------*/
 import ATable from '../../a-components/a-table/a-table.vue';
 import AddCandidate from './add-candidate/add-candidate.vue';
 import AddPhoto from '../../a-components/add-photo/add-photo.vue';
-import DeleteAcademic from '../../a-components/delete-academic/delete-academic.vue';
+
+
+import MntExperience from '../../moduls/mnt-experience/mnt-experience.vue';
+//'../../mnt-experience/mnt-experience.vue';
+
+
 import  service  from '../../js/utilities/service.js';
 import  filter  from '../../js/utilities/filters.js';
 
@@ -27,7 +32,7 @@ export default{
     'a-table': ATable,
     'add-candidate': AddCandidate,
     'add-photo': AddPhoto,
-    'delete-academic': DeleteAcademic
+    'mnt-experience': MntExperience
   },
   filters:{
     trueOrFalse: function(value){
@@ -51,8 +56,6 @@ export default{
       showPersonalInformation: false,
       showModalPhoto: false,
       optionTab: 1,
-      showModalEditExperince: false,
-      showModalDeleteExperince: false,
       experienceSelect:{}
 
     }
@@ -150,16 +153,6 @@ export default{
       }, function(error){
 
       });
-
-    },
-    editExperience: function(entry){
-      this.showModalEditExperince= true;
-
-
-    },
-    deleteExperience: function(entry){
-      this.experienceSelect=entry;
-      this.showModalDeleteExperince=true;
 
     }
   },

@@ -41,8 +41,18 @@
 
           <div class="modal-footer" v-if="image">
             <slot name="footer">
-              <input type="submit" name="" @click="newPhoto" value="send" class="btn btn-success">
-              <button class="btn btn-danger" @click="removeImage">Remove image</button>
+              <button
+                class="btn btn-success"
+                @click="newPhoto">
+                Confirmar
+              </button>
+
+
+              <button
+                class="btn btn-danger"
+                @click="removeImage">
+                Cancelar
+              </button>
             </slot>
           </div>
         </div>
