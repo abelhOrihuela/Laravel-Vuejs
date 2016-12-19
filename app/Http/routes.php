@@ -74,4 +74,11 @@ Route::group(['prefix' => 'api'], function () {
   );
 
 
+  /* CREATE NEW CANDIDATE */
+  Route::post('experience/new',[
+    'uses' => 'CandidateExperiencesController@create',
+    'as'   => 'experience_create_path'
+  ]);
+
+
 });

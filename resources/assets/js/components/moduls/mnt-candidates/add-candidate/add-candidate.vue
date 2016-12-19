@@ -21,7 +21,8 @@ export default{
         phone:   '',
         position: '',
         category:'',
-        subcategory: ''
+        subcategory: '',
+        locale: 'es'
       },
       categories: [],
       subcategories:[]

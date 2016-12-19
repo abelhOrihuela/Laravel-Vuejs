@@ -351,3 +351,9 @@ tr{
   background-color: #d9534f;
   color: white;
 }
+.has-success{
+  border-color: 1px #69af6b !important;
+}
+.has-error{
+  border-color: 1px #d64c59 !important;
+}

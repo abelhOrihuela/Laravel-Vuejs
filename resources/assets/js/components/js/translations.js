@@ -2,7 +2,7 @@ export const translations={
     people: {
         	updated_at:{
         		en: 'Update',
-        		es: 'Feacha Actulizado'
+        		es: 'Fecha Actulizado'
         	},
             created_at:{
                 en: 'Created',
@@ -62,8 +62,8 @@ export const translations={
                 es: 'Regresar'
             },
             code:{
-                en: 'Back',
-                es: 'Regresar'
+                en: 'Zip Code',
+                es: 'Codigo Postal'
             },
             phone:{
                 en: 'Phone',
@@ -83,11 +83,11 @@ export const translations={
               es: 'Institucion'
             },
             career:{
-              en: 'Carrera',
+              en: 'Career',
               es: 'Carrera'
             },
             level_academic:{
-              en: 'Nivel Academico',
+              en: 'Level',
               es: 'Nivel Academico'
             },
             start_date:{
@@ -129,6 +129,10 @@ export const translations={
             now:{
               en: 'Actual',
               es: 'Actual'
+            },
+            add_experience:{
+              en: 'Add experience',
+              es: 'Agregar Experinencia'
             }
         },
     general:{
