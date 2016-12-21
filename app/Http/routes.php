@@ -80,5 +80,11 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'experience_create_path'
   ]);
 
+  /* CREATE NEW CANDIDATE */
+  Route::post('academic/new',[
+    'uses' => 'CandidateAcademicsController@create',
+    'as'   => 'academic_create_path'
+  ]);
+
 
 });

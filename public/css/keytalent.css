@@ -108,6 +108,9 @@ tr{
 .label-a{
   color: #4261b9;
 }
+.label-error{
+  color: red;
+}
 
 .container-a{
   width: 100%;

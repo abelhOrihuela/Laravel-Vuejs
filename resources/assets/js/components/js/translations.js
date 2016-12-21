@@ -78,7 +78,7 @@ export const translations={
               es: 'SubCategoria'
 
             },
-            institutation:{
+            name_academic:{
               en: 'Institucion',
               es: 'Institucion'
             },

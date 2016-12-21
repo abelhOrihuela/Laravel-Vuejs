@@ -1,12 +1,9 @@
 <div class="container-a">
-	<!--	<div> <vue-toast v-ref:toast></vue-toast> </div>-->
 
 	<div style="text-align: right">
 		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>
 		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
 	</div>
-
-
 
 <div v-show="flagTable">
 	<a-table :data="candidates" :columns="columns" :total="candidates.length"
@@ -15,7 +12,6 @@
 </div>
 
 <div class="row" v-if="flagDetailSelected">
-
 	<div class="col-sm-4  " @click="showTable()">
 		<div class="back-section">
 			<i class="glyphicon glyphicon-chevron-left" v-text="translate('general.back')">
@@ -45,10 +41,6 @@
 					<figcaption>
 						<div class="icons">
 
-
-
-
-
 						<i class="glyphicon glyphicon-picture"
 						@click="showModalPhoto = true"></i>
 						<i class="glyphicon glyphicon-save-file"
@@ -64,12 +56,7 @@
 					<li class="list-group-item" v-for="idiom in candidateSelected.idioms">
 						{{ idiom.name_idioma }}-{{ idiom.level_idioma }}
 					</li>
-
 				</ul>
-
-
-
-
 				<div class="tab-header">
 					Idioms
 				</div>
@@ -77,11 +64,7 @@
 					<li class="list-group-item" v-for="language in candidateSelected.languages" data-toggle="tooltip" data-placement="top" title="Hooray!">
 						{{ language.name_language }}-{{ language.level_language }}
 					</li>
-
 				</ul>
-
-
-
 			</figcaption>
 		</figure>
 	</div>
@@ -181,77 +164,9 @@
 
 <div class="panel panel-default" v-if="optionTab==1">
 	<div class="panel-body">
-
-
-		<div class="row">
-			<div class="col-sm-3">
-				<label class="label-a" v-text="translate('people.institutation')"></label>
-
-			</div>
-
-			<div class="col-sm-2">
-				<label class="label-a" v-text="translate('people.career')"></label>
-			</div>
-
-			<div class="col-sm-2">
-				<label class="label-a" v-text="translate('people.level_academic')"></label>
-			</div>
-
-			<div class="col-sm-1">
-				<label class="label-a" v-text="translate('people.start_date')"></label>
-			</div>
-
-			<div class="col-sm-1">
-				<label class="label-a" v-text="translate('people.end_date')"></label>
-			</div>
-
-			<div class="col-sm-2">
-				<label class="label-a" v-text="translate('people.comments')"></label>
-			</div>
-
-			<div class="col-sm-1">
-				<label class="label-a" v-text="translate('people.options')"></label>
-			</div>
-		</div>
-
-		<div class="row" v-for="academic in candidateSelected.academics">
-			<div class="col-sm-3">
-				{{ academic.name_academic }}
-			</div>
-
-			<div class="col-sm-2">
-				{{ academic.career }}
-			</div>
-
-			<div class="col-sm-2">
-				{{ academic.level_academic }}
-			</div>
-
-			<div class="col-sm-1">
-				{{ academic.year_entry }}
-			</div>
-
-			<div class="col-sm-1">
-				{{ academic.year_exit }}
-			</div>
-
-			<div class="col-sm-2">
-				{{ academic.comments }}
-			</div>
-
-			<div class="col-sm-1" style="display: inline-block;">
-
-				<button  id="show-modal" @click="addCandidate" class="btn btn-success btn-options">
-					<i class="glyphicon glyphicon-pencil"></i>
-				</button>
-				<button  id="show-modal" @click="cancelAddCandidate" class="btn btn-danger btn-options">
-					<i class="glyphicon glyphicon glyphicon-remove">
-					</i>
-				</button>
-
-			</div>
-		</div>
-		<hr>
+		<mnt-academic
+			:candidate="candidateSelected">
+		</mnt-academic>
 	</div>
 </div>
 

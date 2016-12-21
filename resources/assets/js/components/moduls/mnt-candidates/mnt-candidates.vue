@@ -6,6 +6,7 @@ import AddPhoto from '../../a-components/add-photo/add-photo.vue';
 
 
 import MntExperience from '../../moduls/mnt-experience/mnt-experience.vue';
+import MntAcademic from '../../moduls/mnt-academic/mnt-academic.vue';
 //'../../mnt-experience/mnt-experience.vue';
 
 
@@ -32,7 +33,8 @@ export default{
     'a-table': ATable,
     'add-candidate': AddCandidate,
     'add-photo': AddPhoto,
-    'mnt-experience': MntExperience
+    'mnt-experience': MntExperience,
+    'mnt-academic': MntAcademic
   },
   filters:{
     trueOrFalse: function(value){
