@@ -19150,7 +19150,7 @@ exports.default = {
         this.remove(entry.experience_id);
         _service2.default.showSuccess(this, 'Operacion Exitosa');
       }, function (error) {
-        _service2.default.showDanger(this, 'Ocurrio un error');
+        _service2.default.showError(this, 'Ocurrio un error');
       });
     }
   }
@@ -19236,6 +19236,8 @@ exports.default = {
       this.showModalAddExperience = true;
     },
     addExperience: function addExperience(entry) {
+
+      entry.experience_id = entry.id;
       this.showModalAddExperience = false;
       this.showExperiences = false;
       this.candidate.experiences.push(entry);
