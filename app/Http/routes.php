@@ -86,5 +86,11 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'academic_create_path'
   ]);
 
+  Route::delete('academic/delete/{id}',[
+    'uses' => 'CandidateAcademicsController@destroy',
+    'as'   => 'experience_destroy_path']
+  );
+
+
 
 });

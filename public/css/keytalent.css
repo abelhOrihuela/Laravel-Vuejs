@@ -107,6 +107,7 @@ tr{
 }
 .label-a{
   color: #4261b9;
+  font-family: 'Muli', sans-serif;  font-size: 14px;
 }
 .label-error{
   color: red;
