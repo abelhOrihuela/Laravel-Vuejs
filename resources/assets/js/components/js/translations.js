@@ -133,6 +133,10 @@ export const translations={
             add_experience:{
               en: 'Add experience',
               es: 'Agregar Experinencia'
+            },
+            edit_academic: {
+              en: 'Edit experience',
+              es: 'Editar'
             }
         },
     general:{

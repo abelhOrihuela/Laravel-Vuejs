@@ -48,6 +48,13 @@ class CandidateAcademicsController extends Controller
 
   }
 
+  public function update(Request $request){
+
+    $input = $request->all();
+    $academic=CandidateAcademic::where('academic_id',  $request->academic_id)
+    ->update($input);
+  }
+
   public function destroy($id){
 
     $academic = CandidateAcademic::where("academic_id", "=", $id);

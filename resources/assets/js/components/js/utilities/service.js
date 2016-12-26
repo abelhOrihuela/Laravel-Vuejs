@@ -45,5 +45,66 @@ export default {
       return true;
     }
     return false;
+  },
+
+  equals: function(context,x, y){
+
+
+    if (Object.keys(x).length != Object.keys(y).length){
+
+      return false;
+    }
+
+
+
+
+    for (var p in x)
+    {
+      if ( x.hasOwnProperty(p) && y.hasOwnProperty(p) ){
+
+
+
+        if( x[p] != y[p]){
+          console.log("hasOwnProperty");
+          return false;
+
+        }
+      }
+    }
+
+    return true;
+  },
+  clone:  function(obj) {
+    var copy;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null == obj || "object" != typeof obj) return obj;
+
+    // Handle Date
+    if (obj instanceof Date) {
+      copy = new Date();
+      copy.setTime(obj.getTime());
+      return copy;
+    }
+
+    // Handle Array
+    if (obj instanceof Array) {
+      copy = [];
+      for (var i = 0, len = obj.length; i < len; i++) {
+        copy[i] = this.clone( obj[i]);
+      }
+      return copy;
+    }
+
+    // Handle Object
+    if (obj instanceof Object) {
+      copy = {};
+      for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = this.clone(obj[attr]);
+      }
+      return copy;
+    }
+
+    throw new Error("Unable to copy obj! Its type isn't supported.");
   }
 }

@@ -81,10 +81,17 @@ Route::group(['prefix' => 'api'], function () {
   ]);
 
   /* CREATE NEW CANDIDATE */
+  Route::post('academic/edit',[
+    'uses' => 'CandidateAcademicsController@update',
+    'as'   => 'academic_create_path'
+  ]);
+
   Route::post('academic/new',[
     'uses' => 'CandidateAcademicsController@create',
     'as'   => 'academic_create_path'
   ]);
+
+
 
   Route::delete('academic/delete/{id}',[
     'uses' => 'CandidateAcademicsController@destroy',

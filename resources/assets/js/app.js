@@ -1,5 +1,6 @@
 /**
 *Created by AbelOrihuelaMendoza
+* abelorihuelamendoza@hotmail.com
 *29/10/2016
 */
 
@@ -13,6 +14,8 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 
 Vue.config.debug = false;
+
+const dev=true;
 
 /*----------------------------IMPORT MODULS-----------------------------*/
 
@@ -31,21 +34,25 @@ import Asignin from './components/a-components/a-signin/a-signin.vue';
 const routes =[{
 	path: '/',
 	component: ALogin,
-	name: 'login'
+	name: 'login',
 },
 {
 	path: '/dashboard',
 	component: ALogin,
-	name: 'login'
+	name: 'dashboard',
+	meta: { requiresAuth: true }
 },
 {
 	path: '/candidates',
 	component: MntCandidates,
-	name: 'candidates'
+	name: 'candidates',
+	meta: { requiresAuth: true }
 },
 {
 	path: '/admins',
-	component: MntAdmins
+	component: MntAdmins,
+	name: 'admins',
+	meta: { requiresAuth: true }
 },
 {
 	path: '*',
@@ -57,15 +64,35 @@ const router = new VueRouter({
 	routes
 })
 
+router.beforeEach((to, from, next)=>{
+
+	if(to.meta.requiresAuth){
+
+		const authUser=localStorage.getItem('id_token');
+
+		if(authUser){
+
+			next();
+
+		}else{
+
+			next({
+				name: 'login'
+			});
+
+		}
+	}else{
+		next();
+	}
+});
 
 /*------------------------------- DEFINE APP -------------------------------------*/
 
 const app = new Vue({
 
 	config:{
-
-		//silent : true,
-		//debug: true
+		silent : !dev,
+		debug: !dev
 	}
 	,
 	mixins: [

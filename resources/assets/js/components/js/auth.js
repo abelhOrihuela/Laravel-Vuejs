@@ -12,8 +12,6 @@ export default {
         perfil: null
     },
 
-    
-    
     check() {
         if (localStorage.getItem('id_token') !== null) {
             this.http.get(
@@ -25,18 +23,12 @@ export default {
             }
         },
         signin(context, profile, email, password) {
-         console.log("Signin auth");
-         console.log(profile);
-         console.log(email);
-         console.log(password);
-         console.log("------------");
 
          if(profile){
             this.signinAdmin(email, password);
         }else{
             this.signinCustomer(email, password);
         }
-
     },
 
     signinAdmin(email, password){
@@ -53,8 +45,6 @@ export default {
         Vue.http.headers={
         'X-CSRF-TOKEN' : document.querySelector('#token').getAttribute('value')
       }
-    
-
 
         Vue.http.post(
             'api/admin/login',
@@ -70,24 +60,14 @@ export default {
             context.error = true
         })
 
-
-
-
     },
     signinCustomer(email, password){
-       console.log("Signin customer");
-
-       console.log(email);
-       console.log(password);
 
    },
-
-
    signout() {
 
    },
    register(context, profile, name, email, password) {
 
    },
-
 }
