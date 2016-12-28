@@ -39,8 +39,6 @@
         </a>
         <ul class="nav navbar-nav navbar-right">
 
-          <router-link to="/candidates">candidates</router-link>
-          <router-link to="/admins">admins</router-link>
 
         </div>
       </div>

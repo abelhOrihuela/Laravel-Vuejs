@@ -180,50 +180,11 @@
 
 <div class="panel panel-default" v-if="optionTab==3">
 	<div class="panel-body">
-		<div style="text-align: right">
-			<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>
-			<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
-		</div>
-		<div class="row">
 
 
-			<div class="col-sm-3">
-				<label class="label-a">Commentarios</label>
-			</div>
-			<div class="col-sm-3">
-				<label class="label-a">Commentarios</label>
-			</div>
-			<div class="col-sm-3">
-				<label class="label-a">Commentarios</label>
-			</div>
-			<div class="col-sm-3">
-				<label class="label-a">Commentarios</label>
-			</div>
-			<div class="col-sm-3">
-				<label class="label-a">Commentarios</label>
-			</div>
-
-
-
-
-		</div>
-		<div class="row" v-for="experiencewtc in candidateSelected.experience_wtc">
-			<div class="col-sm-3">
-				{{ experiencewtc.name_company }}
-			</div>
-			<div class="col-sm-3">
-				{{ experiencewtc.name_job }}
-			</div>
-			<div class="col-sm-3">
-				{{ experiencewtc.date }}
-			</div>
-			<div class="col-sm-3">
-				{{ experiencewtc.consultant }}
-			</div>
-			<div class="col-sm-3">
-				{{ experiencewtc.comments }}
-			</div>
-		</div>
+		<mnt-experiencewtc
+		:candidate="candidateSelected">
+	</mnt-experiencewtc>
 
 	</div>
 </div>

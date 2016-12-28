@@ -51,8 +51,19 @@ class CandidateAcademicsController extends Controller
   public function update(Request $request){
 
     $input = $request->all();
-    $academic=CandidateAcademic::where('academic_id',  $request->academic_id)
-    ->update($input);
+    $academic=CandidateAcademic::where('academic_id',  $request->academic_id);
+
+    if($academic->update($input)){
+      
+      return response()->json([
+        'status' => 200
+      ]);
+
+    }else{
+      abort(404);
+    }
+
+
   }
 
   public function destroy($id){

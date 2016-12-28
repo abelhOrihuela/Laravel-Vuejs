@@ -16,7 +16,7 @@ class Candidate extends Model
     return $this->hasMany(CandidateExperience::class, 'candidate_id');
   }
 
-  public function experienceWtc(){
+  public function experiencesWtc(){
     return $this->hasMany(CandidateWtcExperience::class, 'candidate_id');
   }
 

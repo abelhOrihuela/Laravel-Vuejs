@@ -137,6 +137,26 @@ export const translations={
             edit_academic: {
               en: 'Edit experience',
               es: 'Editar'
+            },
+            selected:{
+              en: 'Selected',
+              es: 'Seleccionado'
+            },
+            date:{
+              en: 'Date',
+              es: 'Fecha'
+            },
+            consultant:{
+              en: 'Consultant',
+              es: 'Consultor'
+            },
+            edit_experience:{
+              en: 'Editar Experinencia',
+              es: 'Editar Experinencia'
+            },
+            confirm:{
+              en: 'Confirm',
+              es: 'Confirmar'
             }
         },
     general:{

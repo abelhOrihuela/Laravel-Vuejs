@@ -30,7 +30,7 @@ class CandidatesController extends Controller
 
 		foreach ($candidates as $candidate) {
 			$candidate->experiences;
-			$candidate->experienceWtc;
+			$candidate->experiencesWtc;
 			$candidate->categoryCandidate;
 			$candidate->subcategoryCandidate;
 			$candidate->languages;
@@ -52,7 +52,7 @@ class CandidatesController extends Controller
 	function show($id){
 		$candidate=Candidate::where("id", "=", $id)->first();
 		$candidate->experiences;
-		$candidate->experienceWtc;
+		$candidate->experiencesWtc;
 		$candidate->categoryCandidate;
 		$candidate->subcategoryCandidate;
 		$candidate->languages;

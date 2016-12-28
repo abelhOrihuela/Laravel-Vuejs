@@ -15,13 +15,13 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'user_store_path',
   ]);
 
-
+/* RETURN ALL ADMINS */
   Route::get('admins', [
     'uses' => 'UsersController@index',
     'as'   => 'admins_index_path',
   ]);
 
-  /* RETURN SESSION ADMIN */
+  /* RETURN CANDIDATES FOR  ADMIN */
   Route::get('admin/candidates/{id}', [
     'uses' => 'UsersController@candidates',
     'as'   => 'user_candidates_path',
@@ -56,47 +56,68 @@ Route::group(['prefix' => 'api'], function () {
     'uses' => 'CandidatesController@create',
     'as'   => 'candidate_create_path'
   ]);
-
+/* UPDATE OR CREATE PHOTO FOR CANDIDATE */
   Route::post('image/profile',[
     'uses' => 'PhotosController@create',
     'as'   => 'photo_create_path'
   ]);
-
+/* GET PDF FOR CANDIDATE */
   Route::get('pdf/{id}',[
     'uses' => 'CandidatesController@getPdf',
     'as'   => 'photo_create_path']
   );
 
+  /* CREATE NEW EXPERIENCE FOR CANDIDATE */
+  Route::post('experience/new',[
+    'uses' => 'CandidateExperiencesController@create',
+    'as'   => 'experience_create_path'
+  ]);
+  /* EDIT EXPERIENCE CANDIDATE */
+  Route::put('experience/edit',[
+    'uses' => 'CandidateExperiencesController@update',
+    'as'   => 'experience_update_path'
+  ]);
 
+/* DELETE EXPERIENCE FOR CANDIDATE */
   Route::delete('experience/delete/{id}',[
     'uses' => 'CandidateExperiencesController@destroy',
     'as'   => 'experience_destroy_path']
   );
 
-
-  /* CREATE NEW CANDIDATE */
-  Route::post('experience/new',[
-    'uses' => 'CandidateExperiencesController@create',
-    'as'   => 'experience_create_path'
-  ]);
-
-  /* CREATE NEW CANDIDATE */
-  Route::post('academic/edit',[
-    'uses' => 'CandidateAcademicsController@update',
-    'as'   => 'academic_create_path'
-  ]);
-
+  /* CREATE NEW ACADEMIC FOR CANDIDATE */
   Route::post('academic/new',[
     'uses' => 'CandidateAcademicsController@create',
     'as'   => 'academic_create_path'
   ]);
 
+    /* EDIT ACADEMIC FOR CANDIDATE */
+  Route::put('academic/edit',[
+    'uses' => 'CandidateAcademicsController@update',
+    'as'   => 'academic_create_path'
+  ]);
 
-
+  /* DELETE ACADEMIC FOR CANDIDATE */
   Route::delete('academic/delete/{id}',[
     'uses' => 'CandidateAcademicsController@destroy',
     'as'   => 'experience_destroy_path']
   );
+
+  /* CREATE NEW EXPERIENCE FOR CANDIDATE */
+  Route::post('experiencewtc/new',[
+    'uses' => 'CandidateWtcExperienceController@create',
+    'as'   => 'experiencewtc_create_path'
+  ]);
+
+  /* DELETE EXPERIENCE FOR CANDIDATE */
+    Route::delete('experiencewtc/delete/{id}',[
+      'uses' => 'CandidateWtcExperienceController@destroy',
+      'as'   => 'experience_destroy_path']
+    );
+
+    Route::put('experiencewtc/edit',[
+      'uses' => 'CandidateWtcExperienceController@update',
+      'as'   => 'experiencewtc_update_path'
+    ]);
 
 
 

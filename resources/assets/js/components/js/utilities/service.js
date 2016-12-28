@@ -16,6 +16,10 @@ export default {
   },
   showSuccess(context,  message){
 
+    if(message==null || message==undefined){
+      message='Operacion Exitosa';
+    }
+
     Toast({
       message: message,
       position: 'success',
