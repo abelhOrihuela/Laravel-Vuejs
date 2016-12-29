@@ -14,7 +14,7 @@ import MntExperienceWtc from '../../moduls/mnt-experiencewtc/mnt-experiencewtc.v
 import  service  from '../../js/utilities/service.js';
 import  filter  from '../../js/utilities/filters.js';
 
-import { http, candidates, candidates_experince } from '../../js/constants_restful.js';
+import { HTTP, candidates, candidates_experince } from '../../js/constants_restful.js';
 import { translations } from '../../js/translations.js';
 import { tableCandidates , tableExperience} from '../../js/config-app/tables.js';
 
@@ -23,7 +23,7 @@ export default{
   /*TEMPLATE*/
   template: require('./mnt-candidates.html'),
   /*RESOURCE HTTP*/
-  http:http,
+  http:HTTP,
   /*TRANSLATIONS*/
   translations: translations,
   mixins: [require('vue-i18n-mixin')],

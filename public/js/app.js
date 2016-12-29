@@ -4263,9 +4263,7 @@ exports&&"object"==typeof module?module.exports=t(require("vue")):"function"==ty
   break;
   default:e.push("is-placemiddle")}return e.push(this.className),e.join(" ")}}}},function(e,t){},function(e,t){e.exports=__WEBPACK_EXTERNAL_MODULE_5__},function(e,t,n){e.exports=n(0)}])});
 
-},{"vue":43}],42:[function(require,module,exports){
-!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.vueToasts=e():t.vueToasts=e()}(this,function(){return function(t){function e(s){if(o[s])return o[s].exports;var i=o[s]={exports:{},id:s,loaded:!1};return t[s].call(i.exports,i,i.exports,e),i.loaded=!0,i.exports}var o={};return e.m=t,e.c=o,e.p="/dist/",e(0)}([function(t,e,o){"use strict";function s(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0}),o(1);var i=o(2),n=s(i);e["default"]=n["default"],t.exports=e["default"]},function(t,e){"use strict";Object.assign||Object.defineProperty(Object,"assign",{enumerable:!1,configurable:!0,writable:!0,value:function(t,e){if(void 0===t||null===t)throw new TypeError("Cannot convert first argument to object");for(var o=Object(t),s=1;s<arguments.length;s++){var i=arguments[s];if(void 0!==i&&null!==i)for(var n=Object.keys(Object(i)),r=0,u=n.length;u>r;r++){var a=n[r],c=Object.getOwnPropertyDescriptor(i,a);void 0!==c&&c.enumerable&&(o[a]=i[a])}}return o}})},function(t,e,o){"use strict";function s(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0}),o(3);var i=o(7),n=s(i),r=o(8),u=s(r),a=(o(12),{maxToasts:6,position:"left bottom"});e["default"]={template:n["default"],data:function(){return{toasts:[],options:a}},computed:{classesOfPosition:function(){return this._updateClassesOfPosition(this.options.position)},directionOfJumping:function(){return this._updateDirectionOfJumping(this.options.position)}},methods:{showToast:function(t,e){return this._addToast(t,e),this._moveToast(),this},setOptions:function(t){return this.options=Object.assign(this.options,t||{}),this},_addToast:function(t){var e=arguments.length<=1||void 0===arguments[1]?{}:arguments[1];t&&(e.directionOfJumping=this.directionOfJumping,this.toasts.unshift({message:t,options:e,isDestroyed:!1}))},_moveToast:function(t){var e=this.options.maxToasts>0?this.options.maxToasts:9999;this.toasts=this.toasts.reduceRight(function(t,o,s){return o.isDestroyed?t:s+1>=e?t:[o].concat(t)},[])},_updateClassesOfPosition:function(t){return t.split(" ").reduce(function(t,e){return t["--"+e.toLowerCase()]=!0,t},{})},_updateDirectionOfJumping:function(t){return t.match(/top/i)?"+":"-"}},components:{"vue-toast":u["default"]}},t.exports=e["default"]},function(t,e){},,,,function(t,e){t.exports='<div class=vue-toast-manager_container :class=classesOfPosition><vue-toast v-for="toast in toasts" :message=toast.message :options=toast.options :destroyed.sync=toast.isDestroyed :position=$index></vue-toast></div>'},function(t,e,o){"use strict";function s(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0}),o(9);var i=o(11),n=s(i),r={theme:"default",timeLife:5e3,closeBtn:!1};e["default"]={template:n["default"],props:{message:{required:!0},position:{type:Number,required:!0},destroyed:{twoWay:!0,type:Boolean,required:!0},options:{type:Object,coerce:function(t){return Object.assign({},r,t)}}},data:function(){return{isShow:!1}},computed:{theme:function(){return"_"+this.options.theme},style:function(){return"transform: translateY("+this.options.directionOfJumping+100*this.position+"%)"}},ready:function(){var t=this;setTimeout(function(){t.isShow=!0},50),this.options.closeBtn||this._startLazyAutoDestroy()},detached:function(){clearTimeout(this.timerDestroy)},methods:{remove:function(){return this._clearTimer(),this.destroyed=!0,this.$remove().$destroy(),this},_startLazyAutoDestroy:function(){var t=this;this._clearTimer(),this.timerDestroy=setTimeout(function(){t.$remove().$destroy()},this.options.timeLife)},_clearTimer:function(){this.timerDestroy&&clearTimeout(this.timerDestroy)},_startTimer:function(){this.options.closeBtn||this._startLazyAutoDestroy()},_stopTimer:function(){this.options.closeBtn||this._clearTimer()}}},t.exports=e["default"]},function(t,e){},,function(t,e){t.exports="<div class=vue-toast_container @mouseover=_stopTimer @mouseleave=_startTimer :style=style :class=[theme] v-show=isShow transition><div class=vue-toast_message><span v-html=message></span> <span class=vue-toast_close-btn v-if=options.closeBtn @click=remove></span></div></div>"},function(t,e){"use strict";function o(t){return"number"==typeof t&&isFinite(t)}Object.defineProperty(e,"__esModule",{value:!0}),e.isNumber=o}])});
-},{}],43:[function(require,module,exports){
+},{"vue":42}],42:[function(require,module,exports){
 (function (process){
 /*!
  * Vue.js v2.0.3
@@ -9882,7 +9880,7 @@ setTimeout(function () {
 module.exports = Vue$2;
 
 }).call(this,require('_process'))
-},{"_process":36}],44:[function(require,module,exports){
+},{"_process":36}],43:[function(require,module,exports){
 /*!
  * Vue.js v2.0.3
  * (c) 2014-2016 Evan You
@@ -17399,7 +17397,7 @@ return Vue$3;
 
 })));
 
-},{}],45:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 'use strict';
 
 var _mntAdmins = require('./components/moduls/mnt-admins/mnt-admins.vue');
@@ -17518,22 +17516,20 @@ var app = new Vue({
 	translations: {}
 }).$mount('#app');
 
-},{"./components/a-components/a-login/a-login.vue":47,"./components/a-components/a-signin/a-signin.vue":48,"./components/moduls/mnt-admins/mnt-admins.vue":70,"./components/moduls/mnt-candidates/mnt-candidates.vue":74,"vue-i18n-mixin":38,"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":44}],46:[function(require,module,exports){
+},{"./components/a-components/a-login/a-login.vue":46,"./components/a-components/a-signin/a-signin.vue":47,"./components/moduls/mnt-admins/mnt-admins.vue":69,"./components/moduls/mnt-candidates/mnt-candidates.vue":73,"vue-i18n-mixin":38,"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":43}],45:[function(require,module,exports){
 module.exports = '<div class="jumbotron">\n\n\n\n\n	<div class="row">\n		<div>\n\n			<!-- Nav tabs -->\n			<ul class="nav nav-tabs" role="tablist">\n				<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Admin</a></li>\n				<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Candidate</a></li>\n\n\n			</ul>\n\n			<!-- Tab panes -->\n			<div class="tab-content">\n				<div role="tabpanel" class="tab-pane active" id="home">\n					<br>\n					<div class="col-sm-6">\n						<form class="form-horizontal" @submit.prevent="loginAdmin">\n							<div class="form-group">\n								<label for="inputEmail3" class="col-sm-2 control-label">Email</label>\n								<div class="col-sm-10">\n									<input type="email" v-model="admin.email"class="form-control" id="inputEmail3" placeholder="Email">\n								</div>\n\n							</div>\n							<div class="form-group">\n								<label for="inputPassword3" class="col-sm-2 control-label">Password</label>\n								<div class="col-sm-10">\n									<input type="password"  v-model="admin.password" class="form-control" id="inputPassword3" placeholder="Password">\n								</div>\n							</div>\n							<div class="form-group">\n								<div class="col-sm-offset-2 col-sm-10">\n									<div class="checkbox">\n										<label>\n											<input type="checkbox"> Remember me\n										</label>\n									</div>\n								</div>\n							</div>\n							<div class="form-group">\n								<div class="col-sm-offset-2 col-sm-10">\n									<button type="submit"  class="btn btn-default">Sign in</button>\n								</div>\n							</div>\n						</form>\n					</div>\n\n				</div>\n				<div role="tabpanel" class="tab-pane" id="profile">\n					<br>\n\n					<div class="col-sm-6">\n						<form class="form-horizontal" @submit.prevent="fetchImageProfile">\n							<div class="form-group">\n								<label for="inputEmail3" class="col-sm-2 control-label">Email</label>\n								<div class="col-sm-10">\n									<input type="email" class="form-control" id="inputEmail3" placeholder="Email">\n								</div>\n							</div>\n							<div class="form-group">\n								<label for="inputPassword3" class="col-sm-2 control-label">Password</label>\n								<div class="col-sm-10">\n									<input type="password"  class="form-control" id="inputPassword3" placeholder="Password">\n								</div>\n							</div>\n							<div class="form-group">\n								<div class="col-sm-offset-2 col-sm-10">\n									<div class="checkbox">\n										<label>\n											<input type="checkbox"> Remember me\n										</label>\n									</div>\n								</div>\n							</div>\n							<div class="form-group">\n								<div class="col-sm-offset-2 col-sm-10">\n									<button type="submit"  class="btn btn-default">Sign in</button>\n								</div>\n							</div>\n						</form>\n					</div>\n\n\n				</div>\n\n			</div>\n\n		</div>\n	</div>\n\n\n</div>\n';
-},{}],47:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _constants_restful = require('../../js/constants_restful.js');
-
-var _constants_restful2 = _interopRequireDefault(_constants_restful);
-
 var _vueToastMobile = require('vue-toast-mobile');
 
 var _vueToastMobile2 = _interopRequireDefault(_vueToastMobile);
+
+var _constants_restful = require('../../js/constants_restful.js');
 
 var _service = require('../../js/utilities/service.js');
 
@@ -17571,12 +17567,7 @@ exports.default = {
     };
   },
 
-  http: {
-    root: _constants_restful.apiRoot,
-    headers: {
-      'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
-    }
-  },
+  http: _constants_restful.HTTP,
   ready: function ready() {},
   methods: {
 
@@ -17655,7 +17646,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-aee1e4aa", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/constants_restful.js":55,"../../js/utilities/service.js":59,"./a-login.html":46,"vue":43,"vue-hot-reload-api":37,"vue-toast-mobile":41}],48:[function(require,module,exports){
+},{"../../js/constants_restful.js":54,"../../js/utilities/service.js":58,"./a-login.html":45,"vue":42,"vue-hot-reload-api":37,"vue-toast-mobile":41}],47:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17700,9 +17691,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-34b736a2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/auth.js":53,"../../js/constants_restful.js":55,"vue":43,"vue-hot-reload-api":37}],49:[function(require,module,exports){
+},{"../../js/auth.js":52,"../../js/constants_restful.js":54,"vue":42,"vue-hot-reload-api":37}],48:[function(require,module,exports){
 module.exports = '<div class="container-component">\n\n  <div class="row" v-if="showSearch">\n    <div class="col-sm-6">\n      <form  class="form" id="search" >\n        <div class="form-group">\n          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">\n        </div>\n      </form>\n    </div>\n    <div class="col-sm-2">\n\n      <div>\n        <select v-model="pagination" class="form-control">\n          <option value="5">5</option>\n          <option value="10">10</option>\n          <option value="20">20</option>\n          <option value="40">40</option>\n        </select>\n      </div>\n    </div>\n\n  </div>\n\n  <div class="row">\n    <div class="col-sm-12">\n      <table class="table-a">\n        <thead>\n      \n          <tr>\n            <th v-for="key in columns"\n            @click="sortBy(key.key)"\n            :class="{ active: sortKey == key }">\n            {{ translate(\'table.\'+key.label) }}\n            <span class="arrow" :class="sortOrders[key.key] > 0 ? \'asc\' : \'dsc\'">\n            </span>\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">\n          <td v-for="key in columns">\n            {{entry[key.key]}}\n          </td>\n        </tr>\n        <tr v-if="!filteredData.length>0">\n          <td style="text-align: center">\n            No existen registros\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n\n</div>\n';
-},{}],50:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17813,9 +17804,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-498c7c75", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/translate/table.js":56,"./a-table.html":49,"babel-runtime/core-js/object/keys":1,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],51:[function(require,module,exports){
+},{"../../js/translate/table.js":55,"./a-table.html":48,"babel-runtime/core-js/object/keys":1,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],50:[function(require,module,exports){
 module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 50%">\n          <div class="modal-header">\n            <div class="row">\n              <div class="col-sm-10">\n                <slot name="header">\n                  default header{{ candidate }}\n                </slot>\n              </div>\n              <div class="col-sm-2">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n              <div class="row">\n                <div class="col-sm-3" v-if="!image">\n                  Select an image\n                </div>\n              </div>\n              <div class="row">\n                <div class="col-sm-6">\n                  <div v-if="!image">\n                    <input name="profile" class="form-control" type="file"\n                    accept="image/x-png,image/gif,image/jpeg" @change="onFileChange">\n                  </div>\n                  <div v-if="image">\n                    <img style="width: 300px; height: 300px" :src="image" enctype="" />\n                  </div>\n                </div>\n              </div>\n            </slot>\n          </div>\n\n          <div class="modal-footer" v-if="image">\n            <slot name="footer">\n              <button\n                class="btn btn-success"\n                @click="newPhoto">\n                Confirmar\n              </button>\n\n\n              <button\n                class="btn btn-danger"\n                @click="removeImage">\n                Cancelar\n              </button>\n            </slot>\n          </div>\n        </div>\n      </div>\n    </div>\n\n</transition>\n</div>\n';
-},{}],52:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17884,7 +17875,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-3f0e33fd", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./add-photo.html":51,"vue":43,"vue-hot-reload-api":37}],53:[function(require,module,exports){
+},{"./add-photo.html":50,"vue":42,"vue-hot-reload-api":37}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17953,7 +17944,7 @@ exports.default = {
     register: function register(context, profile, name, email, password) {}
 };
 
-},{"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":44}],54:[function(require,module,exports){
+},{"vue-resource/dist/vue-resource.js":39,"vue-router/dist/vue-router.js":40,"vue/dist/vue.js":43}],53:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17965,27 +17956,47 @@ var tableCandidates = exports.tableCandidates = [{ label: "username", key: 'user
 
 var tableExperience = exports.tableExperience = [{ label: "name_business", key: 'name_business' }, { label: "name_job", key: 'name_job' }, { label: "turn_business", key: 'turn_business' }, { label: "created_at", key: 'created_at' }];
 
-},{}],55:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var http = exports.http = {
-  root: '/api',
+
+/*---------------------------------ROOT API----------------------------------*/
+var apiRoot = exports.apiRoot = "/api";
+
+/*-------------------------------RESOURCE HHTP-------------------------------*/
+var HTTP = exports.HTTP = {
+  root: apiRoot,
   headers: {
     'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
   }
 };
-
-var apiRoot = exports.apiRoot = "/api";
+/*------------------------------LOGIN ADMINS---------------------------------*/
 var loginAdmin = exports.loginAdmin = "admin/login";
 var admins = exports.admins = "admins";
+var ADMINS = exports.ADMINS = "admins";
 var candidates = exports.candidates = "candidates";
 var candidates_admin = exports.candidates_admin = "admin/candidates{/id}";
 var candidates_experince = exports.candidates_experince = "candidate{/id}";
 
-},{}],56:[function(require,module,exports){
+/*----------------------------CANDIDATE ACADEMIC-----------------------------*/
+var ACADEMIC_NEW = exports.ACADEMIC_NEW = "academic/new";
+var ACADEMIC_DELETE = exports.ACADEMIC_DELETE = "academic/delete{/id}";
+var ACADEMIC_EDIT = exports.ACADEMIC_EDIT = "academic/edit";
+
+/*---------------------------CANDIDATE EXPERIENCE---------------------------*/
+var EXPERIENCE_NEW = exports.EXPERIENCE_NEW = "experience/new";
+var EXPERIENCE_DELETE = exports.EXPERIENCE_DELETE = "experience/delete{/id}";
+var EXPERIENCE_EDIT = exports.EXPERIENCE_EDIT = "experience/edit";
+
+/*---------------------------CANDIDATE EXPERIENCE---------------------------*/
+var EXPERIENCEWTC_NEW = exports.EXPERIENCEWTC_NEW = "experiencewtc/new";
+var EXPERIENCEWTC_DELETE = exports.EXPERIENCEWTC_DELETE = "experiencewtc/delete{/id}";
+var EXPERIENCEWTC_EDIT = exports.EXPERIENCEWTC_EDIT = "experiencewtc/edit";
+
+},{}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18068,7 +18079,7 @@ var translations = exports.translations = {
   }), _table)
 };
 
-},{}],57:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18262,7 +18273,7 @@ var translations = exports.translations = {
   }
 };
 
-},{}],58:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18286,7 +18297,7 @@ exports.default = {
   }
 };
 
-},{"../../js/utilities/service.js":59}],59:[function(require,module,exports){
+},{"../../js/utilities/service.js":58}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18404,7 +18415,7 @@ exports.default = {
   }
 };
 
-},{"vue-toast-mobile":41}],60:[function(require,module,exports){
+},{"vue-toast-mobile":41}],59:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18434,9 +18445,9 @@ exports.default = {
   }
 };
 
+},{}],60:[function(require,module,exports){
+module.exports = '<div class="container-component">\n  <transition name="modal">\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 60%">\n          <div class="modal-header">\n\n            <div class="row">\n              <div class="col-sm-11">\n                <slot name="header">\n                  <h4 v-text="translate(\'people.add_experience\')"></h4>\n                </slot>\n              </div>\n              <div class="col-sm-1">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n\n          <div class="modal-body">\n            <slot name="body">\n\n              <div class="row">\n                <div class="col-sm-6">\n                  <label v-bind:class="{ \'label-a\': validation.name_academic, \'label-error\':  !validation.name_academic}" v-text="translate(\'people.name_academic\')"></label>\n                  <div>\n                    <input type="text" name="name"  class="form-control" v-model="academic.name_academic" value="">\n                  </div>\n                </div>\n\n                <div class="col-sm-5">\n                  <label v-bind:class="{ \'label-a\': validation.career, \'label-error\':  !validation.career}" v-text="translate(\'people.career\')"></label>\n                  <div>\n                    <input type="text" name="name" class="form-control" v-model="academic.career" value="">\n                  </div>\n                </div>\n\n                <div class="col-sm-1 has-success">\n                  <label class="label-a" v-text="translate(\'people.now\')"></label>\n                  <input type="checkbox" name="name" v-bind:true-value="1" v-bind:false-value="0" @change="academicNow()" v-model="academic.now">\n                </div>\n              </div>\n\n              <div class="row">\n\n                <div class="col-sm-6">\n                  <label v-bind:class="{ \'label-a\': validation.level_academic, \'label-error\':  !validation.level_academic}" v-text="translate(\'people.level_academic\')"></label>\n                  <div>\n                    <input type="text" name="name" class="form-control" v-model="academic.level_academic" value="">\n                  </div>\n                </div>\n\n                <div class="col-sm-3">\n                  <label v-bind:class="{ \'label-a\': validation.year_entry, \'label-error\':  !validation.year_entry}" v-text="translate(\'people.admission_date\')"></label>\n                  <input type="number" name="" class="form-control" v-model="academic.year_entry">\n                </div>\n\n                <div class="col-sm-3" v-if="flagShowYearExit">\n                  <label v-bind:class="{ \'label-a\': validation.year_exit, \'label-error\':  !validation.year_exit}" v-text="translate(\'people.admission_date\')"></label>\n                  <input type="number" name="" class="form-control" v-model="academic.year_exit">\n                </div>\n\n              </div>\n              <div class="row">\n                <div class="col-sm-6">\n                  <label class="label-a" v-text="translate(\'people.comments\')"></label>\n                  <input type="text" name="" class="form-control"  v-model="academic.comments">\n                </div>\n              </div>\n            </div>\n\n            <div class="modal-footer">\n              <slot name="footer">\n                <button v-if="formIsValid()" class="btn btn-success" @click="addAcademic()">\n                  <label v-text="translate(\'people.confirm\')"></label>\n                </button>\n              </slot>\n            </div>\n\n          </slot>\n        </div>\n      </div>\n    </div>\n  </transition>\n</div>\n';
 },{}],61:[function(require,module,exports){
-module.exports = '<div class="container-component">\n  <transition name="modal">\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 60%">\n          <div class="modal-header">\n\n            <div class="row">\n              <div class="col-sm-10">\n                <slot name="header">\n                  <h4 v-text="translate(\'people.add_experience\')"></h4>\n                </slot>\n              </div>\n              <div class="col-sm-2">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n\n          <div class="modal-body">\n            <slot name="body">\n\n              <div class="row">\n                <div class="col-sm-6">\n                  <label v-bind:class="{ \'label-a\': validation.name_academic,\n                  \'label-error\':  !validation.name_academic}"\n                  v-text="translate(\'people.name_academic\')"></label>\n                  <div>\n                    <input type="text"\n                      name="name"\n                      class="form-control"\n                      v-model="academic.name_academic"\n                      value="">\n                  </div>\n                </div>\n\n                <div class="col-sm-5">\n                  <label v-bind:class="{ \'label-a\': validation.career,\n                  \'label-error\':  !validation.career}" v-text="translate(\'people.career\')"></label>\n                  <div>\n                    <input type="text"\n                      name="name"\n                      class="form-control"\n                      v-model="academic.career"\n                      value="">\n                  </div>\n                </div>\n\n\n                <div class="col-sm-1 has-success">\n                  <label class="label-a" v-text="translate(\'people.now\')"></label>\n\n                  <input type="checkbox" name="name"\n                  v-bind:true-value="1"\n                  v-bind:false-value="0"\n                  @change="academicNow()"\n                  v-model="academic.now">\n                </div>\n\n\n\n              </div>\n\n              <div class="row">\n\n                <div class="col-sm-6">\n                  <label\n                  v-bind:class="{ \'label-a\': validation.level_academic,\n                  \'label-error\':  !validation.level_academic}"\n                  v-text="translate(\'people.level_academic\')"></label>\n                  <div>\n                    <input type="text"\n                      name="name"\n                      class="form-control"\n                      v-model="academic.level_academic"\n                      value="">\n                  </div>\n                </div>\n\n                <div class="col-sm-3">\n                    <label v-bind:class="{ \'label-a\': validation.year_entry,\n                    \'label-error\':  !validation.year_entry}"\n                     v-text="translate(\'people.admission_date\')"></label>\n                    <input type="number"\n                    name="" class="form-control"\n                    v-model="academic.year_entry">\n                </div>\n\n                <div class="col-sm-3" v-if="flagShowYearExit">\n                    <label v-bind:class="{ \'label-a\': validation.year_exit,\n                    \'label-error\':  !validation.year_exit}"\n                     v-text="translate(\'people.admission_date\')"></label>\n                    <input type="number"\n                    name="" class="form-control"\n                    v-model="academic.year_exit">\n                </div>\n\n\n                </div>\n                <div class="row">\n                  <div class="col-sm-6">\n                      <label class="label-a"\n                        v-text="translate(\'people.comments\')"></label>\n                      <input type="text"\n                      name="" class="form-control"\n                      v-model="academic.comments">\n                  </div>\n                </div>\n\n              </div>\n\n              <div class="modal-footer">\n                <slot name="footer">\n                  <button v-if="formIsValid()"\n                    class="btn btn-success"\n                    @click="addAcademic()">\n                    Confirmar\n                  </button>\n                </slot>\n              </div>\n\n\n            </slot>\n          </div>\n        </div>\n      </div>\n    </transition>\n  </div>\n';
-},{}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18456,6 +18467,8 @@ var _service = require('../../../js/utilities/service.js');
 var _service2 = _interopRequireDefault(_service);
 
 var _translations = require('../../../js/translations.js');
+
+var _constants_restful = require('../../../js/constants_restful.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18483,12 +18496,7 @@ exports.default = {
       flagShowYearExit: true
     };
   },
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
-    }
-  },
+  http: _constants_restful.HTTP,
   computed: {
     validation: function validation() {
 
@@ -18530,18 +18538,17 @@ exports.default = {
       var academic = this.academic;
       academic.candidate_id = this.candidate;
 
-      this.$http.post('academic/new', academic).then(function (response) {
+      var resource = this.$http.post(_constants_restful.ACADEMIC_NEW, academic);
+      resource.then(function (response) {
         _service2.default.showSuccess(this, 'Operacion Exitosa');
         this.add(response.body);
       }, function (error) {
 
         this.add(null);
-
         _service2.default.showError(this, 'Operacion Fallida');
       });
     }
   }
-
 };
 if (module.exports.__esModule) module.exports = module.exports.default
 if (module.hot) {(function () {  module.hot.accept()
@@ -18554,9 +18561,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-7c93d04e", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../../js/translations.js":57,"../../../js/utilities/service.js":59,"../../../js/utilities/validate.js":60,"./add-academic.html":61,"babel-runtime/core-js/object/keys":1,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],63:[function(require,module,exports){
-module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 40%">\n          <div class="modal-header danger">\n            <div class="row">\n              <div class="col-sm-10">\n                <slot name="header">\n                  <h4>Borrar Academic</h4>\n                </slot>\n              </div>\n              <div class="col-sm-2">\n                <button class="btn btn-red" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n              <div class="row">\n                <div class="col-sm-8">\n                  <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n\n                </div>\n\n                <div class="col-sm-4">\n                  <label class="label-a" v-text="translate(\'people.name_job\')"></label>\n\n                </div>\n\n              </div>\n              <div class="row">\n                <div class="col-sm-8">\n\n                  {{ academic.name_academic }}\n\n                </div>\n                <div class="col-sm-4">\n\n                  {{ academic.career }}\n                </div>\n              </div>\n            </slot>\n          </div>\n\n          <div class="modal-footer">\n            <slot name="footer">\n\n              <button\n                class="btn btn-success"\n                @click="deleteAcademic(academic)">\n                Confirmar\n              </button>\n\n              <button\n                class="btn btn-danger"\n                @click="$emit(\'close\')">\n                Cancelar\n              </button>\n            </slot>\n          </div>\n        </div>\n      </div>\n    </div>\n  </transition>\n</div>\n';
-},{}],64:[function(require,module,exports){
+},{"../../../js/constants_restful.js":54,"../../../js/translations.js":56,"../../../js/utilities/service.js":58,"../../../js/utilities/validate.js":59,"./add-academic.html":60,"babel-runtime/core-js/object/keys":1,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],62:[function(require,module,exports){
+module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 40%">\n          <div class="modal-header danger">\n            <div class="row">\n              <div class="col-sm-10">\n                <slot name="header">\n                  <h4>Borrar Academic</h4>\n                </slot>\n              </div>\n              <div class="col-sm-2">\n                <button class="btn btn-red" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n              <div class="row">\n\n                <div class="col-sm-8">\n                  <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n                </div>\n\n                <div class="col-sm-4">\n                  <label class="label-a" v-text="translate(\'people.name_job\')"></label>\n                </div>\n\n              </div>\n              <div class="row">\n                <div class="col-sm-8">\n\n                  {{ academic.name_academic }}\n\n                </div>\n                <div class="col-sm-4">\n\n                  {{ academic.career }}\n                </div>\n              </div>\n            </slot>\n          </div>\n\n          <div class="modal-footer">\n            <slot name="footer">\n\n              <button class="btn btn-success"  @click="deleteAcademic(academic)">\n                <label v-text="translate(\'people.confirm\')"></label>\n              </button>\n\n            </slot>\n          </div>\n        </div>\n      </div>\n    </div>\n  </transition>\n</div>\n';
+},{}],63:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18572,6 +18579,8 @@ var _service = require('../../../js/utilities/service.js');
 var _service2 = _interopRequireDefault(_service);
 
 var _translations = require('../../../js/translations.js');
+
+var _constants_restful = require('../../../js/constants_restful.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18589,18 +18598,12 @@ exports.default = {
       locale: 'es'
     };
   },
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
-    }
-  },
+  http: _constants_restful.HTTP,
   methods: {
 
     deleteAcademic: function deleteAcademic(academic) {
 
-      var resource = this.$resource('academic/delete{/id}');
-      console.log(academic.academic_id);
+      var resource = this.$resource(_constants_restful.ACADEMIC_DELETE);
 
       resource.delete({ id: academic.academic_id }).then(function (response) {
         this.remove(academic.academic_id);
@@ -18610,7 +18613,6 @@ exports.default = {
         _service2.default.showError(this, 'Ocurrio un error');
       });
     }
-
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
@@ -18624,9 +18626,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-a5bc38e6", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../../js/translations.js":57,"../../../js/utilities/service.js":59,"../../../js/utilities/validate.js":60,"./delete-academic.html":63,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],65:[function(require,module,exports){
-module.exports = '<div class="container-component">\n  <transition name="modal">\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 60%">\n          <div class="modal-header">\n\n            <div class="row">\n              <div class="col-sm-11">\n                <slot name="header">\n                  <h4 v-text="translate(\'people.edit_academic\')"></h4>\n                </slot>\n              </div>\n              <div class="col-sm-1">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n\n\n          </div>\n\n          <div class="modal-body">\n            <slot name="body">\n\n              <div class="row">\n                <div class="col-sm-6">\n                  <label v-bind:class="{ \'label-a\': validation.name_academic,\n                  \'label-error\':  !validation.name_academic}"\n                  v-text="translate(\'people.name_academic\')"></label>\n                  <div>\n                    <input type="text"\n                      name="name"\n                      class="form-control"\n                      v-model="academic.name_academic"\n                      value="">\n                  </div>\n                </div>\n\n                <div class="col-sm-5">\n                  <label v-bind:class="{ \'label-a\': validation.career,\n                  \'label-error\':  !validation.career}" v-text="translate(\'people.career\')"></label>\n                  <div>\n                    <input type="text"\n                      name="name"\n                      class="form-control"\n                      v-model="academic.career"\n                      value="">\n                  </div>\n                </div>\n\n\n                <div class="col-sm-1 has-success">\n                  <label class="label-a" v-text="translate(\'people.now\')"></label>\n\n                  <input type="checkbox" name="name"\n                  v-bind:true-value="1"\n                  v-bind:false-value="0"\n                  @change="academicNow()"\n                  v-model="academic.now">\n                </div>\n\n\n\n              </div>\n\n              <div class="row">\n\n                <div class="col-sm-6">\n                  <label\n                  v-bind:class="{ \'label-a\': validation.level_academic,\n                  \'label-error\':  !validation.level_academic}"\n                  v-text="translate(\'people.level_academic\')"></label>\n                  <div>\n                    <input type="text"\n                      name="name"\n                      class="form-control"\n                      v-model="academic.level_academic"\n                      value="">\n                  </div>\n                </div>\n\n                <div class="col-sm-3">\n                    <label v-bind:class="{ \'label-a\': validation.year_entry,\n                    \'label-error\':  !validation.year_entry}"\n                     v-text="translate(\'people.admission_date\')"></label>\n                    <input type="number"\n                    name="" class="form-control"\n                    v-model="academic.year_entry">\n                </div>\n\n                <div class="col-sm-3" v-if="academic.now==0 || academic.now==\'0\'">\n                    <label v-bind:class="{ \'label-a\': validation.year_exit,\n                    \'label-error\':  !validation.year_exit}"\n                     v-text="translate(\'people.admission_date\')"></label>\n                    <input type="number"\n                    name="" class="form-control"\n                    v-model="academic.year_exit">\n                </div>\n\n\n                </div>\n                <div class="row">\n                  <div class="col-sm-6">\n                      <label class="label-a"\n                        v-text="translate(\'people.comments\')"></label>\n                      <input type="text"\n                      name="" class="form-control"\n                      v-model="academic.comments">\n                  </div>\n                </div>\n\n              </div>\n\n              <div class="modal-footer">\n                <slot name="footer">\n                  <button v-if="formIsValid() && academicChange()"\n                    class="btn btn-success"\n                    @click="editAcademic()">\n                    Confirmar\n                  </button>\n                </slot>\n              </div>\n            </slot>\n          </div>\n        </div>\n      </div>\n    </transition>\n  </div>\n';
-},{}],66:[function(require,module,exports){
+},{"../../../js/constants_restful.js":54,"../../../js/translations.js":56,"../../../js/utilities/service.js":58,"../../../js/utilities/validate.js":59,"./delete-academic.html":62,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],64:[function(require,module,exports){
+module.exports = '<div class="container-component">\n  <transition name="modal">\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 60%">\n          <div class="modal-header">\n\n            <div class="row">\n              <div class="col-sm-11">\n                <slot name="header">\n                  <h4 v-text="translate(\'people.edit_academic\')"></h4>\n                </slot>\n              </div>\n              <div class="col-sm-1">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n\n\n          </div>\n\n          <div class="modal-body">\n            <slot name="body">\n\n              <div class="row">\n                <div class="col-sm-6">\n                  <label v-bind:class="{ \'label-a\': validation.name_academic, \'label-error\':  !validation.name_academic}"\n                  v-text="translate(\'people.name_academic\')"></label>\n                  <div>\n                    <input type="text"  name="name"class="form-control" v-model="academic.name_academic" value="">\n                  </div>\n                </div>\n\n                <div class="col-sm-5">\n                  <label v-bind:class="{ \'label-a\': validation.career,\n                  \'label-error\':  !validation.career}" v-text="translate(\'people.career\')"></label>\n                  <div>\n                    <input type="text" name="name" class="form-control" v-model="academic.career" value="">\n                  </div>\n                </div>\n\n                <div class="col-sm-1 has-success">\n                  <label class="label-a" v-text="translate(\'people.now\')"></label>\n\n                  <input type="checkbox" name="name" v-bind:true-value="1" v-bind:false-value="0" @change="academicNow()" v-model="academic.now">\n                </div>\n\n              </div>\n\n              <div class="row">\n\n                <div class="col-sm-6">\n                  <label v-bind:class="{ \'label-a\': validation.level_academic, \'label-error\':  !validation.level_academic}" v-text="translate(\'people.level_academic\')"></label>\n                  <div>\n                    <input type="text" name="name" class="form-control" v-model="academic.level_academic" >\n                  </div>\n                </div>\n\n                <div class="col-sm-3">\n                  <label v-bind:class="{ \'label-a\': validation.year_entry, \'label-error\':  !validation.year_entry}"  v-text="translate(\'people.admission_date\')"></label>\n                  <input type="number" name="" class="form-control"  v-model="academic.year_entry">\n                </div>\n\n                <div class="col-sm-3" v-if="academic.now==0 || academic.now==\'0\'">\n                  <label v-bind:class="{ \'label-a\': validation.year_exit, \'label-error\':  !validation.year_exit}" v-text="translate(\'people.admission_date\')"></label>\n                  <input type="number" name="" class="form-control" v-model="academic.year_exit">\n                </div>\n\n              </div>\n\n              <div class="row">\n\n                <div class="col-sm-6">\n                  <label class="label-a" v-text="translate(\'people.comments\')"></label>\n                  <input type="text" name="" class="form-control" v-model="academic.comments">\n                </div>\n\n              </div>\n\n            </div>\n\n            <div class="modal-footer">\n              <slot name="footer">\n                <button v-if="formIsValid() && academicChange()" class="btn btn-success" @click="editAcademic()">\n                  <label  v-text="translate(\'people.confirm\')"></label>\n                </button>\n              </slot>\n            </div>\n          </slot>\n        </div>\n      </div>\n    </div>\n  </transition>\n</div>\n';
+},{}],65:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18669,7 +18671,7 @@ exports.default = {
       flagShowYearExit: true
     };
   },
-  http: _constants_restful.http,
+  http: _constants_restful.HTTP,
   created: function created() {
     if (this.academic.now == 1) {
       this.academicChange();
@@ -18749,7 +18751,8 @@ exports.default = {
         academic.now = this.academic.now;
       }
 
-      this.$http.put('academic/edit', academic).then(function (response) {
+      var resource = this.$http.put(_constants_restful.ACADEMIC_EDIT, academic);
+      resource.then(function (response) {
         this.update(this.academic);
 
         _service2.default.showSuccess(this, null);
@@ -18774,9 +18777,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-154cf94f", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../../js/constants_restful.js":55,"../../../js/translations.js":57,"../../../js/utilities/service.js":59,"../../../js/utilities/validate.js":60,"./edit-academic.html":65,"babel-runtime/core-js/object/keys":1,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],67:[function(require,module,exports){
+},{"../../../js/constants_restful.js":54,"../../../js/translations.js":56,"../../../js/utilities/service.js":58,"../../../js/utilities/validate.js":59,"./edit-academic.html":64,"babel-runtime/core-js/object/keys":1,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],66:[function(require,module,exports){
 module.exports = '<div class="container-a">\n\n  <div style="text-align: right">\n\n    <button  id="show-modal" v-if="academicSelect!=null" @click="editAcademic()" class="btn btn-success btn-options">\n      <i class="glyphicon glyphicon-pencil"></i>\n    </button>\n\n    <button  id="show-modal" @click="deleteAcademic()" class="btn btn-danger btn-options" v-if="academicSelect!=null">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n    <button id="show-modal" @click="addMoreAcademic" class="btn btn-info btn-options">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n  </div>\n  <br>\n  <div class="panel panel-default">\n\n    <div class="panel-heading">\n\n      <div class="row">\n        <div class="col-sm-3">\n          <label class="label-a" v-text="translate(\'people.name_academic\')"></label>\n        </div>\n\n        <div class="col-sm-3">\n          <label class="label-a" v-text="translate(\'people.career\')"></label>\n        </div>\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.level_academic\')"></label>\n        </div>\n        <div class="col-sm-3">\n          <label class="label-a" v-text="translate(\'people.comments\')"></label>\n        </div>\n\n        <div class="col-sm-1">\n          <label class="label-a" v-text="translate(\'people.now\')"></label>\n        </div>\n\n      </div>\n    </div>\n\n    <ul class="list-group">\n      <li class="list-group-item" v-for="academic in candidate.academics">\n        <div class="row" @click="select(academic)">\n          <div class="col-sm-3">\n            {{ academic.name_academic }}\n            [{{ academic.year_entry }}-{{ academic.year_exit}}]\n          </div>\n\n          <div class="col-sm-3">\n            {{ academic.career }}\n          </div>\n\n          <div class="col-sm-2">\n            {{ academic.level_academic }}\n          </div>\n\n          <div class="col-sm-3">\n            {{ academic.comments }}\n          </div>\n\n\n          <div class="col-sm-1">\n\n            <div style="font-size: 20px; text-align: center">\n              {{ academic.now | trueOrFalse }}\n            </div>\n          </div>\n\n        </div>\n      </li>\n    </ul>\n\n    <div class="row" v-if="academicSelect!=null">\n      <div class="col-sm-12" style="text-align: right">\n\n          <label class="label-a" v-text="translate(\'people.selected\')"></label>\n          : {{ academicOriginal.name_academic }}&nbsp;\n\n      </div>\n    </div>\n\n\n    <delete-academic v-if="showModalDeleteAcademic" :academic="academicOriginal" :remove="removeAcademic" @close="showModalDeleteAcademic = false">\n    </delete-academic>\n\n    <add-academic v-if="flagShowAddAcademic" :candidate="candidate.id" :add="addAcademic" @close="flagShowAddAcademic = false">\n    </add-academic>\n\n    <edit-academic v-if="flagShowEditAcademic" :academic="academicOriginal" :academicnow="academicSelect" :update="updateAcademic"  @close="flagShowEditAcademic = false">\n    <edit-academic>\n\n</div>\n';
-},{}],68:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18898,9 +18901,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-fd659972", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/translations.js":57,"../../js/utilities/filters.js":58,"../../js/utilities/service.js":59,"./add-academic/add-academic.vue":62,"./delete-academic/delete-academic.vue":64,"./edit-academic/edit-academic.vue":66,"./mnt-academic.html":67,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],69:[function(require,module,exports){
+},{"../../js/translations.js":56,"../../js/utilities/filters.js":57,"../../js/utilities/service.js":58,"./add-academic/add-academic.vue":61,"./delete-academic/delete-academic.vue":63,"./edit-academic/edit-academic.vue":65,"./mnt-academic.html":66,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],68:[function(require,module,exports){
 module.exports = '<div class="container-a">\n	<div class="row" v-show="flagTable">\n		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">\n		</a-table>\n	</div>\n	<div class="row" v-show="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n	<div class="container-detail" v-show="flagDetailSelected">\n		<div class="container-detail-header">\n			<label v-text="translate(\'people.admins.selected\')"></label>\n		</div>\n		<div class="container-detail-section">\n			<div class="row" >\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.name\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.username }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.email\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.email }}\n					</div>\n				</div>\n\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.type\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.type }}\n					</div>\n				</div>\n\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.created_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.created_at }}\n					</div>\n				</div>\n\n\n\n			</div>\n\n			<div class="row">\n				<div class="col-sm-3">\n					<div>\n						<label v-text="translate(\'people.updated_at\')"></label>\n					</div>\n					<div>\n						{{ adminSelected.updated_at }}\n					</div>\n				</div>\n\n				<div class="col-sm-2">\n					<div>\n						<label v-text="translate(\'people.profiles_register\')"></label>\n					</div>\n					<div>\n						{{ adminCandidatesRegisters }}\n					</div>\n				</div>\n\n			</div>\n		</div>\n	</div>\n</div>\n';
-},{}],70:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18917,16 +18920,15 @@ var _aTable = require('../../a-components/a-table/a-table.vue');
 
 var _aTable2 = _interopRequireDefault(_aTable);
 
-var _vueToast = require('vue-toast');
-
-var _vueToast2 = _interopRequireDefault(_vueToast);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*
-*Components
+*Constants
 */
 
+/*
+*Config module
+*/
 exports.default = {
   /*--Tenplate--*/
 
@@ -18947,8 +18949,7 @@ exports.default = {
   /*--Components--*/
 
   components: {
-    'a-table': _aTable2.default,
-    'vue-toast': _vueToast2.default
+    'a-table': _aTable2.default
 
   },
 
@@ -18957,7 +18958,7 @@ exports.default = {
   */
 
   data: function data() {
-    console.log(_vueToast2.default);
+    console.log(VueToast);
     return {
       admins: [],
       columns: _tables.tableAdmins,
@@ -18991,7 +18992,7 @@ exports.default = {
     getAdmins: function getAdmins() {
       var _this = this;
 
-      var resource = this.$resource(_constants_restful.admins);
+      var resource = this.$resource(_constants_restful.ADMINS);
       resource.get().then(function (response) {
         _this.admins = response.body;
       });
@@ -19023,11 +19024,7 @@ exports.default = {
 };
 
 /*
-*Constants
-*/
-
-/*
-*Config module
+*Components
 */
 if (module.exports.__esModule) module.exports = module.exports.default
 if (module.hot) {(function () {  module.hot.accept()
@@ -19040,9 +19037,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-95a3f2b2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-table/a-table.vue":50,"../../js/config-app/tables.js":54,"../../js/constants_restful.js":55,"../../js/translations.js":57,"./mnt-admins.html":69,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38,"vue-toast":42}],71:[function(require,module,exports){
+},{"../../a-components/a-table/a-table.vue":49,"../../js/config-app/tables.js":53,"../../js/constants_restful.js":54,"../../js/translations.js":56,"./mnt-admins.html":68,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],70:[function(require,module,exports){
 module.exports = '<div class="">\n  <form class="form-horizontal col-sm-8" name="form" method="post" @submit.prevent="newCandidate">\n\n    <div class="form-group">\n               <label class="col-sm-2 control-label">username</label>\n               <div class="col-sm-10" v-bind:class="{ \'has-success\': validation.username, \'has-error\':  !validation.username}" >\n                 <input type="text" name="" class="form-control" v-model="candidate.username">\n               </div>\n             </div>\n\n             <div class="form-group">\n               <label class="col-sm-2 control-label">gender</label>\n               <div class="col-sm-10">\n                 <div class="col-sm-5">\n                   <input type="radio" id="one" value="Mujer" v-model="candidate.gender">\n                   <label class="control-label">woman</label>\n                 </div>\n\n                 <div class="col-sm-5">\n                   <input type="radio" id="two" value="Hombre" v-model="candidate.gender">\n                   <label class="control-label">men</label>\n                 </div>\n               </div>\n             </div>\n\n             <div class="form-group">\n                <label class="col-sm-2 control-label">email</label>\n                <div class="col-sm-10" v-bind:class="{ \'has-success\': validation.email, \'has-error\':  !validation.email}">\n                  <input type="email" name="" class="form-control" v-model="candidate.email">\n                </div>\n              </div>\n\n              <div class="form-group" id="location-group">\n                <label for="email" class="col-sm-2 control-label">location</label>\n                <div class="col-sm-3" v-bind:class="{ \'has-success\': validation.location, \'has-error\':  !validation.location}">\n                  <select name="location" id="location" class="form-control input-sm" v-model="candidate.location">\n                    <option value="Aguascalientes">Aguascalientes</option>\n                    <option value="Baja California">Baja California</option>\n                    <option value="Baja California Sur">Baja California Sur</option>\n                    <option value="Campeche">Campeche</option>\n                    <option value="Chiapas">Chiapas</option>\n                    <option value="Chihuahua">Chihuahua</option>\n                    <option value="Coahuila">Coahuila</option>\n                    <option value="Colima">Colima</option>\n                    <option value="Distrito Federal">Distrito Federal</option>\n                    <option value="Durango">Durango</option>\n                    <option value="Estado de México">Estado de México</option>\n                    <option value="Guanajuato">Guanajuato</option>\n                    <option value="Guerrero">Guerrero</option>\n                    <option value="Hidalgo">Hidalgo</option>\n                    <option value="Jalisco">Jalisco</option>\n                    <option value="Michoacán">Michoacán</option>\n                    <option value="Morelos">Morelos</option>\n                    <option value="Nayarit">Nayarit</option>\n                    <option value="Nuevo León">Nuevo León</option>\n                    <option value="Oaxaca">Oaxaca</option>\n                    <option value="Puebla">Puebla</option>\n                    <option value="Querétaro">Querétaro</option>\n                    <option value="Quintana Roo">Quintana Roo</option>\n                    <option value="San Luis Potosí">San Luis Potosí</option>\n                    <option value="Sinaloa">Sinaloa</option>\n                    <option value="Sonora">Sonora</option>\n                    <option value="Tabasco">Tabasco</option>\n                    <option value="Tamaulipas">Tamaulipas</option>\n                    <option value="Tlaxcala">Tlaxcala</option>\n                    <option value="Veracruz">Veracruz</option>\n                    <option value="Yucatán">Yucatán</option>\n                    <option value="Zacatecas">Zacatecas</option>\n                  </select>\n                </div>\n              </div>\n\n\n\n              <div class="form-group">\n                <label class="col-sm-2 control-label">birthday</label>\n                <div class="col-sm-10"\n                v-bind:class="{ \'has-success\': validation.birthday, \'has-error\':  !validation.birthday}">\n                  <input type="date" name="" class="form-control" v-model="candidate.birthday">\n                </div>\n              </div>\n\n\n              <div class="form-group">\n                <label class="col-sm-2 control-label">code</label>\n                <div class="col-sm-4"  v-bind:class="{ \'has-success\': validation.code, \'has-error\':  !validation.code}" >\n                  <input type="text" name="" class="form-control" v-model="candidate.code">\n                </div>\n              </div>\n\n              <div class="form-group">\n                <label class="col-sm-2 control-label">phone</label>\n                <div class="col-sm-4"  v-bind:class="{ \'has-success\': validation.phone, \'has-error\':  !validation.phone}">\n                  <input type="text" name="" class="form-control" v-model="candidate.phone">\n                </div>\n              </div>\n\n\n\n\n\n              <div class="form-group">\n                <label class="col-sm-2 control-label">position</label>\n                <div class="col-sm-10" v-bind:class="{ \'has-success\': validation.position, \'has-error\':  !validation.position}">\n                  <input type="text" name="" class="form-control" v-model="candidate.position">\n                </div>\n              </div>\n\n\n\n\n              <div class="form-group">\n                <label class="col-sm-2 control-label">category</label>\n                <div class="col-sm-10" v-bind:class="{ \'has-success\': validation.category, \'has-error\':  !validation.category}">\n                  <select  class="form-control" @click="fetchSubCategories()"\n                  v-model="candidate.category">\n                  <option v-for="category in categories" v-bind:value="category.id">\n                    {{ category.name }}\n                  </option>\n                </select>\n              </div>\n            </div>\n\n\n            <div class="form-group">\n              <label class="col-sm-2 control-label">subcategory</label>\n              <div class="col-sm-10" v-bind:class="{ \'has-success\': validation.subcategory, \'has-error\':  !validation.subcategory}">\n                <select v-model="candidate.subcategory" class="form-control">\n                  <option v-for="category in subcategories" v-bind:value="category.id">\n                  {{ category.name }}\n                  </option>\n                </select>\n              </div>\n            </div>\n\n\n            <div class="col-sm-2" v-if="formIsValid()">\n              <input type="submit" name="" value="send" class="btn btn-success">\n            </div>\n\n\n\n  </form>\n\n</div>\n';
-},{}],72:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19175,9 +19172,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-c3c22d9c", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../../js/utilities/validate.js":60,"./add-candidate.html":71,"babel-runtime/core-js/object/keys":1,"vue":43,"vue-hot-reload-api":37}],73:[function(require,module,exports){
+},{"../../../js/utilities/validate.js":59,"./add-candidate.html":70,"babel-runtime/core-js/object/keys":1,"vue":42,"vue-hot-reload-api":37}],72:[function(require,module,exports){
 module.exports = '<div class="container-a">\n\n	<div style="text-align: right">\n		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>\n		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>\n	</div>\n\n<div v-show="flagTable">\n	<a-table :data="candidates" :columns="columns" :total="candidates.length"\n	:select="select">\n</a-table>\n</div>\n\n<div class="row" v-if="flagDetailSelected">\n	<div class="col-sm-4  " @click="showTable()">\n		<div class="back-section">\n			<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n			</i>\n		</div>\n	</div>\n</div>\n\n\n\n<div class="container-detail" v-if="flagDetailSelected">\n	<div class="container-detail-header">\n		<label v-text="translate(\'people.candidates.selected\')"></label>\n	</div>\n	<div class="container-detail-section">\n\n		<div class="row">\n			<div class="col-xs-6 col-md-4">\n				<figure class="snip1559 tumbnails">\n					<div v-if="candidateSelected.photo"class="profile-image">\n						<img :src="candidateSelected.photo.name_photo" alt="" />\n					</div>\n\n					<div v-if="!candidateSelected.photo"class="profile-image">\n						<img src="../img/default.png" alt="" />\n					</div>\n					<figcaption>\n						<div class="icons">\n\n						<i class="glyphicon glyphicon-picture"\n						@click="showModalPhoto = true"></i>\n						<i class="glyphicon glyphicon-save-file"\n						@click="downloadPdf()">\n\n					</i>\n				</div>\n\n				<div class="tab-header">\n					languages\n				</div>\n				<ul class="list-group">\n					<li class="list-group-item" v-for="idiom in candidateSelected.idioms">\n						{{ idiom.name_idioma }}-{{ idiom.level_idioma }}\n					</li>\n				</ul>\n				<div class="tab-header">\n					Idioms\n				</div>\n				<ul class="list-group">\n					<li class="list-group-item" v-for="language in candidateSelected.languages" data-toggle="tooltip" data-placement="top" title="Hooray!">\n						{{ language.name_language }}-{{ language.level_language }}\n					</li>\n				</ul>\n			</figcaption>\n		</figure>\n	</div>\n\n	<div class="col-xs-6 col-md-8">\n		<div class="tab-header">\n			<h4>{{ candidateSelected.username }}</h4>\n		</div>\n\n		<table class="table table-condensed">\n			<tr>\n				<td>\n					<label class="label-a" v-text="translate(\'people.position\')"></label>\n				</td>\n				<td>\n					{{ candidateSelected.position }}\n				</td>\n			</tr>\n			<tr>\n				<td>\n					<label class="label-a"  v-text="translate(\'people.email\')"></label>\n				</td>\n				<td>\n					{{ candidateSelected.email }}\n				</td>\n			</tr>\n			<tr>\n				<td>\n					<label class="label-a"  v-text="translate(\'people.gender\')"></label>\n				</td>\n				<td>\n					{{ candidateSelected.gender }}\n				</td>\n			</tr>\n			<tr>\n				<td>\n					<label class="label-a"  v-text="translate(\'people.location\')"></label>\n				</td>\n				<td>\n					{{ candidateSelected.location }}\n				</td>\n			</tr>\n			<tr>\n				<td>\n					<label class="label-a" v-text="translate(\'people.birthdate\')"></label>\n				</td>\n				<td>\n					{{ candidateSelected.day }} /\n					{{ candidateSelected.month }} /\n					{{ candidateSelected.year }}\n				</td>\n			</tr>\n			<tr>\n				<td>\n					<label class="label-a" v-text="translate(\'people.phone\')"></label>\n				</td>\n				<td>\n					{{ candidateSelected.code }} / {{ candidateSelected.phone }}\n				</td>\n			</tr>\n			<tr>\n				<td>\n					<label class="label-a" v-text="translate(\'people.category\')"></label>\n				</td>\n				<td>\n					{{ candidateSelected.category_candidate.name }}\n				</td>\n			</tr>\n			<tr>\n				<td>\n					<label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n				</td>\n				<td>\n					{{ candidateSelected.subcategory_candidate.name }}\n				</td>\n			</tr>\n		</table>\n	</div>\n</div>\n\n<ul class="nav nav-tabs">\n	<li role="presentation" v-bind:class="{ \'active\': optionTab==1 }" @click="selectTab(1)">\n		<a>Formacion Academica</a>\n	</li>\n	<li role="presentation" v-bind:class="{ \'active\': optionTab==2 }" @click="selectTab(2)">\n		<a>Experiencia Profesional</a>\n	</li>\n	<li role="presentation" v-bind:class="{ \'active\': optionTab==3 }" @click="selectTab(3)">\n		<a>Experiencia en WTC</a>\n	</li>\n	<li role="presentation" v-bind:class="{ \'active\': optionTab==4 }" @click="selectTab(4)">\n		<a>Expectativa Economica</a>\n	</li>\n</ul>\n\n<br>\n\n<div class="panel panel-default" v-if="optionTab==1">\n	<div class="panel-body">\n		<mnt-academic\n			:candidate="candidateSelected">\n		</mnt-academic>\n	</div>\n</div>\n\n<div class="panel panel-default" v-if="optionTab==2">\n	<div class="panel-body">\n		<mnt-experience\n		:candidate="candidateSelected">\n	</mnt-experience>\n	</div>\n</div>\n\n<div class="panel panel-default" v-if="optionTab==3">\n	<div class="panel-body">\n\n\n		<mnt-experiencewtc\n		:candidate="candidateSelected">\n	</mnt-experiencewtc>\n\n	</div>\n</div>\n\n<div class="panel panel-default" v-if="optionTab==4">\n	<div class="panel-body">\n		<div style="text-align: right">\n			<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>\n			<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>\n		</div>\n		<div class="row">\n\n			<div class="col-sm-2">\n				<label class="label-a">Commentarios</label>\n			</div>\n			<div class="col-sm-3">\n				<label class="label-a">Commentarios</label>\n			</div>\n			<div class="col-sm-2">\n				<label class="label-a">Commentarios</label>\n			</div>\n			<div class="col-sm-1">\n				<label class="label-a">Commentarios</label>\n			</div>\n			<div class="col-sm-3">\n				<label class="label-a">Commentarios</label>\n			</div>\n\n\n\n		</div>\n\n		<div class="row">\n			<div class="col-sm-2">\n				{{ candidateSelected.economic.current_salary }}\n			</div>\n			<div class="col-sm-3">\n				{{ candidateSelected.economic.economic_package }}\n			</div>\n			<div class="col-sm-2">\n				{{ candidateSelected.economic.salary_expectation }}\n			</div>\n			<div class="col-sm-1">\n				{{ candidateSelected.economic.relocation }}\n			</div>\n			<div class="col-sm-3">\n				{{ candidateSelected.economic.comments }}\n			</div>\n		</div>\n\n	</div>\n</div>\n</div>\n</div>\n\n<form class="navbar-form navbar-left" role="search">\n	<div class="form-group">\n		<input type="text" class="form-control" placeholder="Search">\n	</div>\n	<button type="submit" class="btn btn-default">Submit</button>\n</form>\n\n<!--\n<div  v-if="flagDetailSelected">\n<div>\n<a-table :data="candidateSelected.experiences"\n:columns="columnsExperience"\n:total="candidateSelected.experiences.length"\n:showSearch="false"\n:select="select">\n</a-table>\n</div>\n</div>\n\n-->\n\n<!-------------------------------------------------------------->\n\n<add-photo\nv-if="showModalPhoto"\n@close="showModalPhoto = false"\n:getphoto="getPhoto"\n:candidate="candidateSelected.id">\n</add-photo>\n\n\n\n\n<add-candidate\nv-if="showNewCandidate"\n:getcandidate="getNewCandidate">\n</add-candidate>\n\n<!-------------------------------------------------------------->\n</div>\n';
-},{}],74:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19228,7 +19225,7 @@ exports.default = {
   /*TEMPLATE*/
   template: require('./mnt-candidates.html'),
   /*RESOURCE HTTP*/
-  http: _constants_restful.http,
+  http: _constants_restful.HTTP,
   /*TRANSLATIONS*/
   translations: _translations.translations,
   mixins: [require('vue-i18n-mixin')],
@@ -19374,9 +19371,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-32a0f4a7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-table/a-table.vue":50,"../../a-components/add-photo/add-photo.vue":52,"../../js/config-app/tables.js":54,"../../js/constants_restful.js":55,"../../js/translations.js":57,"../../js/utilities/filters.js":58,"../../js/utilities/service.js":59,"../../moduls/mnt-academic/mnt-academic.vue":68,"../../moduls/mnt-experience/mnt-experience.vue":82,"../../moduls/mnt-experiencewtc/mnt-experiencewtc.vue":90,"./add-candidate/add-candidate.vue":72,"./mnt-candidates.html":73,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],75:[function(require,module,exports){
+},{"../../a-components/a-table/a-table.vue":49,"../../a-components/add-photo/add-photo.vue":51,"../../js/config-app/tables.js":53,"../../js/constants_restful.js":54,"../../js/translations.js":56,"../../js/utilities/filters.js":57,"../../js/utilities/service.js":58,"../../moduls/mnt-academic/mnt-academic.vue":67,"../../moduls/mnt-experience/mnt-experience.vue":81,"../../moduls/mnt-experiencewtc/mnt-experiencewtc.vue":89,"./add-candidate/add-candidate.vue":71,"./mnt-candidates.html":72,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],74:[function(require,module,exports){
 module.exports = '  <div class="container-component">\n    <transition name="modal">\n\n      <div class="modal-mask">\n        <div class="modal-wrapper">\n          <div class="modal-container" style="width: 60%">\n            <div class="modal-header">\n              <div class="row">\n                <div class="col-sm-10">\n                  <slot name="header">\n                    <h4 v-text="translate(\'people.add_experience\')"></h4>\n                  </slot>\n                </div>\n                <div class="col-sm-2">\n                  <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                    <i class="glyphicon glyphicon-remove"></i>\n                  </button>\n                </div>\n              </div>\n            </div>\n            <div class="modal-body">\n              <slot name="body">\n\n                <div class="row">\n\n                  <div class="col-sm-6">\n\n                    <label v-bind:class="{ \'label-a\': validation.name_business,\n                    \'label-error\':  !validation.name_business}"\n                    v-text="translate(\'people.name_business\')">\n                  </label>\n\n                    <input type="text"\n                    v-model="experience.name_business"\n                    class="form-control"\n                    name="name" value="">\n                  </div>\n\n                  <div class="col-sm-5">\n\n                    <label v-bind:class="{ \'label-a\': validation.name_job,\n                    \'label-error\':  !validation.name_job}" v-text="translate(\'people.name_job\')"></label>\n                    <input type="text"\n                    v-model="experience.name_job"\n                    class="form-control"\n                    name="name" value="">\n                  </div>\n\n                  <div class="col-sm-1 has-success">\n                    <label class="label-a" v-text="translate(\'people.now\')"></label>\n\n                    <input type="checkbox" name="name"\n                    v-bind:true-value="1"\n                    v-bind:false-value="0"\n                    @change="experienceNow()"\n                    v-model="experience.now">\n                  </div>\n\n                </div>\n\n                <div class="row">\n\n                  <div class="col-sm-6">\n\n                    <label v-bind:class="{ \'label-a\': validation.turn_business, \'label-error\':  !validation.turn_business}" v-text="translate(\'people.turn_business\')"></label>\n                    <input type="text"\n                    v-model="experience.turn_business"\n                    class="form-control"\n                    name="name" value="">\n                  </div>\n\n                  <div class="col-sm-6">\n\n                    <label class="label-a" v-text="translate(\'people.comments\')"></label>\n                    <input type="text"\n                    v-model="experience.comments"\n                    class="form-control"\n                    name="name" value="">\n                  </div>\n                </div>\n\n                <div class="row">\n\n                  <div class="col-sm-3">\n\n                    <label v-bind:class="{ \'label-a\': validation.admission_date, \'label-error\':  !validation.admission_date}" v-text="translate(\'people.admission_date\')"></label>\n                    <input type="date"\n                    name="" class="form-control"\n                    v-model="experience.admission_date">\n                  </div>\n\n                  <div class="col-sm-3"\n\n                  v-if="flagShowDepartureDate">\n                  <label v-bind:class="{ \'label-a\': validation.departure_date,\n                  \'label-error\':  !validation.departure_date}" v-text="translate(\'people.departure_date\')"></label>\n                  <input type="date"\n                  name="" class="form-control"\n                  @change="validateDates()"\n                  v-model="experience.departure_date">\n                </div>\n              </div>\n            </div>\n          </slot>\n          <div class="modal-footer">\n            <slot name="footer">\n              <button v-if="formIsValid()"\n                class="btn btn-success"\n                @click="addExperince()">\n                Confirmar\n              </button>\n            </slot>\n          </div>\n        </div>\n      </div>\n    </div>\n  </transition>\n</div>\n';
-},{}],76:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19396,6 +19393,8 @@ var _service = require('../../../js/utilities/service.js');
 var _service2 = _interopRequireDefault(_service);
 
 var _translations = require('../../../js/translations.js');
+
+var _constants_restful = require('../../../js/constants_restful.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19423,12 +19422,7 @@ exports.default = {
       flagShowDepartureDate: true
     };
   },
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
-    }
-  },
+  http: _constants_restful.HTTP,
   computed: {
     validation: function validation() {
 
@@ -19460,7 +19454,7 @@ exports.default = {
       var experience = this.experience;
       experience.candidate_id = this.candidate;
 
-      this.$http.post('experience/new', experience).then(function (response) {
+      this.$http.post(_constants_restful.EXPERIENCE_NEW, experience).then(function (response) {
         this.add(response.body);
       }, function (error) {});
     },
@@ -19496,9 +19490,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-cf66bac8", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../../js/translations.js":57,"../../../js/utilities/service.js":59,"../../../js/utilities/validate.js":60,"./add-experience.html":75,"babel-runtime/core-js/object/keys":1,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],77:[function(require,module,exports){
+},{"../../../js/constants_restful.js":54,"../../../js/translations.js":56,"../../../js/utilities/service.js":58,"../../../js/utilities/validate.js":59,"./add-experience.html":74,"babel-runtime/core-js/object/keys":1,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],76:[function(require,module,exports){
 module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 40%">\n          <div class="modal-header danger">\n            <div class="row">\n              <div class="col-sm-10">\n                <slot name="header">\n                  <h4>Borrar Experincia</h4>\n                </slot>\n              </div>\n              <div class="col-sm-2">\n                <button class="btn btn-red" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n              <div class="row">\n                <div class="col-sm-8">\n                  <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n\n                </div>\n\n                <div class="col-sm-4">\n                  <label class="label-a" v-text="translate(\'people.name_job\')"></label>\n\n                </div>\n\n              </div>\n              <div class="row">\n                <div class="col-sm-8">\n\n                  {{ experience.name_business }}\n\n                </div>\n                <div class="col-sm-4">\n\n                  {{ experience.name_job }}\n                </div>\n              </div>\n            </slot>\n          </div>\n\n          <div class="modal-footer">\n            <slot name="footer">\n\n              <button\n                class="btn btn-success"\n                @click="deleteExperience(experience)">\n                Confirmar\n              </button>\n\n              <button\n                class="btn btn-danger"\n                @click="$emit(\'close\')">\n                Cancelar\n              </button>\n            </slot>\n          </div>\n        </div>\n      </div>\n    </div>\n  </transition>\n</div>\n';
-},{}],78:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19510,6 +19504,8 @@ var _translations = require('../../../js/translations.js');
 var _service = require('../../../js/utilities/service.js');
 
 var _service2 = _interopRequireDefault(_service);
+
+var _constants_restful = require('../../../js/constants_restful.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19527,22 +19523,17 @@ exports.default = {
       null: null
     };
   },
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
-    }
-  },
+  http: _constants_restful.HTTP,
   methods: {
 
     deleteExperience: function deleteExperience(entry) {
 
-      var resource = this.$resource('experience/delete{/id}');
+      var resource = this.$resource(_constants_restful.EXPERIENCE_DELETE);
       resource.delete({ id: entry.experience_id }).then(function (response) {
         this.remove(entry.experience_id);
         _service2.default.showSuccess(this, 'Operacion Exitosa');
       }, function (error) {
-        _service2.default.showError(this, 'Ocurrio un error');
+        _service2.default.showError(this, error);
       });
     }
   }
@@ -19558,9 +19549,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-1abb1614", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../../js/translations.js":57,"../../../js/utilities/service.js":59,"./delete-experience.html":77,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],79:[function(require,module,exports){
+},{"../../../js/constants_restful.js":54,"../../../js/translations.js":56,"../../../js/utilities/service.js":58,"./delete-experience.html":76,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],78:[function(require,module,exports){
 module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 60%">\n          <div class="modal-header">\n            <div class="row">\n              <div class="col-sm-11">\n                <slot name="header">\n                  <h4 v-text="translate(\'people.edit_experience\')"></h4>\n                </slot>\n              </div>\n              <div class="col-sm-1">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n\n              <div class="row">\n\n                <div class="col-sm-6">\n\n                  <label v-bind:class="{ \'label-a\': validation.name_business, \'label-error\':  !validation.name_business}" v-text="translate(\'people.name_business\')"></label>\n                  <input type="text"\n                  v-model="experience.name_business"\n                  class="form-control"\n                  name="name" value="">\n                </div>\n\n                <div class="col-sm-5">\n\n                  <label  v-bind:class="{ \'label-a\': validation.name_job, \'label-error\':  !validation.name_job}" v-text="translate(\'people.name_job\')"></label>\n                  <input type="text"\n                  v-model="experience.name_job"\n                  class="form-control"\n                  name="name" value="">\n                </div>\n\n                <div class="col-sm-1 has-success">\n                  <label class="label-a" v-text="translate(\'people.now\')"></label>\n\n                  <input type="checkbox" name="name"\n                  v-bind:true-value="1"\n                  v-bind:false-value="0"\n                  @change="experienceNow()"\n                  v-model="experience.now">\n                </div>\n\n              </div>\n\n              <div class="row">\n\n                <div class="col-sm-6">\n\n                  <label v-bind:class="{ \'label-a\': validation.turn_business, \'label-error\':  !validation.turn_business}" v-text="translate(\'people.turn_business\')"></label>\n                  <input type="text"\n                  v-model="experience.turn_business"\n                  class="form-control"\n                  name="name" value="">\n                </div>\n\n                <div class="col-sm-6">\n\n                  <label class="label-a" v-text="translate(\'people.comments\')"></label>\n                  <input type="text"\n                  v-model="experience.comments"\n                  class="form-control"\n                  name="name" value="">\n                </div>\n              </div>\n\n              <div class="row">\n\n                <div class="col-sm-3" >\n\n                  <label v-bind:class="{ \'label-a\': validation.admission_date, \'label-error\':  !validation.admission_date}" v-text="translate(\'people.admission_date\')"></label>\n                  <input type="date" name="" class="form-control" v-model="experience.admission_date">\n\n                </div>\n\n                <div class="col-sm-3" v-if="experience.now==0 || experience.now==\'0\'">\n\n                <label v-bind:class="{ \'label-a\': validation.departure_date, \'label-error\':  !validation.departure_date}" v-text="translate(\'people.departure_date\')"></label>\n                <input type="date" name="" class="form-control" @change="validateDates()" v-model="experience.departure_date">\n\n              </div>\n            </div>\n          </div>\n        </slot>\n        <div class="modal-footer">\n          <slot name="footer">\n            <button v-if="formIsValid() && experienceChange()" class="btn btn-success" @click="editExperience()">\n\n              <label v-text="translate(\'people.confirm\')"></label>\n\n\n            </button>\n          </slot>\n\n        </div>\n      </div>\n    </div>\n  </div>\n</transition>\n</div>\n';
-},{}],80:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19602,7 +19593,7 @@ exports.default = {
       flagShowDepartureDate: true
     };
   },
-  http: _constants_restful.http,
+  http: _constants_restful.HTTP,
   computed: {
     validation: function validation() {
 
@@ -19664,7 +19655,7 @@ exports.default = {
         experience.departure_date = this.experience.departure_date;
       }
 
-      this.$http.put('experience/edit', experience).then(function (response) {
+      this.$http.put(_constants_restful.EXPERIENCE_EDIT, experience).then(function (response) {
         this.update(this.experience);
 
         _service2.default.showSuccess(this, null);
@@ -19704,9 +19695,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-38f95c38", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../../js/constants_restful.js":55,"../../../js/translations.js":57,"../../../js/utilities/service.js":59,"../../../js/utilities/validate.js":60,"./edit-experience.html":79,"babel-runtime/core-js/object/keys":1,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],81:[function(require,module,exports){
+},{"../../../js/constants_restful.js":54,"../../../js/translations.js":56,"../../../js/utilities/service.js":58,"../../../js/utilities/validate.js":59,"./edit-experience.html":78,"babel-runtime/core-js/object/keys":1,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],80:[function(require,module,exports){
 module.exports = '<div class="container-a">\n\n  <div style="text-align: right">\n\n    <button  v-if="experienceSelect!=null" id="show-modal" @click="editExperience()" class="btn btn-success btn-options">\n      <i class="glyphicon glyphicon-pencil"></i>\n    </button>\n\n    <button  v-if="experienceSelect!=null" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n    <button id="show-modal" @click="addMoreExperience" class="btn btn-info btn-options">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n  </div>\n\n  <br>\n\n  <div class="panel panel-default">\n\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-3">\n          <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.position\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.turn_business\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.admission_date\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.departure_date\')"></label>\n        </div>\n\n\n        <div class="col-sm-1">\n          <label class="label-a" v-text="translate(\'people.now\')"></label>\n        </div>\n\n\n\n      </div>\n\n    </div>\n\n    <ul class="list-group">\n      <li class="list-group-item" v-for="experience in candidate.experiences" @click="select(experience)">\n        <div class="row">\n          <div class="col-sm-3">\n            {{ experience.name_business }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.name_job }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.turn_business }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.admission_date }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.departure_date }}\n          </div>\n\n          <div class="col-sm-1">\n\n            <div style="font-size: 20px; text-align: center">\n              {{ experience.now | trueOrFalse }}\n            </div>\n          </div>\n\n        </div>\n      </li>\n    </ul>\n\n    <div class="row" v-if="experienceSelect!=null">\n      <div class="col-sm-12" style="text-align: right">\n\n          <label class="label-a" v-text="translate(\'people.selected\')"></label>\n          : {{ experienceSelect.name_business }}&nbsp;\n\n      </div>\n    </div>\n\n  </div>\n\n\n  <delete-experience v-if="showModalDeleteExperince" :experience="experienceSelect" :remove="removeExperince" @close="showModalDeleteExperince = false">\n  </delete-experience>\n\n  <edit-experience v-if="showModalEditExperience" :experience="experienceOriginal" :experiencenow="experienceSelect" :update="update" @close="showModalEditExperience = false">\n  </edit-experience>\n\n\n  <add-experience v-if="showModalAddExperience" :candidate="candidate.id" :add="addExperience" @close="showModalAddExperience = false">\n  </add-experience>\n\n</div>\n';
-},{}],82:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19819,9 +19810,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-1b7b5d67", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/translations.js":57,"../../js/utilities/filters.js":58,"../../js/utilities/service.js":59,"./add-experience/add-experience.vue":76,"./delete-experience/delete-experience.vue":78,"./edit-experience/edit-experience.vue":80,"./mnt-experience.html":81,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],83:[function(require,module,exports){
+},{"../../js/translations.js":56,"../../js/utilities/filters.js":57,"../../js/utilities/service.js":58,"./add-experience/add-experience.vue":75,"./delete-experience/delete-experience.vue":77,"./edit-experience/edit-experience.vue":79,"./mnt-experience.html":80,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],82:[function(require,module,exports){
 module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 60%">\n          <div class="modal-header">\n            <div class="row">\n              <div class="col-sm-10">\n                <slot name="header">\n                  <h4 v-text="translate(\'people.add_experience\')"></h4>\n                </slot>\n              </div>\n              <div class="col-sm-2">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n\n\n\n              <div class="row">\n\n                <div class="col-sm-4">\n\n                  <label v-bind:class="{ \'label-a\': validation.name_company, \'label-error\':  !validation.name_company}" v-text="translate(\'people.name_business\')"></label>\n\n\n\n                 <input type="text"\n                  v-model="experience.name_company"\n                  class="form-control"\n                  name="name" >\n\n              </div>\n\n\n              <div class="col-sm-5" >\n\n                <label v-bind:class="{ \'label-a\': validation.name_job, \'label-error\':  !validation.name_job}" v-text="translate(\'people.name_job\')"></label>\n                <input type="text"\n                v-model="experience.name_job"\n                class="form-control"\n                name="name" value="">\n              </div>\n\n\n              <div class="col-sm-3">\n\n                <label v-bind:class="{ \'label-a\': validation.date, \'label-error\':  !validation.date}" v-text="translate(\'people.date\')"></label>\n                <input type="date"\n                name="" class="form-control"\n                v-model="experience.date">\n              </div>\n\n\n\n            </div>\n\n\n\n            <div class="row">\n\n\n\n            <div class="col-sm-6">\n\n            <label class="label-a" v-text="translate(\'people.comments\')"></label>\n            <input type="text"\n            v-model="experience.comments"\n            class="form-control"\n            name="name" value="">\n          </div>\n\n\n          <div class="col-sm-6">\n            <label v-bind:class="{ \'label-a\': validation.consultant, \'label-error\':  !validation.consultant}" v-text="translate(\'people.consultant\')"></label>\n\n            <select  class="form-control" v-model="experience.consultant">\n            <option v-for="consultant in consultants" v-bind:value="consultant.username">\n              {{ consultant.username }}\n            </option>\n          </select>\n          </div>\n        </div>\n\n\n\n\n\n</div>\n</slot>\n<div class="modal-footer">\n\n\n  <slot name="footer">\n  <button v-if="formIsValid()"\n  class="btn btn-success"\n  @click="addExperince()">\n  <label v-text="translate(\'people.confirm\')"></label>\n</button>\n</slot>\n\n</div>\n</div>\n</div>\n</div>\n</transition>\n</div>\n';
-},{}],84:[function(require,module,exports){
+},{}],83:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19850,7 +19841,7 @@ exports.default = {
   template: require('./add-experiencewtc.html'),
   translations: _translations.translations,
   mixins: [require('vue-i18n-mixin')],
-  http: _constants_restful.http,
+  http: _constants_restful.HTTP,
   props: {
     add: Function,
     candidate: Number
@@ -19894,16 +19885,20 @@ exports.default = {
     },
     fetchConsultants: function fetchConsultants() {
 
-      this.$http.get('admins').then(function (response) {
+      var resource = this.$resource(_constants_restful.ADMINS);
+      resource.get().then(function (response) {
         this.consultants = response.body;
-      }, function (error) {});
+      }, function (error) {
+        _service2.default.showError(this, error);
+      });
     },
     addExperince: function addExperince() {
 
       var experience = this.experience;
       experience.candidate_id = this.candidate;
 
-      this.$http.post('experiencewtc/new', experience).then(function (response) {
+      var resource = this.$http.post(_constants_restful.EXPERIENCEWTC_NEW, experience);
+      resource.then(function (response) {
         _service2.default.showSuccess(this, "Operacion exitosa");
         this.add(response.body);
       }, function (error) {
@@ -19927,9 +19922,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-5235c65c", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../../js/constants_restful.js":55,"../../../js/translations.js":57,"../../../js/utilities/service.js":59,"../../../js/utilities/validate.js":60,"./add-experiencewtc.html":83,"babel-runtime/core-js/object/keys":1,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],85:[function(require,module,exports){
+},{"../../../js/constants_restful.js":54,"../../../js/translations.js":56,"../../../js/utilities/service.js":58,"../../../js/utilities/validate.js":59,"./add-experiencewtc.html":82,"babel-runtime/core-js/object/keys":1,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],84:[function(require,module,exports){
 module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 40%">\n          <div class="modal-header danger">\n            <div class="row">\n              <div class="col-sm-10">\n                <slot name="header">\n                  <h4>Borrar Experiencia</h4>\n                </slot>\n              </div>\n              <div class="col-sm-2">\n                <button class="btn btn-red" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n              <div class="row">\n                <div class="col-sm-8">\n                  <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n\n                </div>\n\n                <div class="col-sm-4">\n                  <label class="label-a" v-text="translate(\'people.name_job\')"></label>\n\n                </div>\n\n              </div>\n              <div class="row">\n                <div class="col-sm-8">\n\n                  {{ experience.name_company }}\n\n                </div>\n                <div class="col-sm-4">\n\n                  {{ experience.name_job }}\n                </div>\n              </div>\n            </slot>\n          </div>\n\n          <div class="modal-footer">\n            <slot name="footer">\n\n              <button\n                class="btn btn-success"\n                @click="deleteExperience(experience)">\n                      <label v-text="translate(\'people.confirm\')"></label>\n              </button>\n\n\n            </slot>\n          </div>\n        </div>\n      </div>\n    </div>\n  </transition>\n</div>\n';
-},{}],86:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19941,6 +19936,8 @@ var _translations = require('../../../js/translations.js');
 var _service = require('../../../js/utilities/service.js');
 
 var _service2 = _interopRequireDefault(_service);
+
+var _constants_restful = require('../../../js/constants_restful.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19958,17 +19955,12 @@ exports.default = {
       null: null
     };
   },
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
-    }
-  },
+  http: _constants_restful.HTTP,
   methods: {
 
     deleteExperience: function deleteExperience(entry) {
 
-      var resource = this.$resource('experiencewtc/delete{/id}');
+      var resource = this.$resource(_constants_restful.EXPERIENCEWTC_DELETE);
       resource.delete({ id: entry.wtc_id }).then(function (response) {
         this.remove(entry.wtc_id);
         _service2.default.showSuccess(this, 'Operacion Exitosa');
@@ -19989,9 +19981,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-608535ba", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../../js/translations.js":57,"../../../js/utilities/service.js":59,"./delete-experiencewtc.html":85,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],87:[function(require,module,exports){
+},{"../../../js/constants_restful.js":54,"../../../js/translations.js":56,"../../../js/utilities/service.js":58,"./delete-experiencewtc.html":84,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],86:[function(require,module,exports){
 module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 60%">\n          <div class="modal-header">\n            <div class="row">\n              <div class="col-sm-11">\n                <slot name="header">\n                  <h4 v-text="translate(\'people.add_experience\')"></h4>\n                </slot>\n              </div>\n              <div class="col-sm-1">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n\n\n\n              <div class="row">\n\n                <div class="col-sm-4">\n\n                  <label v-bind:class="{ \'label-a\': validation.name_company, \'label-error\':  !validation.name_company}" v-text="translate(\'people.name_business\')"></label>\n\n\n\n                  <input type="text"\n                  v-model="experience.name_company"\n                  class="form-control"\n                  name="name" >\n\n                </div>\n\n\n                <div class="col-sm-5" >\n\n                  <label v-bind:class="{ \'label-a\': validation.name_job, \'label-error\':  !validation.name_job}" v-text="translate(\'people.name_job\')"></label>\n                  <input type="text"\n                  v-model="experience.name_job"\n                  class="form-control"\n                  name="name" value="">\n                </div>\n\n\n                <div class="col-sm-3">\n\n                  <label v-bind:class="{ \'label-a\': validation.date, \'label-error\':  !validation.date}" v-text="translate(\'people.date\')"></label>\n                  <input type="date"\n                  name="" class="form-control"\n                  v-model="experience.date">\n                </div>\n\n\n\n              </div>\n\n\n\n              <div class="row">\n\n\n\n                <div class="col-sm-6">\n\n                  <label class="label-a" v-text="translate(\'people.comments\')"></label>\n                  <input type="text"\n                  v-model="experience.comments"\n                  class="form-control"\n                  name="name" value="">\n                </div>\n\n\n                <div class="col-sm-6">\n                  <label v-bind:class="{ \'label-a\': validation.consultant, \'label-error\':  !validation.consultant}" v-text="translate(\'people.consultant\')"></label>\n\n                  <select  class="form-control" v-model="experience.consultant">\n                    <option v-for="consultant in consultants" v-bind:value="consultant.username">\n                      {{ consultant.username }}\n                    </option>\n                  </select>\n                </div>\n              </div>\n\n\n\n\n\n            </div>\n          </slot>\n          <div class="modal-footer">\n\n\n            <slot name="footer">\n              <button v-if="formIsValid() && experienceChange()"\n              class="btn btn-success"\n              @click="editExperience()">\n              <label v-text="translate(\'people.confirm\')"></label>\n            </button>\n          </slot>\n\n        </div>\n      </div>\n    </div>\n  </div>\n</transition>\n</div>\n';
-},{}],88:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20020,7 +20012,7 @@ exports.default = {
   template: require('./edit-experiencewtc.html'),
   translations: _translations.translations,
   mixins: [require('vue-i18n-mixin')],
-  http: _constants_restful.http,
+  http: _constants_restful.HTTP,
   props: {
     experience: Object,
     experiencenow: Object,
@@ -20060,9 +20052,12 @@ exports.default = {
     },
     fetchConsultants: function fetchConsultants() {
 
-      this.$http.get('admins').then(function (response) {
+      var resource = this.$resource(_constants_restful.ADMINS);
+      resource.get().then(function (response) {
         this.consultants = response.body;
-      }, function (error) {});
+      }, function (error) {
+        _service2.default.showError(this, error);
+      });
     },
     editExperience: function editExperience() {
 
@@ -20085,7 +20080,8 @@ exports.default = {
         experience.consultant = this.experience.consultant;
       }
 
-      this.$http.put('experiencewtc/edit', experience).then(function (response) {
+      var resource = this.$http.put(_constants_restful.EXPERIENCEWTC_EDIT, experience);
+      resource.then(function (response) {
         _service2.default.showSuccess(this, "Operacion exitosa");
         this.update(this.experience);
       }, function (error) {
@@ -20109,9 +20105,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-afb463cc", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../../js/constants_restful.js":55,"../../../js/translations.js":57,"../../../js/utilities/service.js":59,"../../../js/utilities/validate.js":60,"./edit-experiencewtc.html":87,"babel-runtime/core-js/object/keys":1,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],89:[function(require,module,exports){
+},{"../../../js/constants_restful.js":54,"../../../js/translations.js":56,"../../../js/utilities/service.js":58,"../../../js/utilities/validate.js":59,"./edit-experiencewtc.html":86,"babel-runtime/core-js/object/keys":1,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}],88:[function(require,module,exports){
 module.exports = '<div class="container-a">\n\n  <div style="text-align: right">\n\n\n  <button  v-if="experienceSelect!=null" id="show-modal" @click="editExperience()" class="btn btn-success btn-options">\n    <i class="glyphicon glyphicon-pencil"></i>\n  </button>\n\n  <button  v-if="experienceSelect!=null" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options">\n    <i class="glyphicon glyphicon glyphicon-remove"></i>\n  </button>\n\n  <button id="show-modal" @click="addMoreExperience" class="btn btn-info btn-options">\n    <i class="glyphicon glyphicon-plus"></i>\n  </button>\n\n  </div>\n\n  <br>\n\n  <div class="panel panel-default">\n\n    <div class="panel-heading">\n      <div class="row">\n\n        <div class="col-sm-3">\n          <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n        </div>\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.position\')"></label>\n        </div>\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.date\')"></label>\n        </div>\n\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.consultant\')"></label>\n        </div>\n\n        <div class="col-sm-3">\n          <label class="label-a" v-text="translate(\'people.comments\')"></label>\n        </div>\n\n      </div>\n    </div>\n\n    <ul class="list-group">\n      <li class="list-group-item" v-for="experiencewtc in candidate.experiences_wtc" @click="select(experiencewtc)">\n\n        <div class="row" >\n    			<div class="col-sm-3">\n    				{{ experiencewtc.name_company }}\n    			</div>\n    			<div class="col-sm-2">\n    				{{ experiencewtc.name_job }}\n    			</div>\n    			<div class="col-sm-2">\n    				{{ experiencewtc.date }}\n    			</div>\n    			<div class="col-sm-2">\n    				{{ experiencewtc.consultant }}\n    			</div>\n    			<div class="col-sm-3">\n    				{{ experiencewtc.comments }}\n    			</div>\n    		</div>\n\n      </li>\n    </ul>\n\n    <div class="row" v-if="experienceSelect!=null">\n      <div class="col-sm-12" style="text-align: right">\n\n          <label class="label-a" v-text="translate(\'people.selected\')"></label>\n          : {{ experienceSelect.name_company }}&nbsp;\n\n      </div>\n    </div>\n  </div>\n\n  <add-experiencewtc v-if="showModalAddExperience" :candidate="candidate.id" :add="addExperience" @close="showModalAddExperience = false">\n  </add-experiencewtc>\n\n  <delete-experiencewtc v-if="showModalDeleteExperince" :experience="experienceSelect" :remove="removeExperince" @close="showModalDeleteExperince = false">\n  </delete-experiencewtc>\n\n  <edit-experiencewtc v-if="showModalEditExperience" :experience="experienceOriginal" :experiencenow="experienceSelect" :update="update" @close="showModalEditExperience = false">\n  </edit-experiencewtc>\n\n<!--\n\n\n\n\n\n\n\n\n-->\n\n</div>\n';
-},{}],90:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20228,6 +20224,6 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-3e6fc46d", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/translations.js":57,"../../js/utilities/filters.js":58,"../../js/utilities/service.js":59,"./add-experiencewtc/add-experiencewtc.vue":84,"./delete-experiencewtc/delete-experiencewtc.vue":86,"./edit-experiencewtc/edit-experiencewtc.vue":88,"./mnt-experiencewtc.html":89,"vue":43,"vue-hot-reload-api":37,"vue-i18n-mixin":38}]},{},[45]);
+},{"../../js/translations.js":56,"../../js/utilities/filters.js":57,"../../js/utilities/service.js":58,"./add-experiencewtc/add-experiencewtc.vue":83,"./delete-experiencewtc/delete-experiencewtc.vue":85,"./edit-experiencewtc/edit-experiencewtc.vue":87,"./mnt-experiencewtc.html":88,"vue":42,"vue-hot-reload-api":37,"vue-i18n-mixin":38}]},{},[44]);
 
 //# sourceMappingURL=app.js.map

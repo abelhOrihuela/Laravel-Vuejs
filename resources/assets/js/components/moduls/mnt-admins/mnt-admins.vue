@@ -8,14 +8,14 @@ import { tableAdmins } from '../../js/config-app/tables.js';
 /*
 *Constants
 */
-import { admins, candidates_admin } from '../../js/constants_restful.js';
+import { ADMINS, candidates_admin } from '../../js/constants_restful.js';
 
 /*
 *Components
 */
 
 import  ATable from '../../a-components/a-table/a-table.vue';
-import VueToast from 'vue-toast'
+
 
 
 
@@ -43,8 +43,7 @@ export default{
   /*--Components--*/
 
   components:{
-    'a-table': ATable,
-     'vue-toast': VueToast
+    'a-table': ATable
 
   },
 
@@ -85,7 +84,7 @@ export default{
     *
     */
     getAdmins: function(){
-      var resource= this.$resource(admins);
+      var resource= this.$resource(ADMINS);
       resource.get().then((response) => {
         this.admins=response.body;
       });

@@ -1,9 +1,9 @@
 <script>
 
-import constants from '../../js/constants_restful.js';
+
 import Toast from 'vue-toast-mobile';
 
-import { apiRoot } from '../../js/constants_restful.js';
+import { HTTP} from '../../js/constants_restful.js';
 import  service  from '../../js/utilities/service.js';
 
 
@@ -45,12 +45,7 @@ export default{
   }
   ,
 
-  http: {
-    root: apiRoot,
-    headers: {
-      'X-CSRF-TOKEN' : document.querySelector('#token').getAttribute('value')
-    }
-  },
+  http: HTTP,
   ready: function(){
 
 
