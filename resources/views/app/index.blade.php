@@ -47,6 +47,67 @@
 
 
     <div class="container">
+
+      <div class="area"></div>
+      <nav class="main-menu">
+        <br><br>
+        <br><br>
+              <ul>
+                  <li>
+                      <a href="#">
+                          <i class="fa fa-home fa-2x glyphicon glyphicon-tasks"></i>
+                          <span class="nav-text">
+                              Dashboard
+                          </span>
+                      </a>
+
+                  </li>
+                  <li class="has-subnav">
+                      <a href="#">
+                          <i class="fa fa-laptop fa-2x glyphicon glyphicon-user"></i>
+                          <span class="nav-text">
+                              UI Components
+                          </span>
+                      </a>
+
+                  </li>
+                  <li class="has-subnav">
+                      <a href="#">
+                         <i class="fa fa-list fa-2x"></i>
+                          <span class="nav-text">
+                              Forms
+                          </span>
+                      </a>
+
+                  </li>
+                  <li class="has-subnav">
+                      <a href="#">
+                         <i class="fa fa-folder-open fa-2x"></i>
+                          <span class="nav-text">
+                              Pages
+                          </span>
+                      </a>
+
+                  </li>
+
+
+              </ul>
+
+              <ul class="logout">
+                  <li>
+                     <router-link :to="'admins'">
+                       <i class="fa fa-power-off fa-2x glyphicon glyphicon-off"></i>
+                      <span class="nav-text">
+                          Logout
+                      </span>
+                     </router-link>
+
+
+                  </li>
+              </ul>
+          </nav>
+
+
       <br><br>
 
 

@@ -8,13 +8,14 @@ import AddPhoto from '../../a-components/add-photo/add-photo.vue';
 import MntExperience from '../../moduls/mnt-experience/mnt-experience.vue';
 import MntAcademic from '../../moduls/mnt-academic/mnt-academic.vue';
 import MntExperienceWtc from '../../moduls/mnt-experiencewtc/mnt-experiencewtc.vue';
-//'../../mnt-experience/mnt-experience.vue';
+import MntEconomic from '../../moduls/mnt-economic/mnt-economic.vue';
+
 
 
 import  service  from '../../js/utilities/service.js';
 import  filter  from '../../js/utilities/filters.js';
 
-import { HTTP, candidates, candidates_experince } from '../../js/constants_restful.js';
+import { HTTP, candidates, candidates_experince, EXPERIENCE, ACADEMIC, EXPERIENCEWTC, ECONOMIC } from '../../js/constants_restful.js';
 import { translations } from '../../js/translations.js';
 import { tableCandidates , tableExperience} from '../../js/config-app/tables.js';
 
@@ -36,7 +37,8 @@ export default{
     'add-photo': AddPhoto,
     'mnt-experience': MntExperience,
     'mnt-experiencewtc': MntExperienceWtc,
-    'mnt-academic': MntAcademic
+    'mnt-academic': MntAcademic,
+    'mnt-economic': MntEconomic
   },
   filters:{
     trueOrFalse: function(value){
@@ -59,7 +61,7 @@ export default{
       showNewCandidate: false,
       showPersonalInformation: false,
       showModalPhoto: false,
-      optionTab: 1,
+      optionTab: 0,
       experienceSelect:{}
 
     }
@@ -78,20 +80,31 @@ export default{
         this.candidates=response.body;
       });
 
-    },
-    getExperience: function(id){
-      var resource= this.$resource(candidates_experince);
-      resource.get({id: id}).then((response) => {
-        this.experiences=response.body;
-      });
     }
     ,
     select: function(data){
 
-      this.candidateSelected=data;
+
+      this.getAcademic(data);
+      this.getExperience(data);
+      this.getExperienceWtc(data);
+      this.getEconomic(data);
+
+
       this.flagTable=false;
       this.flagDetailSelected=true;
-      this.optionTab= 1;
+      this.candidateSelected=data;
+
+
+      setTimeout(function(){
+
+        this.optionTab= 1;
+
+      });
+
+
+
+
     },
     showTable: function(){
       this.candidateSelected={};
@@ -120,23 +133,53 @@ export default{
 
       service.showSuccess(this, 'Operacion Exitosa');
     },
-    getCandidateId: function($id, update){
 
-      var resource= this.$resource('candidate{/id}');
-      resource.get({id : $id }).then(function(response){
-        if(update){
-          var index=service.getIndiceObject(this, this.candidates, 'id', response.body.id );
-          if(index>-1){
+    selectTab: function(option){
+      this.optionTab=option;
 
-          }
-        }else{
-        }
+    },
+    getAcademic: function(candidate){
+
+      var resource= this.$resource(ACADEMIC);
+      resource.get({id : candidate.id }).then(function(response){
+        candidate.academics=response.body;
+        this.optionTab= 1;
+
       }, function(error){
 
       });
+
     },
-    selectTab: function(option){
-      this.optionTab=option;
+    getExperience: function(candidate){
+
+      var resource= this.$resource(EXPERIENCE);
+      resource.get({id : candidate.id }).then(function(response){
+        candidate.experiences=response.body;
+      }, function(error){
+
+      });
+
+    },
+    getExperienceWtc: function(candidate){
+
+      var resource= this.$resource(EXPERIENCEWTC);
+      resource.get({id : candidate.id }).then(function(response){
+        candidate.experiences_wtc=response.body;
+      }, function(error){
+
+      });
+
+    },
+    getEconomic: function(candidate){
+
+      var resource= this.$resource(ECONOMIC);
+      resource.get({id : candidate.id }).then(function(response){
+        candidate.economic=response.body;
+
+
+      }, function(error){
+
+      });
 
     },
     downloadPdf: function(){
@@ -145,8 +188,6 @@ export default{
 
       var resource= this.$resource('pdf{/id}');
       resource.get({id : $id }).then(function(response){
-
-        console.log(response);
 
         var link = document.createElement("a");
         link.download = "PDF";

@@ -7,19 +7,28 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Http\Requests;
 use App\User;
+use App\Customer;
 
 class AuthController extends Controller
 {
-    public function imgProfile(Request $request){
+  public function imgProfile(Request $request){
 
-    	$user= User::all();
-    	//('email', '=', $email);
 
-    	///$subcategories=User::where('email', '=', $email)
-		 					//		->get();
+    $user = User::where("email", "=" , $request->email)->first();
 
-		 
-		return $user;
+    if(User::where("email", "=" , $request->email)->first()){
+
+      return response()->json(['admin' => $user, 'type' => 'A' ]);
+
+    }else if (Customer::where("email", "=" , $request->email)->first()) {
+
+      return response()->json(['customer' => $user, 'type' => 'C' ]);
+
+    }else {
+
+        return response()->json(['null' => null, 'type' => null ]);
 
     }
+
+  }
 }

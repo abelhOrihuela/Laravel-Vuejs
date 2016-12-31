@@ -3,7 +3,7 @@ export default {
 
   trueOrFalse(context, value){
 
-    if(value==='1' || value==1){
+    if(value==='1' || value==1 || value == 'S'){
         return "\u2714";
     }else{
       return "\u2717";

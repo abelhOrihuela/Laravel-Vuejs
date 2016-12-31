@@ -29,15 +29,16 @@ class CandidatesController extends Controller
 		*/
 
 		foreach ($candidates as $candidate) {
-			$candidate->experiences;
-			$candidate->experiencesWtc;
+			//$candidate->experiences;
+			//$candidate->experiencesWtc;
 			$candidate->categoryCandidate;
 			$candidate->subcategoryCandidate;
 			$candidate->languages;
 			$candidate->idioms;
 			$candidate->photo;
-			$candidate->economic;
-			$candidate->academics;
+			//$candidate->economic;
+			//$candidate->academics;
+			//$candidate->user;
 		}
 
 		return $candidates;
@@ -57,8 +58,12 @@ class CandidatesController extends Controller
 		$candidate->subcategoryCandidate;
 		$candidate->languages;
 		$candidate->idioms;
-		$candidate->photo;
 		$candidate->economic;
+		$candidate->photo;
+
+
+
+		$candidate->user;
 
 		return $candidate;
 	}
@@ -85,7 +90,7 @@ class CandidatesController extends Controller
 		$candidate->gender=$request->gender;
 		$candidate->email=$request->email;
 		$candidate->location=$request->location;
-		$candidate->user_id= Session::get('user', 1);
+		$candidate->user_id= Session::get('user_id');
 		$candidate->day=$day;
 		$candidate->month=$month;
 		$candidate->year=$year;

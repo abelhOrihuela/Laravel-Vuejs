@@ -1,13 +1,20 @@
 <script>
+import { translations } from '../../js/translations.js';
+
+
 export default{
   template: require('./add-photo.html'),
   props:{
     getphoto: Function,
     candidate: Number
   },
+
+    translations: translations,
+    mixins: [require('vue-i18n-mixin')],
   data: function(){
     return {
-      image: ''
+      image: '',
+      locale: 'es'
     }
   },
   http: {

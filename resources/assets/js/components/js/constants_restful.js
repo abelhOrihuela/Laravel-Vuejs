@@ -18,16 +18,25 @@ export const candidates_admin="admin/candidates{/id}"
 export const candidates_experince="candidate{/id}"
 
 /*----------------------------CANDIDATE ACADEMIC-----------------------------*/
+
+export const ACADEMIC="academic{/id}"
 export const ACADEMIC_NEW="academic/new"
 export const ACADEMIC_DELETE="academic/delete{/id}"
 export const ACADEMIC_EDIT="academic/edit"
 
 /*---------------------------CANDIDATE EXPERIENCE---------------------------*/
+export const EXPERIENCE="experience{/id}"
 export const EXPERIENCE_NEW="experience/new"
 export const EXPERIENCE_DELETE="experience/delete{/id}"
 export const EXPERIENCE_EDIT="experience/edit"
 
 /*---------------------------CANDIDATE EXPERIENCE---------------------------*/
+export const EXPERIENCEWTC="experiencewtc{/id}"
 export const EXPERIENCEWTC_NEW="experiencewtc/new"
 export const EXPERIENCEWTC_DELETE="experiencewtc/delete{/id}"
 export const EXPERIENCEWTC_EDIT="experiencewtc/edit"
+
+
+export const ECONOMIC="economic{/id}"
+export const ECONOMIC_NEW="economic/new"
+export const ECONOMIC_EDIT="economic/edit"

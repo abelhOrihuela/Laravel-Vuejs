@@ -7,6 +7,7 @@ use App\Idiom;
 use App\Language;
 use App\CandidateEconomic;
 use App\CandidateAcademic;
+use App\User;
 
 class Candidate extends Model
 {
@@ -48,6 +49,10 @@ class Candidate extends Model
 
   public function academics(){
     return $this->hasMany(CandidateAcademic::class, 'candidate_id');
+  }
+
+  public function user(){
+    return $this->belongsTo(User::class, 'user_id','id');
   }
 
 }

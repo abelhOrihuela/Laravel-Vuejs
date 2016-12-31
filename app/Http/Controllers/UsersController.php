@@ -41,7 +41,7 @@ class UsersController extends Controller
       $validate = false;
       $validate = password_verify ( $password ,  $hash );
       if($validate){
-				Session::put('user', $user->id);
+				Session::put('user_id', $user->id);
         $token= hash('ripemd160', 'The quick brown fox jumped over the lazy dog.');
         return response()->json(['user' => $user, 'token' => $hash, 'type_user' => 1 ]);
 

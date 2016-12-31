@@ -67,6 +67,13 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'photo_create_path']
   );
 
+
+  /* CREATE NEW EXPERIENCE FOR CANDIDATE */
+  Route::get('experience/{id}',[
+    'uses' => 'CandidateExperiencesController@index',
+    'as'   => 'experience_index_path'
+  ]);
+
   /* CREATE NEW EXPERIENCE FOR CANDIDATE */
   Route::post('experience/new',[
     'uses' => 'CandidateExperiencesController@create',
@@ -83,6 +90,13 @@ Route::group(['prefix' => 'api'], function () {
     'uses' => 'CandidateExperiencesController@destroy',
     'as'   => 'experience_destroy_path']
   );
+
+
+  /* CREATE NEW ACADEMIC FOR CANDIDATE */
+  Route::get('academic/{id}',[
+    'uses' => 'CandidateAcademicsController@index',
+    'as'   => 'academic_index_path'
+  ]);
 
   /* CREATE NEW ACADEMIC FOR CANDIDATE */
   Route::post('academic/new',[
@@ -102,6 +116,14 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'experience_destroy_path']
   );
 
+
+  /* CREATE NEW EXPERIENCE FOR CANDIDATE */
+  Route::get('experiencewtc/{id}',[
+    'uses' => 'CandidateWtcExperienceController@index',
+    'as'   => 'experiencewtc_create_path'
+  ]);
+
+
   /* CREATE NEW EXPERIENCE FOR CANDIDATE */
   Route::post('experiencewtc/new',[
     'uses' => 'CandidateWtcExperienceController@create',
@@ -118,6 +140,25 @@ Route::group(['prefix' => 'api'], function () {
       'uses' => 'CandidateWtcExperienceController@update',
       'as'   => 'experiencewtc_update_path'
     ]);
+
+
+    Route::get('economic/{id}',[
+      'uses' => 'CandidateEconomicController@index',
+      'as'   => 'economic_index_path'
+    ]);
+
+
+    Route::post('economic/new',[
+      'uses' => 'CandidateEconomicController@create',
+      'as'   => 'economic_create_path'
+    ]);
+
+
+    Route::put('economic/edit',[
+      'uses' => 'CandidateEconomicController@update',
+      'as'   => 'experience_update_path'
+    ]);
+
 
 
 

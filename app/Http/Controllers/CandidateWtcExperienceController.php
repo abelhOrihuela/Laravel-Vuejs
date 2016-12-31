@@ -9,6 +9,13 @@ use App\CandidateWtcExperience;
 
 class CandidateWtcExperienceController extends Controller
 {
+  public function index($id){
+
+          $experiences=CandidateWtcExperience::where('candidate_id',  $id)->get();
+
+          return $experiences;
+
+  }
     public function create(Request $request){
       $experience = new CandidateWtcExperience();
 

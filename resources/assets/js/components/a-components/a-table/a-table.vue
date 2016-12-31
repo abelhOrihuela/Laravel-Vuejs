@@ -27,7 +27,7 @@ export default{
     return {
       sortKey: '',
       sortOrders: sortOrders,
-      pagination: 5,
+      pagination: 10,
       filterKey: '',
       start: 0,
       limit: 5,

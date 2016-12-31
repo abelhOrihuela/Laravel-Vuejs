@@ -48,7 +48,15 @@ export const translations={
                 en: 'Gender',
                 es: 'Genero'
             },
-            birthdate:{
+            men:{
+                en: 'Men',
+                es: 'Hombre'
+            },
+            women:{
+                en: 'Women',
+                es: 'Mujer'
+            },
+            birthday:{
                 en: 'Birthdate',
                 es: 'Fecha de Nacimiento'
             },
@@ -157,6 +165,30 @@ export const translations={
             confirm:{
               en: 'Confirm',
               es: 'Confirmar'
+            },
+            current_salary:{
+              en: 'Current Salary',
+              es: 'Salario Actual'
+            },
+            economic_package:{
+              en: 'Package Economic',
+              es: 'Paquete Economico'
+            },
+            salary_expectation:{
+              en: 'salary_expectation',
+              es: 'Salario Deseado'
+            },
+            relocation:{
+              en: 'Relocation',
+              es: 'Reubicación'
+            },
+            add_photo:{
+              en: 'Add Photo',
+              es: 'Agregar Photo'
+            },
+            select_image:{
+              en: 'select_image',
+              es: 'Selecciona una Imagen'
             }
         },
     general:{

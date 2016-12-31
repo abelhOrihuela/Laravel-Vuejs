@@ -11,7 +11,7 @@ class Photo extends Model
   protected $fillable = ['user_id', 'photo'];
 
 
-    public function candidate(){
+    public function candidates(){
       return $this->belongsTo(Candidate::class, 'id');
     }
 

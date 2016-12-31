@@ -10,6 +10,16 @@ use App\CandidateAcademic;
 
 class CandidateAcademicsController extends Controller
 {
+
+  public function index($id){
+
+
+      $academics=CandidateAcademic::where('candidate_id',  $id)->get();
+
+
+      return $academics;
+
+  }
   public function create(Request $request){
     $academic=new CandidateAcademic();
 
@@ -54,7 +64,7 @@ class CandidateAcademicsController extends Controller
     $academic=CandidateAcademic::where('academic_id',  $request->academic_id);
 
     if($academic->update($input)){
-      
+
       return response()->json([
         'status' => 200
       ]);

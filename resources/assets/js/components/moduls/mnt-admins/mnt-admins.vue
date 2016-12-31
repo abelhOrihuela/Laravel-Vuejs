@@ -52,7 +52,6 @@ export default{
   */
 
   data: function(){
-    console.log(VueToast);
     return {
       admins: [],
       columns: tableAdmins,

@@ -2,12 +2,20 @@
 
 import  validate  from '../../../js/utilities/validate.js';
 
+
+import { translations } from '../../../js/translations.js';
+import  service  from '../../../js/utilities/service.js';
+import { HTTP, ECONOMIC_EDIT} from '../../../js/constants_restful.js';
+
 export default{
 
   template: require('./add-candidate.html'),
   props:{
     getcandidate: Function
   },
+
+  translations: translations,
+  mixins: [require('vue-i18n-mixin')],
 
   data: function(){
     return {
@@ -21,20 +29,18 @@ export default{
         phone:   '',
         position: '',
         category:'',
-        subcategory: '',
-        locale: 'es'
+        subcategory: ''
       },
+
+      locale: 'es',
       categories: [],
-      subcategories:[]
+      subcategories:[],
+      genders:[]
     }
+
   }
   ,
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN' : document.querySelector('#token').getAttribute('value')
-    }
-  }
+  http:HTTP
   ,
   created: function(){
     this.fetchCategories();
@@ -54,6 +60,7 @@ export default{
         category: !!this.candidate.category!='',
         subcategory: !!this.candidate.subcategory!='',
         location: !!this.candidate.location!='',
+        gender: !!this.candidate.gender!='',
       }
     },
     isValid: function () {
@@ -115,6 +122,16 @@ export default{
   }
 
 },
+created: function(){
+
+  this.fetchCategories();
+
+  this.genders=[
+    {'description': this.translate('people.men'), 'code':'Hombre'},
+    {'description':this.translate('people.women'), 'code':'Mujer'}
+  ];
+
+}
 
 
 }
