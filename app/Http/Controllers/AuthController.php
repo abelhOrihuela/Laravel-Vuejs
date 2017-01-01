@@ -11,22 +11,22 @@ use App\Customer;
 
 class AuthController extends Controller
 {
-  public function imgProfile(Request $request){
+  public function index(Request $request){
 
 
     $user = User::where("email", "=" , $request->email)->first();
 
     if(User::where("email", "=" , $request->email)->first()){
 
-      return response()->json(['admin' => $user, 'type' => 'A' ]);
+      return response()->json(['user' => $user->username, 'type' => 'A' ]);
 
     }else if (Customer::where("email", "=" , $request->email)->first()) {
 
-      return response()->json(['customer' => $user, 'type' => 'C' ]);
+      return response()->json(['user' => $user->username, 'type' => 'C' ]);
 
     }else {
 
-        return response()->json(['null' => null, 'type' => null ]);
+          abort(404);
 
     }
 

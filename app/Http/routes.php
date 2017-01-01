@@ -10,6 +10,14 @@ Route::get('/', function () {
 Route::group(['prefix' => 'api'], function () {
 
   /* RETURN SESSION ADMIN */
+  Route::post('user', [
+    'uses' => 'AuthController@index',
+    'as'   => 'user_store_path',
+  ]);
+
+
+
+  /* RETURN SESSION ADMIN */
   Route::post('admin/login', [
     'uses' => 'UsersController@store',
     'as'   => 'user_store_path',

@@ -5,6 +5,7 @@ import Toast from 'vue-toast-mobile';
 
 import { HTTP} from '../../js/constants_restful.js';
 import  service  from '../../js/utilities/service.js';
+import  runblock  from '../../js/runblock.js';
 
 
 
@@ -15,39 +16,39 @@ export default{
   props:{
     todos: Array
   },
+  computed: {
+    validation: function () {
+      var emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return {
+        email: emailRE.test(this.user.email)
+      }
+    },
+    isValid: function () {
+      var validation = this.validation
+      return Object.keys(validation).every(function (key) {
+        return validation[key]
+      })
+    }
+  },
 
   data: function(){
     customer:{
-
     }
-
     admin:{
-
     }
-
-
     return {
-
-      admin:{
+      user:{
+        name:"",
         email: "",
         password: "",
         authenticated: false
 
       },
-      customer: {
-        email: "",
-        password: "",
-        authenticated: false
-      }
-
+      flagEmailValid: false
     }
-
-  }
-  ,
-
+  },
   http: HTTP,
   ready: function(){
-
 
   },
   methods:{
@@ -57,17 +58,23 @@ export default{
     * Get image profile
     *
     */
-    fetchImageProfile: function(){
+    validateUser: function(){
 
-      var resource= this.$resource('user');
+      this.$http.post('user', this.user)
+      .then(function(response){
+
+        runblock.loadProfile(response.body);
+
+        this.flagEmailValid=true;
+
+        var user=response.body;
+
+        this.user.name=user.user;
 
 
-      resource.get().then((response) => {
-
-        this.todos=response.body;
-
+      },function(){
+        service.showError(this, 'User not exist ! ');
       });
-
     },
 
 
@@ -77,63 +84,65 @@ export default{
     *
     */
     loginAdmin: function(){
+      var resource=null;
+      var admin =this.user;
 
-      var resource= this.$resource();
-      var admin =this.admin;
 
-      this.$http.post('admin/login', admin)
-      .then(function(response){
+      var userValid=runblock.getProfile();
+
+      if(userValid==="A"){
+        resource=this.$http.post('admin/login', admin);
+
+      }else if (userValid==="C") {
+
+        resource=this.$http.post('customer/login', admin);
+
+      }
+
+
+
+
+      resource.then(function(response){
 
         if(response.body.token!=undefined){
-          localStorage.setItem('id_token', response.body.token);
-          this.admin.authenticated=true;
-          this.admin.password= "";
+          //localStorage.setItem('id_token', response.body.token);
+
+          sessionStorage.setItem('id_token', response.body.token);
+          this.user.authenticated=true;
+          this.user.password= "";
 
           var router= this.$router;
           router.push({name: 'candidates'});
           service.showSuccess(this, 'Welcome');
 
 
+          runblock.loadUserSession(response.body);
+
         }else if(response.body.password_incorrect){
 
           service.showWarning(this, 'Password Incorrect ! ');
 
         }
-
-
       }, function (error){
 
         service.showError(this, 'User not exist ! ');
 
       });
-
-
     },
+    clearLogin: function(){
 
+          this.flagEmailValid=false;
 
-    /*function: loginCustomer
-    *
-    * Init session admin
-    *
-    */
-    loginCustomer: function(){
+      this.user={
+        name:"",
+        email: "",
+        password: "",
+        authenticated: false
 
-      var resource= this.$resource('customer/login');
-      var candidate= this.
-
-
-      resource.post(candidate).then((response) => {
-
-        this.todos=response.body;
-
-      });
+      }
 
     }
-
-
   }
-
-
 }
 
 </script>

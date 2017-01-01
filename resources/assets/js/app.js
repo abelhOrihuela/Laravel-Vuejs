@@ -27,6 +27,10 @@ import ALogin from './components/a-components/a-login/a-login.vue';
 Vue.component('a-login', ALogin);
 import Asignin from './components/a-components/a-signin/a-signin.vue';
 
+import AMenu from './components/a-components/a-menu/a-menu.vue';
+Vue.component('a-menu', AMenu);
+
+
 
 /*------------------------------ ROUTER --------------------------------*/
 /*It was great to see everyone--fue genial verlos a todos*/
@@ -38,7 +42,7 @@ const routes =[{
 },
 {
 	path: '/dashboard',
-	component: ALogin,
+	component: MntAdmins,
 	name: 'dashboard',
 	meta: { requiresAuth: true }
 },
@@ -68,7 +72,7 @@ router.beforeEach((to, from, next)=>{
 
 	if(to.meta.requiresAuth){
 
-		const authUser=localStorage.getItem('id_token');
+		const authUser=sessionStorage.getItem('id_token');
 
 		if(authUser){
 
@@ -101,9 +105,22 @@ const app = new Vue({
 	router,
 	data:{
 		message: 'Keytalent',
-		locale: 'en'
+		locale: 'en',
+		logged: false,
 	},
 	translations: {
 
+	},
+	methods: {
+		loggedUser: function(){
+
+			const authUser=sessionStorage.getItem('id_token');
+
+			if(authUser){
+				return true;
+			}
+
+			return false;
+		}
 	}
 }).$mount('#app');

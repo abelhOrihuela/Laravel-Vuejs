@@ -1,61 +1,26 @@
-<div class="jumbotron">
+<div class="wrapper">
+	<form class="login" @submit.prevent="null">
 
-
-
-
-	<div class="row">
-		<div>
-
-
-
-			<!-- Tab panes -->
-			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane active" id="home">
-					<br>
-					<div class="col-sm-6">
-						<form class="form-horizontal" @submit.prevent="loginAdmin">
-							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-								<div class="col-sm-10">
-									<input type="email" v-model="admin.email"class="form-control" id="inputEmail3" placeholder="Email">
-								</div>
-
-							</div>
-							<div class="form-group">
-								<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-								<div class="col-sm-10">
-									<input type="password"  v-model="admin.password" class="form-control" id="inputPassword3" placeholder="Password">
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<div class="checkbox">
-										<label>
-											<input type="checkbox"> Remember me
-										</label>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-2 col-sm-10">
-									<button type="submit"  class="btn btn-default">Sign in</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
+		<div style="text-align: right">
+			<i @click="clearLogin()" class="btn btn-success glyphicon glyphicon-pencil"></i>
 		</div>
-	</div>
 
-	<div class="login">
-    <input type="text" placeholder="Username" id="username">
-  <input type="password" placeholder="password" id="password">
-  <a href="#" class="forgot">forgot password?</a>
-  <input type="submit" value="Sign In">
-</div>
-<div class="shadow"></div>
+		<p class="title">Log in</p>
+		<strong>{{ user.name }}</strong>
+		<input v-if="!flagEmailValid" type="email" placeholder="email" v-model="user.email" id="username"/>
 
 
+		<button type="button" v-if="!flagEmailValid && isValid" @click="validateUser()">
+			<i class="glyphicon glyphicon-arrow-right"></i></button>
 
+			<div v-if="flagEmailValid">
+				<input type="password" placeholder="Password" v-model="user.password" />
+
+				<!-- <i class="glyphicon glyphicon-cog"></i>	<a href="#">Forgot your password?</a>	-->
+			<button type="button" @click="loginAdmin()">
+				<span class="state">Log in</span>
+			</button>
+			
+		</div>
+	</form>
 </div>
