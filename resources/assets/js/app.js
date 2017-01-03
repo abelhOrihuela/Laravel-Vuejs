@@ -25,10 +25,12 @@ import MntCandidates from './components/moduls/mnt-candidates/mnt-candidates.vue
 Vue.component('mnt-candidates', MntCandidates);
 import ALogin from './components/a-components/a-login/a-login.vue';
 Vue.component('a-login', ALogin);
-import Asignin from './components/a-components/a-signin/a-signin.vue';
 
 import AMenu from './components/a-components/a-menu/a-menu.vue';
 Vue.component('a-menu', AMenu);
+import MntGroups from './components/moduls/mnt-groups/mnt-groups.vue';
+Vue.component('mnt-groups', MntGroups);
+
 
 
 
@@ -56,6 +58,12 @@ const routes =[{
 	path: '/admins',
 	component: MntAdmins,
 	name: 'admins',
+	meta: { requiresAuth: true }
+},
+{
+	path: '/groups',
+	component: MntGroups,
+	name: 'groups',
 	meta: { requiresAuth: true }
 },
 {

@@ -20,3 +20,10 @@ export var tableExperience = [
   {label: "turn_business", key: 'turn_business'},
   {label: "created_at", key: 'created_at'}
 ];
+
+export var tableGroups = [
+  {label: "name_group", key: 'name_group' },
+  {label: "category", key: 'category'},
+  {label: "subcategory", key: 'subcategory'},
+  {label: "visible", key: 'visible', filter: 'trueOrFalse'}
+];

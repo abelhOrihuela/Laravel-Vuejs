@@ -1,5 +1,7 @@
 <script>
 import { translations } from '../../js/translate/table.js';
+import  filter  from '../../js/utilities/filters.js';
+
 
 export default{
   template: require('./a-table.html'),
@@ -65,7 +67,11 @@ export default{
     translateTable: function(column){
       var text='';
       return text;
+    },
+    trueOrFalse: function(value){
+      return filter.trueOrFalse(this,value);
     }
+
   },
   methods: {
     sortBy: function (key) {

@@ -26,7 +26,7 @@
     <div class="col-sm-12">
       <table class="table-a">
         <thead>
-      
+
           <tr>
             <th v-for="key in columns"
             @click="sortBy(key.key)"
@@ -40,7 +40,13 @@
       <tbody>
         <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">
           <td v-for="key in columns">
-            {{entry[key.key]}}
+            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='trueOrFalse'">
+              {{entry[key.key] | trueOrFalse }}
+            </span>
+
+            <span v-if="key.filter==null || key.filter==undefined">
+              {{entry[key.key]}}
+            </span>
           </td>
         </tr>
         <tr v-if="!filteredData.length>0">

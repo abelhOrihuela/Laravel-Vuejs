@@ -151,7 +151,7 @@ Route::group(['prefix' => 'api'], function () {
     'uses' => 'CandidateEconomicController@index',
     'as'   => 'economic_index_path'
   ]);
-  
+
   /* DELETE EXPERIENCE FOR CANDIDATE */
   Route::post('economic/new',[
     'uses' => 'CandidateEconomicController@create',
@@ -163,5 +163,12 @@ Route::group(['prefix' => 'api'], function () {
     'uses' => 'CandidateEconomicController@update',
     'as'   => 'experience_update_path'
   ]);
+
+  Route::get('groups',[
+    'uses' => 'GroupsController@index',
+    'as'   => 'groups_index_path'
+  ]);
+
+
 
 });

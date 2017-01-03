@@ -1,6 +1,7 @@
 
 /*---------------------------------ROOT API----------------------------------*/
 export const apiRoot= "/api"
+export const mixins= [require('vue-i18n-mixin')];
 
 /*-------------------------------RESOURCE HHTP-------------------------------*/
 export const HTTP={
@@ -40,3 +41,6 @@ export const EXPERIENCEWTC_EDIT="experiencewtc/edit"
 export const ECONOMIC="economic{/id}"
 export const ECONOMIC_NEW="economic/new"
 export const ECONOMIC_EDIT="economic/edit"
+
+/*-----------------------------------GROUPS---------------------------------*/
+export const GROUPS="groups"
