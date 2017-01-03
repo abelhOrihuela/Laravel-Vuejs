@@ -2,7 +2,9 @@
 import Toast from 'vue-toast-mobile';
 export default {
 
-
+  /**
+  *return inxex object in to list
+  */
   getIndiceObject(context, list ,property,data){
     for (var i = 0; i < list.length; i++) {
       if(list[i].hasOwnProperty(property)){
@@ -14,6 +16,10 @@ export default {
     }
     return -1;
   },
+
+  /**
+  *show toast success
+  */
   showSuccess(context,  message){
 
     if(message==null || message==undefined){
@@ -28,6 +34,9 @@ export default {
     });
 
   },
+  /**
+  *show toast error
+  */
   showError(context,  message){
     Toast({
       message: message,
@@ -36,6 +45,9 @@ export default {
       duration: 4000
     });
   },
+  /**
+  *show toast warning
+  */
   showWarning(context,  message){
     Toast({
       message: message,
@@ -44,6 +56,9 @@ export default {
       duration: 4000
     });
   },
+  /**
+  *validate value data
+  */
   validateValue(context, data){
     if(data!=null && data!=undefined && data!=''){
       return true;
@@ -65,13 +80,8 @@ export default {
     for (var p in x)
     {
       if ( x.hasOwnProperty(p) && y.hasOwnProperty(p) ){
-
-
-
         if( x[p] != y[p]){
-          console.log("hasOwnProperty");
           return false;
-
         }
       }
     }

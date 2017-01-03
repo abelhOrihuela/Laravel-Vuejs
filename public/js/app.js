@@ -17728,7 +17728,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../js/constants_restful.js":60,"../../js/runblock.js":61,"../../js/utilities/service.js":65,"./a-login.html":49,"babel-runtime/core-js/object/keys":2,"vue":46,"vue-hot-reload-api":41,"vue-toast-mobile":45}],51:[function(require,module,exports){
-module.exports = '<div class="area">\n  <nav class="main-menu">\n    <br><br>\n    <br><br>\n\n    <ul>\n\n      <li>\n        <router-link v-for="option in menu" :to="option.name">\n          <i class="fa fa-power-off fa-2x glyphicon":class="option.class"></i>\n          <span class="nav-text">\n            {{ option.description }}\n          </span>\n        </router-link>\n      </li>\n\n    </ul>\n\n    <ul class="logout">\n      <li>\n\n        <a @click="logout()">\n          <i class="fa fa-power-off fa-2x glyphicon glyphicon-off"></i>\n          <span class="nav-text">\n            Logout\n          </span>\n        </a>\n\n      </li>\n    </ul>\n  </nav>\n</div>\n';
+module.exports = '<div class="area">\n  <nav class="main-menu">\n    <br><br>\n    <br><br>\n\n    <ul >\n\n      <li>\n        <a href="#">\n          <i class="fa fa-home fa-2x"></i>\n          <span class="nav-text">\n            Dashboard\n          </span>\n        </a>\n\n      </li>\n\n      <li>\n\n        <router-link v-for="option in menu" :to="option.name">\n          <i class="fa fa-power-off fa-2x glyphicon":class="option.class"></i>\n          <span class="nav-text">\n            {{ option.description }}\n          </span>\n        </router-link>\n      </li>\n\n      <li>\n        <a @click="logout()">\n          <i class="fa fa-power-off fa-2x glyphicon glyphicon-off"></i>\n          <span class="nav-text">\n            Logout\n          </span>\n        </a>\n      </li>\n\n    </ul>\n\n    <ul class="logout">\n      <li>\n        <a @click="logout()">\n          <i class="fa fa-power-off fa-2x glyphicon glyphicon-off"></i>\n          <span class="nav-text">\n            Logout\n          </span>\n        </a>\n\n      </li>\n    </ul>\n  </nav>\n</div>\n';
 },{}],52:[function(require,module,exports){
 'use strict';
 
@@ -17776,11 +17776,13 @@ exports.default = {
       };
 
       this.menu.push(admins);
+
       var candidates = {
         name: 'candidates',
         class: 'glyphicon-user',
         description: 'Candidates'
       };
+
       this.menu.push(candidates);
 
       var groups = {
@@ -18160,18 +18162,19 @@ var ACADEMIC_NEW = exports.ACADEMIC_NEW = "academic/new";
 var ACADEMIC_DELETE = exports.ACADEMIC_DELETE = "academic/delete{/id}";
 var ACADEMIC_EDIT = exports.ACADEMIC_EDIT = "academic/edit";
 
-/*---------------------------CANDIDATE EXPERIENCE---------------------------*/
+/*---------------------------CANDIDATE EXPERIENCE----------------------------*/
 var EXPERIENCE = exports.EXPERIENCE = "experience{/id}";
 var EXPERIENCE_NEW = exports.EXPERIENCE_NEW = "experience/new";
 var EXPERIENCE_DELETE = exports.EXPERIENCE_DELETE = "experience/delete{/id}";
 var EXPERIENCE_EDIT = exports.EXPERIENCE_EDIT = "experience/edit";
 
-/*---------------------------CANDIDATE EXPERIENCE---------------------------*/
+/*---------------------------CANDIDATE EXPERIENCE----------------------------*/
 var EXPERIENCEWTC = exports.EXPERIENCEWTC = "experiencewtc{/id}";
 var EXPERIENCEWTC_NEW = exports.EXPERIENCEWTC_NEW = "experiencewtc/new";
 var EXPERIENCEWTC_DELETE = exports.EXPERIENCEWTC_DELETE = "experiencewtc/delete{/id}";
 var EXPERIENCEWTC_EDIT = exports.EXPERIENCEWTC_EDIT = "experiencewtc/edit";
 
+/*---------------------------CANDIDATE ECONOMIC------------------------------*/
 var ECONOMIC = exports.ECONOMIC = "economic{/id}";
 var ECONOMIC_NEW = exports.ECONOMIC_NEW = "economic/new";
 var ECONOMIC_EDIT = exports.ECONOMIC_EDIT = "economic/edit";
@@ -18183,18 +18186,41 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = {
+
+  /*
+  * RUNBLOCK :
+  * config runblock load variables session
+  * get config session
+  */
+
+  /**
+  *load type profile A/C
+  */
   loadProfile: function loadProfile(data) {
     sessionStorage.setItem('profile', data.type);
   },
+
+
+  /*
+  *return type_profile
+  */
   getProfile: function getProfile() {
     return sessionStorage.getItem('profile');
   },
+
+  /*
+  * load user session
+  */
   loadUserSession: function loadUserSession(data) {
-    console.log(data);
 
     sessionStorage.setItem('type_profile', data.user.type);
     sessionStorage.setItem('username', data.user.username);
   },
+
+
+  /*
+  * return load user session
+  */
   getUserSession: function getUserSession() {
 
     var user = new Object();
@@ -18556,6 +18582,10 @@ var _vueToastMobile2 = _interopRequireDefault(_vueToastMobile);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+
+  /**
+  *return inxex object in to list
+  */
   getIndiceObject: function getIndiceObject(context, list, property, data) {
     for (var i = 0; i < list.length; i++) {
       if (list[i].hasOwnProperty(property)) {
@@ -18567,6 +18597,11 @@ exports.default = {
     }
     return -1;
   },
+
+
+  /**
+  *show toast success
+  */
   showSuccess: function showSuccess(context, message) {
 
     if (message == null || message == undefined) {
@@ -18580,6 +18615,10 @@ exports.default = {
       duration: 4000
     });
   },
+
+  /**
+  *show toast error
+  */
   showError: function showError(context, message) {
     (0, _vueToastMobile2.default)({
       message: message,
@@ -18588,6 +18627,10 @@ exports.default = {
       duration: 4000
     });
   },
+
+  /**
+  *show toast warning
+  */
   showWarning: function showWarning(context, message) {
     (0, _vueToastMobile2.default)({
       message: message,
@@ -18596,6 +18639,10 @@ exports.default = {
       duration: 4000
     });
   },
+
+  /**
+  *validate value data
+  */
   validateValue: function validateValue(context, data) {
     if (data != null && data != undefined && data != '') {
       return true;
@@ -18613,9 +18660,7 @@ exports.default = {
 
     for (var p in x) {
       if (x.hasOwnProperty(p) && y.hasOwnProperty(p)) {
-
         if (x[p] != y[p]) {
-          console.log("hasOwnProperty");
           return false;
         }
       }
