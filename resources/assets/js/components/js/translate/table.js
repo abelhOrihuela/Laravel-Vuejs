@@ -70,6 +70,23 @@ export const translations={
     back:{
       en: 'Back',
       es: 'Regresar'
+    },
+    category:{
+      en: 'Category',
+      es: 'Categoria'
+    },
+    subcategory:{
+      en: 'SubCategory',
+      es: 'SubCategoria'
+
+    },
+    name_group:{
+      en: 'Name Group',
+      es: 'Nombre del Grupo'
+    },
+    visible:{
+      en: 'Visible',
+      es: 'Visible'
     }
 
   }

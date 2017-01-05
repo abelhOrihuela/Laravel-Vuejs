@@ -2,22 +2,14 @@
 /*-----------------------------------------------------------*/
 import ATable from '../../a-components/a-table/a-table.vue';
 import AddCandidate from './add-candidate/add-candidate.vue';
-import AddPhoto from '../../a-components/add-photo/add-photo.vue';
-
-
-import MntExperience from '../../moduls/mnt-experience/mnt-experience.vue';
-import MntAcademic from '../../moduls/mnt-academic/mnt-academic.vue';
-import MntExperienceWtc from '../../moduls/mnt-experiencewtc/mnt-experiencewtc.vue';
-import MntEconomic from '../../moduls/mnt-economic/mnt-economic.vue';
-
-
+import ACandidate from '../../a-components/a-candidate/a-candidate.vue';
 
 import  service  from '../../js/utilities/service.js';
 import  filter  from '../../js/utilities/filters.js';
 
-import { HTTP, candidates, candidates_experince, EXPERIENCE, ACADEMIC, EXPERIENCEWTC, ECONOMIC } from '../../js/constants_restful.js';
+import { HTTP, candidates } from '../../js/constants_restful.js';
 import { translations } from '../../js/translations.js';
-import { tableCandidates , tableExperience} from '../../js/config-app/tables.js';
+import { tableCandidates } from '../../js/config-app/tables.js';
 
 
 export default{
@@ -32,13 +24,9 @@ export default{
   props:{},
   /*COMPONENTS*/
   components:{
+    'a-candidate': ACandidate,
     'a-table': ATable,
-    'add-candidate': AddCandidate,
-    'add-photo': AddPhoto,
-    'mnt-experience': MntExperience,
-    'mnt-experiencewtc': MntExperienceWtc,
-    'mnt-academic': MntAcademic,
-    'mnt-economic': MntEconomic
+    'add-candidate': AddCandidate
   },
   filters:{
     trueOrFalse: function(value){
@@ -53,7 +41,6 @@ export default{
       experiences: [],
       candidates: [],
       columns: tableCandidates,
-      columnsExperience: tableExperience,
       flagTable: true,
       flagDetailSelected: false,
       locale: 'es',
@@ -68,11 +55,7 @@ export default{
   },
   methods:{
 
-    /*function: fetchImageProfile
-    *
-    * Get image profile
-    *
-    */
+
     getAdmins: function(){
 
       var resource= this.$resource(candidates);
@@ -85,25 +68,9 @@ export default{
     select: function(data){
 
 
-      this.getAcademic(data);
-      this.getExperience(data);
-      this.getExperienceWtc(data);
-      this.getEconomic(data);
-
-
       this.flagTable=false;
       this.flagDetailSelected=true;
       this.candidateSelected=data;
-
-
-      setTimeout(function(){
-
-        this.optionTab= 1;
-
-      });
-
-
-
 
     },
     showTable: function(){
@@ -127,79 +94,9 @@ export default{
       this.showNewCandidate=false;
       this.select(data);
     },
-    getPhoto: function(data, status){
-      this.showModalPhoto=false;
-      this.candidateSelected.photo=data;
-
-      service.showSuccess(this, 'Operacion Exitosa');
-    },
-
     selectTab: function(option){
       this.optionTab=option;
-
     },
-    getAcademic: function(candidate){
-
-      var resource= this.$resource(ACADEMIC);
-      resource.get({id : candidate.id }).then(function(response){
-        candidate.academics=response.body;
-        this.optionTab= 1;
-
-      }, function(error){
-
-      });
-
-    },
-    getExperience: function(candidate){
-
-      var resource= this.$resource(EXPERIENCE);
-      resource.get({id : candidate.id }).then(function(response){
-        candidate.experiences=response.body;
-      }, function(error){
-
-      });
-
-    },
-    getExperienceWtc: function(candidate){
-
-      var resource= this.$resource(EXPERIENCEWTC);
-      resource.get({id : candidate.id }).then(function(response){
-        candidate.experiences_wtc=response.body;
-      }, function(error){
-
-      });
-
-    },
-    getEconomic: function(candidate){
-
-      var resource= this.$resource(ECONOMIC);
-      resource.get({id : candidate.id }).then(function(response){
-        candidate.economic=response.body;
-
-
-      }, function(error){
-
-      });
-
-    },
-    downloadPdf: function(){
-
-      var $id=this.candidateSelected.id;
-
-      var resource= this.$resource('pdf{/id}');
-      resource.get({id : $id }).then(function(response){
-
-        var link = document.createElement("a");
-        link.download = "PDF";
-        link.href = "../my_stored_file.pdf";
-        link.click();
-
-
-      }, function(error){
-
-      });
-
-    }
   },
   created: function(){
     this.getAdmins();

@@ -2,6 +2,9 @@
 
 
 
+
+
+
 	<div style="text-align: right">
 		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>
 		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
@@ -21,178 +24,18 @@
 		</div>
 	</div>
 
+			<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate">
+			</add-candidate>
 
-	<div class="panel panel-default" v-if="flagDetailSelected">
-		<div class="panel-heading">
-			<label v-text="translate('people.candidates.selected')"></label>
-		</div>
-		<div class="panel-body">
 
-			<div class="row">
-				<div class="col-xs-6 col-md-4">
-					<figure class="snip1559 tumbnails">
-						<div v-if="candidateSelected.photo"class="profile-image">
-							<img :src="candidateSelected.photo.name_photo" alt="" />
-						</div>
-
-						<div v-if="!candidateSelected.photo"class="profile-image">
-							<img src="../img/default.png" alt="" />
-						</div>
-						<figcaption>
-							<div class="icons">
-
-								<i class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>
-								<i class="glyphicon glyphicon-save-file" @click="downloadPdf()">
-
-								</i>
-							</div>
-
-							<div class="tab-header">
-								languages
-							</div>
-							<ul class="list-group">
-								<li class="list-group-item" v-for="idiom in candidateSelected.idioms">
-									{{ idiom.name_idioma }}-{{ idiom.level_idioma }}
-								</li>
-							</ul>
-							<div class="tab-header">
-								Idioms
-							</div>
-							<ul class="list-group">
-								<li class="list-group-item" v-for="language in candidateSelected.languages" data-toggle="tooltip" data-placement="top" title="Hooray!">
-									{{ language.name_language }}-{{ language.level_language }}
-								</li>
-							</ul>
-						</figcaption>
-					</figure>
-				</div>
-
-				<div class="col-xs-6 col-md-8">
-					<div class="tab-header">
-						<h4>{{ candidateSelected.username }}</h4>
-					</div>
-
-					<table class="table table-condensed">
-						<tr>
-							<td>
-								<label class="label-a" v-text="translate('people.position')"></label>
-							</td>
-							<td>
-								{{ candidateSelected.position }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label class="label-a"  v-text="translate('people.email')"></label>
-							</td>
-							<td>
-								{{ candidateSelected.email }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label class="label-a"  v-text="translate('people.gender')"></label>
-							</td>
-							<td>
-								{{ candidateSelected.gender }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label class="label-a"  v-text="translate('people.location')"></label>
-							</td>
-							<td>
-								{{ candidateSelected.location }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label class="label-a" v-text="translate('people.birthday')"></label>
-							</td>
-							<td>
-								{{ candidateSelected.day }} /
-								{{ candidateSelected.month }} /
-								{{ candidateSelected.year }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label class="label-a" v-text="translate('people.phone')"></label>
-							</td>
-							<td>
-								{{ candidateSelected.code }} / {{ candidateSelected.phone }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label class="label-a" v-text="translate('people.category')"></label>
-							</td>
-							<td>
-								{{ candidateSelected.category_candidate.name }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<label class="label-a" v-text="translate('people.subcategory')"></label>
-							</td>
-							<td>
-								{{ candidateSelected.subcategory_candidate.name }}
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-
-			<ul class="nav nav-tabs">
-				<li role="presentation" v-bind:class="{ 'active': optionTab==1 }" @click="selectTab(1)">
-					<a>Formacion Academica</a>
-				</li>
-				<li role="presentation" v-bind:class="{ 'active': optionTab==2 }" @click="selectTab(2)">
-					<a>Experiencia Profesional</a>
-				</li>
-				<li role="presentation" v-bind:class="{ 'active': optionTab==3 }" @click="selectTab(3)">
-					<a>Experiencia en WTC</a>
-				</li>
-				<li role="presentation" v-bind:class="{ 'active': optionTab==4 }" @click="selectTab(4)">
-					<a>Expectativa Economica</a>
-				</li>
-			</ul>
-
-			<br>
-
-			<div class="panel panel-default" v-if="optionTab==1">
-				<div class="panel-body">
-					<mnt-academic :candidate="candidateSelected"></mnt-academic>
-				</div>
-			</div>
-
-			<div class="panel panel-default" v-if="optionTab==2">
-				<div class="panel-body">
-					<mnt-experience :candidate="candidateSelected"></mnt-experience>
-				</div>
-			</div>
-
-			<div class="panel panel-default" v-if="optionTab==3">
-				<div class="panel-body">
-					<mnt-experiencewtc :candidate="candidateSelected"></mnt-experiencewtc>
-				</div>
-			</div>
-
-			<div class="panel panel-default" v-if="optionTab==4">
-				<div class="panel-body">
-					<mnt-economic :candidate="candidateSelected"></mnt-economic>
-				</div>
-			</div>
-		</div>
-	</div>
+	<a-candidate v-if="flagDetailSelected" :candidate="candidateSelected">
+	<a-candidate>
 
 
 
-	<add-photo v-if="showModalPhoto" @close="showModalPhoto = false" :getphoto="getPhoto" :candidate="candidateSelected.id">
-	</add-photo>
 
-	<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate">
-	</add-candidate>
+
+
 
 	<!-------------------------------------------------------------->
 </div>

@@ -1,5 +1,6 @@
 export const translations={
     people: {
+
         	updated_at:{
         		en: 'Update',
         		es: 'Fecha Actulizado'
@@ -189,7 +190,17 @@ export const translations={
             select_image:{
               en: 'select_image',
               es: 'Selecciona una Imagen'
-            }
+            },
+            group:{
+              selected:{
+                en: 'Group Selected',
+                es: 'Grupo Seleccionado'
+              }
+            },
+            name_group:{
+              en: 'Name Group',
+              es: 'Nombre del Grupo'
+            },
         },
     general:{
         back:{

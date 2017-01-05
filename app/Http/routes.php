@@ -169,6 +169,12 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'groups_index_path'
   ]);
 
+  Route::get('group/candidates/{id}',[
+    'uses' => 'GroupsController@show',
+    'as'   => 'groups_show_path'
+  ]);
+
+
 
 
 });

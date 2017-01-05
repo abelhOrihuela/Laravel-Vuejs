@@ -23,7 +23,7 @@ export var tableExperience = [
 
 export var tableGroups = [
   {label: "name_group", key: 'name_group' },
-  {label: "category", key: 'category'},
-  {label: "subcategory", key: 'subcategory'},
+  {label: "category", key: 'descrCategory'},
+  {label: "subcategory", key: 'descrSubCategory'},
   {label: "visible", key: 'visible', filter: 'trueOrFalse'}
 ];
