@@ -39,6 +39,14 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'candidates_index_path',
   ]);
 
+
+  /* RETURN ALL CANDIDATES */
+  Route::post('candidates/search', [
+    'uses' => 'CandidatesController@search',
+    'as'   => 'candidates_index_path',
+  ]);
+
+
   /* RETURN ONE CANDIDATE */
   Route::get('candidate/{id}', [
     'uses' => 'CandidatesController@show',

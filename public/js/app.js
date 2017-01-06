@@ -19610,13 +19610,17 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../../js/constants_restful.js":60,"../../../js/translations.js":63,"../../../js/utilities/service.js":65,"../../../js/utilities/validate.js":66,"./add-candidate.html":77,"babel-runtime/core-js/object/keys":2,"babel-runtime/helpers/defineProperty":3,"vue":46,"vue-hot-reload-api":41,"vue-i18n-mixin":42}],79:[function(require,module,exports){
-module.exports = '<div class="container-a">\n\n\n\n\n\n\n	<div style="text-align: right">\n		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>\n		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>\n	</div>\n\n	<div v-show="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n			<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate">\n			</add-candidate>\n\n\n	<a-candidate v-if="flagDetailSelected" :candidate="candidateSelected">\n	<a-candidate>\n\n\n\n\n\n\n\n	<!-------------------------------------------------------------->\n</div>\n';
+module.exports = '<div class="container-a">\n\n\n\n\n\n\n\n\n\n	<div style="text-align: right">\n		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>\n		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>\n\n	</div>\n\n	<br>\n\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			<label v-text="translate(\'people.candidates.selected\')"></label>\n		</div>\n		<div class="panel-body">\n\n			<div class="row">\n				<div class="col-sm-3">\n					<label v-bind:class="{ \'label-a\': validation.category, \'label-error\':  !validation.category}" v-text="translate(\'people.category\')"></label>\n					<select  class="form-control" @change="fetchSubCategories()" v-model="searchCand.category">\n						<option v-for="category in categories" v-bind:value="category.id">\n							{{ category.name }}\n						</option>\n					</select>\n\n				</div>\n\n				<div class="col-sm-3">\n					<label v-bind:class="{ \'label-a\': validation.subcategory, \'label-error\':  !validation.subcategory}" v-text="translate(\'people.subcategory\')"></label>\n					<select v-model="searchCand.subcategory" class="form-control">\n						<option v-for="category in subcategories" v-bind:value="category.id">\n							{{ category.name }}\n						</option>\n					</select>\n\n				</div>\n			</div>\n	</div>\n\n	<div class="panel-footer">\n		<button type="button" @click="search()"name="button">Search</button>\n	</div>\n	</div>\n\n\n	<div v-show="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n			<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate">\n			</add-candidate>\n\n\n	<a-candidate v-if="flagDetailSelected" :candidate="candidateSelected">\n	<a-candidate>\n\n\n\n\n\n\n\n	<!-------------------------------------------------------------->\n</div>\n';
 },{}],80:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
 
 var _aTable = require('../../a-components/a-table/a-table.vue');
 
@@ -19675,8 +19679,10 @@ exports.default = {
       searchQuery: '',
       experiences: [],
       candidates: [],
+      categories: [],
+      subcategories: [],
       columns: _tables.tableCandidates,
-      flagTable: true,
+      flagTable: false,
       flagDetailSelected: false,
       locale: 'es',
       showModal: false,
@@ -19684,7 +19690,11 @@ exports.default = {
       showPersonalInformation: false,
       showModalPhoto: false,
       optionTab: 0,
-      experienceSelect: {}
+      experienceSelect: {},
+      searchCand: {
+        category: '',
+        subcategory: ''
+      }
 
     };
   },
@@ -19697,6 +19707,16 @@ exports.default = {
       resource.get().then(function (response) {
         _this.candidates = response.body;
       });
+    },
+    search: function search() {
+
+      var searchCand = this.searchCand;
+
+      console.log("---------------------------");
+      console.log(searchCand);
+      console.log("---------------------------");
+
+      this.$http.post('candidates/search', searchCand).then(function (response) {}, function (error) {});
     },
 
     select: function select(data) {
@@ -19727,10 +19747,49 @@ exports.default = {
     },
     selectTab: function selectTab(option) {
       this.optionTab = option;
+    },
+    fetchCategories: function fetchCategories() {
+      var _this2 = this;
+
+      this.$http.get('categories').then(function (response) {
+        if (response) {
+          response.json();
+          _this2.categories = response.body;
+        }
+      }, function (response) {});
+    },
+    fetchSubCategories: function fetchSubCategories() {
+      var _this3 = this;
+
+      var resource = this.$resource('subcategories{/id}');
+
+      resource.get({ id: this.searchCand.category }).then(function (response) {
+        _this3.subcategories = response.body;
+      });
     }
   },
   created: function created() {
-    this.getAdmins();
+    //this.getAdmins();
+    this.fetchCategories();
+  },
+  computed: {
+    validation: function validation() {
+      var date = /(\d+)(-|\/)(\d+)(?:-|\/)(?:(\d+)\s+(\d+):(\d+)(?::(\d+))?(?:\.(\d+))?)?/;
+      var emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var numberEx = /^[0-9\b]+$/;
+      return {
+
+        category: !!this.search.category != '',
+        subcategory: !!this.search.subcategory != ''
+
+      };
+    },
+    isValid: function isValid() {
+      var validation = this.validation;
+      return (0, _keys2.default)(validation).every(function (key) {
+        return validation[key];
+      });
+    }
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
@@ -19744,7 +19803,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-32a0f4a7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-candidate/a-candidate.vue":50,"../../a-components/a-table/a-table.vue":56,"../../js/config-app/tables.js":59,"../../js/constants_restful.js":60,"../../js/translations.js":63,"../../js/utilities/filters.js":64,"../../js/utilities/service.js":65,"./add-candidate/add-candidate.vue":78,"./mnt-candidates.html":79,"vue":46,"vue-hot-reload-api":41,"vue-i18n-mixin":42}],81:[function(require,module,exports){
+},{"../../a-components/a-candidate/a-candidate.vue":50,"../../a-components/a-table/a-table.vue":56,"../../js/config-app/tables.js":59,"../../js/constants_restful.js":60,"../../js/translations.js":63,"../../js/utilities/filters.js":64,"../../js/utilities/service.js":65,"./add-candidate/add-candidate.vue":78,"./mnt-candidates.html":79,"babel-runtime/core-js/object/keys":2,"vue":46,"vue-hot-reload-api":41,"vue-i18n-mixin":42}],81:[function(require,module,exports){
 module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 60%">\n          <div class="modal-header">\n            <div class="row">\n              <div class="col-sm-11">\n                <slot name="header">\n                  <h4 v-text="translate(\'people.edit_experience\')"></h4>\n                </slot>\n              </div>\n              <div class="col-sm-1">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n\n              <div class="row">\n                <div class="col-sm-3">\n\n                  <label v-bind:class="{ \'label-a\': validation.current_salary, \'label-error\':  !validation.current_salary}" v-text="translate(\'people.current_salary\')"></label>\n                  <input class="form-control" type="text" name="name" v-model="economic.current_salary">\n\n                </div>\n\n                <div class="col-sm-7">\n\n\n                  <label v-bind:class="{ \'label-a\': validation.economic_package, \'label-error\':  !validation.economic_package}" v-text="translate(\'people.economic_package\')"></label>\n                  <input class="form-control" type="text" name="name" v-model="economic.economic_package">\n\n                </div>\n\n                <div class="col-sm-2 has-success">\n                  <label class="label-a" v-text="translate(\'people.relocation\')"></label>\n\n                  <div class="">\n                    <input type="checkbox" name="name" v-bind:true-value=1 v-bind:false-value=0 v-model="economic.relocation">\n\n                  </div>\n\n                </div>\n\n              </div>\n\n              <div class="row">\n                <div class="col-sm-3">\n\n                  <label v-bind:class="{ \'label-a\': validation.salary_expectation, \'label-error\':  !validation.salary_expectation}" v-text="translate(\'people.salary_expectation\')"></label>\n                  <input class="form-control" type="text" name="name" v-model="economic.salary_expectation">\n                </div>\n\n                <div class="col-sm-9">\n                  <label  class="label-a" v-text="translate(\'people.comments\')"></label>\n                  <input class="form-control" type="text" name="name" v-model="economic.comments">\n\n                </div>\n              </div>\n\n\n            </slot>\n            <div class="modal-footer">\n\n\n\n              <slot name="footer">\n              <button v-if="isValid" class="btn btn-success" @click="addEconomic()">\n\n              <label v-text="translate(\'people.confirm\')"></label>\n\n\n            </button>\n          </slot>\n\n\n\n      </div>\n    </div>\n  </div>\n</div>\n</transition>\n</div>\n';
 },{}],82:[function(require,module,exports){
 'use strict';
@@ -20917,7 +20976,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../js/constants_restful.js":60,"../../js/translations.js":63,"../../js/utilities/filters.js":64,"../../js/utilities/service.js":65,"./add-experiencewtc/add-experiencewtc.vue":96,"./delete-experiencewtc/delete-experiencewtc.vue":98,"./edit-experiencewtc/edit-experiencewtc.vue":100,"./mnt-experiencewtc.html":101,"vue":46,"vue-hot-reload-api":41,"vue-i18n-mixin":42}],103:[function(require,module,exports){
-module.exports = '<div class="container-a">\n\n\n\n  	<div class="row" v-if="flagDetailSelected">\n  		<div class="col-sm-4  " @click="showTable()">\n  			<div class="back-section">\n  				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n  				</i>\n  			</div>\n  		</div>\n  	</div>\n<br>\n\n<a-table v-if="flagShowTable" :data="groups" :columns="columns" :total="groups.length" :select="select">\n</a-table>\n\n\n\n<div class="panel panel-default" v-if="flagDetailSelected">\n  <div class="panel-heading">\n    <label v-text="translate(\'people.group.selected\')"></label>\n  </div>\n  <div class="panel-body">\n\n    <div class="row">\n      <div class="col-sm-2">\n        <label class="label-a" v-text="translate(\'people.name_group\')"></label>\n        <div >\n          {{ groupSelect.name_group }}\n        </div>\n      </div>\n\n      <div class="col-sm-2">\n        <label class="label-a" v-text="translate(\'people.category\')"></label>\n        <div >\n          {{ groupSelect.descrCategory }}\n\n\n        </div>\n      </div>\n\n      <div class="col-sm-2">\n        <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n        <div >\n          {{ groupSelect.descrSubCategory }}\n        </div>\n      </div>\n\n    </div>\n\n\n    </div>\n  </div>\n\n\n</div>\n';
+module.exports = '<div class="container-a">\n\n\n\n  <div class="row" v-if="flagDetailSelected">\n    <div class="col-sm-4  " @click="showTable()">\n      <div class="back-section">\n        <i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n        </i>\n      </div>\n    </div>\n  </div>\n  <br>\n\n  <a-table v-if="flagShowTable" :data="groups" :columns="columns" :total="groups.length" :select="select">\n  </a-table>\n\n\n\n  <div class="panel panel-default" v-if="flagDetailSelected">\n    <div class="panel-heading">\n      <label v-text="translate(\'people.group.selected\')"></label>\n    </div>\n    <div class="panel-body">\n\n      <div class="row">\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.name_group\')"></label>\n          <div >\n            {{ groupSelect.name_group }}\n          </div>\n        </div>\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.category\')"></label>\n          <div >\n            {{ groupSelect.descrCategory }}\n\n\n          </div>\n        </div>\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n          <div >\n            {{ groupSelect.descrSubCategory }}\n          </div>\n        </div>\n\n      </div>\n\n\n    </div>\n  </div>\n\n  <a-table v-if="flagShowTableCandidates" :data="candidates" :columns="columnsCandidates" :total="candidates.length" :select="selectCandidate">\n  </a-table>\n\n\n\n  <div class="row" v-if="flagDetailSelectedCandidate">\n    <div class="col-sm-4  " @click="showTableCandidates()">\n      <div class="back-section">\n        <i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n        </i>\n      </div>\n    </div>\n  </div>\n  <br>\n\n\n  <a-candidate v-if="flagDetailSelectedCandidate" :candidate="candidateSelected">\n  <a-candidate>\n\n\n\n</div>\n';
 },{}],104:[function(require,module,exports){
 'use strict';
 
@@ -20941,6 +21000,10 @@ var _aTable = require('../../a-components/a-table/a-table.vue');
 
 var _aTable2 = _interopRequireDefault(_aTable);
 
+var _aCandidate = require('../../a-components/a-candidate/a-candidate.vue');
+
+var _aCandidate2 = _interopRequireDefault(_aCandidate);
+
 var _tables = require('../../js/config-app/tables.js');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -20951,15 +21014,21 @@ exports.default = {
   translations: _translations.translations,
   mixins: _constants_restful.mixins,
   components: {
-    'a-table': _aTable2.default
+    'a-table': _aTable2.default,
+    'a-candidate': _aCandidate2.default
   },
   data: function data() {
     return {
       groups: [],
       columns: _tables.tableGroups,
+      columnsCandidates: _tables.tableCandidates,
       groupSelect: null,
       flagShowTable: true,
       flagDetailSelected: false,
+      flagDetailSelectedCandidate: false,
+      flagShowTableCandidates: false,
+      candidates: [],
+      candidateSelected: {},
       locale: 'es'
     };
   },
@@ -20985,8 +21054,10 @@ exports.default = {
       });
     },
     select: function select(entry) {
+      this.candidates = [];
 
       this.flagDetailSelected = true;
+      this.flagShowTableCandidates = true;
 
       this.flagShowTable = false;
 
@@ -20998,13 +21069,28 @@ exports.default = {
       this.groupSelect = {};
       this.flagShowTable = true;
       this.flagDetailSelected = false;
+      this.flagShowTableCandidates = false;
+      this.flagDetailSelectedCandidate = false;
+      this.flagShowTableCandidates = false;
     },
     getCandidates: function getCandidates(id) {
 
       var resource = this.$resource(_constants_restful.GROUPCANDIDATES);
-      resource.get({ id: id }).then(function (response) {}, function (error) {
+      resource.get({ id: id }).then(function (response) {
+
+        this.candidates = response.body.candidates;
+      }, function (error) {
         _service2.default.showError(this, null);
       });
+    },
+    selectCandidate: function selectCandidate(entry) {
+      this.flagDetailSelectedCandidate = true;
+      this.flagShowTableCandidates = false;
+      this.candidateSelected = entry;
+    },
+    showTableCandidates: function showTableCandidates() {
+      this.flagDetailSelectedCandidate = false;
+      this.flagShowTableCandidates = true;
     }
 
   },
@@ -21024,6 +21110,6 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-428a24a7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-table/a-table.vue":56,"../../js/config-app/tables.js":59,"../../js/constants_restful.js":60,"../../js/translations.js":63,"../../js/utilities/filters.js":64,"../../js/utilities/service.js":65,"./mnt-groups.html":103,"vue":46,"vue-hot-reload-api":41}]},{},[48]);
+},{"../../a-components/a-candidate/a-candidate.vue":50,"../../a-components/a-table/a-table.vue":56,"../../js/config-app/tables.js":59,"../../js/constants_restful.js":60,"../../js/translations.js":63,"../../js/utilities/filters.js":64,"../../js/utilities/service.js":65,"./mnt-groups.html":103,"vue":46,"vue-hot-reload-api":41}]},{},[48]);
 
 //# sourceMappingURL=app.js.map

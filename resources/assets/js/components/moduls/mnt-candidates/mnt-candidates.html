@@ -5,10 +5,51 @@
 
 
 
+
+
+
 	<div style="text-align: right">
 		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>
 		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
+
 	</div>
+
+	<br>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<label v-text="translate('people.candidates.selected')"></label>
+		</div>
+		<div class="panel-body">
+
+			<div class="row">
+				<div class="col-sm-3">
+					<label v-bind:class="{ 'label-a': validation.category, 'label-error':  !validation.category}" v-text="translate('people.category')"></label>
+					<select  class="form-control" @change="fetchSubCategories()" v-model="searchCand.category">
+						<option v-for="category in categories" v-bind:value="category.id">
+							{{ category.name }}
+						</option>
+					</select>
+
+				</div>
+
+				<div class="col-sm-3">
+					<label v-bind:class="{ 'label-a': validation.subcategory, 'label-error':  !validation.subcategory}" v-text="translate('people.subcategory')"></label>
+					<select v-model="searchCand.subcategory" class="form-control">
+						<option v-for="category in subcategories" v-bind:value="category.id">
+							{{ category.name }}
+						</option>
+					</select>
+
+				</div>
+			</div>
+	</div>
+
+	<div class="panel-footer">
+		<button type="button" @click="search()"name="button">Search</button>
+	</div>
+	</div>
+
 
 	<div v-show="flagTable">
 		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">

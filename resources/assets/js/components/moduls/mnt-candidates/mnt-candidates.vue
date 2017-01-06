@@ -40,8 +40,10 @@ export default{
       searchQuery: '',
       experiences: [],
       candidates: [],
+      categories: [],
+      subcategories: [],
       columns: tableCandidates,
-      flagTable: true,
+      flagTable: false,
       flagDetailSelected: false,
       locale: 'es',
       showModal: false,
@@ -49,7 +51,11 @@ export default{
       showPersonalInformation: false,
       showModalPhoto: false,
       optionTab: 0,
-      experienceSelect:{}
+      experienceSelect:{},
+      searchCand:{
+        category: '',
+        subcategory: ''
+      }
 
     }
   },
@@ -61,6 +67,22 @@ export default{
       var resource= this.$resource(candidates);
       resource.get().then((response) => {
         this.candidates=response.body;
+      });
+
+    },
+    search: function(){
+
+      var searchCand=this.searchCand;
+
+      console.log("---------------------------");
+      console.log(searchCand);
+      console.log("---------------------------");
+
+      this.$http.post('candidates/search', searchCand)
+      .then(function(response){
+
+      }, function (error){
+
       });
 
     }
@@ -97,9 +119,53 @@ export default{
     selectTab: function(option){
       this.optionTab=option;
     },
+    fetchCategories: function(){
+
+      this.$http.get('categories' )
+      .then((response) => {
+        if(response){
+          response.json();
+          this.categories= response.body;
+
+        }
+      },(response) => {
+
+
+      }
+    );
+  },
+  fetchSubCategories: function(){
+
+    var resource= this.$resource('subcategories{/id}');
+
+    resource.get({id : this.searchCand.category }).then((response) => {
+      this.subcategories= response.body;
+    });
+
+  }
   },
   created: function(){
-    this.getAdmins();
+    //this.getAdmins();
+    this.fetchCategories();
   },
+  computed: {
+    validation: function () {
+      var date = /(\d+)(-|\/)(\d+)(?:-|\/)(?:(\d+)\s+(\d+):(\d+)(?::(\d+))?(?:\.(\d+))?)?/
+      var emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var numberEx=/^[0-9\b]+$/;
+      return {
+
+        category: !!this.search.category!='',
+        subcategory: !!this.search.subcategory!='',
+
+      }
+    },
+    isValid: function () {
+      var validation = this.validation
+      return Object.keys(validation).every(function (key) {
+        return validation[key]
+      })
+    }
+  }
 }
 </script>

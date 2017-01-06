@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Candidate;
 use Session;
 use PDF;
+use DB;
 
 class CandidatesController extends Controller
 {
@@ -19,7 +20,7 @@ class CandidatesController extends Controller
 	**/
 
 	function index(){
-		$candidates=Candidate::all();
+	$candidates=Candidate::all();
 
 		/*
 		$users = DB::table('users')
@@ -27,6 +28,7 @@ class CandidatesController extends Controller
 		->orWhere('name', 'John')
 		->get();
 		*/
+
 
 		foreach ($candidates as $candidate) {
 			//$candidate->experiences;
@@ -42,6 +44,38 @@ class CandidatesController extends Controller
 		}
 
 		return $candidates;
+	}
+
+	public function search(Request $request){
+		$query="select * from 'candidates' where";
+		$params=[];
+
+		if($request->category){
+				$query+=' user_id = ';
+				array_push($params,18);
+		};
+
+		$candidates = DB::select($query, $params);
+
+		$candidatesresult=[];
+
+
+			 foreach ($candidates as $candidate) {
+
+				 $obj=Candidate::where("id", "=", $candidate->id)->first();
+
+				 $obj->categoryCandidate;
+				 $obj->subcategoryCandidate;
+				 $obj->languages;
+				 $obj->idioms;
+				 $obj->photo;
+
+				 array_push($candidatesresult,$obj);
+
+			 }
+
+			 return $candidatesresult;
+		//	 return $request;
 	}
 
 	/**
