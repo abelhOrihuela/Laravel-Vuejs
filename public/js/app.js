@@ -19610,7 +19610,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../../js/constants_restful.js":60,"../../../js/translations.js":63,"../../../js/utilities/service.js":65,"../../../js/utilities/validate.js":66,"./add-candidate.html":77,"babel-runtime/core-js/object/keys":2,"babel-runtime/helpers/defineProperty":3,"vue":46,"vue-hot-reload-api":41,"vue-i18n-mixin":42}],79:[function(require,module,exports){
-module.exports = '<div class="container-a">\n\n\n\n\n\n\n\n\n\n	<div style="text-align: right">\n		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>\n		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>\n\n	</div>\n\n	<br>\n\n	<div class="panel panel-default">\n		<div class="panel-heading">\n			<label v-text="translate(\'people.candidates.selected\')"></label>\n		</div>\n		<div class="panel-body">\n\n			<div class="row">\n				<div class="col-sm-3">\n					<label v-bind:class="{ \'label-a\': validation.category, \'label-error\':  !validation.category}" v-text="translate(\'people.category\')"></label>\n					<select  class="form-control" @change="fetchSubCategories()" v-model="searchCand.category">\n						<option v-for="category in categories" v-bind:value="category.id">\n							{{ category.name }}\n						</option>\n					</select>\n\n				</div>\n\n				<div class="col-sm-3">\n					<label v-bind:class="{ \'label-a\': validation.subcategory, \'label-error\':  !validation.subcategory}" v-text="translate(\'people.subcategory\')"></label>\n					<select v-model="searchCand.subcategory" class="form-control">\n						<option v-for="category in subcategories" v-bind:value="category.id">\n							{{ category.name }}\n						</option>\n					</select>\n\n				</div>\n			</div>\n	</div>\n\n	<div class="panel-footer">\n		<button type="button" @click="search()"name="button">Search</button>\n	</div>\n	</div>\n\n\n	<div v-show="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n			<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate">\n			</add-candidate>\n\n\n	<a-candidate v-if="flagDetailSelected" :candidate="candidateSelected">\n	<a-candidate>\n\n\n\n\n\n\n\n	<!-------------------------------------------------------------->\n</div>\n';
+module.exports = '<div class="container-a">\n\n\n\n\n\n\n\n\n\n	<div style="text-align: right">\n		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>\n		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>\n\n	</div>\n\n	<br>\n\n	<div class="panel panel-default">\n		<div class="panel-heading" @click="showSearch=!showSearch">\n			<label v-text="translate(\'people.candidates.selected\')"></label>\n		</div>\n		<div class="panel-body" v-show="showSearch">\n\n			<div class="row">\n				<div class="col-sm-3">\n					<label v-bind:class="{ \'label-a\': validation.category, \'label-error\':  !validation.category}" v-text="translate(\'people.category\')"></label>\n					<select  class="form-control" @change="fetchSubCategories()" v-model="searchCand.category">\n						<option v-for="category in categories" v-bind:value="category.id">\n							{{ category.name }}\n						</option>\n					</select>\n\n				</div>\n\n				<div class="col-sm-3">\n					<label v-bind:class="{ \'label-a\': validation.subcategory, \'label-error\':  !validation.subcategory}" v-text="translate(\'people.subcategory\')"></label>\n					<select v-model="searchCand.subcategory" class="form-control">\n						<option v-for="category in subcategories" v-bind:value="category.id">\n							{{ category.name }}\n						</option>\n					</select>\n\n				</div>\n\n				<div class="col-sm-3">\n\n					<label v-bind:class="{ \'label-a\': validation.salary_expectation, \'label-error\':  !validation.salary_expectation}" v-text="translate(\'people.salary_expectation\')"></label>\n					<input class="form-control" type="text" name="name" v-model="searchCand.salary_expectation">\n				</div>\n\n				<div class="col-sm-3">\n\n					<label v-bind:class="{ \'label-a\': validation.salary_expectation, \'label-error\':  !validation.salary_expectation}" v-text="translate(\'people.salary_expectation\')"></label>\n					<input class="form-control" type="text" name="name" v-model="searchCand.salary_expectation">\n				</div>\n			</div>\n	</div>\n\n	<div class="modal-footer" v-show="showSearch">\n		<button type="button" class="btn btn-success"@click="search()"name="button">Search</button>\n		<button type="button" class="btn btn-success"@click="cleanSearch()"name="button">Clean</button>\n	</div>\n	</div>\n\n\n	<div v-show="flagTable">\n		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">\n		</a-table>\n	</div>\n\n	<div class="row" v-if="flagDetailSelected">\n		<div class="col-sm-4  " @click="showTable()">\n			<div class="back-section">\n				<i class="glyphicon glyphicon-chevron-left" v-text="translate(\'general.back\')">\n				</i>\n			</div>\n		</div>\n	</div>\n\n			<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate">\n			</add-candidate>\n\n\n	<a-candidate v-if="flagDetailSelected" :candidate="candidateSelected">\n	<a-candidate>\n\n\n\n\n\n\n\n	<!-------------------------------------------------------------->\n</div>\n';
 },{}],80:[function(require,module,exports){
 'use strict';
 
@@ -19691,11 +19691,12 @@ exports.default = {
       showModalPhoto: false,
       optionTab: 0,
       experienceSelect: {},
+      showSearch: true,
+
       searchCand: {
         category: '',
         subcategory: ''
       }
-
     };
   },
   methods: {
@@ -19712,15 +19713,17 @@ exports.default = {
 
       var searchCand = this.searchCand;
 
-      console.log("---------------------------");
-      console.log(searchCand);
-      console.log("---------------------------");
+      this.$http.post('candidates/search', searchCand).then(function (response) {
 
-      this.$http.post('candidates/search', searchCand).then(function (response) {}, function (error) {});
+        this.candidates = response.body;
+        this.flagTable = true;
+        _service2.default.showSuccess(this, "Se encontraron : " + this.candidates.length + " resultados");
+      }, function (error) {
+        _service2.default.showError(this, error);
+      });
     },
 
     select: function select(data) {
-
       this.flagTable = false;
       this.flagDetailSelected = true;
       this.candidateSelected = data;
@@ -19749,23 +19752,42 @@ exports.default = {
       this.optionTab = option;
     },
     fetchCategories: function fetchCategories() {
-      var _this2 = this;
 
       this.$http.get('categories').then(function (response) {
         if (response) {
           response.json();
-          _this2.categories = response.body;
+          this.categories = response.body;
         }
-      }, function (response) {});
+      }, function (error) {
+
+        _service2.default.showError(this, error);
+      });
     },
     fetchSubCategories: function fetchSubCategories() {
-      var _this3 = this;
+
+      this.searchCand.subcategory = '';
 
       var resource = this.$resource('subcategories{/id}');
+      var category = this.searchCand.category;
 
-      resource.get({ id: this.searchCand.category }).then(function (response) {
-        _this3.subcategories = response.body;
-      });
+      if (_service2.default.validateValue(this, category)) {
+
+        resource.get({ id: this.searchCand.category }).then(function (response) {
+          this.subcategories = response.body;
+        }, function (error) {
+          _service2.default.showError(this, error);
+        });
+      }
+    },
+    cleanSearch: function cleanSearch() {
+
+      this.searchCand.category = '';
+      this.searchCand.subcategory = '';
+      this.flagTable = false;
+      this.flagDetailSelected = false;
+      this.showSearch = true;
+
+      this.candidates = [];
     }
   },
   created: function created() {

@@ -52,15 +52,15 @@ export default{
       showModalPhoto: false,
       optionTab: 0,
       experienceSelect:{},
+      showSearch:true,
+
       searchCand:{
         category: '',
         subcategory: ''
       }
-
     }
   },
   methods:{
-
 
     getAdmins: function(){
 
@@ -74,26 +74,23 @@ export default{
 
       var searchCand=this.searchCand;
 
-      console.log("---------------------------");
-      console.log(searchCand);
-      console.log("---------------------------");
-
       this.$http.post('candidates/search', searchCand)
       .then(function(response){
 
-      }, function (error){
+        this.candidates=response.body;
+        this.flagTable=true;
+        service.showSuccess(this, "Se encontraron : "+this.candidates.length + " resultados");
 
+      }, function (error){
+        service.showError(this, error);
       });
 
     }
     ,
     select: function(data){
-
-
       this.flagTable=false;
       this.flagDetailSelected=true;
       this.candidateSelected=data;
-
     },
     showTable: function(){
       this.candidateSelected={};
@@ -104,7 +101,6 @@ export default{
       this.flagTable=false;
       this.flagDetailSelected=false;
       this.showNewCandidate=true;
-
     },
     cancelAddCandidate:  function(){
       this.flagTable=true;
@@ -122,50 +118,75 @@ export default{
     fetchCategories: function(){
 
       this.$http.get('categories' )
-      .then((response) => {
+      .then(function(response) {
         if(response){
           response.json();
           this.categories= response.body;
 
         }
-      },(response) => {
+      },function(error) {
 
+        service.showError(this, error);
 
       }
     );
   },
   fetchSubCategories: function(){
 
+
+    this.searchCand.subcategory='';
+
     var resource= this.$resource('subcategories{/id}');
+    var category=this.searchCand.category;
 
-    resource.get({id : this.searchCand.category }).then((response) => {
-      this.subcategories= response.body;
-    });
+    if(service.validateValue(this,category)){
 
-  }
-  },
-  created: function(){
-    //this.getAdmins();
-    this.fetchCategories();
-  },
-  computed: {
-    validation: function () {
-      var date = /(\d+)(-|\/)(\d+)(?:-|\/)(?:(\d+)\s+(\d+):(\d+)(?::(\d+))?(?:\.(\d+))?)?/
-      var emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      var numberEx=/^[0-9\b]+$/;
-      return {
+      resource.get({id : this.searchCand.category })
+      .then(function(response){
+        this.subcategories= response.body;
+      }, function(error){
+        service.showError(this, error);
+      });
 
-        category: !!this.search.category!='',
-        subcategory: !!this.search.subcategory!='',
-
-      }
-    },
-    isValid: function () {
-      var validation = this.validation
-      return Object.keys(validation).every(function (key) {
-        return validation[key]
-      })
     }
+
+
+
+  },
+  cleanSearch: function(){
+
+    this.searchCand.category='';
+    this.searchCand.subcategory='';
+    this.flagTable=false;
+    this.flagDetailSelected=false;
+    this.showSearch=true;
+
+    this.candidates=[];
+
   }
+},
+created: function(){
+  //this.getAdmins();
+  this.fetchCategories();
+},
+computed: {
+  validation: function () {
+    var date = /(\d+)(-|\/)(\d+)(?:-|\/)(?:(\d+)\s+(\d+):(\d+)(?::(\d+))?(?:\.(\d+))?)?/
+    var emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var numberEx=/^[0-9\b]+$/;
+    return {
+
+      category: !!this.search.category!='',
+      subcategory: !!this.search.subcategory!='',
+
+    }
+  },
+  isValid: function () {
+    var validation = this.validation
+    return Object.keys(validation).every(function (key) {
+      return validation[key]
+    })
+  }
+}
 }
 </script>

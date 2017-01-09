@@ -20,62 +20,56 @@ class CandidatesController extends Controller
 	**/
 
 	function index(){
-	$candidates=Candidate::all();
-
-		/*
-		$users = DB::table('users')
-		->where('votes', '>', 100)
-		->orWhere('name', 'John')
-		->get();
-		*/
-
+		$candidates=Candidate::all();
 
 		foreach ($candidates as $candidate) {
-			//$candidate->experiences;
-			//$candidate->experiencesWtc;
 			$candidate->categoryCandidate;
 			$candidate->subcategoryCandidate;
 			$candidate->languages;
 			$candidate->idioms;
 			$candidate->photo;
-			//$candidate->economic;
-			//$candidate->academics;
-			//$candidate->user;
 		}
 
 		return $candidates;
 	}
 
 	public function search(Request $request){
-		$query="select * from 'candidates' where";
-		$params=[];
 
-		if($request->category){
-				$query+=' user_id = ';
-				array_push($params,18);
-		};
+		$candidates = array();
 
-		$candidates = DB::select($query, $params);
+		$statement="SELECT `id` FROM `candidates`";
 
-		$candidatesresult=[];
+		$flagCategory=false;
+
+		if($request->category!='' && $request->category!=null){
+			$statement=$statement.'WHERE';
+			$statement=$statement.'`category`='.$request->category;
+			$flagCategory=true;
+		}
+		if($request->subcategory!='' && $request->subcategory!=null){
+			if(!$flagCategory){
+
+				$statement=$statement.' WHERE ';
+			}else{
+				$statement=$statement.' AND ';
+			}
+			$statement=$statement.'`subcategory`='.$request->subcategory;
+		}
+
+		$result=DB::select(DB::raw($statement));
 
 
-			 foreach ($candidates as $candidate) {
+		foreach ($result as $candidate) {
+			$candidate=Candidate::where("id", "=", $candidate->id)->first();
 
-				 $obj=Candidate::where("id", "=", $candidate->id)->first();
-
-				 $obj->categoryCandidate;
-				 $obj->subcategoryCandidate;
-				 $obj->languages;
-				 $obj->idioms;
-				 $obj->photo;
-
-				 array_push($candidatesresult,$obj);
-
-			 }
-
-			 return $candidatesresult;
-		//	 return $request;
+			$candidate->categoryCandidate;
+			$candidate->subcategoryCandidate;
+			$candidate->languages;
+			$candidate->idioms;
+			$candidate->photo;
+			array_push($candidates, $candidate);
+		}
+		return $candidates;
 	}
 
 	/**
@@ -144,7 +138,7 @@ class CandidatesController extends Controller
 
 	function getPdf($id){
 
-//		$pdf=PDF::loadView('app.candidate');
+		//		$pdf=PDF::loadView('app.candidate');
 
 		$pdf=PDF::loadView('app.candidate')
 		->save(public_path().'/my_stored_file.pdf')
