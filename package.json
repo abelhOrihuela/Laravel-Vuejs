@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "mini-toastr": "^0.3.10",
+    "moment": "^2.17.1",
+    "vue-filter": "^0.1.9",
     "vue-i18n-mixin": "^0.1.0",
     "vue-notifications": "^0.7.6",
     "vue-toast": "^2.0.3",

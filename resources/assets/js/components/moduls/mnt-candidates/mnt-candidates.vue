@@ -52,6 +52,7 @@ export default{
       showModalPhoto: false,
       optionTab: 0,
       experienceSelect:{},
+      showSearchContainer:true,
       showSearch:true,
 
       searchCand:{
@@ -68,9 +69,9 @@ export default{
       resource.get().then((response) => {
         this.candidates=response.body;
       });
-
     },
     search: function(){
+      this.flagDetailSelected=false;
 
       var searchCand=this.searchCand;
 
@@ -101,11 +102,14 @@ export default{
       this.flagTable=false;
       this.flagDetailSelected=false;
       this.showNewCandidate=true;
+      this.showSearchContainer=false;
+
     },
     cancelAddCandidate:  function(){
-      this.flagTable=true;
       this.flagDetailSelected=false;
       this.showNewCandidate=false;
+      this.showSearchContainer=true;
+
     },
     getNewCandidate: function(data){
       this.candidates.push(data);
@@ -122,17 +126,13 @@ export default{
         if(response){
           response.json();
           this.categories= response.body;
-
         }
       },function(error) {
-
         service.showError(this, error);
-
       }
     );
   },
   fetchSubCategories: function(){
-
 
     this.searchCand.subcategory='';
 
@@ -157,10 +157,11 @@ export default{
 
     this.searchCand.category='';
     this.searchCand.subcategory='';
+    this.searchCand.salary_expectation_min='';
+    this.searchCand.salary_expectation_max='';
     this.flagTable=false;
     this.flagDetailSelected=false;
     this.showSearch=true;
-
     this.candidates=[];
 
   }

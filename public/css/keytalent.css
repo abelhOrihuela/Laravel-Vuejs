@@ -637,3 +637,22 @@ nav ul,nav li {
 .bg-bluekey{
   background-color: #4261b9 !important;
 }
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+.title-header{
+  font-family: 'Titillium Web', sans-serif;
+}
+.container-flex div{
+  display: flex;
+  justify-content: flex-start;
+  width: auto;
+
+
+}
+.context:hover {
+    text-decoration: none;
+     background-color: #f5f5f5 !important;
+}

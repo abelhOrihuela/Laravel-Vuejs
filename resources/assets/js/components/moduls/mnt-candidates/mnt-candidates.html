@@ -1,22 +1,17 @@
 <div class="container-a">
 
 
-
-
-
-
-
-
-
 	<div style="text-align: right">
-		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon-plus"></i></button>
-		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
-
+		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent">
+			<i class="glyphicon glyphicon-plus"></i>
+		</button>
+		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent">
+			<i class="glyphicon glyphicon glyphicon-remove"></i>
+		</button>
 	</div>
 
 	<br>
-
-	<div class="panel panel-default">
+	<div class="panel panel-default" v-show="showSearchContainer">
 		<div class="panel-heading" @click="showSearch=!showSearch">
 			<label v-text="translate('people.candidates.selected')"></label>
 		</div>
@@ -24,7 +19,7 @@
 
 			<div class="row">
 				<div class="col-sm-3">
-					<label v-bind:class="{ 'label-a': validation.category, 'label-error':  !validation.category}" v-text="translate('people.category')"></label>
+					<label class="label-a" v-text="translate('people.category')"></label>
 					<select  class="form-control" @change="fetchSubCategories()" v-model="searchCand.category">
 						<option v-for="category in categories" v-bind:value="category.id">
 							{{ category.name }}
@@ -34,35 +29,35 @@
 				</div>
 
 				<div class="col-sm-3">
-					<label v-bind:class="{ 'label-a': validation.subcategory, 'label-error':  !validation.subcategory}" v-text="translate('people.subcategory')"></label>
+					<label class="label-a" v-text="translate('people.subcategory')"></label>
 					<select v-model="searchCand.subcategory" class="form-control">
 						<option v-for="category in subcategories" v-bind:value="category.id">
 							{{ category.name }}
 						</option>
 					</select>
-
 				</div>
 
 				<div class="col-sm-3">
-
-					<label v-bind:class="{ 'label-a': validation.salary_expectation, 'label-error':  !validation.salary_expectation}" v-text="translate('people.salary_expectation')"></label>
-					<input class="form-control" type="text" name="name" v-model="searchCand.salary_expectation">
+					<label class="label-a" v-text="translate('people.salary_expectation_min')"></label>
+					<input class="form-control" type="text" name="name" v-model="searchCand.salary_expectation_min">
 				</div>
 
 				<div class="col-sm-3">
-
-					<label v-bind:class="{ 'label-a': validation.salary_expectation, 'label-error':  !validation.salary_expectation}" v-text="translate('people.salary_expectation')"></label>
-					<input class="form-control" type="text" name="name" v-model="searchCand.salary_expectation">
+					<label class="label-a" v-text="translate('people.salary_expectation_max')"></label>
+					<input class="form-control" type="text" name="name" v-model="searchCand.salary_expectation_max">
 				</div>
 			</div>
-	</div>
+		</div>
 
-	<div class="modal-footer" v-show="showSearch">
-		<button type="button" class="btn btn-success"@click="search()"name="button">Search</button>
-		<button type="button" class="btn btn-success"@click="cleanSearch()"name="button">Clean</button>
+		<div class="modal-footer" v-show="showSearch">
+			<button type="button" class="btn btn-success"@click="search()"name="button">
+				<i class="glyphicon glyphicon-search"></i>
+			</button>
+			<button type="button" class="btn btn-success"@click="cleanSearch()"name="button">
+				<i class="glyphicon glyphicon-edit"></i>
+			</button>
+		</div>
 	</div>
-	</div>
-
 
 	<div v-show="flagTable">
 		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">
@@ -78,18 +73,9 @@
 		</div>
 	</div>
 
-			<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate">
-			</add-candidate>
+	<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate"></add-candidate>
+
+	<a-candidate v-if="flagDetailSelected" :candidate="candidateSelected"><a-candidate>
 
 
-	<a-candidate v-if="flagDetailSelected" :candidate="candidateSelected">
-	<a-candidate>
-
-
-
-
-
-
-
-	<!-------------------------------------------------------------->
-</div>
+	</div>

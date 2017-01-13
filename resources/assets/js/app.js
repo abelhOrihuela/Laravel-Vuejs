@@ -10,12 +10,18 @@ var Vue = require('vue/dist/vue.js');
 var VueRouter = require('vue-router/dist/vue-router.js');
 var VueResource = require('vue-resource/dist/vue-resource.js');
 
+var VueFilter = require('vue-filter/dist/vue-filter');
+Vue.use(VueFilter);
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
 Vue.config.debug = false;
 
 const dev=true;
+
+import moment from 'moment'
+
+
 
 /*----------------------------IMPORT MODULS-----------------------------*/
 

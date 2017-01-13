@@ -44,6 +44,10 @@
               {{entry[key.key] | trueOrFalse }}
             </span>
 
+            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='shortDate'">
+              {{entry[key.key] | shortDate }}
+            </span>
+
             <span v-if="key.filter==null || key.filter==undefined">
               {{entry[key.key]}}
             </span>

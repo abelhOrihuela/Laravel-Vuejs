@@ -201,6 +201,30 @@ export const translations={
               en: 'Name Group',
               es: 'Nombre del Grupo'
             },
+            salary_expectation_min:{
+              en: 'Name Group',
+              es: 'Expectativa Economica Min.'
+            },
+            salary_expectation_max:{
+              en: 'Name Group',
+              es: 'Expectativa Economica Max.'
+            },
+            add_candidate_to_group:{
+              en: 'add_candidate_to_group',
+              es: 'Agregar a Grupo'
+            },
+            add_language:{
+              en: 'add_language',
+              es: 'Agregar Language'
+            },
+            add_idiom:{
+              en: 'add_idiom',
+              es: 'Agregar Idioma'
+            },
+            cancel:{
+              en: 'cancel',
+              es: 'Cancelar'
+            }
         },
     general:{
         back:{

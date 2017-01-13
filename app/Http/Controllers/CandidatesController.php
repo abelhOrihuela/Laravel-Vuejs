@@ -28,6 +28,8 @@ class CandidatesController extends Controller
 			$candidate->languages;
 			$candidate->idioms;
 			$candidate->photo;
+			$candidate->groups;
+
 		}
 
 		return $candidates;
@@ -37,7 +39,13 @@ class CandidatesController extends Controller
 
 		$candidates = array();
 
-		$statement="SELECT `id` FROM `candidates`";
+		$statement="SELECT `candidates`.`id` FROM `candidates`";
+
+		if($request->salary_expectation_min!=null && $request->salary_expectation_min!=''
+		&& $request->salary_expectation_max!=null && $request->salary_expectation_max!=''){
+			$statement=$statement.",`candidateeconomic`";
+		}
+
 
 		$flagCategory=false;
 
@@ -56,6 +64,18 @@ class CandidatesController extends Controller
 			$statement=$statement.'`subcategory`='.$request->subcategory;
 		}
 
+		if($request->salary_expectation_min!=null && $request->salary_expectation_min!=''
+		&& $request->salary_expectation_max!=null && $request->salary_expectation_max!=''){
+
+			if(!$flagCategory){
+				$statement=$statement.' WHERE ';
+			}else{
+				$statement=$statement.' AND ';
+			}
+			$statement=$statement.'`candidates`.`id`= `candidateeconomic`.`candidate_id` AND `candidateeconomic`.`salary_expectation`>'.$request->salary_expectation_min;
+			$statement=$statement.' AND `candidateeconomic`.`salary_expectation`<'.$request->salary_expectation_max;
+		}
+
 		$result=DB::select(DB::raw($statement));
 
 
@@ -67,6 +87,7 @@ class CandidatesController extends Controller
 			$candidate->languages;
 			$candidate->idioms;
 			$candidate->photo;
+			$candidate->groups;
 			array_push($candidates, $candidate);
 		}
 		return $candidates;
@@ -88,6 +109,8 @@ class CandidatesController extends Controller
 		$candidate->idioms;
 		$candidate->economic;
 		$candidate->photo;
+		$candidate->groups;
+
 
 
 

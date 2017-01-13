@@ -70,6 +70,9 @@ export default{
     },
     trueOrFalse: function(value){
       return filter.trueOrFalse(this,value);
+    },
+    shortDate: function(value){
+      return filter.shortDate(this,value);
     }
 
   },

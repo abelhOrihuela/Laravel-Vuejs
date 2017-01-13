@@ -10,8 +10,8 @@ export var tableCandidates = [
   {label: "username", key: 'username' },
   {label: "position", key: 'position'},
   {label: "email", key: 'email'},
-  {label: "created_at", key: 'created_at'},
-  {label: "updated_at", key: 'updated_at'}
+  {label: "created_at", key: 'created_at', filter: 'shortDate'},
+  {label: "updated_at", key: 'updated_at', filter: 'shortDate'}
 ];
 
 export var tableExperience = [
