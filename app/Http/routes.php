@@ -188,7 +188,25 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'groups_show_path'
   ]);
 
+  Route::delete('language/delete/{id}',[
+    'uses' => 'LanguagesController@destroy',
+    'as'   => 'Language_destroy_path'
+  ]);
 
+  Route::post('language/new',[
+    'uses' => 'LanguagesController@create',
+    'as'   => 'Language_create_path'
+  ]);
+
+  Route::delete('idiom/delete/{id}',[
+    'uses' => 'IdiomsController@destroy',
+    'as'   => 'Language_destroy_path'
+  ]);
+
+  Route::post('idiom/new',[
+    'uses' => 'IdiomsController@create',
+    'as'   => 'Language_create_path'
+  ]);
 
 
 });

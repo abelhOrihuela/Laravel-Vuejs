@@ -22897,7 +22897,7 @@ var app = new Vue({
 }).$mount('#app');
 
 },{"./components/a-components/a-login/a-login.vue":54,"./components/a-components/a-menu/a-menu.vue":56,"./components/moduls/mnt-admins/mnt-admins.vue":78,"./components/moduls/mnt-candidates/mnt-candidates.vue":82,"./components/moduls/mnt-groups/mnt-groups.vue":108,"moment":40,"vue-filter/dist/vue-filter":42,"vue-i18n-mixin":44,"vue-resource/dist/vue-resource.js":45,"vue-router/dist/vue-router.js":46,"vue/dist/vue.js":49}],51:[function(require,module,exports){
-module.exports = '<div class="container-a">\n  <div class="panel panel-default">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-10">\n\n          <label class="vcenter"v-text="translate(\'people.candidates.selected\')"></label>\n\n        </div>\n        <div class="col-sm-2">\n          <ul class="nav navbar-nav navbar-right">\n            <li class="dropdown">\n              <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>\n              <!--\n              <a href="#" class="dropdown-toggle context" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">\n              Dropdown <span class="caret"></span>\n            </a>-->\n            &nbsp;\n            <ul class="dropdown-menu">\n              <li>\n                <a data-toggle="modal" data-target="#addCandidateToGroup">\n                  <label class="label-a" v-text="translate(\'people.add_candidate_to_group\')"></label>\n                </a>\n              </li>\n              <li>\n                <a @click="addCandidateToGroup()">\n                  <label class="label-a" v-text="translate(\'people.add_language\')"></label>\n                </a>\n                <li>\n                  <a @click="addCandidateToGroup()">\n                    <label class="label-a" v-text="translate(\'people.add_idiom\')"></label>\n                  </a>\n                </li>\n                <li role="separator" class="divider"></li>\n              </ul>\n            </li>\n          </ul>\n        </div>\n      </div>\n    </div>\n    <div class="panel-body">\n\n      <div class="row">\n        <div class="col-xs-6 col-md-4">\n          <figure class="snip1559 tumbnails">\n            <div v-if="candidate.photo"class="profile-image">\n              <img :src="candidate.photo.name_photo" alt="" />\n            </div>\n            <div v-if="!candidate.photo"class="profile-image">\n              <img src="../img/default.png" alt="" />\n            </div>\n            <figcaption>\n              <div class="icons">\n                <i class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>\n                <i class="glyphicon glyphicon-save-file" @click="downloadPdf()">\n                </i>\n              </div>\n\n              <div class="tab-header container-flex">\n                <div style="display: inline-block;" >\n                  <i class="glyphicon glyphicon-plus success"></i>\n                  &nbsp;groups\n                </div>\n              </div>\n              <ul class="list-group">\n                <li class="list-group-item" v-for="group in candidate.groups">\n                  {{ group.name_group }}\n                </li>\n              </ul>\n\n              <div class="tab-header">\n                languages\n              </div>\n              <ul class="list-group">\n                <li class="list-group-item" v-for="idiom in candidate.idioms">\n                  {{ idiom.name_idioma }}-{{ idiom.level_idioma }}\n                </li>\n              </ul>\n              <div class="tab-header">\n                Idioms\n              </div>\n              <ul class="list-group">\n                <li class="list-group-item" v-for="language in candidate.languages" data-toggle="tooltip" data-placement="top" title="Hooray!">\n                  {{ language.name_language }}-{{ language.level_language }}\n                </li>\n              </ul>\n            </figcaption>\n          </figure>\n        </div>\n\n        <div class="col-xs-6 col-md-8">\n          <div class="tab-header">\n            <h4>{{ candidate.username }}</h4>\n          </div>\n          <table class="table table-condensed">\n            <tr>\n              <td>\n                <label class="label-a" v-text="translate(\'people.position\')"></label>\n              </td>\n              <td>\n                {{ candidate.position }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a"  v-text="translate(\'people.email\')"></label>\n              </td>\n              <td>\n                {{ candidate.email }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a"  v-text="translate(\'people.gender\')"></label>\n              </td>\n              <td>\n                {{ candidate.gender }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a"  v-text="translate(\'people.location\')"></label>\n              </td>\n              <td>\n                {{ candidate.location }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a" v-text="translate(\'people.birthday\')"></label>\n              </td>\n              <td>\n                {{ candidate.day }} /\n                {{ candidate.month }} /\n                {{ candidate.year }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a" v-text="translate(\'people.phone\')"></label>\n              </td>\n              <td>\n                {{ candidate.code }} / {{ candidate.phone }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a" v-text="translate(\'people.category\')"></label>\n              </td>\n              <td>\n                {{ candidate.category_candidate.name }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n              </td>\n              <td>\n                {{ candidate.subcategory_candidate.name }}\n              </td>\n            </tr>\n          </table>\n        </div>\n      </div>\n\n      <ul class="nav nav-tabs">\n        <li role="presentation" v-bind:class="{ \'active\': optionTab==1 }" @click="selectTab(1)">\n          <a>Formacion Academica</a>\n        </li>\n        <li role="presentation" v-bind:class="{ \'active\': optionTab==2 }" @click="selectTab(2)">\n          <a>Experiencia Profesional</a>\n        </li>\n        <li role="presentation" v-bind:class="{ \'active\': optionTab==3 }" @click="selectTab(3)">\n          <a>Experiencia en WTC</a>\n        </li>\n        <li role="presentation" v-bind:class="{ \'active\': optionTab==4 }" @click="selectTab(4)">\n          <a>Expectativa Economica</a>\n        </li>\n      </ul>\n\n      <br>\n\n      <div class="panel panel-default" v-if="optionTab==1">\n        <div class="panel-body">\n          <mnt-academic :candidate="candidate"></mnt-academic>\n        </div>\n      </div>\n\n      <div class="panel panel-default" v-if="optionTab==2">\n        <div class="panel-body">\n          <mnt-experience :candidate="candidate"></mnt-experience>\n        </div>\n      </div>\n\n      <div class="panel panel-default" v-if="optionTab==3">\n        <div class="panel-body">\n          <mnt-experiencewtc :candidate="candidate"></mnt-experiencewtc>\n        </div>\n      </div>\n\n      <div class="panel panel-default" v-if="optionTab==4">\n        <div class="panel-body">\n          <mnt-economic :candidate="candidate"></mnt-economic>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <add-candidate-to-group :candidate="candidate" :add="addGroup"></add-candidate-to-group>\n  <add-photo v-if="showModalPhoto" @close="showModalPhoto = false" :getphoto="getPhoto" :candidate="candidate.id"></add-photo>\n\n</div>\n';
+module.exports = '<div class="container-a">\n  <div class="panel panel-default">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-10">\n\n          <label class="vcenter"v-text="translate(\'people.candidates.selected\')"></label>\n\n        </div>\n        <div class="col-sm-2">\n          <ul class="nav navbar-nav navbar-right">\n            <li class="dropdown">\n              <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>\n              <!--\n              <a href="#" class="dropdown-toggle context" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">\n              Dropdown <span class="caret"></span>\n            </a>-->\n            &nbsp;\n            <ul class="dropdown-menu">\n              <li>\n                <a data-toggle="modal" data-target="#addCandidateToGroup">\n                  <label class="label-a" v-text="translate(\'people.add_candidate_to_group\')"></label>\n                </a>\n              </li>\n              <li>\n                <a @click="addCandidateToGroup()">\n                  <label class="label-a" v-text="translate(\'people.add_language\')"></label>\n                </a>\n                <li>\n                  <a @click="addCandidateToGroup()">\n                    <label class="label-a" v-text="translate(\'people.add_idiom\')"></label>\n                  </a>\n                </li>\n                <li role="separator" class="divider"></li>\n              </ul>\n            </li>\n          </ul>\n        </div>\n      </div>\n    </div>\n    <div class="panel-body">\n\n      <div class="row">\n        <div class="col-xs-6 col-md-4">\n          <figure class="snip1559 tumbnails">\n            <div v-if="candidate.photo"class="profile-image">\n              <img :src="candidate.photo.name_photo" alt="" />\n            </div>\n            <div v-if="!candidate.photo"class="profile-image">\n              <img src="../img/default.png" alt="" />\n            </div>\n            <figcaption>\n              <div class="icons">\n                <i class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>\n                <i class="glyphicon glyphicon-save-file" @click="downloadPdf()">\n                </i>\n              </div>\n\n\n\n              <div class="tab-header" >\n                groups\n              </div>\n\n              <ul class="list-group">\n                <li class="list-group-item" v-for="group in candidate.groups">\n                  {{ group.name_group }}\n                </li>\n              </ul>\n\n\n              <mnt-languages :candidate="candidate">\n              </mnt-languages>\n\n\n\n<mnt-idioms :candidate="candidate"></mnt-idioms>\n              \n\n            </figcaption>\n          </figure>\n        </div>\n\n        <div class="col-xs-6 col-md-8">\n          <div class="tab-header">\n            <h4>{{ candidate.username }}</h4>\n          </div>\n          <table class="table table-condensed">\n            <tr>\n              <td>\n                <label class="label-a" v-text="translate(\'people.position\')"></label>\n              </td>\n              <td>\n                {{ candidate.position }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a"  v-text="translate(\'people.email\')"></label>\n              </td>\n              <td>\n                {{ candidate.email }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a"  v-text="translate(\'people.gender\')"></label>\n              </td>\n              <td>\n                {{ candidate.gender }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a"  v-text="translate(\'people.location\')"></label>\n              </td>\n              <td>\n                {{ candidate.location }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a" v-text="translate(\'people.birthday\')"></label>\n              </td>\n              <td>\n                {{ candidate.day }} /\n                {{ candidate.month }} /\n                {{ candidate.year }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a" v-text="translate(\'people.phone\')"></label>\n              </td>\n              <td>\n                {{ candidate.code }} / {{ candidate.phone }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a" v-text="translate(\'people.category\')"></label>\n              </td>\n              <td>\n                {{ candidate.category_candidate.name }}\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n              </td>\n              <td>\n                {{ candidate.subcategory_candidate.name }}\n              </td>\n            </tr>\n          </table>\n        </div>\n      </div>\n\n      <ul class="nav nav-tabs">\n        <li role="presentation" v-bind:class="{ \'active\': optionTab==1 }" @click="selectTab(1)">\n          <a>Formacion Academica</a>\n        </li>\n        <li role="presentation" v-bind:class="{ \'active\': optionTab==2 }" @click="selectTab(2)">\n          <a>Experiencia Profesional</a>\n        </li>\n        <li role="presentation" v-bind:class="{ \'active\': optionTab==3 }" @click="selectTab(3)">\n          <a>Experiencia en WTC</a>\n        </li>\n        <li role="presentation" v-bind:class="{ \'active\': optionTab==4 }" @click="selectTab(4)">\n          <a>Expectativa Economica</a>\n        </li>\n      </ul>\n\n      <br>\n\n      <div class="panel panel-default" v-if="optionTab==1">\n        <div class="panel-body">\n          <mnt-academic :candidate="candidate"></mnt-academic>\n        </div>\n      </div>\n\n      <div class="panel panel-default" v-if="optionTab==2">\n        <div class="panel-body">\n          <mnt-experience :candidate="candidate"></mnt-experience>\n        </div>\n      </div>\n\n      <div class="panel panel-default" v-if="optionTab==3">\n        <div class="panel-body">\n          <mnt-experiencewtc :candidate="candidate"></mnt-experiencewtc>\n        </div>\n      </div>\n\n      <div class="panel panel-default" v-if="optionTab==4">\n        <div class="panel-body">\n          <mnt-economic :candidate="candidate"></mnt-economic>\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <add-candidate-to-group :candidate="candidate" :add="addGroup"></add-candidate-to-group>\n  <add-photo v-if="showModalPhoto" @close="showModalPhoto = false" :getphoto="getPhoto" :candidate="candidate.id"></add-photo>\n\n</div>\n';
 },{}],52:[function(require,module,exports){
 'use strict';
 
@@ -22932,6 +22932,14 @@ var _mntEconomic2 = _interopRequireDefault(_mntEconomic);
 var _addCandidateToGroup = require('../../moduls/mnt-groups/add-candidate-to-group/add-candidate-to-group.vue');
 
 var _addCandidateToGroup2 = _interopRequireDefault(_addCandidateToGroup);
+
+var _mntLanguages = require('../../moduls/mnt-languages/mnt-languages.vue');
+
+var _mntLanguages2 = _interopRequireDefault(_mntLanguages);
+
+var _mntIdioms = require('../../moduls/mnt-idioms/mnt-idioms.vue');
+
+var _mntIdioms2 = _interopRequireDefault(_mntIdioms);
 
 var _translations = require('../../js/translations.js');
 
@@ -22969,7 +22977,9 @@ exports.default = {
     'mnt-experiencewtc': _mntExperiencewtc2.default,
     'mnt-academic': _mntAcademic2.default,
     'mnt-economic': _mntEconomic2.default,
-    'add-candidate-to-group': _addCandidateToGroup2.default
+    'add-candidate-to-group': _addCandidateToGroup2.default,
+    'mnt-languages': _mntLanguages2.default,
+    'mnt-idioms': _mntIdioms2.default
   },
   filters: {
     trueOrFalse: function trueOrFalse(value) {
@@ -23110,7 +23120,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-3f96b442", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/add-photo/add-photo.vue":60,"../../js/config-app/tables.js":61,"../../js/constants_restful.js":62,"../../js/translations.js":65,"../../js/utilities/filters.js":66,"../../js/utilities/service.js":67,"../../moduls/mnt-academic/mnt-academic.vue":76,"../../moduls/mnt-candidates/add-candidate/add-candidate.vue":80,"../../moduls/mnt-economic/mnt-economic.vue":88,"../../moduls/mnt-experience/mnt-experience.vue":96,"../../moduls/mnt-experiencewtc/mnt-experiencewtc.vue":104,"../../moduls/mnt-groups/add-candidate-to-group/add-candidate-to-group.vue":106,"./a-candidate.html":51,"vue":48,"vue-hot-reload-api":43,"vue-i18n-mixin":44}],53:[function(require,module,exports){
+},{"../../a-components/add-photo/add-photo.vue":60,"../../js/config-app/tables.js":61,"../../js/constants_restful.js":62,"../../js/translations.js":65,"../../js/utilities/filters.js":66,"../../js/utilities/service.js":67,"../../moduls/mnt-academic/mnt-academic.vue":76,"../../moduls/mnt-candidates/add-candidate/add-candidate.vue":80,"../../moduls/mnt-economic/mnt-economic.vue":88,"../../moduls/mnt-experience/mnt-experience.vue":96,"../../moduls/mnt-experiencewtc/mnt-experiencewtc.vue":104,"../../moduls/mnt-groups/add-candidate-to-group/add-candidate-to-group.vue":106,"../../moduls/mnt-idioms/mnt-idioms.vue":110,"../../moduls/mnt-languages/mnt-languages.vue":112,"./a-candidate.html":51,"vue":48,"vue-hot-reload-api":43,"vue-i18n-mixin":44}],53:[function(require,module,exports){
 module.exports = '<div class="wrapper">\n	<form class="login" @submit.prevent="null">\n\n		<div style="text-align: right">\n			<i @click="clearLogin()" class="btn btn-success glyphicon glyphicon-pencil"></i>\n		</div>\n\n		<p class="title">Log in</p>\n		<strong>{{ user.name }}</strong>\n		<input v-if="!flagEmailValid" type="email" placeholder="email" v-model="user.email" id="username"/>\n\n\n		<button type="button" v-if="!flagEmailValid && isValid" @click="validateUser()">\n			<i class="glyphicon glyphicon-arrow-right"></i></button>\n\n			<div v-if="flagEmailValid">\n				<input type="password" placeholder="Password" v-model="user.password" />\n\n				<!-- <i class="glyphicon glyphicon-cog"></i>	<a href="#">Forgot your password?</a>	-->\n			<button type="button" @click="loginAdmin()">\n				<span class="state">Log in</span>\n			</button>\n			\n		</div>\n	</form>\n</div>\n';
 },{}],54:[function(require,module,exports){
 'use strict';
@@ -23618,6 +23628,12 @@ var GROUPS = exports.GROUPS = "groups";
 var GROUPNEW = exports.GROUPNEW = "group/new";
 var GROUPCANDIDATES = exports.GROUPCANDIDATES = "group/candidates{/id}";
 
+var LANGUAGE_NEW = exports.LANGUAGE_NEW = "language/new";
+var LANGUAGE_DELETE = exports.LANGUAGE_DELETE = "language/delete{/id}";
+
+var IDIOM_NEW = exports.IDIOM_NEW = "idiom/new";
+var IDIOM_DELETE = exports.IDIOM_DELETE = "idiom/delete{/id}";
+
 },{"vue-i18n-mixin":44}],63:[function(require,module,exports){
 'use strict';
 
@@ -24000,6 +24016,46 @@ var translations = exports.translations = {
     cancel: {
       en: 'cancel',
       es: 'Cancelar'
+    },
+    name_language: {
+      en: 'name_language',
+      es: 'Nombre Lenguaje'
+    },
+    level_language: {
+      en: 'level_language',
+      es: 'Nivel Lenguaje'
+    },
+    languages: {
+      en: 'languages',
+      es: 'Lenguajes'
+    },
+    level_idioma: {
+      en: 'level_idioma',
+      es: 'Nivel Idioma'
+    },
+    name_idioma: {
+      en: 'Idioma',
+      es: 'Idioma'
+    },
+    read: {
+      en: 'read',
+      es: 'Leido'
+    },
+    write: {
+      en: 'write',
+      es: 'Escrito'
+    },
+    read_write: {
+      en: 'read_write',
+      es: 'Leido y Escrito'
+    },
+    speak: {
+      en: 'speak',
+      es: 'Conversacional'
+    },
+    speak_bussines: {
+      en: 'speak_bussines',
+      es: 'Conversacional de Negocios'
     }
   },
   general: {
@@ -24166,7 +24222,6 @@ exports.default = {
 
       return false;
     }
-
     for (var p in x) {
       if (x.hasOwnProperty(p) && y.hasOwnProperty(p)) {
         if (x[p] != y[p]) {
@@ -26618,6 +26673,209 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-428a24a7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-candidate/a-candidate.vue":52,"../../a-components/a-table/a-table.vue":58,"../../js/config-app/tables.js":61,"../../js/constants_restful.js":62,"../../js/translations.js":65,"../../js/utilities/filters.js":66,"../../js/utilities/service.js":67,"./mnt-groups.html":107,"vue":48,"vue-hot-reload-api":43}]},{},[50]);
+},{"../../a-components/a-candidate/a-candidate.vue":52,"../../a-components/a-table/a-table.vue":58,"../../js/config-app/tables.js":61,"../../js/constants_restful.js":62,"../../js/translations.js":65,"../../js/utilities/filters.js":66,"../../js/utilities/service.js":67,"./mnt-groups.html":107,"vue":48,"vue-hot-reload-api":43}],109:[function(require,module,exports){
+module.exports = '<div class="">\n\n  <div class="tab-header" data-toggle="modal" data-target="#mntIdioms">\n    idioms\n  </div>\n\n  <ul class="list-group">\n    <li class="list-group-item" v-for="idiom in candidate.idioms">\n      {{ idiom.name_idioma }}-{{ idiom.level_idioma }}\n    </li>\n  </ul>\n\n\n\n  <div class="container-component">\n    <div class="modal fade" id="mntIdioms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\n      <div class="modal-dialog" role="document">\n        <div class="modal-content">\n          <div class="modal-header">\n            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n            <h4 class="modal-title text-left" id="myModalLabel" v-text="translate(\'people.languages\')"></h4>\n          </div>\n          <div class="modal-body">\n\n\n\n            <table class="table table-condensed" v-if="candidate.idioms.length>0">\n\n              <tr class="text-left">\n                <td>\n                  <label class="label-a" v-text="translate(\'people.name_idioma\')"></label>\n                </td>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.level_idioma\')"></label>\n                </td>\n\n                <td>\n                  <label></label>\n                </td>\n              </tr>\n\n              <tr v-for="idiom in candidate.idioms" class="text-left">\n                <td>\n                  {{ idiom.name_idioma }}\n                </td>\n                <td>\n                  {{ idiom.level_idioma }}\n                </td>\n                <td>\n                  <button type="button" name="button" class="btn btn-danger" @click="deleteLanguage(idiom)">\n                  <i class="glyphicon glyphicon-trash"></i>\n                </button>\n                </td>\n              </tr>\n\n            </table>\n\n\n\n            <div class="row">\n\n              <div class="col-sm-6">\n                <div class="text-left">\n\n                  <label v-bind:class="{ \'label-a\': validation.name_idioma, \'label-error\':  !validation.name_idioma}" v-text="translate(\'people.name_idioma\')"></label>\n\n                </div>\n                <div class="">\n                  <input type="text" name="" class="form-control" v-model="idiom.name_idioma">\n\n                </div>\n\n              </div>\n\n              <div class="col-sm-6">\n\n                <div class="text-left">\n                  <label v-bind:class="{ \'label-a\': validation.level_idioma, \'label-error\':  !validation.level_idioma}" v-text="translate(\'people.level_idioma\')"></label>\n\n                </div>\n                <div class="">\n\n\n\n                  <select  class="form-control"  v-model="idiom.level_idioma">\n                    <option v-for="level in levels" v-bind:value="level.code">\n                      {{ level.description }}\n                    </option>\n                  </select>\n\n\n                </div>\n              </div>\n            </div>\n\n            <div class="modal-footer">\n\n              <button  v-if="isValid" class="btn btn-success" @click="addLanguage()">\n                <label v-text="translate(\'people.confirm\')"></label>\n              </button>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n';
+},{}],110:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _translations = require('../../js/translations.js');
+
+var _constants_restful = require('../../js/constants_restful.js');
+
+var _service = require('../../js/utilities/service.js');
+
+var _service2 = _interopRequireDefault(_service);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  template: require('./mnt-idioms.html'),
+  props: {
+    candidate: Object
+  },
+  http: _constants_restful.HTTP,
+  data: function data() {
+    return {
+      locale: 'es',
+      idiom: {
+        name_idioma: '',
+        level_idioma: ''
+      },
+      levels: []
+    };
+  },
+  translations: _translations.translations,
+  mixins: [require('vue-i18n-mixin')],
+  computed: {
+    validation: function validation() {
+
+      return {
+        name_idioma: !!this.idiom.name_idioma != '',
+        level_idioma: !!this.idiom.level_idioma != ''
+      };
+    },
+    isValid: function isValid() {
+      var validation = this.validation;
+      return (0, _keys2.default)(validation).every(function (key) {
+        return validation[key];
+      });
+    }
+  },
+  methods: {
+    deleteLanguage: function deleteLanguage(entry) {
+      console.log("-------------------");
+      console.log(entry);
+
+      var resource = this.$resource(_constants_restful.IDIOM_DELETE);
+      resource.delete({ id: entry.idioma_id }).then(function (response) {
+
+        var index = _service2.default.getIndiceObject(this, this.candidate.idioms, 'idioma_id', entry.idioma_id);
+
+        if (index > -1) {
+          this.candidate.idioms.splice(index, 1);
+        }
+      }, function (error) {});
+    },
+    addLanguage: function addLanguage() {
+
+      var idiom = this.idiom;
+      idiom.candidate_id = this.candidate.id;
+      var resource = this.$http.post(_constants_restful.IDIOM_NEW, idiom);
+      resource.then(function (response) {
+
+        this.candidate.idioms.push(response.body);
+        this.idiom.name_idioma = '';
+        this.idiom.level_idioma = '';
+      }, function (error) {
+
+        _service2.default.showError(this, error);
+      });
+    }
+  },
+  created: function created() {
+
+    this.levels = [{ 'description': this.translate('people.read'), 'code': 'Leido' }, { 'description': this.translate('people.write'), 'code': 'Escrito' }, { 'description': this.translate('people.read_write'), 'code': 'Leido y Escrito' }, { 'description': this.translate('people.speak'), 'code': 'Conversacional' }, { 'description': this.translate('people.speak_bussines'), 'code': 'Conversacional de Negocios' }];
+  }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-6c84fac7", module.exports)
+  } else {
+    hotAPI.update("_v-6c84fac7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../../js/constants_restful.js":62,"../../js/translations.js":65,"../../js/utilities/service.js":67,"./mnt-idioms.html":109,"babel-runtime/core-js/object/keys":2,"vue":48,"vue-hot-reload-api":43,"vue-i18n-mixin":44}],111:[function(require,module,exports){
+module.exports = '<div class="">\n\n  <div class="tab-header" data-toggle="modal" data-target="#mntLanguages">\n    languages\n  </div>\n\n  <ul class="list-group">\n    <li class="list-group-item" v-for="language in candidate.languages">\n    {{ language.name_language}} - {{ language.level_language }}\n    </li>\n  </ul>\n\n\n  <div class="container-component">\n    <div class="modal fade" id="mntLanguages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\n      <div class="modal-dialog" role="document">\n        <div class="modal-content">\n          <div class="modal-header">\n            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n            <h4 class="modal-title text-left" id="myModalLabel" v-text="translate(\'people.languages\')"></h4>\n          </div>\n          <div class="modal-body">\n\n\n\n            <table class="table table-condensed" v-if="candidate.languages.length>0">\n\n              <tr class="text-left">\n                <td>\n                  <label class="label-a" v-text="translate(\'people.name_language\')"></label>\n                </td>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.level_language\')"></label>\n                </td>\n\n                <td>\n                  <label></label>\n                </td>\n              </tr>\n\n\n              <tr v-for="language in candidate.languages" class="text-left">\n                <td>\n                  {{ language.name_language }}\n                </td>\n                <td>\n                  {{ language.level_language }} <span>%</span>\n                </td>\n                <td>\n                  <button type="button" name="button" class="btn btn-danger" @click="deleteLanguage(language)">\n                  <i class="glyphicon glyphicon-trash"></i>\n                </button>\n                </td>\n              </tr>\n\n            </table>\n\n\n\n            <div class="row">\n\n              <div class="col-sm-6">\n                <div class="text-left">\n\n                  <label v-bind:class="{ \'label-a\': validation.name_language, \'label-error\':  !validation.name_language}" v-text="translate(\'people.name_language\')"></label>\n\n                </div>\n                <div class="">\n                  <input type="text" name="" class="form-control" v-model="language.name_language">\n\n                </div>\n\n              </div>\n\n              <div class="col-sm-6">\n\n                <div class="text-left">\n                  <label v-bind:class="{ \'label-a\': validation.level_language, \'label-error\':  !validation.level_language}" v-text="translate(\'people.level_language\')"></label>\n\n                </div>\n                <div class="">\n                  <input type="email" name="" class="form-control" v-model="language.level_language">\n                </div>\n              </div>\n            </div>\n\n            <div class="modal-footer">\n\n              <button  v-if="isValid" class="btn btn-success" @click="addLanguage()">\n                <label v-text="translate(\'people.confirm\')"></label>\n              </button>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n';
+},{}],112:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _translations = require('../../js/translations.js');
+
+var _constants_restful = require('../../js/constants_restful.js');
+
+var _service = require('../../js/utilities/service.js');
+
+var _service2 = _interopRequireDefault(_service);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  template: require('./mnt-languages.html'),
+  props: {
+    candidate: Object
+  },
+  http: _constants_restful.HTTP,
+  data: function data() {
+    return {
+      locale: 'es',
+      language: {
+        name_language: '',
+        level_language: ''
+      }
+    };
+  },
+  translations: _translations.translations,
+  mixins: [require('vue-i18n-mixin')],
+  computed: {
+    validation: function validation() {
+
+      var reg = /^[0-9]{1,10}$/;
+
+      return {
+        name_language: !!this.language.name_language != '',
+        level_language: reg.test(this.language.level_language)
+      };
+    },
+    isValid: function isValid() {
+      var validation = this.validation;
+      return (0, _keys2.default)(validation).every(function (key) {
+        return validation[key];
+      });
+    }
+  },
+  methods: {
+    deleteLanguage: function deleteLanguage(entry) {
+      console.log("-------------------");
+      console.log(entry);
+
+      var resource = this.$resource(_constants_restful.LANGUAGE_DELETE);
+      resource.delete({ id: entry.id }).then(function (response) {
+
+        var index = _service2.default.getIndiceObject(this, this.candidate.languages, 'id', entry.id);
+
+        if (index > -1) {
+          this.candidate.languages.splice(index, 1);
+        }
+      }, function (error) {});
+    },
+    addLanguage: function addLanguage() {
+
+      var language = this.language;
+      language.candidate_id = this.candidate.id;
+      var resource = this.$http.post(_constants_restful.LANGUAGE_NEW, language);
+      resource.then(function (response) {
+
+        this.candidate.languages.push(response.body);
+        this.language.name_language = '';
+        this.language.level_language = '';
+      }, function (error) {
+
+        _service2.default.showError(this, error);
+      });
+    }
+  }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-9c08782a", module.exports)
+  } else {
+    hotAPI.update("_v-9c08782a", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../../js/constants_restful.js":62,"../../js/translations.js":65,"../../js/utilities/service.js":67,"./mnt-languages.html":111,"babel-runtime/core-js/object/keys":2,"vue":48,"vue-hot-reload-api":43,"vue-i18n-mixin":44}]},{},[50]);
 
 //# sourceMappingURL=app.js.map

@@ -224,6 +224,46 @@ export const translations={
             cancel:{
               en: 'cancel',
               es: 'Cancelar'
+            },
+            name_language:{
+              en: 'name_language',
+              es: 'Nombre Lenguaje'
+            },
+            level_language:{
+              en: 'level_language',
+              es: 'Nivel Lenguaje'
+            },
+            languages:{
+              en: 'languages',
+              es: 'Lenguajes'
+            },
+            level_idioma:{
+              en: 'level_idioma',
+              es: 'Nivel Idioma'
+            },
+            name_idioma:{
+              en: 'Idioma',
+              es: 'Idioma'
+            },
+            read:{
+              en: 'read',
+              es: 'Leido'
+            },
+            write:{
+              en: 'write',
+              es: 'Escrito'
+            },
+            read_write:{
+              en: 'read_write',
+              es: 'Leido y Escrito'
+            },
+            speak:{
+              en: 'speak',
+              es: 'Conversacional'
+            },
+            speak_bussines:{
+              en: 'speak_bussines',
+              es: 'Conversacional de Negocios'
             }
         },
     general:{

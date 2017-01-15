@@ -46,3 +46,9 @@ export const ECONOMIC_EDIT="economic/edit"
 export const GROUPS="groups"
 export const GROUPNEW="group/new"
 export const GROUPCANDIDATES="group/candidates{/id}"
+
+export const LANGUAGE_NEW="language/new"
+export const LANGUAGE_DELETE="language/delete{/id}"
+
+export const IDIOM_NEW="idiom/new"
+export const IDIOM_DELETE="idiom/delete{/id}"

@@ -73,10 +73,6 @@ export default {
 
       return false;
     }
-
-
-
-
     for (var p in x)
     {
       if ( x.hasOwnProperty(p) && y.hasOwnProperty(p) ){
