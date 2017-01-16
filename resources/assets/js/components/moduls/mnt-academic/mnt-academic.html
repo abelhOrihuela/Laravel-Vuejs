@@ -1,0 +1,97 @@
+<div class="container-a">
+
+  <div style="text-align: right">
+
+    <button  id="show-modal" v-if="academicSelect!=null" @click="editAcademic()" class="btn btn-success btn-options">
+      <i class="glyphicon glyphicon-pencil"></i>
+    </button>
+
+    <button  id="show-modal" @click="deleteAcademic()" class="btn btn-danger btn-options" v-if="academicSelect!=null">
+      <i class="glyphicon glyphicon glyphicon-remove"></i>
+    </button>
+
+    <button id="show-modal" @click="addMoreAcademic" class="btn btn-info btn-options">
+      <i class="glyphicon glyphicon-plus"></i>
+    </button>
+
+  </div>
+  <br>
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+
+      <div class="row">
+        <div class="col-sm-3">
+          <label class="label-a" v-text="translate('people.name_academic')"></label>
+        </div>
+
+        <div class="col-sm-3">
+          <label class="label-a" v-text="translate('people.career')"></label>
+        </div>
+
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.level_academic')"></label>
+        </div>
+        <div class="col-sm-3">
+          <label class="label-a" v-text="translate('people.comments')"></label>
+        </div>
+
+        <div class="col-sm-1">
+          <label class="label-a" v-text="translate('people.now')"></label>
+        </div>
+
+      </div>
+    </div>
+
+    <ul class="list-group">
+      <li class="list-group-item" v-for="academic in candidate.academics">
+        <div class="row" @click="select(academic)">
+          <div class="col-sm-3">
+            {{ academic.name_academic }}
+            [{{ academic.year_entry }}-{{ academic.year_exit}}]
+          </div>
+
+          <div class="col-sm-3">
+            {{ academic.career }}
+          </div>
+
+          <div class="col-sm-2">
+            {{ academic.level_academic }}
+          </div>
+
+          <div class="col-sm-3">
+            {{ academic.comments }}
+          </div>
+
+
+          <div class="col-sm-1">
+
+            <div style="font-size: 20px; text-align: center">
+              {{ academic.now | trueOrFalse }}
+            </div>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+
+    <div class="row" v-if="academicSelect!=null">
+      <div class="col-sm-12" style="text-align: right">
+
+          <label class="label-a" v-text="translate('people.selected')"></label>
+          : {{ academicOriginal.name_academic }}&nbsp;
+
+      </div>
+    </div>
+
+
+    <delete-academic v-if="showModalDeleteAcademic" :academic="academicOriginal" :remove="removeAcademic" @close="showModalDeleteAcademic = false">
+    </delete-academic>
+
+    <add-academic v-if="flagShowAddAcademic" :candidate="candidate.id" :add="addAcademic" @close="flagShowAddAcademic = false">
+    </add-academic>
+
+    <edit-academic v-if="flagShowEditAcademic" :academic="academicOriginal" :academicnow="academicSelect" :update="updateAcademic"  @close="flagShowEditAcademic = false">
+    <edit-academic>
+
+</div>

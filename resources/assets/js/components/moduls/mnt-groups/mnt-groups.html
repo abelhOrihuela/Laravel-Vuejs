@@ -1,0 +1,77 @@
+<div class="container-a">
+
+
+
+  <div class="row" v-if="flagDetailSelected">
+    <div class="col-sm-4  " @click="showTable()">
+      <div class="back-section">
+        <i class="glyphicon glyphicon-chevron-left" v-text="translate('general.back')">
+        </i>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <a-table v-if="flagShowTable" :data="groups" :columns="columns" :total="groups.length" :select="select">
+  </a-table>
+
+
+
+  <div class="panel panel-default" v-if="flagDetailSelected">
+    <div class="panel-heading">
+      <label v-text="translate('people.group.selected')"></label>
+    </div>
+    <div class="panel-body">
+
+      <div class="row">
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.name_group')"></label>
+          <div >
+            {{ groupSelect.name_group }}
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.category')"></label>
+          <div >
+            {{ groupSelect.descrCategory }}
+
+
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.subcategory')"></label>
+          <div >
+            {{ groupSelect.descrSubCategory }}
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+  <a-table v-if="flagShowTableCandidates" :data="candidates" :columns="columnsCandidates" :total="candidates.length" :select="selectCandidate">
+  </a-table>
+
+
+
+  <div class="row" v-if="flagDetailSelectedCandidate">
+    <div class="col-sm-4  " @click="showTableCandidates()">
+      <div class="back-section">
+        <i class="glyphicon glyphicon-chevron-left" v-text="translate('general.back')">
+        </i>
+      </div>
+    </div>
+  </div>
+  <br>
+
+
+  <a-candidate v-if="flagDetailSelectedCandidate" :candidate="candidateSelected">
+  <a-candidate>
+
+
+
+</div>

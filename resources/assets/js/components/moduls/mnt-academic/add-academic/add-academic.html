@@ -1,0 +1,87 @@
+<div class="container-component">
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container" style="width: 60%">
+          <div class="modal-header">
+
+            <div class="row">
+              <div class="col-sm-11">
+                <slot name="header">
+                  <h4 v-text="translate('people.add_experience')"></h4>
+                </slot>
+              </div>
+              <div class="col-sm-1">
+                <button class="btn btn-keytalent" @click="$emit('close')">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-body">
+            <slot name="body">
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <label v-bind:class="{ 'label-a': validation.name_academic, 'label-error':  !validation.name_academic}" v-text="translate('people.name_academic')"></label>
+                  <div>
+                    <input type="text" name="name"  class="form-control" v-model="academic.name_academic" value="">
+                  </div>
+                </div>
+
+                <div class="col-sm-5">
+                  <label v-bind:class="{ 'label-a': validation.career, 'label-error':  !validation.career}" v-text="translate('people.career')"></label>
+                  <div>
+                    <input type="text" name="name" class="form-control" v-model="academic.career" value="">
+                  </div>
+                </div>
+
+                <div class="col-sm-1 has-success">
+                  <label class="label-a" v-text="translate('people.now')"></label>
+                  <input type="checkbox" name="name" v-bind:true-value="1" v-bind:false-value="0" @change="academicNow()" v-model="academic.now">
+                </div>
+              </div>
+
+              <div class="row">
+
+                <div class="col-sm-6">
+                  <label v-bind:class="{ 'label-a': validation.level_academic, 'label-error':  !validation.level_academic}" v-text="translate('people.level_academic')"></label>
+                  <div>
+                    <input type="text" name="name" class="form-control" v-model="academic.level_academic" value="">
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <label v-bind:class="{ 'label-a': validation.year_entry, 'label-error':  !validation.year_entry}" v-text="translate('people.admission_date')"></label>
+                  <input type="number" name="" class="form-control" v-model="academic.year_entry">
+                </div>
+
+                <div class="col-sm-3" v-if="flagShowYearExit">
+                  <label v-bind:class="{ 'label-a': validation.year_exit, 'label-error':  !validation.year_exit}" v-text="translate('people.admission_date')"></label>
+                  <input type="number" name="" class="form-control" v-model="academic.year_exit">
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <label class="label-a" v-text="translate('people.comments')"></label>
+                  <input type="text" name="" class="form-control"  v-model="academic.comments">
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <slot name="footer">
+                <button v-if="formIsValid()" class="btn btn-success" @click="addAcademic()">
+                  <label v-text="translate('people.confirm')"></label>
+                </button>
+              </slot>
+            </div>
+
+          </slot>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>

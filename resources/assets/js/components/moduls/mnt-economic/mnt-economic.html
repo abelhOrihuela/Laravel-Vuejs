@@ -1,0 +1,76 @@
+<div class="container-a">
+
+  <div style="text-align: right">
+
+    <button  v-if="economicSelect!=null" id="show-modal" @click="editEconomic()" class="btn btn-success btn-options">
+      <i class="glyphicon glyphicon-pencil"></i>
+    </button>
+
+    <button v-if="candidate.economic.length==0"id="show-modal" @click="addMoreEconomic()" class="btn btn-info btn-options">
+      <i class="glyphicon glyphicon-plus"></i>
+    </button>
+
+  </div>
+
+  <br>
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+
+      <div class="row">
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.current_salary')"></label>
+        </div>
+        <div class="col-sm-3">
+          <label class="label-a" v-text="translate('people.economic_package')"></label>
+        </div>
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.salary_expectation')"></label>
+        </div>
+
+        <div class="col-sm-3">
+          <label class="label-a" v-text="translate('people.comments')"></label>
+        </div>
+
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.relocation')"></label>
+        </div>
+      </div>
+
+    </div>
+
+    <ul class="list-group">
+      <li class="list-group-item" v-for="economic in candidate.economic" @click="select(economic)">
+
+        <div class="row">
+          <div class="col-sm-2">
+            {{ economic.current_salary }}
+          </div>
+          <div class="col-sm-3">
+            {{ economic.economic_package }}
+          </div>
+          <div class="col-sm-2">
+            {{ economic.salary_expectation }}
+          </div>
+
+          <div class="col-sm-3">
+            {{ economic.comments }}
+          </div>
+
+          <div class="col-sm-2">
+            {{ economic.relocation | trueOrFalse }}
+          </div>
+        </div>
+
+      </li>
+    </ul>
+  </div>
+
+  <edit-economic v-if="showModalEditEconomic" :economic="economicNow" :economicnow="economicSelect" :update="update" @close="showModalEditEconomic = false">
+  </edit-economic>
+
+  <add-economic v-if="showModalAddEconomic" :candidate="candidate.id" :add="addEconomic" @close="showModalAddEconomic = false">
+  </add-economic>
+
+</div>

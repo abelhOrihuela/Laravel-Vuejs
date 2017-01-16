@@ -1,0 +1,88 @@
+<div class="container-component">
+  <transition name="modal">
+
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container" style="width: 60%">
+          <div class="modal-header">
+            <div class="row">
+              <div class="col-sm-11">
+                <slot name="header">
+                  <h4 v-text="translate('people.edit_experience')"></h4>
+                </slot>
+              </div>
+              <div class="col-sm-1">
+                <button class="btn btn-keytalent" @click="$emit('close')">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <slot name="body">
+
+              <div class="row">
+                <div class="col-sm-3">
+
+                  <label v-bind:class="{ 'label-a': validation.current_salary, 'label-error':  !validation.current_salary}" v-text="translate('people.current_salary')"></label>
+                  <input class="form-control" type="text" name="name" v-model="economic.current_salary">
+
+                </div>
+
+                <div class="col-sm-7">
+
+
+                  <label v-bind:class="{ 'label-a': validation.economic_package, 'label-error':  !validation.economic_package}" v-text="translate('people.economic_package')"></label>
+                  <input class="form-control" type="text" name="name" v-model="economic.economic_package">
+
+                </div>
+
+                <div class="col-sm-2 has-success">
+                  <label class="label-a" v-text="translate('people.relocation')"></label>
+
+                  <div class="">
+                    <input type="checkbox" name="name" v-bind:true-value=1 v-bind:false-value=0 v-model="economic.relocation">
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-sm-3">
+
+                  <label v-bind:class="{ 'label-a': validation.salary_expectation, 'label-error':  !validation.salary_expectation}" v-text="translate('people.salary_expectation')"></label>
+                  <input class="form-control" type="text" name="name" v-model="economic.salary_expectation">
+                </div>
+
+                <div class="col-sm-9">
+                  <label  class="label-a" v-text="translate('people.comments')"></label>
+                  <input class="form-control" type="text" name="name" v-model="economic.comments">
+
+                </div>
+              </div>
+
+
+            </slot>
+            <div class="modal-footer">
+
+
+
+              <slot name="footer">
+              <button v-if="isValid" class="btn btn-success" @click="addEconomic()">
+
+              <label v-text="translate('people.confirm')"></label>
+
+
+            </button>
+          </slot>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+</transition>
+</div>

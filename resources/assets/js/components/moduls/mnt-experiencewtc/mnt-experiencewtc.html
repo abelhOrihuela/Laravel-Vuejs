@@ -1,0 +1,105 @@
+<div class="container-a">
+
+  <div style="text-align: right">
+
+
+  <button  v-if="experienceSelect!=null" id="show-modal" @click="editExperience()" class="btn btn-success btn-options">
+    <i class="glyphicon glyphicon-pencil"></i>
+  </button>
+
+  <button  v-if="experienceSelect!=null" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options">
+    <i class="glyphicon glyphicon glyphicon-remove"></i>
+  </button>
+
+  <button id="show-modal" @click="addMoreExperience" class="btn btn-info btn-options">
+    <i class="glyphicon glyphicon-plus"></i>
+  </button>
+
+  </div>
+
+  <br>
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">
+      <div class="row">
+
+        <div class="col-sm-3">
+          <label class="label-a" v-text="translate('people.name_business')"></label>
+        </div>
+
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.position')"></label>
+        </div>
+
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.date')"></label>
+        </div>
+
+
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.consultant')"></label>
+        </div>
+
+        <div class="col-sm-3">
+          <label class="label-a" v-text="translate('people.comments')"></label>
+        </div>
+
+      </div>
+    </div>
+
+    <ul class="list-group">
+      <li class="list-group-item" v-for="experiencewtc in candidate.experiences_wtc" @click="select(experiencewtc)">
+
+        <div class="row" >
+    			<div class="col-sm-3">
+    				{{ experiencewtc.name_company }}
+    			</div>
+    			<div class="col-sm-2">
+    				{{ experiencewtc.name_job }}
+    			</div>
+    			<div class="col-sm-2">
+    				{{ experiencewtc.date }}
+    			</div>
+    			<div class="col-sm-2">
+    				{{ experiencewtc.consultant }}
+    			</div>
+    			<div class="col-sm-3">
+    				{{ experiencewtc.comments }}
+    			</div>
+    		</div>
+
+      </li>
+    </ul>
+
+    <div class="row" v-if="experienceSelect!=null">
+      <div class="col-sm-12" style="text-align: right">
+
+          <label class="label-a" v-text="translate('people.selected')"></label>
+          : {{ experienceSelect.name_company }}&nbsp;
+
+      </div>
+    </div>
+  </div>
+
+  <add-experiencewtc v-if="showModalAddExperience" :candidate="candidate.id" :add="addExperience" @close="showModalAddExperience = false">
+  </add-experiencewtc>
+
+  <delete-experiencewtc v-if="showModalDeleteExperince" :experience="experienceSelect" :remove="removeExperince" @close="showModalDeleteExperince = false">
+  </delete-experiencewtc>
+
+  <edit-experiencewtc v-if="showModalEditExperience" :experience="experienceOriginal" :experiencenow="experienceSelect" :update="update" @close="showModalEditExperience = false">
+  </edit-experiencewtc>
+
+<!--
+
+
+
+
+
+
+
+
+-->
+
+</div>

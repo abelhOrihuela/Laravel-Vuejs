@@ -1,0 +1,109 @@
+<div class="">
+
+  <div class="tab-header" data-toggle="modal" data-target="#mntIdioms">
+    idioms
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item" v-for="idiom in candidate.idioms">
+      {{ idiom.name_idioma }}-{{ idiom.level_idioma }}
+    </li>
+  </ul>
+
+
+
+  <div class="container-component">
+    <div class="modal fade" id="mntIdioms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title text-left" id="myModalLabel" v-text="translate('people.languages')"></h4>
+          </div>
+          <div class="modal-body">
+
+
+
+            <table class="table table-condensed" v-if="candidate.idioms.length>0">
+
+              <tr class="text-left">
+                <td>
+                  <label class="label-a" v-text="translate('people.name_idioma')"></label>
+                </td>
+                <td>
+                  <label class="label-a" v-text="translate('people.level_idioma')"></label>
+                </td>
+
+                <td>
+                  <label></label>
+                </td>
+              </tr>
+
+              <tr v-for="idiom in candidate.idioms" class="text-left">
+                <td>
+                  {{ idiom.name_idioma }}
+                </td>
+                <td>
+                  {{ idiom.level_idioma }}
+                </td>
+                <td>
+                  <button type="button" name="button" class="btn btn-danger" @click="deleteLanguage(idiom)">
+                  <i class="glyphicon glyphicon-trash"></i>
+                </button>
+                </td>
+              </tr>
+
+            </table>
+
+
+
+            <div class="row">
+
+              <div class="col-sm-6">
+                <div class="text-left">
+
+                  <label v-bind:class="{ 'label-a': validation.name_idioma, 'label-error':  !validation.name_idioma}" v-text="translate('people.name_idioma')"></label>
+
+                </div>
+                <div class="">
+                  <input type="text" name="" class="form-control" v-model="idiom.name_idioma">
+
+                </div>
+
+              </div>
+
+              <div class="col-sm-6">
+
+                <div class="text-left">
+                  <label v-bind:class="{ 'label-a': validation.level_idioma, 'label-error':  !validation.level_idioma}" v-text="translate('people.level_idioma')"></label>
+
+                </div>
+                <div class="">
+
+
+
+                  <select  class="form-control"  v-model="idiom.level_idioma">
+                    <option v-for="level in levels" v-bind:value="level.code">
+                      {{ level.description }}
+                    </option>
+                  </select>
+
+
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+
+              <button  v-if="isValid" class="btn btn-success" @click="addLanguage()">
+                <label v-text="translate('people.confirm')"></label>
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

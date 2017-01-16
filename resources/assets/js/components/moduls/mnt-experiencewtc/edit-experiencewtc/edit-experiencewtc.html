@@ -1,0 +1,113 @@
+<div class="container-component">
+  <transition name="modal">
+
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container" style="width: 60%">
+          <div class="modal-header">
+            <div class="row">
+              <div class="col-sm-11">
+                <slot name="header">
+                  <h4 v-text="translate('people.add_experience')"></h4>
+                </slot>
+              </div>
+              <div class="col-sm-1">
+                <button class="btn btn-keytalent" @click="$emit('close')">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <slot name="body">
+
+
+
+              <div class="row">
+
+                <div class="col-sm-4">
+
+                  <label v-bind:class="{ 'label-a': validation.name_company, 'label-error':  !validation.name_company}" v-text="translate('people.name_business')"></label>
+
+
+
+                  <input type="text"
+                  v-model="experience.name_company"
+                  class="form-control"
+                  name="name" >
+
+                </div>
+
+
+                <div class="col-sm-5" >
+
+                  <label v-bind:class="{ 'label-a': validation.name_job, 'label-error':  !validation.name_job}" v-text="translate('people.name_job')"></label>
+                  <input type="text"
+                  v-model="experience.name_job"
+                  class="form-control"
+                  name="name" value="">
+                </div>
+
+
+                <div class="col-sm-3">
+
+                  <label v-bind:class="{ 'label-a': validation.date, 'label-error':  !validation.date}" v-text="translate('people.date')"></label>
+                  <input type="date"
+                  name="" class="form-control"
+                  v-model="experience.date">
+                </div>
+
+
+
+              </div>
+
+
+
+              <div class="row">
+
+
+
+                <div class="col-sm-6">
+
+                  <label class="label-a" v-text="translate('people.comments')"></label>
+                  <input type="text"
+                  v-model="experience.comments"
+                  class="form-control"
+                  name="name" value="">
+                </div>
+
+
+                <div class="col-sm-6">
+                  <label v-bind:class="{ 'label-a': validation.consultant, 'label-error':  !validation.consultant}" v-text="translate('people.consultant')"></label>
+
+                  <select  class="form-control" v-model="experience.consultant">
+                    <option v-for="consultant in consultants" v-bind:value="consultant.username">
+                      {{ consultant.username }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+
+
+
+
+            </div>
+          </slot>
+          <div class="modal-footer">
+
+
+            <slot name="footer">
+              <button v-if="formIsValid() && experienceChange()"
+              class="btn btn-success"
+              @click="editExperience()">
+              <label v-text="translate('people.confirm')"></label>
+            </button>
+          </slot>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</transition>
+</div>

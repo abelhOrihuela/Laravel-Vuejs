@@ -31,11 +31,13 @@ import MntCandidates from './components/moduls/mnt-candidates/mnt-candidates.vue
 Vue.component('mnt-candidates', MntCandidates);
 import ALogin from './components/a-components/a-login/a-login.vue';
 Vue.component('a-login', ALogin);
-
 import AMenu from './components/a-components/a-menu/a-menu.vue';
 Vue.component('a-menu', AMenu);
 import MntGroups from './components/moduls/mnt-groups/mnt-groups.vue';
 Vue.component('mnt-groups', MntGroups);
+
+import Dashboard from './components/moduls/dashboard/dashboard.vue';
+Vue.component('dashboard', Dashboard);
 
 
 
@@ -50,7 +52,7 @@ const routes =[{
 },
 {
 	path: '/dashboard',
-	component: MntAdmins,
+	component: Dashboard,
 	name: 'dashboard',
 	meta: { requiresAuth: true }
 },
