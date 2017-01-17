@@ -112,7 +112,7 @@ export default{
           this.user.password= "";
 
           var router= this.$router;
-          router.push({name: 'candidates'});
+          router.push({name: 'dashboard'});
           service.showSuccess(this, 'Welcome');
 
 

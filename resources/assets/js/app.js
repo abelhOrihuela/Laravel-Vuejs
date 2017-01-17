@@ -35,6 +35,8 @@ import AMenu from './components/a-components/a-menu/a-menu.vue';
 Vue.component('a-menu', AMenu);
 import MntGroups from './components/moduls/mnt-groups/mnt-groups.vue';
 Vue.component('mnt-groups', MntGroups);
+import MntCustomers from './components/moduls/mnt-customers/mnt-customers.vue';
+Vue.component('mnt-customers', MntCustomers);
 
 import Dashboard from './components/moduls/dashboard/dashboard.vue';
 Vue.component('dashboard', Dashboard);
@@ -66,6 +68,12 @@ const routes =[{
 	path: '/admins',
 	component: MntAdmins,
 	name: 'admins',
+	meta: { requiresAuth: true }
+},
+{
+	path: '/customers',
+	component: MntCustomers,
+	name: 'customers',
 	meta: { requiresAuth: true }
 },
 {

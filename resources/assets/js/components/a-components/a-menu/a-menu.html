@@ -7,21 +7,14 @@
 
       <li v-for="option in menu">
         <router-link  :to="option.name">
-          <i class="fa fa-power-off fa-2x glyphicon":class="option.class"></i>
+          <i class="fa fa-power-off fa-2x glyphicon":class="option.class" :style="option.style"></i>
           <span class="nav-text">
             {{ option.description }}
           </span>
         </router-link>
       </li>
 
-      <li>
-        <a @click="logout()">
-          <i class="fa fa-power-off fa-2x glyphicon glyphicon-off"></i>
-          <span class="nav-text">
-            Logout
-          </span>
-        </a>
-      </li>
+  
     </ul>
 
     <ul class="logout">

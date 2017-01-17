@@ -4,7 +4,9 @@ import  runblock  from '../../js/runblock.js';
 export default{
   template: require('./a-menu.html'),
   data: function(){
-    return{ menu:[]}
+    return{
+      menu:[],
+      menu_dashboard:[],}
   },
   methods: {
     logout: function(){
@@ -21,30 +23,49 @@ export default{
     var dashboard={
       name: 'dashboard',
       class: 'glyphicon-th-large',
-      description: 'Dashboard'
+      description: 'Dashboard',
+      dashboard:{
+
+      }
     }
 
     var admins={
       name: 'admins',
       class: 'glyphicon-cog',
-      description: 'Administradores'
+      description: 'Administradores',
+      style: 'color: #E94B3B !important;',
+      dashboard:{
+      }
+
     }
 
     var candidates={
       name: 'candidates',
       class: 'glyphicon-user',
-      description: 'Candidates'
+      description: 'Candidates',
+      style: 'color: #F98E33 !important;',
+      dashboard:{
+      }
+
     }
     var groups={
       name: 'groups',
       class: 'glyphicon-modal-window',
-      description: 'Grupos'
+      description: 'Grupos',
+      style: 'color: #23AE89 !important;',
+      dashboard:{
+      }
+
     }
 
     var customers={
-      name: 'candidates',
+      name: 'customers',
       class: 'glyphicon-briefcase',
-      description: 'customers'
+      description: 'customers',
+      style: 'color: #1C7EBB !important;',
+      dashboard:{
+      }
+
     }
 
     this.menu.push(dashboard);
@@ -53,10 +74,17 @@ export default{
     this.menu.push(customers);
     this.menu.push(groups);
 
+    this.menu_dashboard.push(admins);
+    this.menu_dashboard.push(candidates);
+    this.menu_dashboard.push(customers);
+    this.menu_dashboard.push(groups);
+    
+
+    sessionStorage.setItem('menu', JSON.stringify(this.menu_dashboard));
+
+
     if(user.profile==="A"){
-
     }else if (user.profile==="C") {
-
     }
   }
 }

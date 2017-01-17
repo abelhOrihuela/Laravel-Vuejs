@@ -52,3 +52,5 @@ export const LANGUAGE_DELETE="language/delete{/id}"
 
 export const IDIOM_NEW="idiom/new"
 export const IDIOM_DELETE="idiom/delete{/id}"
+
+export const CUSTOMERS="customers"

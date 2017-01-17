@@ -14,6 +14,14 @@ export var tableCandidates = [
   {label: "updated_at", key: 'updated_at', filter: 'shortDate'}
 ];
 
+export var tableCustomers = [
+  {label: "username", key: 'username' },
+  {label: "position", key: 'position'},
+  {label: "email", key: 'email'},
+  {label: "created_at", key: 'created_at', filter: 'shortDate'},
+  {label: "updated_at", key: 'updated_at', filter: 'shortDate'}
+];
+
 export var tableExperience = [
   {label: "name_business", key: 'name_business' },
   {label: "name_job", key: 'name_job'},

@@ -208,5 +208,10 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'Language_create_path'
   ]);
 
+  Route::get('customers',[
+    'uses' => 'CustomersController@index',
+    'as'   => 'customers_index_path'
+  ]);
+
 
 });
