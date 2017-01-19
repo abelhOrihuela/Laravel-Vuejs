@@ -4,7 +4,10 @@
 	<title> Key Talent </title>
 	<link href="https://fonts.googleapis.com/css?family=Muli|Raleway" rel="stylesheet">	<script src="/vendor/js/jquery.min.js"></script>
 	<script src="/vendor/js/bootstrap.min.js"></script>
+
 	<link rel="stylesheet" href="/vendor/css/bootstrap.min.css" media="screen" title="no title">
+
+
 	<link rel="stylesheet" href="/css/keytalent.css">
 	<link rel="stylesheet" href="/css/vue-toast.css">
 	<link rel="shortcut icon" href="/css/favicon.ico">

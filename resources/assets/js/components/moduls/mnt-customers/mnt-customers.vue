@@ -7,19 +7,28 @@ import { HTTP, CUSTOMERS } from '../../js/constants_restful.js';
 import { translations } from '../../js/translations.js';
 import { tableCustomers } from '../../js/config-app/tables.js';
 
+import AddCustomer from './add-customer/add-customer.vue';
+
+
 export default{
   template: require('./mnt-customers.html'),
   data: function(){
     return {
       columns: tableCustomers,
-      customers:[]
+      customers:[],
+      flagShowTable: true,
+      flagDeatilSelect: false,
+      flagAddCustomer: false,
+      selected: null,
+      locale: 'es'
     }
   },
   http: HTTP,
   translations: translations,
   mixins: [require('vue-i18n-mixin')],
   components:{
-    'a-table': ATable
+    'a-table': ATable,
+    'add-customer': AddCustomer
   },
   methods:{
 
@@ -32,7 +41,28 @@ export default{
 
     },
     select: function(entry){
+      this.flagShowTable=false;
+      this.flagDeatilSelect=true;
+      this.flagAddCustomer=false;
+      this.selected=entry;
 
+    },
+    showTable: function(){
+      this.flagShowTable=true;
+      this.flagDeatilSelect=false;
+          this.selected=null;
+    },
+    addCustomer: function(){
+      this.flagShowTable=false;
+      this.flagDeatilSelect=false;
+      this.flagAddCustomer=true;
+
+
+    },
+    beforeAddCustomer: function(entry){
+this.customers.push(entry);
+
+this.select(entry);
     }
 
   },

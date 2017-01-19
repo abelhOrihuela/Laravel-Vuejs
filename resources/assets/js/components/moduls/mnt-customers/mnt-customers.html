@@ -1,3 +1,127 @@
 <div class="container-a">
-  <a-table :data="customers" :columns="columns" :total="customers.length" :select="select" :showSearch="false"></a-table>
-</div>
+  <div style="text-align: right">
+
+
+    <button id="show-modal" @click="addCustomer()" class="btn btn-info btn-options">
+      <i class="glyphicon glyphicon-plus"></i>
+    </button>
+
+  </div>
+
+  <br>
+  <a-table v-if="flagShowTable":data="customers" :columns="columns" :total="customers.length" :select="select" :showSearch="false"></a-table>
+
+
+  <div v-if="flagDeatilSelect" class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-sm-1" @click="showTable">
+          <i  class="glyphicon glyphicon-menu-left"></i>
+        </div>
+        <div class="col-sm-9">
+          <label class="vcenter"v-text="translate('people.candidates.selected')"></label>
+
+        </div>
+
+        <div class="col-sm-2">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>
+
+              &nbsp;
+              <ul class="dropdown-menu">
+                <li>
+                  <a data-toggle="modal" data-target="#addCandidateToGroup">
+                    <label class="label-a" v-text="translate('people.add_candidate_to_group')"></label>
+                  </a>
+                </li>
+                <li>
+                  <a @click="addCandidateToGroup()">
+                    <label class="label-a" v-text="translate('people.add_language')"></label>
+                  </a>
+                  <li>
+                    <a @click="addCandidateToGroup()">
+                      <label class="label-a" v-text="translate('people.add_idiom')"></label>
+                    </a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <label class="label-a" v-text="translate('people.name')"></label>
+            <div>
+              {{ selected.username }}
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <label class="label-a" v-text="translate('people.gender')"></label>
+            <div >
+              {{ selected.gender }}
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <label class="label-a" v-text="translate('people.company')"></label>
+            <div >
+              {{ selected.company }}
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <label class="label-a" v-text="translate('people.category')"></label>
+            <div >
+              {{ selected.category_customer.name }}
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <label class="label-a" v-text="translate('people.subcategory')"></label>
+            <div >
+              {{ selected.subcategory_customer.name }}
+            </div>
+          </div>
+
+          <div class="col-sm-1">
+            <label class="label-a" v-text="translate('people.type')"></label>
+            <div >
+              {{ selected.type }}
+            </div>
+          </div>
+
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-3">
+            <label class="label-a" v-text="translate('people.comments')"></label>
+            <div>
+              {{ selected.comments }}
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <label class="label-a" v-text="translate('people.created_at')"></label>
+            <div >
+              {{ selected.created_at | date }}
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <label class="label-a" v-text="translate('people.updated_at')"></label>
+            <div>
+              {{ selected.updated_at | shortDate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <add-customer v-if="flagAddCustomer" :before="beforeAddCustomer"></add-customer>
+
+  </div>

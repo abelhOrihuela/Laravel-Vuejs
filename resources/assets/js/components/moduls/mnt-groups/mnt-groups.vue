@@ -51,12 +51,10 @@ export default {
 
         }, this);
 
-        service.showSuccess(this, null);
-
 
       }, function(error){
 
-        service.showError(this, null);
+        service.showError(this, error);
 
 
       });

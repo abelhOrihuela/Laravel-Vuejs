@@ -213,5 +213,10 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'customers_index_path'
   ]);
 
+  Route::post('customer/new',[
+    'uses' => 'CustomersController@create',
+    'as'   => 'customers_create_path'
+  ]);
+
 
 });

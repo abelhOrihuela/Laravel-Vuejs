@@ -1,7 +1,13 @@
 import  service  from '../../js/utilities/service.js';
+import { translations } from '../../js/translate/table.js';
 import moment from 'moment'
 
 export default {
+
+  mixins: [
+    require('vue-i18n-mixin')
+  ],
+  translations: translations,
 
 
 
@@ -15,9 +21,6 @@ export default {
   }
   ,
   shortDate(context,date){
-    console.log("--------------------");
-    console.log(date);
-    console.log("--------------------");
 
     if (date == undefined || date == null) {
       return "--/--/----"
@@ -32,7 +35,25 @@ export default {
         return fec;
       }
     }
+  },
+  customers(context, type){
 
+    if(type=='1' || type==1){
+      return 'Basico';
+    }else if(type=='2' || type==2){
+      return 'Premium';
+
+    }
+
+  },
+  admins(context, type){
+
+    if(type=='1' || type==1){
+      return 'Usuario';
+    }else if(type=='2' || type==2){
+      return 'Administrador';
+
+    }
 
   }
 

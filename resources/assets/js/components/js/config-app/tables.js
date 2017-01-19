@@ -1,6 +1,6 @@
 export var tableAdmins = [
   {label: "username", key: 'username' },
-  {label: "type", key: 'type'},
+  {label: "type", key: 'type', filter: 'admins', styles: 'font-weight: bold'},
   {label: "email", key: 'email'},
   {label: "created_at", key: 'created_at'}
 ];
@@ -16,8 +16,9 @@ export var tableCandidates = [
 
 export var tableCustomers = [
   {label: "username", key: 'username' },
-  {label: "position", key: 'position'},
+  {label: "company", key: 'company'},
   {label: "email", key: 'email'},
+  {label: "type", key: 'type', filter: 'customers', styles: 'font-weight: bold'},
   {label: "created_at", key: 'created_at', filter: 'shortDate'},
   {label: "updated_at", key: 'updated_at', filter: 'shortDate'}
 ];

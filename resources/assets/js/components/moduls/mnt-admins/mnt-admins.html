@@ -1,6 +1,6 @@
 <div class="container-a">
 	<div class="row" v-show="flagTable">
-		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select">
+		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select" :showSearch="false">
 		</a-table>
 	</div>
 	<div class="row" v-show="flagDetailSelected">

@@ -73,6 +73,13 @@ export default{
     },
     shortDate: function(value){
       return filter.shortDate(this,value);
+    },
+    customers: function(value){
+      return filter.customers(this,value);
+    },
+    admins: function(value){
+      return filter.admins(this,value);
+
     }
 
   },

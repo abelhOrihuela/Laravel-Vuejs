@@ -40,17 +40,29 @@
       <tbody>
         <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">
           <td v-for="key in columns">
-            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='trueOrFalse'">
+
+            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='trueOrFalse'" :style="key.styles">
               {{entry[key.key] | trueOrFalse }}
             </span>
 
-            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='shortDate'">
-              {{entry[key.key] | shortDate }}
+            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='shortDate'" :style="key.styles">
+              {{entry[key.key] | shortDate  }}
             </span>
 
-            <span v-if="key.filter==null || key.filter==undefined">
-              {{entry[key.key]}}
+            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='customers'" :style="key.styles">
+              {{entry[key.key] | customers }}
             </span>
+
+            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='admins'" :style="key.styles">
+              {{entry[key.key] | admins }}
+            </span>
+
+            <span v-if="key.filter==null || key.filter==undefined" style="key.styles">
+              {{entry[key.key] }}
+            </span>
+
+
+
           </td>
         </tr>
         <tr v-if="!filteredData.length>0">

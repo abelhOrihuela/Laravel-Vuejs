@@ -123,6 +123,10 @@ export const translations={
       en: 'Company',
       es: 'Compañia'
     },
+    company:{
+      en: 'Company',
+      es: 'Compañia'
+    },
     name_job:{
       en: 'Position',
       es: 'Posición'
@@ -268,6 +272,14 @@ export const translations={
     speak_bussines:{
       en: 'speak_bussines',
       es: 'Conversacional de Negocios'
+    },
+    password:{
+      en: 'Password',
+      es: 'Contraseña'
+    },
+    password_confirm:{
+      en: 'Confrim Password',
+      es: 'Confirma Contraseña'
     }
   },
   general:{

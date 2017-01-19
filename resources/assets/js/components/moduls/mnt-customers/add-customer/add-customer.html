@@ -1,0 +1,124 @@
+<div class="container-a">
+  <br>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Agregar Candidato
+    </div>
+    <div class="panel-body">
+
+      <div class="">
+        <form name="form">
+
+          <div class="row">
+            <div class="col-sm-5">
+
+              <label v-bind:class="{ 'label-a': validation.username, 'label-error':  !validation.username}" v-text="translate('people.name')"></label>
+              <input type="text" name="" class="form-control" v-model="customer.username">
+
+            </div>
+
+            <div class="col-sm-5">
+
+              <label v-bind:class="{ 'label-a': validation.email, 'label-error':  !validation.email}" v-text="translate('people.email')"></label>
+              <input type="email" name="" class="form-control" v-model="customer.email">
+
+            </div>
+
+            <div class="col-sm-2">
+
+              <label v-bind:class="{ 'label-a': validation.gender, 'label-error':  !validation.gender}" v-text="translate('people.gender')"></label>
+
+              <div style="diplay: inline-block">
+
+
+                <select  class="form-control" v-model="customer.gender">
+                  <option v-for="gender in genders" v-bind:value="gender.code">
+                    {{ gender.description }}
+                  </option>
+                </select>
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-sm-3">
+
+              <label v-bind:class="{ 'label-a': validation.company, 'label-error':  !validation.company}" v-text="translate('people.company')"></label>
+              <input type="text" name="company" class="form-control" v-model="customer.company">
+            </div>
+
+            <div class="col-sm-3">
+              <label v-bind:class="{ 'label-a': validation.type, 'label-error':  !validation.type}" v-text="translate('people.type')"></label>
+              <select name="type" id="type" class="form-control input-sm" v-model="customer.type">
+                <option value="Yucatán">Yucatán</option>
+                <option value="Zacatecas">Zacatecas</option>
+              </select>
+
+            </div>
+
+            <div class="col-sm-3">
+              <label v-bind:class="{ 'label-a': validation.category, 'label-error':  !validation.category}" v-text="translate('people.category')"></label>
+              <select  class="form-control" @change="fetchSubCategories()" v-model="customer.category">
+                <option v-for="category in categories" v-bind:value="category.id">
+                  {{ category.name }}
+                </option>
+              </select>
+
+            </div>
+
+            <div class="col-sm-3">
+              <label v-bind:class="{ 'label-a': validation.subcategory, 'label-error':  !validation.subcategory}" v-text="translate('people.subcategory')"></label>
+              <select v-model="customer.subcategory" class="form-control">
+                <option v-for="category in subcategories" v-bind:value="category.id">
+                  {{ category.name }}
+                </option>
+              </select>
+
+            </div>
+
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm-3">
+              <label v-bind:class="{ 'label-a': validation.password, 'label-error':  !validation.password}" v-text="translate('people.password')"></label>
+              <input type="password" name="" class="form-control" v-model="customer.password">
+
+            </div>
+
+
+
+            <div class="col-sm-3" >
+              <label data-tooltip="hola" data-placement="top" v-bind:class="{ 'label-a': validation.password_confirm, 'label-error':  !validation.password_confirm}" v-text="translate('people.password_confirm')"></label>
+              <input type="password" name="" class="form-control" v-model="customer.password_confirm" >
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label v-bind:class="{ 'label-a': validation.comments, 'label-error':  !validation.comments}" v-text="translate('people.comments')"></label>
+
+              <textarea rows="4" cols="40" name="comments" class="form-control" v-model="customer.comments"></textarea>
+
+            </div>
+          </div>
+
+          <div class="modal-footer" v-if="isValid">
+            <input type="button" name="" value="send" class="btn btn-success" @click="newCustomer()">
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>

@@ -50,6 +50,10 @@ export const translations={
       en: 'Company',
       es: 'Compañia'
     },
+    company:{
+      en: 'Company',
+      es: 'Compañia'
+    },
     name_job:{
       en: 'Position',
       es: 'Puesto'
