@@ -23,6 +23,12 @@ class CandidatesController extends Controller
 		$candidates=Candidate::all();
 
 		foreach ($candidates as $candidate) {
+
+
+
+			if(Session::get('type_user')==1 && Session::get('profile')=='C'){
+				$candidate->email='No disponible';
+			}
 			$candidate->categoryCandidate;
 			$candidate->subcategoryCandidate;
 			$candidate->languages;
@@ -81,6 +87,11 @@ class CandidatesController extends Controller
 
 		foreach ($result as $candidate) {
 			$candidate=Candidate::where("id", "=", $candidate->id)->first();
+
+
+			if(Session::get('type_user')==1 && Session::get('profile')=='C'){
+				$candidate->email='No disponible';
+			}
 
 			$candidate->categoryCandidate;
 			$candidate->subcategoryCandidate;
@@ -156,6 +167,7 @@ class CandidatesController extends Controller
 		}else{
 			abort(404);
 		}
+		return $request;
 	}
 
 	function getPdf($id){

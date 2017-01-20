@@ -12,6 +12,7 @@ export const HTTP={
 }
 /*------------------------------LOGIN ADMINS---------------------------------*/
 export const loginAdmin= "admin/login"
+export const LOGOUT= "logout"
 export const admins= "admins"
 export const ADMINS= "admins"
 export const candidates= "candidates"

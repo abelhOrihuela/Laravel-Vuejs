@@ -21,6 +21,16 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'user_store_path',
   ]);
 
+  Route::post('customer/login', [
+    'uses' => 'CustomersController@store',
+    'as'   => 'user_store_path',
+  ]);
+
+  Route::delete('logout', [
+    'uses' => 'AuthController@destroy',
+    'as'   => 'auth_destroy_path'
+  ]);
+
   /* RETURN ALL ADMINS */
   Route::get('admins', [
     'uses' => 'UsersController@index',

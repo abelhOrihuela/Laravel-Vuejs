@@ -1,8 +1,12 @@
 <script>
 import  runblock  from '../../js/runblock.js';
+import  service  from '../../js/utilities/service.js';
+
+import { HTTP, LOGOUT} from '../../js/constants_restful.js';
 
 export default{
   template: require('./a-menu.html'),
+  http: HTTP,
   data: function(){
     return{
       menu:[],
@@ -12,9 +16,19 @@ export default{
     logout: function(){
 
       sessionStorage.clear();
-
       var router= this.$router;
       router.push({name: 'login'});
+
+      var resource= this.$resource(LOGOUT);
+      resource.delete().then(function(response){
+        service.showSuccess(this, 'Operacion Exitosa');
+      }, function(error){
+        service.showError(this, error);
+
+      });
+
+
+
     }
   }
   ,created: function(){
@@ -68,24 +82,37 @@ export default{
 
     }
 
-    this.menu.push(dashboard);
-    this.menu.push(admins);
-    this.menu.push(candidates);
-    this.menu.push(customers);
-    this.menu.push(groups);
-
-    this.menu_dashboard.push(admins);
-    this.menu_dashboard.push(candidates);
-    this.menu_dashboard.push(customers);
-    this.menu_dashboard.push(groups);
-    
-
-    sessionStorage.setItem('menu', JSON.stringify(this.menu_dashboard));
 
 
     if(user.profile==="A"){
+
+      this.menu.push(dashboard);
+      this.menu.push(admins);
+      this.menu.push(candidates);
+      this.menu.push(customers);
+      this.menu.push(groups);
+
+      this.menu_dashboard.push(admins);
+      this.menu_dashboard.push(candidates);
+      this.menu_dashboard.push(customers);
+      this.menu_dashboard.push(groups);
+
     }else if (user.profile==="C") {
+      this.menu.push(dashboard);
+      //this.menu.push(admins);
+      this.menu.push(candidates);
+      //this.menu.push(customers);
+      this.menu.push(groups);
+
+      //this.menu_dashboard.push(admins);
+      this.menu_dashboard.push(candidates);
+      //this.menu_dashboard.push(customers);
+      this.menu_dashboard.push(groups);
+
     }
+
+    sessionStorage.setItem('menu', JSON.stringify(this.menu_dashboard));
+
   }
 }
 </script>

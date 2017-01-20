@@ -23318,10 +23318,17 @@ var _runblock = require('../../js/runblock.js');
 
 var _runblock2 = _interopRequireDefault(_runblock);
 
+var _service = require('../../js/utilities/service.js');
+
+var _service2 = _interopRequireDefault(_service);
+
+var _constants_restful = require('../../js/constants_restful.js');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   template: require('./a-menu.html'),
+  http: _constants_restful.HTTP,
   data: function data() {
     return {
       menu: [],
@@ -23331,9 +23338,15 @@ exports.default = {
     logout: function logout() {
 
       sessionStorage.clear();
-
       var router = this.$router;
       router.push({ name: 'login' });
+
+      var resource = this.$resource(_constants_restful.LOGOUT);
+      resource.delete().then(function (response) {
+        _service2.default.showSuccess(this, 'Operacion Exitosa');
+      }, function (error) {
+        _service2.default.showError(this, error);
+      });
     }
   },
   created: function created() {
@@ -23381,20 +23394,32 @@ exports.default = {
 
     };
 
-    this.menu.push(dashboard);
-    this.menu.push(admins);
-    this.menu.push(candidates);
-    this.menu.push(customers);
-    this.menu.push(groups);
+    if (user.profile === "A") {
 
-    this.menu_dashboard.push(admins);
-    this.menu_dashboard.push(candidates);
-    this.menu_dashboard.push(customers);
-    this.menu_dashboard.push(groups);
+      this.menu.push(dashboard);
+      this.menu.push(admins);
+      this.menu.push(candidates);
+      this.menu.push(customers);
+      this.menu.push(groups);
+
+      this.menu_dashboard.push(admins);
+      this.menu_dashboard.push(candidates);
+      this.menu_dashboard.push(customers);
+      this.menu_dashboard.push(groups);
+    } else if (user.profile === "C") {
+      this.menu.push(dashboard);
+      //this.menu.push(admins);
+      this.menu.push(candidates);
+      //this.menu.push(customers);
+      this.menu.push(groups);
+
+      //this.menu_dashboard.push(admins);
+      this.menu_dashboard.push(candidates);
+      //this.menu_dashboard.push(customers);
+      this.menu_dashboard.push(groups);
+    }
 
     sessionStorage.setItem('menu', (0, _stringify2.default)(this.menu_dashboard));
-
-    if (user.profile === "A") {} else if (user.profile === "C") {}
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
@@ -23408,7 +23433,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-c5b92362", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/runblock.js":65,"./a-menu.html":57,"babel-runtime/core-js/json/stringify":1,"vue":50,"vue-hot-reload-api":45}],59:[function(require,module,exports){
+},{"../../js/constants_restful.js":64,"../../js/runblock.js":65,"../../js/utilities/service.js":69,"./a-menu.html":57,"babel-runtime/core-js/json/stringify":1,"vue":50,"vue-hot-reload-api":45}],59:[function(require,module,exports){
 module.exports = '<div class="container-component">\n\n  <div class="row" v-if="showSearch">\n    <div class="col-sm-6">\n      <form  class="form" id="search" >\n        <div class="form-group">\n          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">\n        </div>\n      </form>\n    </div>\n    <div class="col-sm-2">\n\n      <div>\n        <select v-model="pagination" class="form-control">\n          <option value="5">5</option>\n          <option value="10">10</option>\n          <option value="20">20</option>\n          <option value="40">40</option>\n        </select>\n      </div>\n    </div>\n\n  </div>\n\n  <div class="row">\n    <div class="col-sm-12">\n      <table class="table-a">\n        <thead>\n\n          <tr>\n            <th v-for="key in columns"\n            @click="sortBy(key.key)"\n            :class="{ active: sortKey == key }">\n            {{ translate(\'table.\'+key.label) }}\n            <span class="arrow" :class="sortOrders[key.key] > 0 ? \'asc\' : \'dsc\'">\n            </span>\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">\n          <td v-for="key in columns">\n\n            <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'trueOrFalse\'" :style="key.styles">\n              {{entry[key.key] | trueOrFalse }}\n            </span>\n\n            <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'shortDate\'" :style="key.styles">\n              {{entry[key.key] | shortDate  }}\n            </span>\n\n            <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'customers\'" :style="key.styles">\n              {{entry[key.key] | customers }}\n            </span>\n\n            <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'admins\'" :style="key.styles">\n              {{entry[key.key] | admins }}\n            </span>\n\n            <span v-if="key.filter==null || key.filter==undefined" style="key.styles">\n              {{entry[key.key] }}\n            </span>\n\n\n\n          </td>\n        </tr>\n        <tr v-if="!filteredData.length>0">\n          <td style="text-align: center">\n            No existen registros\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n\n</div>\n';
 },{}],60:[function(require,module,exports){
 'use strict';
@@ -23652,6 +23677,7 @@ var HTTP = exports.HTTP = {
 };
 /*------------------------------LOGIN ADMINS---------------------------------*/
 var loginAdmin = exports.loginAdmin = "admin/login";
+var LOGOUT = exports.LOGOUT = "logout";
 var admins = exports.admins = "admins";
 var ADMINS = exports.ADMINS = "admins";
 var candidates = exports.candidates = "candidates";

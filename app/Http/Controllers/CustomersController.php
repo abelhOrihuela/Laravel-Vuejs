@@ -50,7 +50,7 @@ class CustomersController extends Controller
 
       $customer->categoryCustomer;
       $customer->subcategoryCustomer;
-      
+
 			return  $customer;
 		}else{
 			abort(404);
@@ -58,6 +58,28 @@ class CustomersController extends Controller
 		return $request;
 
 
+  }
+  public function store(Request $request){
+
+    $user = Customer::where("email", "=" , $request->email)->first();
+
+    if($user){
+      $hash  = $user->password;
+      $password = $request->password;
+      $validate = false;
+      $validate = password_verify ( $password ,  $hash );
+      if($validate){
+				Session::put('customer_id', $user->id);
+        $token= hash('ripemd160', 'The quick brown fox jumped over the lazy dog.');
+        return response()->json(['user' => $user, 'token' => $hash, 'type_user' => 1 ]);
+
+      }else{
+        return response()->json(['password_incorrect' => true ]);
+      }
+    }
+    else{
+      abort(404);
+    }
   }
 
 }
