@@ -75,6 +75,17 @@ export default{
         var resource=this.$http.post(ACADEMIC_NEW, academic);
         resource.then(function(response){
           service.showSuccess(this, 'Operacion Exitosa');
+
+          this.academic={
+            name_academic:'',
+            career:'',
+            level_academic: '',
+            year_entry: '',
+            year_exit:'',
+            comments:'',
+            now:''
+          }
+
           this.add(response.body);
         }, function (error){
 

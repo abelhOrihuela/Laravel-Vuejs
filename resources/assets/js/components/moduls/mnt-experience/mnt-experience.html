@@ -2,15 +2,15 @@
 
   <div style="text-align: right">
 
-    <button  v-if="experienceSelect!=null" id="show-modal" @click="editExperience()" class="btn btn-success btn-options">
+    <button  v-if="experienceSelect!=null" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperience">
       <i class="glyphicon glyphicon-pencil"></i>
     </button>
 
-    <button  v-if="experienceSelect!=null" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options">
+    <button  v-if="experienceSelect!=null" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteExperience">
       <i class="glyphicon glyphicon glyphicon-remove"></i>
     </button>
 
-    <button id="show-modal" @click="addMoreExperience" class="btn btn-info btn-options"data-toggle="modal" data-target="#addExperinece">
+    <button id="show-modal" @click="addMoreExperience()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addExperinece">
       <i class="glyphicon glyphicon-plus"></i>
     </button>
 
@@ -98,7 +98,7 @@
   <delete-experience v-if="showModalDeleteExperince" :experience="experienceSelect" :remove="removeExperince" @close="showModalDeleteExperince = false">
   </delete-experience>
 
-  <edit-experience v-if="showModalEditExperience" :experience="experienceOriginal" :experiencenow="experienceSelect" :update="update" @close="showModalEditExperience = false">
+  <edit-experience v-if="showModalEditExperience" :experience="experienceOriginal" :experiencenow="experienceSelect" :update="update">
   </edit-experience>
 
 

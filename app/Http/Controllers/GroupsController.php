@@ -37,8 +37,32 @@ class GroupsController extends Controller
   public function create(Request $request){
 
     $group=Group::where('id',  $request->id)->first();
-    $group->candidates()->attach($request->candidate_id);
+    $exist=$group->candidates->contains( $request->candidate_id);
 
-    return $group;
+
+
+    if($exist){
+      abort(403, 'Unauthorized action.');
+    }else{
+      $group->candidates()->attach($request->candidate_id);
+
+      return $group;
+
+    }
+
+
+    //  return $exist;
+  }
+
+  public function delete_candidate($group, $id){
+
+    $group=Group::where('id',  $group)->first();
+    $exist=$group->candidates->contains($id);
+
+    if($exist){
+      $group->candidates()->detach($id);
+
+    }
+
   }
 }

@@ -2,15 +2,15 @@
 
   <div style="text-align: right">
 
-    <button  id="show-modal" v-if="academicSelect!=null" @click="editAcademic()" class="btn btn-success btn-options">
+    <button  id="show-modal" v-if="academicSelect!=null" @click="editAcademic()" class="btn btn-success btn-options"  data-toggle="modal" data-target="#editAcademic">
       <i class="glyphicon glyphicon-pencil"></i>
     </button>
 
-    <button  id="show-modal" @click="deleteAcademic()" class="btn btn-danger btn-options" v-if="academicSelect!=null">
+    <button  id="show-modal" @click="deleteAcademic()" class="btn btn-danger btn-options" v-if="academicSelect!=null" data-toggle="modal" data-target="#deleteAcademic">
       <i class="glyphicon glyphicon glyphicon-remove"></i>
     </button>
 
-    <button id="show-modal" @click="addMoreAcademic" class="btn btn-info btn-options">
+    <button id="show-modal" @click="addMoreAcademic" class="btn btn-info btn-options" data-toggle="modal" data-target="#addAcademic">
       <i class="glyphicon glyphicon-plus"></i>
     </button>
 
@@ -85,13 +85,13 @@
     </div>
 
 
-    <delete-academic v-if="showModalDeleteAcademic" :academic="academicOriginal" :remove="removeAcademic" @close="showModalDeleteAcademic = false">
+    <delete-academic v-if="showModalDeleteAcademic":academic="academicOriginal" :remove="removeAcademic">
     </delete-academic>
 
-    <add-academic v-if="flagShowAddAcademic" :candidate="candidate.id" :add="addAcademic" @close="flagShowAddAcademic = false">
+    <add-academic  v-if="flagShowAddAcademic":candidate="candidate.id" :add="addAcademic">
     </add-academic>
 
-    <edit-academic v-if="flagShowEditAcademic" :academic="academicOriginal" :academicnow="academicSelect" :update="updateAcademic"  @close="flagShowEditAcademic = false">
+    <edit-academic v-if="flagShowEditAcademic" :academic="academicOriginal" :academicnow="academicSelect" :update="updateAcademic">
     <edit-academic>
 
 </div>

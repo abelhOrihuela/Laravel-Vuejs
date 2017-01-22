@@ -1,5 +1,5 @@
 <script>
-import { translations } from '../../js/translate/table.js';
+import { translations } from '../../js/translations.js';
 import  filter  from '../../js/utilities/filters.js';
 
 

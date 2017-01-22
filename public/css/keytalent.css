@@ -47,7 +47,7 @@ tr{
 }
 
 .table-a td {
-  background-color: #f9f9f9;
+  background-color: white;
 }
 
 .table-a th, td {
@@ -246,11 +246,11 @@ tr{
 }
 
 .snip1559 .profile-image img {
-  max-width: 100%;
   vertical-align: top;
   position: relative;
   border-radius: 10%;
-  max-width: 80%;
+  width: 200px;
+  height:230px;
 }
 
 .snip1559 figcaption {

@@ -14,195 +14,178 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>
-              <!--
-              <a href="#" class="dropdown-toggle context" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              Dropdown <span class="caret"></span>
-            </a>-->
-            &nbsp;
-            <ul class="dropdown-menu">
-              <li>
-                <a data-toggle="modal" data-target="#addCandidateToGroup">
-                  <label class="label-a" v-text="translate('people.add_candidate_to_group')"></label>
-                </a>
-              </li>
-              <li>
-                <a @click="addCandidateToGroup()">
-                  <label class="label-a" v-text="translate('people.add_language')"></label>
-                </a>
+
+              &nbsp;
+              <ul class="dropdown-menu">
                 <li>
-                  <a @click="addCandidateToGroup()">
-                    <label class="label-a" v-text="translate('people.add_idiom')"></label>
+                  <a data-toggle="modal" data-target="#addCandidateToGroup">
+                    <label class="label-a" v-text="translate('people.add_candidate_to_group')"></label>
                   </a>
                 </li>
-                <li role="separator" class="divider"></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="panel-body">
-
-      <div class="row">
-        <div class="col-xs-6 col-md-4">
-          <figure class="snip1559 tumbnails">
-            <div v-if="candidate.photo"class="profile-image">
-              <img :src="candidate.photo.name_photo" alt="" />
-            </div>
-            <div v-if="!candidate.photo"class="profile-image">
-              <img src="../img/default.png" alt="" />
-            </div>
-            <figcaption>
-              <div class="icons">
-                <i class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>
-                <i class="glyphicon glyphicon-save-file" @click="downloadPdf()">
-                </i>
-              </div>
-
-
-
-              <div class="tab-header" >
-                groups
-              </div>
-
-              <ul class="list-group">
-                <li class="list-group-item" v-for="group in candidate.groups">
-                  {{ group.name_group }}
-                </li>
-              </ul>
-
-
-              <mnt-languages :candidate="candidate">
-              </mnt-languages>
-
-
-
-<mnt-idioms :candidate="candidate"></mnt-idioms>
-
-
-            </figcaption>
-          </figure>
-        </div>
-
-        <div class="col-xs-6 col-md-8">
-          <div class="tab-header">
-            <h4>{{ candidate.username }}</h4>
+                <li>
+                  <a @click="addCandidateToGroup()">
+                    <label class="label-a" v-text="translate('people.add_language')"></label>
+                  </a>
+                  <li>
+                    <a @click="addCandidateToGroup()">
+                      <label class="label-a" v-text="translate('people.add_idiom')"></label>
+                    </a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                </ul>
+              </li>
+            </ul>
           </div>
-          <table class="table table-condensed">
-            <tr>
-              <td>
-                <label class="label-a" v-text="translate('people.position')"></label>
-              </td>
-              <td>
-                {{ candidate.position }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label class="label-a"  v-text="translate('people.email')"></label>
-              </td>
-              <td>
-                {{ candidate.email }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label class="label-a"  v-text="translate('people.gender')"></label>
-              </td>
-              <td>
-                {{ candidate.gender }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label class="label-a"  v-text="translate('people.location')"></label>
-              </td>
-              <td>
-                {{ candidate.location }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label class="label-a" v-text="translate('people.birthday')"></label>
-              </td>
-              <td>
-                {{ candidate.day }} /
-                {{ candidate.month }} /
-                {{ candidate.year }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label class="label-a" v-text="translate('people.phone')"></label>
-              </td>
-              <td>
-                {{ candidate.code }} / {{ candidate.phone }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label class="label-a" v-text="translate('people.category')"></label>
-              </td>
-              <td>
-                {{ candidate.category_candidate.name }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label class="label-a" v-text="translate('people.subcategory')"></label>
-              </td>
-              <td>
-                {{ candidate.subcategory_candidate.name }}
-              </td>
-            </tr>
-          </table>
         </div>
       </div>
+      <div class="panel-body">
 
-      <ul class="nav nav-tabs">
-        <li role="presentation" v-bind:class="{ 'active': optionTab==1 }" @click="selectTab(1)">
-          <a>Formacion Academica</a>
-        </li>
-        <li role="presentation" v-bind:class="{ 'active': optionTab==2 }" @click="selectTab(2)">
-          <a>Experiencia Profesional</a>
-        </li>
-        <li role="presentation" v-bind:class="{ 'active': optionTab==3 }" @click="selectTab(3)">
-          <a>Experiencia en WTC</a>
-        </li>
-        <li role="presentation" v-bind:class="{ 'active': optionTab==4 }" @click="selectTab(4)">
-          <a>Expectativa Economica</a>
-        </li>
-      </ul>
+        <div class="row">
+          <div class="col-xs-6 col-md-4">
+            <figure class="snip1559 tumbnails">
+              <div v-if="candidate.photo"class="profile-image">
+                <img :src="candidate.photo.name_photo" alt="" />
+              </div>
+              <div v-if="!candidate.photo"class="profile-image">
+                <img src="../img/default.png" alt="" />
+              </div>
+              <figcaption>
+                <div class="icons">
+                  <i class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>
+                  <i class="glyphicon glyphicon-save-file" @click="downloadPdf()">
+                  </i>
+                </div>
 
-      <br>
 
-      <div class="panel panel-default" v-if="optionTab==1">
-        <div class="panel-body">
-          <mnt-academic :candidate="candidate"></mnt-academic>
+                <add-candidate-to-group :candidate="candidate" :add="addGroup"></add-candidate-to-group>
+
+                <mnt-languages :candidate="candidate"></mnt-languages>
+
+                <mnt-idioms :candidate="candidate"></mnt-idioms>
+
+
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="col-xs-6 col-md-8">
+            <div class="tab-header">
+              <h4>{{ candidate.username }}</h4>
+            </div>
+            <table class="table table-condensed">
+              <tr>
+                <td>
+                  <label class="label-a" v-text="translate('people.position')"></label>
+                </td>
+                <td>
+                  {{ candidate.position }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="label-a"  v-text="translate('people.email')"></label>
+                </td>
+                <td>
+                  {{ candidate.email }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="label-a"  v-text="translate('people.gender')"></label>
+                </td>
+                <td>
+                  {{ candidate.gender }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="label-a"  v-text="translate('people.location')"></label>
+                </td>
+                <td>
+                  {{ candidate.location }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="label-a" v-text="translate('people.birthday')"></label>
+                </td>
+                <td>
+                  {{ candidate.day }} /
+                  {{ candidate.month }} /
+                  {{ candidate.year }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="label-a" v-text="translate('people.phone')"></label>
+                </td>
+                <td>
+                  {{ candidate.code }} / {{ candidate.phone }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="label-a" v-text="translate('people.category')"></label>
+                </td>
+                <td>
+                  {{ candidate.category_candidate.name }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="label-a" v-text="translate('people.subcategory')"></label>
+                </td>
+                <td>
+                  {{ candidate.subcategory_candidate.name }}
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
-      </div>
 
-      <div class="panel panel-default" v-if="optionTab==2">
-        <div class="panel-body">
-          <mnt-experience :candidate="candidate"></mnt-experience>
+        <ul class="nav nav-tabs">
+          <li role="presentation" v-bind:class="{ 'active': optionTab==1 }" @click="selectTab(1)">
+            <a>Formacion Academica</a>
+          </li>
+          <li role="presentation" v-bind:class="{ 'active': optionTab==2 }" @click="selectTab(2)">
+            <a>Experiencia Profesional</a>
+          </li>
+          <li role="presentation" v-bind:class="{ 'active': optionTab==3 }" @click="selectTab(3)">
+            <a>Experiencia en WTC</a>
+          </li>
+          <li role="presentation" v-bind:class="{ 'active': optionTab==4 }" @click="selectTab(4)">
+            <a>Expectativa Economica</a>
+          </li>
+        </ul>
+
+        <br>
+
+        <div class="panel panel-default" v-if="optionTab==1">
+          <div class="panel-body">
+            <mnt-academic :candidate="candidate"></mnt-academic>
+          </div>
         </div>
-      </div>
 
-      <div class="panel panel-default" v-if="optionTab==3">
-        <div class="panel-body">
-          <mnt-experiencewtc :candidate="candidate"></mnt-experiencewtc>
+        <div class="panel panel-default" v-if="optionTab==2">
+          <div class="panel-body">
+            <mnt-experience :candidate="candidate"></mnt-experience>
+          </div>
         </div>
-      </div>
 
-      <div class="panel panel-default" v-if="optionTab==4">
-        <div class="panel-body">
-          <mnt-economic :candidate="candidate"></mnt-economic>
+        <div class="panel panel-default" v-if="optionTab==3">
+          <div class="panel-body">
+            <mnt-experiencewtc :candidate="candidate"></mnt-experiencewtc>
+          </div>
+        </div>
+
+        <div class="panel panel-default" v-if="optionTab==4">
+          <div class="panel-body">
+            <mnt-economic :candidate="candidate"></mnt-economic>
+          </div>
         </div>
       </div>
     </div>
+
+    <add-photo v-if="showModalPhoto" @close="showModalPhoto = false" :getphoto="getPhoto" :candidate="candidate.id"></add-photo>
+
   </div>
-
-  <add-candidate-to-group :candidate="candidate" :add="addGroup"></add-candidate-to-group>
-  <add-photo v-if="showModalPhoto" @close="showModalPhoto = false" :getphoto="getPhoto" :candidate="candidate.id"></add-photo>
-
-</div>

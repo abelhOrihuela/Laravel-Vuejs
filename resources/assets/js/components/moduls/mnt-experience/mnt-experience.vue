@@ -23,7 +23,7 @@ export default {
       experienceOriginal:{},
       showModalEditExperience: false,
       showModalDeleteExperince: false,
-      showModalAddExperience: true,
+      showModalAddExperience: false,
       locale: 'es'
      }
   },
@@ -67,6 +67,7 @@ export default {
     },
     addMoreExperience: function(){
 
+      this.showModalAddExperience=true;
 
     },
     addExperience: function(entry){
@@ -74,7 +75,6 @@ export default {
       entry.experience_id=entry.id;
       this.showModalAddExperience=false;
       this.candidate.experiences.push(entry);
-      this.showModalAddExperience=true;
 
 
 

@@ -198,6 +198,12 @@ Route::group(['prefix' => 'api'], function () {
     'as'   => 'groups_show_path'
   ]);
 
+  Route::delete('group/{id_group}/candidate/delete/{id}',[
+    'uses' => 'GroupsController@delete_candidate',
+    'as'   => 'groups_show_path'
+  ]);
+
+
   Route::delete('language/delete/{id}',[
     'uses' => 'LanguagesController@destroy',
     'as'   => 'Language_destroy_path'

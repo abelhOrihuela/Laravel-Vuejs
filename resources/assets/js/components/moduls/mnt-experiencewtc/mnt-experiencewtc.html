@@ -3,15 +3,15 @@
   <div style="text-align: right">
 
 
-  <button  v-if="experienceSelect!=null" id="show-modal" @click="editExperience()" class="btn btn-success btn-options">
+  <button  v-if="experienceSelect!=null" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperienceWtc">
     <i class="glyphicon glyphicon-pencil"></i>
   </button>
 
-  <button  v-if="experienceSelect!=null" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options">
+  <button  v-if="experienceSelect!=null" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteExperienceWtc">
     <i class="glyphicon glyphicon glyphicon-remove"></i>
   </button>
 
-  <button id="show-modal" @click="addMoreExperience" class="btn btn-info btn-options">
+  <button id="show-modal" @click="addMoreExperience" class="btn btn-info btn-options" data-toggle="modal" data-target="#addExperienceWtc">
     <i class="glyphicon glyphicon-plus"></i>
   </button>
 
@@ -82,7 +82,7 @@
     </div>
   </div>
 
-  <add-experiencewtc v-if="showModalAddExperience" :candidate="candidate.id" :add="addExperience" @close="showModalAddExperience = false">
+  <add-experiencewtc v-if="showModalAddExperience" :candidate="candidate.id" :add="addExperience">
   </add-experiencewtc>
 
   <delete-experiencewtc v-if="showModalDeleteExperince" :experience="experienceSelect" :remove="removeExperince" @close="showModalDeleteExperince = false">

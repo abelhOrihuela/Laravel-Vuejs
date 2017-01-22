@@ -1,27 +1,66 @@
-<div class="container-component">
-  <div class="modal fade" id="addCandidateToGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel" v-text="translate('people.add_candidate_to_group')"></h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-12">
-              <label v-bind:class="{ 'label-a': validation.id, 'label-error':  !validation.id}" v-text="translate('people.name')"></label>
-              <select  class="form-control" v-model="groupSelect.id">
-                <option v-for="group in groups" v-bind:value="group.id">
-                  {{ group.name_group }}
-                </option>
-              </select>
+<div class="">
+  <div class="tab-header" data-toggle="modal" data-target="#mntGroupsCandidate">
+    groups
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item" v-for="group in candidate.groups">
+      {{ group.name_group }}
+    </li>
+  </ul>
+
+  <div class="container-component">
+    <div class="modal fade" id="mntGroupsCandidate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel" v-text="translate('people.add_candidate_to_group')"></h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="row">
+              <table class="table table-condensed" v-if="candidate.groups.length>0">
+
+                <tr class="text-left">
+                  <td>
+                    <label class="label-a" v-text="translate('people.name_group')"></label>
+                  </td>
+
+
+                  <td>
+                    <label></label>
+                  </td>
+                </tr>
+                <tr v-for="group in candidate.groups" class="text-left">
+                  <td>
+                    {{ group.name_group }}
+                  </td>
+
+                  <td>
+                    <button type="button" name="button" class="btn btn-danger" @click="deleteGroup(group)">
+                    <i class="glyphicon glyphicon-trash"></i>
+                  </button>
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <label v-bind:class="{ 'label-a': validation.id, 'label-error':  !validation.id}" v-text="translate('people.name')"></label>
+                <select  class="form-control" v-model="groupSelect.id">
+                  <option v-for="group in groups" v-bind:value="group.id">
+                    {{ group.name_group }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button v-if="isValid" class="btn btn-success" @click="addCandidate()" data-dismiss="modal">
-            <label v-text="translate('people.confirm')"></label>
-          </button>
+          <div class="modal-footer">
+            <button v-if="isValid" class="btn btn-success" @click="addCandidate()" data-dismiss="modal">
+              <label v-text="translate('people.confirm')"></label>
+            </button>
+          </div>
         </div>
       </div>
     </div>

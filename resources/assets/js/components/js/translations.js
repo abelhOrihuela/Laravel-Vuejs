@@ -1,5 +1,96 @@
 export const translations={
   people: {
+    updated_at:{
+      en: 'Update',
+      es: 'Feacha Actulizado'
+    },
+    created_at:{
+      en: 'Created',
+      es: 'Fecha Registro'
+    },
+    name:{
+      en: 'Name',
+      es: 'Nombre'
+    },
+    username:{
+      en: 'Username',
+      es: 'Usuario'
+    },
+    email:{
+      en: 'Email',
+      es: 'Correo Electronico'
+    },
+    profiles_register:{
+      en: 'Candidates Register',
+      es: 'Candidatos Registrados'
+    },
+    type:{
+      en: 'Type',
+      es: 'Tipo'
+    },
+    position:{
+      en: 'Professional Profile',
+      es: 'Perfil Profesional'
+    },
+
+    gender:{
+      en: 'Gender',
+      es: 'Genero'
+    },
+    birthdate:{
+      en: 'Birthdate',
+      es: 'Fecha de Nacimiento'
+    },
+    location:{
+      en: 'Locate',
+      es: 'Lugar de Residencia'
+    },
+    name_business:{
+      en: 'Company',
+      es: 'Compañia'
+    },
+    company:{
+      en: 'Company',
+      es: 'Compañia'
+    },
+    name_job:{
+      en: 'Position',
+      es: 'Puesto'
+    },
+    turn_business:{
+      en: 'Turn Businnes',
+      es: 'Giro'
+    },
+    created_at:{
+      en: 'Created',
+      es: 'Fecha Registro'
+    }
+    ,
+    back:{
+      en: 'Back',
+      es: 'Regresar'
+    },
+    back:{
+      en: 'Back',
+      es: 'Regresar'
+    },
+    category:{
+      en: 'Category',
+      es: 'Categoria'
+    },
+    subcategory:{
+      en: 'SubCategory',
+      es: 'SubCategoria'
+
+    },
+    name_group:{
+      en: 'Name Group',
+      es: 'Nombre del Grupo'
+    },
+    visible:{
+      en: 'Visible',
+      es: 'Visible'
+    },
     search:{
       en: 'search',
       es: 'Busqueda'
@@ -149,11 +240,43 @@ export const translations={
     },
     add_experience:{
       en: 'Add experience',
-      es: 'Agregar Experinencia'
+      es: 'Agregar Experiencia Profesional'
     },
-    edit_academic: {
-      en: 'Edit experience',
-      es: 'Editar'
+    add_experience_wtc:{
+      en: 'Add experience',
+      es: 'Agregar Experiencia Wtc'
+    },
+    edit_experience_wtc:{
+      en: 'Add experience',
+      es: 'Editar Experiencia Wtc'
+    },
+    delete_experience_wtc:{
+      en: 'Add experience',
+      es: 'Eliminar Experiencia Wtc'
+    },
+    delete_experience:{
+      en: 'Eliminar Experiencia',
+      es: 'Eliminar Experiencia'
+    },
+    add_economic:{
+      en: 'Add Expectativa Economica',
+      es: 'Agregar Expectativa Economica'
+    },
+    delete_academic:{
+      en: 'Eliminar Institucion Academica',
+      es: 'Eliminar Institucion Academica'
+    },
+    add_academic:{
+      en: 'Agregar Institucion Academica',
+      es: 'Agregar Institucion Academica'
+    },
+    edit_academic:{
+      en: 'Editar Institucion Academica',
+      es: 'Editar Institucion Academica'
+    },
+    edit_economic: {
+      en: 'Edit Expectativa Economica',
+      es: 'Editar Expectativa Economica'
     },
     selected:{
       en: 'Selected',
@@ -169,7 +292,7 @@ export const translations={
     },
     edit_experience:{
       en: 'Editar Experinencia',
-      es: 'Editar Experinencia'
+      es: 'Editar Experiencia'
     },
     confirm:{
       en: 'Confirm',
@@ -288,6 +411,10 @@ export const translations={
     premium:{
       en: 'Premium',
       es: 'Premium'
+    },
+    idioms:{
+      en: 'Idioms',
+      es: 'Idiomas'
     }
   },
   general:{

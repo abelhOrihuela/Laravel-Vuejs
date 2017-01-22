@@ -1,65 +1,40 @@
 <div class="container-component">
-  <transition name="modal">
+  <div class="modal fade" id="deleteExperienceWtc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width: 40%" role="document">
+      <div class="modal-content" >
+        <div class="modal-header danger">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel" v-text="translate('people.delete_experience_wtc')"></h4>
+        </div>
 
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container" style="width: 40%">
-          <div class="modal-header danger">
-            <div class="row">
-              <div class="col-sm-10">
-                <slot name="header">
-                  <h4>Borrar Experiencia</h4>
-                </slot>
-              </div>
-              <div class="col-sm-2">
-                <button class="btn btn-red" @click="$emit('close')">
-                  <i class="glyphicon glyphicon-remove"></i>
-                </button>
-              </div>
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-sm-8">
+              <label class="label-a" v-text="translate('people.name_business')"></label>
+            </div>
+
+            <div class="col-sm-4">
+              <label class="label-a" v-text="translate('people.name_job')"></label>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              {{ experience.name_company }}
+            </div>
+            <div class="col-sm-4">
+              {{ experience.name_job }}
             </div>
           </div>
-          <div class="modal-body">
-            <slot name="body">
-              <div class="row">
-                <div class="col-sm-8">
-                  <label class="label-a" v-text="translate('people.name_business')"></label>
+        </div>
 
-                </div>
-
-                <div class="col-sm-4">
-                  <label class="label-a" v-text="translate('people.name_job')"></label>
-
-                </div>
-
-              </div>
-              <div class="row">
-                <div class="col-sm-8">
-
-                  {{ experience.name_company }}
-
-                </div>
-                <div class="col-sm-4">
-
-                  {{ experience.name_job }}
-                </div>
-              </div>
-            </slot>
-          </div>
-
-          <div class="modal-footer">
-            <slot name="footer">
-
-              <button
-                class="btn btn-success"
-                @click="deleteExperience(experience)">
-                      <label v-text="translate('people.confirm')"></label>
-              </button>
-
-
-            </slot>
-          </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" @click="deleteExperience(experience)" data-dismiss="modal">
+                  <label v-text="translate('people.confirm')"></label>
+          </button>
         </div>
       </div>
     </div>
-  </transition>
+  </div>
 </div>

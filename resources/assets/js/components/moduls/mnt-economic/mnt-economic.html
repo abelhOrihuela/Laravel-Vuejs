@@ -2,11 +2,11 @@
 
   <div style="text-align: right">
 
-    <button  v-if="economicSelect!=null" id="show-modal" @click="editEconomic()" class="btn btn-success btn-options">
+    <button  v-if="economicSelect!=null" id="show-modal" @click="editEconomic()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editEconomic">
       <i class="glyphicon glyphicon-pencil"></i>
     </button>
 
-    <button v-if="candidate.economic.length==0"id="show-modal" @click="addMoreEconomic()" class="btn btn-info btn-options">
+    <button v-if="candidate.economic.length==0"id="show-modal" @click="addMoreEconomic()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addEconomic">
       <i class="glyphicon glyphicon-plus"></i>
     </button>
 
@@ -67,10 +67,10 @@
     </ul>
   </div>
 
-  <edit-economic v-if="showModalEditEconomic" :economic="economicNow" :economicnow="economicSelect" :update="update" @close="showModalEditEconomic = false">
+  <edit-economic v-if="showModalEditEconomic" :economic="economicNow" :economicnow="economicSelect" :update="update">
   </edit-economic>
 
-  <add-economic v-if="showModalAddEconomic" :candidate="candidate.id" :add="addEconomic" @close="showModalAddEconomic = false">
+  <add-economic v-if="showModalAddEconomic" :candidate="candidate.id" :add="addEconomic">
   </add-economic>
 
 </div>

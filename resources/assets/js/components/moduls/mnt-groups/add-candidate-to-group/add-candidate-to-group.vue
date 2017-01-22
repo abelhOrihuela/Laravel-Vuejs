@@ -1,6 +1,6 @@
 <script>
 import { translations } from '../../../js/translations.js';
-import { HTTP, GROUPS, GROUPNEW} from '../../../js/constants_restful.js';
+import { HTTP, GROUPS, GROUPNEW, DELETE_GROUP_CANDIDATE} from '../../../js/constants_restful.js';
 import  service  from '../../../js/utilities/service.js';
 
 export default{
@@ -42,15 +42,44 @@ export default{
       var resource=this.$http.post(GROUPNEW, group);
       resource.then(function(response){
 
-        this.candidate.groups.push(response.body);
+        console.log(response);
+        var body=response.body;
+        body.pivot={
+          candidate_id: this.candidate.id
+        }
 
-        service.showSuccess(this, null);
+        this.candidate.groups.push(body);
+
+        this.groupSelect={
+          id:''
+        }
+
+        //service.showSuccess(this, null);
       }, function (error){
-
+        console.log(error);
         service.showError(this, error);
 
       });
     },
+    deleteGroup: function(group){
+
+      var resource= this.$resource(DELETE_GROUP_CANDIDATE);
+      resource.delete({id_group: group.id, id : group.pivot.candidate_id }).then(function(response){
+        var index=service.getIndiceObject(this, this.candidate.groups, 'id',group.id );
+
+        if(index>-1){
+          this.candidate.groups.splice(index, 1);
+        }
+        this.groupSelect={
+          id:''
+        }
+
+      }, function(error){
+        service.showError(this, error);
+
+      });
+
+    }
   },
   computed: {
     validation: function () {

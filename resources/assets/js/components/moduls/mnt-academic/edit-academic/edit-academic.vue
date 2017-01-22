@@ -35,9 +35,9 @@ export default{
       var numberEx=/^[0-9\b]+$/;
 
       return {
-        name_academic: !!this.academic.name_academic.trim(),
-        career: !!this.academic.career.trim(),
-        level_academic: !!this.academic.level_academic.trim(),
+        name_academic: this.academic.name_academic!='',
+        career: this.academic.career!='',
+        level_academic: this.academic.level_academic!='',
         year_entry: numberEx.test(this.academic.year_entry),
         year_exit: numberEx.test(this.academic.year_exit)
       }
