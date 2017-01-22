@@ -94,13 +94,43 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next)=>{
 
+
+	var menu=[];
+	var menuSession=JSON.parse(sessionStorage.getItem('menu'));
+	const authUser=sessionStorage.getItem('id_token');
+
+
+	if(menuSession){
+		menu=menuSession;
+	}
+
+	var existInMenu=false;
+
 	if(to.meta.requiresAuth){
 
-		const authUser=sessionStorage.getItem('id_token');
+		if(menu.length>0){
+			for (var i = 0; i < menu.length; i++) {
 
-		if(authUser){
+				if(to.name==menu[i].name){
 
-			next();
+					existInMenu=true;
+					break;
+
+				}
+			}
+
+			if(authUser && existInMenu){
+
+				next();
+
+			}else if(authUser && !existInMenu){
+
+				next({
+					name: menu[0].name
+				});
+
+			}
+
 
 		}else{
 
@@ -129,7 +159,7 @@ const app = new Vue({
 	router,
 	data:{
 		message: 'Keytalent',
-		locale: 'en',
+		locale: 'es',
 		logged: false,
 	},
 	translations: {

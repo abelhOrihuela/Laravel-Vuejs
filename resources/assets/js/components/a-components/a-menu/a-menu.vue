@@ -34,6 +34,8 @@ export default{
   ,created: function(){
     var user=runblock.getUserSession();
 
+    sessionStorage.setItem('menu', JSON.stringify('[]'));
+
     var dashboard={
       name: 'dashboard',
       class: 'glyphicon-th-large',
@@ -111,7 +113,7 @@ export default{
 
     }
 
-    sessionStorage.setItem('menu', JSON.stringify(this.menu_dashboard));
+    sessionStorage.setItem('menu', JSON.stringify(this.menu));
 
   }
 }

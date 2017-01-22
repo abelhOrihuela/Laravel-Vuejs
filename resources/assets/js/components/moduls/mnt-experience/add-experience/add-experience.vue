@@ -66,6 +66,17 @@ export default{
 
       this.$http.post(EXPERIENCE_NEW, experience)
       .then(function(response){
+
+        this.experience={
+          name_business:'',
+          name_job: '',
+          turn_business:'',
+          now:0,
+          comments:'',
+          admission_date:'',
+          departure_date:'',
+          locale: 'es'
+        }
         this.add(response.body);
       }, function (error){
 

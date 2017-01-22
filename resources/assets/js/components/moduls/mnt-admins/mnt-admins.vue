@@ -8,7 +8,7 @@ import { tableAdmins } from '../../js/config-app/tables.js';
 /*
 *Constants
 */
-import { ADMINS, candidates_admin } from '../../js/constants_restful.js';
+import { ADMINS } from '../../js/constants_restful.js';
 
 /*
 *Components
@@ -89,16 +89,9 @@ export default{
       });
     },
     select: function(entry){
-      this.candidates(entry.id);
       this.adminSelected=entry;
       this.flagTable=false;
       this.flagDetailSelected=true;
-    },
-    candidates: function(id){
-      var resource= this.$resource(candidates_admin);
-      resource.get({id : id }).then((candidates) => {
-        this.adminCandidatesRegisters=candidates.body.candidates;
-      });
     },
     showTable: function(){
       this.adminSelected={};

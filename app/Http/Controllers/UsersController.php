@@ -17,40 +17,37 @@ class UsersController extends Controller
 		return $admins;
 	}
 
-  public function candidates($id){
-    $candidates=Candidate::where("user_id", "=", $id)->count();
-    return response()->json(['candidates' => $candidates ]);
-  }
-  public function create(Request $request){
+	public function candidates($id){
+		$candidates=Candidate::where("user_id", "=", $id)->count();
+		return response()->json(['candidates' => $candidates ]);
+	}
+	public function create(Request $request){
 
-    $options = [
-    'cost' => 12,
-    ];
-    $newpass= password_hash($request->password, PASSWORD_BCRYPT, $opciones)."\n";
-  }
+	}
 
 
 
-  public function store(Request $request){
+	public function store(Request $request){
 
-    $user = User::where("email", "=" , $request->email)->first();
 
-    if($user){
-      $hash  = $user->password;
-      $password = $request->password;
-      $validate = false;
-      $validate = password_verify ( $password ,  $hash );
-      if($validate){
+		$user = User::where("email", "=" , $request->email)->first();
+
+		if($user){
+			$hash  = $user->password;
+			$password = $request->password;
+			$validate = false;
+			$validate = password_verify ( $password ,  $hash );
+			if($validate){
 				Session::put('user_id', $user->id);
-        $token= hash('ripemd160', 'The quick brown fox jumped over the lazy dog.');
-        return response()->json(['user' => $user, 'token' => $hash, 'type_user' => 1 ]);
+				$token= hash('ripemd160', 'session token');
+				return response()->json(['user' => $user, 'token' => $hash, 'type_user' => 1 ]);
 
-      }else{
-        return response()->json(['password_incorrect' => true ]);
-      }
-    }
-    else{
-      abort(404);
-    }
-  }
+			}else{
+				return response()->json(['password_incorrect' => true ]);
+			}
+		}
+		else{
+			abort(404);
+		}
+	}
 }

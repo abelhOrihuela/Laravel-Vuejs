@@ -1,8 +1,8 @@
   <script>
     import auth from '../../js/auth.js';
-  
 
-    import {loginAdmin} from '../../js/constants_restful.js';
+
+    import {LOGIN_ADMIN} from '../../js/constants_restful.js';
 
 
     export default{
@@ -19,7 +19,7 @@
       signin(event) {
         event.preventDefault()
         auth.signin(this, true, this.email, this.password)
-        
+
       }
     }
 

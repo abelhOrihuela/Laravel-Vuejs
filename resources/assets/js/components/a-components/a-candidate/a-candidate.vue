@@ -18,7 +18,7 @@ import MntIdioms from '../../moduls/mnt-idioms/mnt-idioms.vue';
 import { translations } from '../../js/translations.js';
 import  service  from '../../js/utilities/service.js';
 import  filter  from '../../js/utilities/filters.js';
-import { HTTP, candidates, candidates_experince, EXPERIENCE, ACADEMIC, EXPERIENCEWTC, ECONOMIC } from '../../js/constants_restful.js';
+import { HTTP, EXPERIENCE, ACADEMIC, EXPERIENCEWTC, ECONOMIC } from '../../js/constants_restful.js';
 import { tableCandidates , tableExperience} from '../../js/config-app/tables.js';
 
 
@@ -32,7 +32,8 @@ export default{
   mixins: [require('vue-i18n-mixin')],
   /*PROPERTIES*/
   props:{
-    candidate: Object
+    candidate: Object,
+    show: Function
   },
   /*COMPONENTS*/
   components:{
@@ -99,9 +100,7 @@ export default{
 
     },
     showTable: function(){
-      this.candidate={};
-      this.flagTable=true;
-      this.flagDetailSelected=false;
+      this.show()
     },
     addCandidate: function(){
       this.flagTable=false;

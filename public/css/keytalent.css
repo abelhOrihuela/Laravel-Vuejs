@@ -3,6 +3,7 @@ body {
   font-size: 14px;
   color: #444;
   margin-bottom: 100px;
+  background: #f0f0f0;
 }
 .container-table{
   width: 90%;
@@ -19,6 +20,13 @@ body {
   margin-right: auto;
   box-shadow: 8px 8px 10px #BFC9CA;
   font-size: 13px;
+}
+.search-key{
+  box-shadow: 8px 8px 10px #BFC9CA;
+
+}
+.search-header{
+      background-color: #4261b9 !important;
 }
 .table-a tr{
   border: 1px solid #D5DBDB;
@@ -663,7 +671,7 @@ nav ul,nav li {
 	box-shadow:1px 1px 2px 0 #CCCCCC;
 	padding:20px;
 	box-shadow:0 2px 5px 0 rgba(0,0,0,.26);
-	background:$base-color !important;
+	background: white !important;
 }
 
 .rad-info-box i{

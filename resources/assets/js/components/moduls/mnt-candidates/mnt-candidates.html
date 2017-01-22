@@ -11,9 +11,9 @@
 	</div>
 
 	<br>
-	<div class="panel panel-default" v-show="showSearchContainer">
-		<div class="panel-heading" @click="showSearch=!showSearch">
-			<label v-text="translate('people.search')"></label>
+	<div class="panel panel-default search-key" v-show="showSearchContainer">
+		<div class="panel-heading search-header" @click="showSearch=!showSearch">
+			<label style="color: white !important;"v-text="translate('people.search')"></label>
 		</div>
 		<div class="panel-body" v-show="showSearch">
 
@@ -64,18 +64,11 @@
 		</a-table>
 	</div>
 
-	<div class="row" v-if="flagDetailSelected">
-		<div class="col-sm-4  " @click="showTable()">
-			<div class="back-section">
-				<i class="glyphicon glyphicon-chevron-left" v-text="translate('general.back')">
-				</i>
-			</div>
-		</div>
-	</div>
+
 
 	<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate"></add-candidate>
 
-	<a-candidate v-if="flagDetailSelected" :candidate="candidateSelected"><a-candidate>
+	<a-candidate v-if="flagDetailSelected" :show="showTable" :candidate="candidateSelected"><a-candidate>
 
 
 	</div>

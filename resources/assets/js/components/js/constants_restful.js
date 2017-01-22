@@ -1,23 +1,19 @@
 
 /*---------------------------------ROOT API----------------------------------*/
-export const apiRoot= "/api"
+export const API_ROOT= "/api"
 export const mixins= [require('vue-i18n-mixin')];
 
 /*-------------------------------RESOURCE HHTP-------------------------------*/
 export const HTTP={
-  root: apiRoot,
+  root: API_ROOT,
   headers: {
     'X-CSRF-TOKEN' : document.querySelector('#token').getAttribute('value')
   }
 }
 /*------------------------------LOGIN ADMINS---------------------------------*/
-export const loginAdmin= "admin/login"
+export const LOGIN_ADMIN= "admin/login"
 export const LOGOUT= "logout"
-export const admins= "admins"
 export const ADMINS= "admins"
-export const candidates= "candidates"
-export const candidates_admin="admin/candidates{/id}"
-export const candidates_experince="candidate{/id}"
 
 /*----------------------------CANDIDATE ACADEMIC-----------------------------*/
 

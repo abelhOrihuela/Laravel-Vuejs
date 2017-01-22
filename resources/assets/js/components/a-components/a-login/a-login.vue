@@ -1,18 +1,11 @@
 <script>
-
-
 import Toast from 'vue-toast-mobile';
-
 import { HTTP} from '../../js/constants_restful.js';
 import  service  from '../../js/utilities/service.js';
 import  runblock  from '../../js/runblock.js';
 
-
-
 export default{
-
   template: require('./a-login.html'),
-
   props:{
     todos: Array
   },
@@ -42,7 +35,6 @@ export default{
         email: "",
         password: "",
         authenticated: false
-
       },
       flagEmailValid: false
     }
@@ -71,7 +63,6 @@ export default{
 
         this.user.name=user.user;
 
-
       },function(){
         service.showError(this, 'User not exist ! ');
       });
@@ -99,48 +90,48 @@ export default{
 
       }
 
-
-
-
       resource.then(function(response){
 
         if(response.body.token!=undefined){
-          //localStorage.setItem('id_token', response.body.token);
 
           sessionStorage.setItem('id_token', response.body.token);
           this.user.authenticated=true;
           this.user.password= "";
 
-          var router= this.$router;
-          router.push({name: 'dashboard'});
-          service.showSuccess(this, 'Welcome');
+          var menu=[];
+          var dashboard={
+            name: 'dashboard',
+            class: 'glyphicon-th-large',
+            description: 'Dashboard',
+            dashboard:{
 
+            }
+          }
+
+          menu.push(dashboard);
+
+          sessionStorage.setItem('menu', JSON.stringify(menu));
+
+          var router= this.$router;
+
+          router.push({name: 'dashboard'});
+
+          service.showSuccess(this, 'Welcome');
 
           runblock.loadUserSession(response.body);
 
         }else if(response.body.password_incorrect){
-
           service.showWarning(this, 'Password Incorrect ! ');
-
         }
-      }, function (error){
-
+      },
+      function (error){
         service.showError(this, 'User not exist ! ');
-
       });
     },
     clearLogin: function(){
-
-          this.flagEmailValid=false;
-
-      this.user={
-        name:"",
-        email: "",
-        password: "",
-        authenticated: false
-
+      this.flagEmailValid=false;
+      this.user={ name:"", email: "", password: "", authenticated: false
       }
-
     }
   }
 }

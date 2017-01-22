@@ -28,7 +28,7 @@
         <thead>
 
           <tr>
-            <th v-for="key in columns"
+            <th v-for="key in columns" style="color: white !important;"
             @click="sortBy(key.key)"
             :class="{ active: sortKey == key }">
             {{ translate('table.'+key.label) }}

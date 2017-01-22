@@ -33,7 +33,8 @@ before: Function
           locale: 'es',
           categories: [],
           subcategories:[],
-          genders:[]
+          genders:[],
+          types: []
         }
       },
       computed: {
@@ -45,12 +46,12 @@ before: Function
             username: !!this.customer.username.trim(),
             gender: !!this.customer.gender!='',
             email: emailRE.test(this.customer.email),
-            password: this.customer.password.trim().length>5,
+            password: (this.customer.password!='' && this.customer.password.length>5),
             password_confirm: (this.customer.password_confirm==this.customer.password) && this.customer.password_confirm!='',
             company: !!this.customer.company!='',
             category: !!this.customer.category!='',
             subcategory: !!this.customer.subcategory!='',
-            type: !!this.customer.type.trim(),
+            type: !!this.customer.type!='',
             comments: !!this.customer.comments.trim(),
 
 
@@ -111,6 +112,11 @@ before: Function
       this.genders=[
         {'description': this.translate('people.men'), 'code':'Hombre'},
         {'description':this.translate('people.women'), 'code':'Mujer'}
+      ];
+
+      this.types=[
+        {'description': this.translate('people.basic'), 'code':1},
+        {'description':this.translate('people.premium'), 'code':2}
       ];
 
     }

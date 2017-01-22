@@ -280,6 +280,14 @@ export const translations={
     password_confirm:{
       en: 'Confrim Password',
       es: 'Confirma Contraseña'
+    },
+    basic:{
+      en: 'Basic',
+      es: 'Basico'
+    },
+    premium:{
+      en: 'Premium',
+      es: 'Premium'
     }
   },
   general:{

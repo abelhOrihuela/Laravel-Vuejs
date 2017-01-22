@@ -2,7 +2,10 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <div class="row">
-        <div class="col-sm-10">
+        <div class="col-sm-1">
+          <i  class="glyphicon glyphicon-menu-left" @click="showTable()"></i>
+        </div>
+        <div class="col-sm-9">
 
           <label class="vcenter"v-text="translate('people.candidates.selected')"></label>
 
@@ -75,7 +78,7 @@
 
 
 <mnt-idioms :candidate="candidate"></mnt-idioms>
-              
+
 
             </figcaption>
           </figure>

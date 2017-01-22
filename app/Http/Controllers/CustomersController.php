@@ -28,22 +28,21 @@ class CustomersController extends Controller
   public function create(Request $request){
     $customer=new Customer();
 
-    $opciones = [
-    'cost' => 12,
-    ];
-    $newpass= password_hash($request->password, PASSWORD_BCRYPT, $opciones)."\n";
+
+    $token= password_hash($request->password, PASSWORD_DEFAULT);
 
 
-		$customer->username=$request->username;
-		$customer->gender=$request->gender;
-		$customer->email=$request->email;
-		$customer->password=$newpass;
-		$customer->user_id= Session::get('user_id');
-		$customer->company=$request->company;
-		$customer->type=$request->type;
-		$customer->comments=$request->comments;
-		$customer->category=$request->category;
-		$customer->subcategory=$request->subcategory;
+
+    $customer->username=$request->username;
+    $customer->gender=$request->gender;
+    $customer->email=$request->email;
+    $customer->password=$token;
+    $customer->user_id= Session::get('user_id');
+    $customer->company=$request->company;
+    $customer->type=$request->type;
+    $customer->comments=$request->comments;
+    $customer->category=$request->category;
+    $customer->subcategory=$request->subcategory;
 
 
     if($customer->save()){
@@ -51,11 +50,11 @@ class CustomersController extends Controller
       $customer->categoryCustomer;
       $customer->subcategoryCustomer;
 
-			return  $customer;
-		}else{
-			abort(404);
-		}
-		return $request;
+      return  $customer;
+    }else{
+      abort(404);
+    }
+    return $request;
 
 
   }
@@ -69,8 +68,8 @@ class CustomersController extends Controller
       $validate = false;
       $validate = password_verify ( $password ,  $hash );
       if($validate){
-				Session::put('customer_id', $user->id);
-        $token= hash('ripemd160', 'The quick brown fox jumped over the lazy dog.');
+        Session::put('customer_id', $user->id);
+        $token= hash('ripemd160', 'session token');
         return response()->json(['user' => $user, 'token' => $hash, 'type_user' => 1 ]);
 
       }else{

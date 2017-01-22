@@ -3,83 +3,89 @@
 		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select" :showSearch="false">
 		</a-table>
 	</div>
-	<div class="row" v-show="flagDetailSelected">
-		<div class="col-sm-4  " @click="showTable()">
-			<div class="back-section">
-				<i class="glyphicon glyphicon-chevron-left" v-text="translate('general.back')">
-				</i>
-			</div>
-		</div>
-	</div>
-
-	<div class="container-detail" v-show="flagDetailSelected">
-		<div class="container-detail-header">
-			<label v-text="translate('people.admins.selected')"></label>
-		</div>
-		<div class="container-detail-section">
-			<div class="row" >
-
-				<div class="col-sm-3">
-					<div>
-						<label v-text="translate('people.name')"></label>
-					</div>
-					<div>
-						{{ adminSelected.username }}
-					</div>
-				</div>
-
-				<div class="col-sm-3">
-					<div>
-						<label v-text="translate('people.email')"></label>
-					</div>
-					<div>
-						{{ adminSelected.email }}
-					</div>
-				</div>
 
 
-				<div class="col-sm-3">
-					<div>
-						<label v-text="translate('people.type')"></label>
-					</div>
-					<div>
-						{{ adminSelected.type }}
-					</div>
-				</div>
-
-				<div class="col-sm-3">
-					<div>
-						<label v-text="translate('people.created_at')"></label>
-					</div>
-					<div>
-						{{ adminSelected.created_at }}
-					</div>
-				</div>
-
-
-
-			</div>
-
+	<div v-if="flagDetailSelected" class="panel panel-default">
+    <div class="panel-heading">
 			<div class="row">
-				<div class="col-sm-3">
-					<div>
-						<label v-text="translate('people.updated_at')"></label>
+				<div class="col-sm-1" @click="showTable">
+					<i  class="glyphicon glyphicon-menu-left"></i>
+				</div>
+				<div class="col-sm-11">
+					<label v-text="translate('people.admins.selected')"></label>
+
+				</div>
+			</div>
+
+			</div>
+
+			<div class="panel-body">
+				<div class="row" >
+
+					<div class="col-sm-3">
+						<div>
+							<label v-text="translate('people.name')"></label>
+						</div>
+						<div>
+							{{ adminSelected.username }}
+						</div>
 					</div>
-					<div>
-						{{ adminSelected.updated_at }}
+
+					<div class="col-sm-3">
+						<div>
+							<label v-text="translate('people.email')"></label>
+						</div>
+						<div>
+							{{ adminSelected.email }}
+						</div>
 					</div>
+
+
+					<div class="col-sm-3">
+						<div>
+							<label v-text="translate('people.type')"></label>
+						</div>
+						<div>
+							{{ adminSelected.type }}
+						</div>
+					</div>
+
+					<div class="col-sm-3">
+						<div>
+							<label v-text="translate('people.created_at')"></label>
+						</div>
+						<div>
+							{{ adminSelected.created_at }}
+						</div>
+					</div>
+
+
+
 				</div>
 
-				<div class="col-sm-2">
-					<div>
-						<label v-text="translate('people.profiles_register')"></label>
+				<div class="row">
+					<div class="col-sm-3">
+						<div>
+							<label v-text="translate('people.updated_at')"></label>
+						</div>
+						<div>
+							{{ adminSelected.updated_at }}
+						</div>
 					</div>
-					<div>
-						{{ adminCandidatesRegisters }}
+
+					<div class="col-sm-2">
+						<div>
+							<label v-text="translate('people.profiles_register')"></label>
+						</div>
+						<div>
+							{{ adminCandidatesRegisters }}
+						</div>
 					</div>
+
 				</div>
 
 			</div>
-		</div>
-	</div>
+
+</div>
+
 </div>
