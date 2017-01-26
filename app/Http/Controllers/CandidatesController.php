@@ -102,6 +102,7 @@ class CandidatesController extends Controller
 			array_push($candidates, $candidate);
 		}
 		return $candidates;
+
 	}
 
 	/**
@@ -121,10 +122,6 @@ class CandidatesController extends Controller
 		$candidate->economic;
 		$candidate->photo;
 		$candidate->groups;
-
-
-
-
 		$candidate->user;
 
 		return $candidate;
@@ -171,8 +168,6 @@ class CandidatesController extends Controller
 	}
 
 	function getPdf($id){
-
-		//		$pdf=PDF::loadView('app.candidate');
 
 		$pdf=PDF::loadView('app.candidate')
 		->save(public_path().'/my_stored_file.pdf')

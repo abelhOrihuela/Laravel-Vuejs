@@ -30,6 +30,8 @@ class GroupsController extends Controller
       $candidate->languages;
       $candidate->idioms;
       $candidate->photo;
+      $candidate->groups;
+
     }
     return $group;
   }

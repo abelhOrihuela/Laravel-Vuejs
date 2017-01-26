@@ -59,6 +59,12 @@ export default{
 
 
     },
+    cancelAddCustomer: function(){
+      this.flagShowTable=true;
+      this.flagDeatilSelect=false;
+      this.flagAddCustomer=false;
+    }
+    ,
     beforeAddCustomer: function(entry){
 this.customers.push(entry);
 

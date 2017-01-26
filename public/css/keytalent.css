@@ -21,11 +21,10 @@ body {
   box-shadow: 8px 8px 10px #BFC9CA;
   font-size: 13px;
 }
-.search-key{
-  box-shadow: 8px 8px 10px #BFC9CA;
-
+.shadow-key{
+  box-shadow: 8px 8px 10px #BFC9CA !important;
 }
-.search-header{
+.header-key{
       background-color: #4261b9 !important;
 }
 .table-a tr{
@@ -292,7 +291,7 @@ tr{
 
 /* Demo purposes only */
 .tab-header{
-  background-color: #504f63;
+  background-color: #2A2D33;
   color: white;
   padding: 1px;
   padding-left: 10px;
@@ -378,7 +377,6 @@ tr{
   width: 100%;
   min-height: 100%;
   padding: 20px;
-  background: rgba(4, 40, 68, 0.85);
 }
 
 .login {
@@ -537,7 +535,7 @@ footer a, footer a:link {
 }
 
 .main-menu {
-	background:#fbfbfb;
+	background:#2A2D33;
 	border-right:1px solid #e5e5e5;
 	position:fixed;
 	top:0;
@@ -560,6 +558,7 @@ footer a, footer a:link {
 	position:relative;
 	display:block;
 	width:250px;
+
 }
 
 .main-menu li>a {

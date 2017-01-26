@@ -2,8 +2,12 @@
   <div style="text-align: right">
 
 
-    <button id="show-modal" @click="addCustomer()" class="btn btn-info btn-options">
+    <button v-if="!flagAddCustomer"id="show-modal" @click="addCustomer()" class="btn btn-info btn-options" data-tooltip="Agregar Nuevo Cliente" data-placement="left">
       <i class="glyphicon glyphicon-plus"></i>
+    </button>
+
+    <button v-if="flagAddCustomer" id="show-modal" @click="cancelAddCustomer()" class="btn btn-danger btn-options" data-tooltip="Cancelar Registro Nuevo Cliente" data-placement="left">
+      <i class="glyphicon glyphicon glyphicon-remove"></i>
     </button>
 
   </div>
@@ -12,14 +16,14 @@
   <a-table v-if="flagShowTable":data="customers" :columns="columns" :total="customers.length" :select="select" :showSearch="false"></a-table>
 
 
-  <div v-if="flagDeatilSelect" class="panel panel-default">
+  <div v-if="flagDeatilSelect" class="panel panel-default shadow-key">
     <div class="panel-heading">
       <div class="row">
         <div class="col-sm-1" @click="showTable">
           <i  class="glyphicon glyphicon-menu-left"></i>
         </div>
         <div class="col-sm-9">
-          <label class="vcenter"v-text="translate('people.candidates.selected')"></label>
+          <label class="vcenter" v-text="translate('people.candidates.selected')"></label>
 
         </div>
 

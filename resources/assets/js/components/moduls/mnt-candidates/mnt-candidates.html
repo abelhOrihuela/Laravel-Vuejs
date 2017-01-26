@@ -1,18 +1,20 @@
 <div class="container-a">
 
-
 	<div style="text-align: right">
-		<button id="show-modal" @click="addCandidate" class="btn btn-keytalent">
+
+
+		<button v-if="!showNewCandidate && permissions.add" id="show-modal" @click="addCandidate()" class="btn btn-info btn-options" data-tooltip="Agregar Nuevo Candidato" data-placement="left">
 			<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<button id="show-modal" @click="cancelAddCandidate" class="btn btn-keytalent">
+
+		<button v-if="showNewCandidate && permissions.add" id="show-modal" @click="cancelAddCandidate" class="btn btn-danger btn-options" data-tooltip="Cancelar Registro Nuevo Candidato" data-placement="left">
 			<i class="glyphicon glyphicon glyphicon-remove"></i>
 		</button>
 	</div>
 
 	<br>
-	<div class="panel panel-default search-key" v-show="showSearchContainer">
-		<div class="panel-heading search-header" @click="showSearch=!showSearch">
+	<div class="panel panel-default shadow-key" v-show="showSearchContainer">
+		<div class="panel-heading header-key" @click="showSearch=!showSearch">
 			<label style="color: white !important;"v-text="translate('people.search')"></label>
 		</div>
 		<div class="panel-body" v-show="showSearch">
@@ -50,10 +52,10 @@
 		</div>
 
 		<div class="modal-footer" v-show="showSearch">
-			<button type="button" class="btn btn-success"@click="search()"name="button">
+			<button type="button" class="btn btn-default"@click="search()"name="button">
 				<i class="glyphicon glyphicon-search"></i>
 			</button>
-			<button type="button" class="btn btn-success"@click="cleanSearch()"name="button">
+			<button type="button" class="btn btn-default"@click="cleanSearch()"name="button">
 				<i class="glyphicon glyphicon-edit"></i>
 			</button>
 		</div>
@@ -64,11 +66,8 @@
 		</a-table>
 	</div>
 
-
-
 	<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate"></add-candidate>
 
 	<a-candidate v-if="flagDetailSelected" :show="showTable" :candidate="candidateSelected"><a-candidate>
 
-
-	</div>
+</div>

@@ -306,6 +306,10 @@ export const translations={
       en: 'Package Economic',
       es: 'Paquete Economico'
     },
+    candidate_selected:{
+      en: 'Candidate',
+      es: 'Candidato Seleccionado'
+    },
     salary_expectation:{
       en: 'salary_expectation',
       es: 'Salario Deseado'
@@ -415,6 +419,34 @@ export const translations={
     idioms:{
       en: 'Idioms',
       es: 'Idiomas'
+    },
+    add_customer:{
+      en: 'Add Customer',
+      es: 'Agregar Nuevo Cliente'
+    },
+    add_candidate:{
+      en: 'Add Candidate',
+      es: 'Agregar Nuevo Candidato'
+    },
+    dashboard:{
+      en: 'Dashboard',
+      es: 'Panel'
+    },
+    candidates:{
+      en: 'Candidates',
+      es: 'Candidatos'
+    },
+    admins:{
+      en: 'Admins',
+      es: 'Administradores'
+    },
+    customers:{
+      en: 'Customers',
+      es: 'Clientes'
+    },
+    groups:{
+      en: 'Groups',
+      es: 'Grupos'
     }
   },
   general:{

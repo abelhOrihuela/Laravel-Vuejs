@@ -27,7 +27,7 @@ export default {
   loadUserSession(data){
 
     sessionStorage.setItem('type_profile', data.user.type);
-    sessionStorage.setItem('username', data.user.username);
+    sessionStorage.setItem('username', data.user.email);
 
   },
 
@@ -40,6 +40,7 @@ export default {
 
     user={
       profile: sessionStorage.getItem('profile'),
+      username: sessionStorage.getItem('username'),
       type_profile: sessionStorage.getItem('type_profile')
     }
     return user;

@@ -6,8 +6,10 @@ import ACandidate from '../../a-components/a-candidate/a-candidate.vue';
 
 import  service  from '../../js/utilities/service.js';
 import  filter  from '../../js/utilities/filters.js';
+import  runblock  from '../../js/runblock.js';
 
-import { HTTP, candidates } from '../../js/constants_restful.js';
+
+import { HTTP, candidates, CANDIDATES_SEARCH, CATEGORIES , SUBCATEGORIES, USER_PERMISSIONS } from '../../js/constants_restful.js';
 import { translations } from '../../js/translations.js';
 import { tableCandidates } from '../../js/config-app/tables.js';
 
@@ -54,7 +56,7 @@ export default{
       experienceSelect:{},
       showSearchContainer:true,
       showSearch:true,
-
+      permissions:{},
       searchCand:{
         category: '',
         subcategory: ''
@@ -73,9 +75,9 @@ export default{
     search: function(){
       this.flagDetailSelected=false;
 
-      var searchCand=this.searchCand;
+      var search_cand=this.searchCand;
 
-      this.$http.post('candidates/search', searchCand)
+      this.$http.post(CANDIDATES_SEARCH, search_cand)
       .then(function(response){
 
         this.candidates=response.body;
@@ -121,7 +123,7 @@ export default{
     },
     fetchCategories: function(){
 
-      this.$http.get('categories' )
+      this.$http.get(CATEGORIES)
       .then(function(response) {
         if(response){
           response.json();
@@ -136,7 +138,7 @@ export default{
 
     this.searchCand.subcategory='';
 
-    var resource= this.$resource('subcategories{/id}');
+    var resource= this.$resource(SUBCATEGORIES);
     var category=this.searchCand.category;
 
     if(service.validateValue(this,category)){
@@ -164,11 +166,22 @@ export default{
     this.showSearch=true;
     this.candidates=[];
 
+  },
+  getPermissions: function(){
+
+    var user=runblock.getUserSession();
+
+    var resource=this.$http.post(USER_PERMISSIONS, user);
+    resource.then(function(response){
+      this.permissions=response.body;
+    }, function (error){
+      service.showError(this, error);
+    });
   }
 },
 created: function(){
-  //this.getAdmins();
   this.fetchCategories();
+  this.getPermissions();
 },
 computed: {
   validation: function () {

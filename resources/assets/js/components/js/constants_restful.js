@@ -14,6 +14,10 @@ export const HTTP={
 export const LOGIN_ADMIN= "admin/login"
 export const LOGOUT= "logout"
 export const ADMINS= "admins"
+export const CANDIDATES_SEARCH= "candidates/search"
+export const CATEGORIES= "categories"
+export const SUBCATEGORIES= "subcategories{/id}"
+export const USER_PERMISSIONS= "user/permissions"
 
 /*----------------------------CANDIDATE ACADEMIC-----------------------------*/
 

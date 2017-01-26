@@ -126,7 +126,7 @@ router.beforeEach((to, from, next)=>{
 			}else if(authUser && !existInMenu){
 
 				next({
-					name: menu[0].name
+					name: 'dashboard'
 				});
 
 			}

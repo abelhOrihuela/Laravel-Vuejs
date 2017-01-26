@@ -1,26 +1,104 @@
-<div class="wrapper">
-	<form class="login" @submit.prevent="null">
+<div class="" >
 
-		<div style="text-align: right">
-			<i @click="clearLogin()" class="btn btn-success glyphicon glyphicon-pencil"></i>
-		</div>
-
-		<p class="title">Log in</p>
-		<strong>{{ user.name }}</strong>
-		<input v-if="!flagEmailValid" type="email" placeholder="email" v-model="user.email" id="username"/>
-
-
-		<button type="button" v-if="!flagEmailValid && isValid" @click="validateUser()">
-			<i class="glyphicon glyphicon-arrow-right"></i></button>
-
-			<div v-if="flagEmailValid">
-				<input type="password" placeholder="Password" v-model="user.password" />
-
-				<!-- <i class="glyphicon glyphicon-cog"></i>	<a href="#">Forgot your password?</a>	-->
-			<button type="button" @click="loginAdmin()">
-				<span class="state">Log in</span>
+<div class="row">
+	<div class="row col-sm-12">
+		<div class="pull-right">
+			<button type="button" name="button" class="btn btn-success"@click="showFormLogin()">
+				<i class="glyphicon glyphicon-user">  Acceso  </i>
 			</button>
-			
 		</div>
-	</form>
+	</div>
 </div>
+<br>
+	<div class="row col-sm-12" v-if="!showLogin" style="background: white !important;">
+		<div class="row">
+
+			<div class="col-xs-6 col-md-8">
+				<img alt="" width="320" src="../img/keytalentwtc.png">
+
+			</div>
+
+			<div class="col-xs-6 col-md-4">
+				<img alt="" width="250" src="../img/logo.png">
+
+			</div>
+
+
+
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<p align="justify" style="font-size: 18px">
+					Derivado de la necesidad de Talento que las organizaciones tiene hoy en día,
+					World Talent Consulting ha creado una Plataforma de Talento en la que podremos
+					encontrar a profesionales de las diversas ramas de la industria, a nivel global los cuales
+					cuentan con un proceso previo de Análisis tanto de potencial, como de su talento y trayectoria profesional.
+					Esta Plataforma ha sido diseñada por especialistas en Búsqueda de Talento,
+					cuya experiencia y trayectoria internacional en empresas Globales, garantizan un
+					exhaustivo, profundo y especializado filtro para nuestros Clientes y Asociados,
+					permitiéndoles identificar con una menor inversión de tiempo y recursos al talento que su organización requiere.
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<h1 class="bg-info" style="padding: 7px; font-size: 17px;">		Nuestra plataforma pone a tu alcance las siguientes funciones:
+			</h1>
+
+			<ul>
+
+
+				<li>
+					Cantera de talento actualizada y filtrada
+				</li>
+				<li>
+					Herramienta de diagnóstico de personalidad de cada candidato
+
+				</li>
+
+				<li>
+					Filtro por área de especialidad, región, educativo, especialidades, nivel económico, tipo de industria y rama
+
+				</li>
+				<li>
+					Contar con la posibilidad de hacer uso de la base de datos en búsqueda especializadas
+				</li>
+				<li>
+					Garantía de los nadidatos han sido investigados y filtrados por wtc, desde el punto de vista profesional y socio económico.
+
+				</li>
+			</ul>
+
+
+
+		</div>
+	</div>
+
+
+	<div class="wrapper" v-if="showLogin">
+		<form class="login" @submit.prevent="null">
+
+			<div style="text-align: right">
+				<i @click="clearLogin()" class="btn btn-success glyphicon glyphicon-pencil"></i>
+			</div>
+
+			<p class="title">Log in</p>
+			<strong>{{ user.name }}</strong>
+			<input v-if="!flagEmailValid" type="email" placeholder="email" v-model="user.email" id="username"/>
+
+
+			<button type="button" v-if="!flagEmailValid && isValid" @click="validateUser()">
+				<i class="glyphicon glyphicon-arrow-right"></i></button>
+
+				<div v-if="flagEmailValid">
+					<input type="password" placeholder="Password" v-model="user.password" />
+
+					<!-- <i class="glyphicon glyphicon-cog"></i>	<a href="#">Forgot your password?</a>	-->
+					<button type="button" @click="loginAdmin()">
+						<span class="state">Log in</span>
+					</button>
+
+				</div>
+			</form>
+		</div>
+	</div>

@@ -1,20 +1,21 @@
 <div class="area">
-  <nav class="main-menu">
-    <br><br>
-    <br><br>
 
-    <ul >
+  <nav class="main-menu">
+    <br>
+    <br>
+
 
       <li v-for="option in menu">
+
         <router-link  :to="option.name">
-          <i class="fa fa-power-off fa-2x glyphicon":class="option.class" :style="option.style"></i>
+          <i class="fa fa-power-off fa-2x glyphicon ":class="option.class" :style="option.style"></i>
           <span class="nav-text">
             {{ option.description }}
           </span>
         </router-link>
       </li>
 
-  
+
     </ul>
 
     <ul class="logout">

@@ -47,4 +47,44 @@ class AuthController extends Controller
     ]);
 
   }
+  public function store(Request $request){
+
+
+    $user=null;
+    $profile='';
+    if(User::where("email", "=" , $request->username)->first()){
+      $user = User::where("email", "=" , $request->username)->first();
+
+      $profile='A';
+
+    }else if (Customer::where("email", "=" , $request->username)->first()) {
+      $user = Customer::where("email", "=" , $request->username)->first();
+      $profile='C';
+
+    }
+
+
+
+
+    if($user){
+
+
+
+      if(Session::get('profile')=='C'){
+        return response()->json(['add' => false, 'edit' => false, 'delete' => false ]);
+      }else{
+        return response()->json(['add' => true, 'edit' => true, 'delete' => true ]);
+
+      }
+
+
+
+    }else{
+
+      Session::put('type_user', null);
+      Session::put('profile', null);
+
+      abort(404);
+    }
+  }
 }

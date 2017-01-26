@@ -36,7 +36,8 @@ export default{
         password: "",
         authenticated: false
       },
-      flagEmailValid: false
+      flagEmailValid: false,
+      showLogin: false
     }
   },
   http: HTTP,
@@ -132,6 +133,9 @@ export default{
       this.flagEmailValid=false;
       this.user={ name:"", email: "", password: "", authenticated: false
       }
+    },
+    showFormLogin(){
+      this.showLogin=!this.showLogin;
     }
   }
 }

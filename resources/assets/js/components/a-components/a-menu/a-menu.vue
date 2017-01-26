@@ -21,7 +21,6 @@ export default{
 
       var resource= this.$resource(LOGOUT);
       resource.delete().then(function(response){
-        service.showSuccess(this, 'Operacion Exitosa');
       }, function(error){
         service.showError(this, error);
 
@@ -35,11 +34,29 @@ export default{
     var user=runblock.getUserSession();
 
     sessionStorage.setItem('menu', JSON.stringify('[]'));
+    var aed=[];
+
+    var a={
+      a: true
+    };
+
+    aed.push(a);
+    var e={
+      e: true
+    };
+    aed.push(e);
+
+    var d={
+      d: true
+    };
+    aed.push(d);
+
+    sessionStorage.setItem('aed', JSON.stringify(aed));
 
     var dashboard={
       name: 'dashboard',
       class: 'glyphicon-th-large',
-      description: 'Dashboard',
+      description: 'dashboard',
       dashboard:{
 
       }
@@ -48,7 +65,7 @@ export default{
     var admins={
       name: 'admins',
       class: 'glyphicon-cog',
-      description: 'Administradores',
+      description: 'admins',
       style: 'color: #E94B3B !important;',
       dashboard:{
       }
@@ -58,7 +75,7 @@ export default{
     var candidates={
       name: 'candidates',
       class: 'glyphicon-user',
-      description: 'Candidates',
+      description: 'candidates',
       style: 'color: #F98E33 !important;',
       dashboard:{
       }
@@ -67,7 +84,7 @@ export default{
     var groups={
       name: 'groups',
       class: 'glyphicon-modal-window',
-      description: 'Grupos',
+      description: 'groups',
       style: 'color: #23AE89 !important;',
       dashboard:{
       }

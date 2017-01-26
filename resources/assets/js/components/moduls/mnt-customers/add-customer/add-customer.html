@@ -1,9 +1,9 @@
 <div class="container-a">
   <br>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Agregar Candidato
+  <div class="panel panel-default shadow-key">
+    <div class="panel-heading header-key">
+      <label style="color: white !important;"v-text="translate('people.add_customer')"></label>
     </div>
     <div class="panel-body">
 
@@ -66,7 +66,7 @@
               </option>
             </select>
 
-          
+
 
             </div>
 
@@ -104,7 +104,7 @@
 
 
             <div class="col-sm-3" >
-              <label data-tooltip="hola" data-placement="top" v-bind:class="{ 'label-a': validation.password_confirm, 'label-error':  !validation.password_confirm}" v-text="translate('people.password_confirm')"></label>
+              <label  v-bind:class="{ 'label-a': validation.password_confirm, 'label-error':  !validation.password_confirm}" v-text="translate('people.password_confirm')"></label>
               <input type="password" name="" class="form-control" v-model="customer.password_confirm" >
             </div>
 
