@@ -1,6 +1,6 @@
 <script>
 import { translations } from '../../../js/translations.js';
-import { HTTP, GROUPS, GROUPNEW, DELETE_GROUP_CANDIDATE} from '../../../js/constants_restful.js';
+import { HTTP, GROUPS, GROUP_CANDIDATE_NEW, DELETE_GROUP_CANDIDATE} from '../../../js/constants_restful.js';
 import  service  from '../../../js/utilities/service.js';
 
 export default{
@@ -39,7 +39,7 @@ export default{
 
       var group=this.groupSelect;
       group.candidate_id=this.candidate.id;
-      var resource=this.$http.post(GROUPNEW, group);
+      var resource=this.$http.post(GROUP_CANDIDATE_NEW, group);
       resource.then(function(response){
 
         console.log(response);

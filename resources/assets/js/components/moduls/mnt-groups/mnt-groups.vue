@@ -10,6 +10,9 @@ import ACandidate from '../../a-components/a-candidate/a-candidate.vue';
 import { tableGroups } from '../../js/config-app/tables.js';
 import { tableCandidates } from '../../js/config-app/tables.js';
 
+import AddGroup from './add-group/add-group.vue';
+
+
 
 export default {
   template: require('./mnt-groups.html'),
@@ -18,7 +21,8 @@ export default {
   mixins: mixins,
   components:{
     'a-table': ATable,
-    'a-candidate': ACandidate
+    'a-candidate': ACandidate,
+    'add-group': AddGroup
   },
   data: function () {
     return {
@@ -30,6 +34,7 @@ export default {
       flagDetailSelected: false,
       flagDetailSelectedCandidate: false,
       flagShowTableCandidates: false,
+      flagAddGroup: false,
       candidates: [],
       candidateSelected: {},
       locale: 'es'
@@ -108,6 +113,16 @@ export default {
     showTableCandidates: function(){
       this.flagDetailSelectedCandidate=false;
         this.flagShowTableCandidates=true;
+    },
+    beforeAddGroup(){
+      this.flagAddGroup=true;
+    },
+    afterAddGroup(entry){
+
+      entry.descrCategory=entry.category_group.name;
+      entry.descrSubCategory=entry.subcategory_group.name;
+      
+      this.groups.push(entry);
     }
 
   },

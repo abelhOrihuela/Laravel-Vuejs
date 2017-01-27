@@ -1,0 +1,56 @@
+<div class="container-component">
+  <div class="modal fade" id="addGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" style="width: 50%" role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel" v-text="translate('people.add_group')"></h4>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <label v-bind:class="{ 'label-a': validation.name_group, 'label-error':  !validation.name_group}" v-text="translate('people.name_group')"></label>
+
+              <input type="text" class="form-control" name="name" value="" v-model="group.name_group">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-5">
+              <label v-bind:class="{ 'label-a': validation.category, 'label-error':  !validation.category}" v-text="translate('people.category')"></label>
+              <select  class="form-control" @change="fetchSubCategories()" v-model="group.category">
+                <option v-for="category in categories" v-bind:value="category.id">
+                  {{ category.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-sm-5">
+              <label v-bind:class="{ 'label-a': validation.subcategory, 'label-error':  !validation.subcategory}" v-text="translate('people.subcategory')"></label>
+              <select v-model="group.subcategory" class="form-control">
+                <option v-for="category in subcategories" v-bind:value="category.id">
+                  {{ category.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-sm-2 has-success">
+              <label class="label-a" v-text="translate('people.visible')"></label>
+              <div class="">
+                <input type="checkbox" name="name" v-bind:true-value=1 v-bind:false-value=0 v-model="group.visible">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button v-if="isValid" class="btn btn-success" @click="addGroup()" data-dismiss="modal">
+          <label v-text="translate('people.confirm')"></label>
+        </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

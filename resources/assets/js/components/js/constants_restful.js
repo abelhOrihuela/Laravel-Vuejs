@@ -45,7 +45,8 @@ export const ECONOMIC_EDIT="economic/edit"
 
 /*-----------------------------------GROUPS---------------------------------*/
 export const GROUPS="groups"
-export const GROUPNEW="group/new"
+export const GROUP_CANDIDATE_NEW="group/candidate/new"
+export const GROUP_NEW="group/new"
 export const GROUPCANDIDATES="group/candidates{/id}"
 export const DELETE_GROUP_CANDIDATE="group{/id_group}/candidate/delete{/id}"
 

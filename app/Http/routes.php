@@ -195,6 +195,12 @@ Route::group(['prefix' => 'api'], function () {
     ]);
 
     /* DELETE EXPERIENCE FOR CANDIDATE */
+    Route::post('group/candidate/new',[
+      'uses' => 'GroupsController@candidate_group',
+      'as'   => 'group_create_path'
+    ]);
+
+    /* DELETE EXPERIENCE FOR CANDIDATE */
     Route::post('group/new',[
       'uses' => 'GroupsController@create',
       'as'   => 'group_create_path'

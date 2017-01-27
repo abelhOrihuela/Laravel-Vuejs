@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Group;
+use Session;
+
 
 class GroupsController extends Controller
 {
@@ -38,6 +40,39 @@ class GroupsController extends Controller
 
   public function create(Request $request){
 
+
+    $group = new Group();
+
+    $group->user_id= Session::get('user_id');
+
+    if($request->name_group){
+      $group->name_group=$request->name_group;
+    }
+    if($request->category){
+      $group->category=$request->category;
+    }
+    if($request->subcategory){
+      $group->subcategory=$request->subcategory;
+    }
+    if($request->visible){
+      $group->visible=$request->visible;
+    }
+
+
+    if($group->save()){
+
+      $group->categoryGroup;
+      $group->subcategoryGroup;
+
+      return  $group;
+    }else{
+      abort(404);
+    }
+
+
+  }
+
+  public function candidate_group(Request $request){
     $group=Group::where('id',  $request->id)->first();
     $exist=$group->candidates->contains( $request->candidate_id);
 
@@ -53,9 +88,7 @@ class GroupsController extends Controller
     }
 
 
-    //  return $exist;
   }
-
   public function delete_candidate($group, $id){
 
     $group=Group::where('id',  $group)->first();
