@@ -47,6 +47,7 @@ import { HTTP, ECONOMIC_EDIT} from '../../../js/constants_restful.js';
       economicChange: function(){
         return !service.equals(this, this.economic, this.economicnow);
 
+
       },
       editEconomic: function(){
         var economic= new Object();

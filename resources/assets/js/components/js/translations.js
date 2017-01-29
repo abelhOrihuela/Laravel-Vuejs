@@ -447,6 +447,18 @@ export const translations={
     groups:{
       en: 'Groups',
       es: 'Grupos'
+    },
+    add_group:{
+      en: 'Add Group',
+      es: 'Agregar Grupo'
+    },
+    edit_group:{
+      en: 'Edit Group',
+      es: 'Editar Grupo'
+    },
+    delete_group:{
+      en: 'Delete Group',
+      es: 'Eliminar Grupo'
     }
   },
   general:{

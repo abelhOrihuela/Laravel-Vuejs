@@ -75,6 +75,19 @@ this.select(entry);
   created: function(){
     this.getCustomers();
 
-  }
+  },  filters:{
+      trueOrFalse: function(value){
+
+        return filter.trueOrFalse(this,value);
+      },
+      shortDate: function(value){
+
+        return filter.shortDate(this,value);
+      },
+      customers: function(value){
+
+        return filter.customers(this,value);
+      }
+    }
 }
 </script>

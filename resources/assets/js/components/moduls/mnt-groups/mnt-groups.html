@@ -1,23 +1,25 @@
 <div class="container-a">
 
 
-<add-group v-if="flagAddGroup" :after="afterAddGroup"></add-group>
 
 
   <div style="text-align: right">
-    <!--
 
-    <button  v-if="economicSelect!=null" id="show-modal" @click="editEconomic()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editEconomic">
+
+    <button  v-if="groupSelect!=null" id="show-modal" @click="beforeEditGroup()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editGroup">
       <i class="glyphicon glyphicon-pencil"></i>
     </button>
 
-  -->
+    <button  v-if="groupSelect!=null" id="show-modal" @click="beforeDeleteGroup()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteGroup">
+      <i class="glyphicon glyphicon glyphicon-remove"></i>
+    </button>
 
     <button id="show-modal" @click="beforeAddGroup()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addGroup">
       <i class="glyphicon glyphicon-plus"></i>
     </button>
 
   </div>
+  <br>
 
   <a-table v-if="flagShowTable" :data="groups" :columns="columns" :total="groups.length" :select="select">
   </a-table>
@@ -62,6 +64,13 @@
           </div>
         </div>
 
+        <div class="col-sm-2">
+          <label class="label-a" v-text="translate('people.visible')"></label>
+          <div >
+            {{ groupSelect.visible | trueOrFalse }}
+          </div>
+        </div>
+
       </div>
 
 
@@ -76,8 +85,13 @@
 
 
   <a-candidate v-if="flagDetailSelectedCandidate" :candidate="candidateSelected" :show="showTableCandidates">
-  <a-candidate>
+  </a-candidate>
 
+
+
+      <add-group v-if="flagAddGroup" :after="afterAddGroup"></add-group>
+      <delete-group v-if="flagDeleteGroup" :group="groupSelect" :after="afterDeleteGroup"></delete-group>
+      <edit-group v-if="flagEditGroup" :group="groupClone" :groupnow="groupSelect" :after="afterEditGroup"></edit-group>
 
 
 

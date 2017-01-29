@@ -94,6 +94,11 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next)=>{
 
+	if(to.name==='login'){
+		sessionStorage.clear();
+	}
+
+
 
 	var menu=[];
 	var menuSession=JSON.parse(sessionStorage.getItem('menu'));
@@ -160,7 +165,7 @@ const app = new Vue({
 	data:{
 		message: 'Keytalent',
 		locale: 'es',
-		logged: false,
+		logged: false
 	},
 	translations: {
 
@@ -175,6 +180,7 @@ const app = new Vue({
 			}
 
 			return false;
-		}
+		},
+
 	}
 }).$mount('#app');

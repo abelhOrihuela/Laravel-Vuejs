@@ -1,78 +1,102 @@
 <div class="container-component">
+  <div class="shadow-key">
+    <table class="table-a">
+      <tr v-if="showSearch" style="background-color: white !important">
+        <td v-bind:colspan="columns.length" style="background-color: #f5f5f5">
+          <div style="width: 100%">
+            <input style="width: 40%" type="text" class="form-control" placeholder="Search" v-model="filterKey">
+          </div>
+        </td>
+      </tr>
 
-  <div class="row" v-if="showSearch">
-    <div class="col-sm-6">
-      <form  class="form" id="search" >
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">
-        </div>
-      </form>
-    </div>
-    <div class="col-sm-2">
+      <tr>
+        <th v-for="key in columns" style="color: white !important;"
+        @click="sortBy(key.key)"
+        :class="{ active: sortKey == key }">
+        {{ translate('people.'+key.label) }}
+        <span class="arrow" :class="sortOrders[key.key] > 0 ? 'asc' : 'dsc'">
+        </span>
+      </th>
+    </tr>
 
-      <div>
-        <select v-model="pagination" class="form-control">
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="40">40</option>
-        </select>
+    <tbody>
+      <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">
+        <td v-for="key in columns">
+
+          <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='trueOrFalse'" :style="key.styles">
+            {{entry[key.key] | trueOrFalse }}
+          </span>
+
+          <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='shortDate'" :style="key.styles">
+            {{entry[key.key] | shortDate  }}
+          </span>
+
+          <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='customers'" :style="key.styles">
+            {{entry[key.key] | customers }}
+          </span>
+
+          <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='admins'" :style="key.styles">
+            {{entry[key.key] | admins }}
+          </span>
+
+          <span v-if="key.filter==null || key.filter==undefined" style="key.styles">
+            {{entry[key.key] }}
+          </span>
+
+        </td>
+      </tr>
+      <tr v-if="!filteredData.length>0">
+        <td style="text-align: center">
+          No existen registros
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td v-bind:colspan="columns.length-2">
+
+        </td>
+        <td>
+          <nav aria-label="pagination">
+            <ul class="pagination">
+              <li v-bind:class="{ 'disabled' : init==0}" @click="paginate('previous')">
+                <span>
+                  <span  aria-hidden="true">&laquo;</span>
+                </span>
+              </li>
+              <li class="active">
+                <span>{{ page }} / {{ totalPages }}<span class="sr-only">(current)</span></span>
+              </li>
+              <li @click="paginate('next')" v-bind:class="{ 'disabled' : end > data.length}">
+                <span>
+                  <span  aria-hidden="true">&raquo;</span>
+                </span>
+              </li>
+            </ul>
+          </nav>
+        </td>
+        <td>
+          <div>
+            <select  style="width: 50%"v-model="pagination" @change="paginate('no')"class="form-control">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="40">40</option>
+            </select>
+          </div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div class="row" >
+  <div class="col-sm-6">
+    <form  class="form" id="search" >
+      <div class="form-group">
+
       </div>
-    </div>
-
+    </form>
   </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-      <table class="table-a">
-        <thead>
-
-          <tr>
-            <th v-for="key in columns" style="color: white !important;"
-            @click="sortBy(key.key)"
-            :class="{ active: sortKey == key }">
-            {{ translate('people.'+key.label) }}
-            <span class="arrow" :class="sortOrders[key.key] > 0 ? 'asc' : 'dsc'">
-            </span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">
-          <td v-for="key in columns">
-
-            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='trueOrFalse'" :style="key.styles">
-              {{entry[key.key] | trueOrFalse }}
-            </span>
-
-            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='shortDate'" :style="key.styles">
-              {{entry[key.key] | shortDate  }}
-            </span>
-
-            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='customers'" :style="key.styles">
-              {{entry[key.key] | customers }}
-            </span>
-
-            <span v-if="key.filter!=undefined && key.filter!=null && key.filter=='admins'" :style="key.styles">
-              {{entry[key.key] | admins }}
-            </span>
-
-            <span v-if="key.filter==null || key.filter==undefined" style="key.styles">
-              {{entry[key.key] }}
-            </span>
-
-
-
-          </td>
-        </tr>
-        <tr v-if="!filteredData.length>0">
-          <td style="text-align: center">
-            No existen registros
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-  </div>
-
+</div>
 </div>

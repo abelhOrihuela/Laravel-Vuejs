@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Group;
 use Session;
-
 
 class GroupsController extends Controller
 {
@@ -17,12 +14,10 @@ class GroupsController extends Controller
       $group->categoryGroup;
       $group->subcategoryGroup;
     }
-
     return $groups;
   }
 
   public function show($id){
-
     $group=Group::where('id',  $id)->first();
     $group->candidates;
 
@@ -33,16 +28,13 @@ class GroupsController extends Controller
       $candidate->idioms;
       $candidate->photo;
       $candidate->groups;
-
     }
     return $group;
   }
 
   public function create(Request $request){
 
-
     $group = new Group();
-
     $group->user_id= Session::get('user_id');
 
     if($request->name_group){
@@ -58,9 +50,7 @@ class GroupsController extends Controller
       $group->visible=$request->visible;
     }
 
-
     if($group->save()){
-
       $group->categoryGroup;
       $group->subcategoryGroup;
 
@@ -68,7 +58,39 @@ class GroupsController extends Controller
     }else{
       abort(404);
     }
+  }
 
+  public function update(Request $request){
+
+    $input = $request->all();
+    $group=Group::where('id',  $request->id);
+
+    if($group->update($input)){
+      $group=Group::where('id',  $request->id)->first();
+      $group->categoryGroup;
+      $group->subcategoryGroup;
+
+      return $group;
+
+    }else{
+      abort(404);
+    }
+  }
+
+  public function destroy($id){
+
+    $group = Group::where("id", "=", $id)->first();
+
+    $group->candidates()->detach();
+
+
+      if($group->forceDelete()){
+        return response()->json([
+          'status' => 200
+        ]);
+      }else{
+        abort(403, 'Unauthorized action.');
+      }
 
   }
 
@@ -76,18 +98,13 @@ class GroupsController extends Controller
     $group=Group::where('id',  $request->id)->first();
     $exist=$group->candidates->contains( $request->candidate_id);
 
-
-
     if($exist){
       abort(403, 'Unauthorized action.');
     }else{
       $group->candidates()->attach($request->candidate_id);
 
       return $group;
-
     }
-
-
   }
   public function delete_candidate($group, $id){
 
@@ -96,8 +113,6 @@ class GroupsController extends Controller
 
     if($exist){
       $group->candidates()->detach($id);
-
     }
-
   }
 }

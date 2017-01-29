@@ -23,7 +23,7 @@
           <i  class="glyphicon glyphicon-menu-left"></i>
         </div>
         <div class="col-sm-9">
-          <label class="vcenter" v-text="translate('people.candidates.selected')"></label>
+          <label class="vcenter" v-text="translate('people.selected')"></label>
 
         </div>
 
@@ -96,7 +96,7 @@
           <div class="col-sm-1">
             <label class="label-a" v-text="translate('people.type')"></label>
             <div >
-              {{ selected.type }}
+              {{ selected.type | customers }}
             </div>
           </div>
 
@@ -113,7 +113,7 @@
           <div class="col-sm-2">
             <label class="label-a" v-text="translate('people.created_at')"></label>
             <div >
-              {{ selected.created_at | date }}
+              {{ selected.created_at | shortDate }}
             </div>
           </div>
 

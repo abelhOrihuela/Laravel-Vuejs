@@ -22872,6 +22872,10 @@ var router = new VueRouter({
 
 router.beforeEach(function (to, from, next) {
 
+	if (to.name === 'login') {
+		sessionStorage.clear();
+	}
+
 	var menu = [];
 	var menuSession = JSON.parse(sessionStorage.getItem('menu'));
 	var authUser = sessionStorage.getItem('id_token');
@@ -22942,10 +22946,11 @@ var app = new Vue({
 
 			return false;
 		}
+
 	}
 }).$mount('#app');
 
-},{"./components/a-components/a-login/a-login.vue":56,"./components/a-components/a-menu/a-menu.vue":58,"./components/moduls/dashboard/dashboard.vue":72,"./components/moduls/mnt-admins/mnt-admins.vue":82,"./components/moduls/mnt-candidates/mnt-candidates.vue":86,"./components/moduls/mnt-customers/mnt-customers.vue":90,"./components/moduls/mnt-groups/mnt-groups.vue":118,"moment":42,"vue-filter/dist/vue-filter":44,"vue-i18n-mixin":46,"vue-resource/dist/vue-resource.js":47,"vue-router/dist/vue-router.js":48,"vue/dist/vue.js":51}],53:[function(require,module,exports){
+},{"./components/a-components/a-login/a-login.vue":56,"./components/a-components/a-menu/a-menu.vue":58,"./components/moduls/dashboard/dashboard.vue":72,"./components/moduls/mnt-admins/mnt-admins.vue":82,"./components/moduls/mnt-candidates/mnt-candidates.vue":86,"./components/moduls/mnt-customers/mnt-customers.vue":90,"./components/moduls/mnt-groups/mnt-groups.vue":122,"moment":42,"vue-filter/dist/vue-filter":44,"vue-i18n-mixin":46,"vue-resource/dist/vue-resource.js":47,"vue-router/dist/vue-router.js":48,"vue/dist/vue.js":51}],53:[function(require,module,exports){
 module.exports = '<div class="container-a">\n  <div class="panel panel-default shadow-key">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-1">\n          <i  class="glyphicon glyphicon-menu-left" @click="showTable()"></i>\n        </div>\n        <div class="col-sm-9">\n\n          <label class="vcenter"v-text="translate(\'people.candidate_selected\')"></label>\n\n        </div>\n        <div class="col-sm-2">\n          <ul class="nav navbar-nav navbar-right">\n            <li class="dropdown">\n              <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>\n\n              &nbsp;\n              <ul class="dropdown-menu">\n                <li>\n                  <a data-toggle="modal" data-target="#addCandidateToGroup">\n                    <label class="label-a" v-text="translate(\'people.add_candidate_to_group\')"></label>\n                  </a>\n                </li>\n                <li>\n                  <a @click="addCandidateToGroup()">\n                    <label class="label-a" v-text="translate(\'people.add_language\')"></label>\n                  </a>\n                  <li>\n                    <a @click="addCandidateToGroup()">\n                      <label class="label-a" v-text="translate(\'people.add_idiom\')"></label>\n                    </a>\n                  </li>\n                  <li role="separator" class="divider"></li>\n                </ul>\n              </li>\n            </ul>\n          </div>\n        </div>\n      </div>\n      <div class="panel-body">\n\n        <div class="row">\n          <div class="col-xs-6 col-md-4">\n            <figure class="snip1559 tumbnails">\n              <div v-if="candidate.photo"class="profile-image">\n                <img :src="candidate.photo.name_photo" alt="" />\n              </div>\n              <div v-if="!candidate.photo"class="profile-image">\n                <img src="../img/default.png" alt="" />\n              </div>\n              <figcaption>\n                <div class="icons">\n                  <i class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>\n                  <i class="glyphicon glyphicon-save-file" @click="downloadPdf()">\n                  </i>\n                </div>\n\n\n                <add-candidate-to-group :candidate="candidate" :add="addGroup"></add-candidate-to-group>\n\n                <mnt-languages :candidate="candidate"></mnt-languages>\n\n                <mnt-idioms :candidate="candidate"></mnt-idioms>\n\n\n              </figcaption>\n            </figure>\n          </div>\n\n          <div class="col-xs-6 col-md-8">\n            <div class="tab-header">\n              <h4>{{ candidate.username }}</h4>\n            </div>\n            <table class="table table-condensed">\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.position\')"></label>\n                </td>\n                <td>\n                  {{ candidate.position }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a"  v-text="translate(\'people.email\')"></label>\n                </td>\n                <td>\n                  {{ candidate.email }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a"  v-text="translate(\'people.gender\')"></label>\n                </td>\n                <td>\n                  {{ candidate.gender }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a"  v-text="translate(\'people.location\')"></label>\n                </td>\n                <td>\n                  {{ candidate.location }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.birthday\')"></label>\n                </td>\n                <td>\n                  {{ candidate.day }} /\n                  {{ candidate.month }} /\n                  {{ candidate.year }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.phone\')"></label>\n                </td>\n                <td>\n                  {{ candidate.code }} / {{ candidate.phone }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.category\')"></label>\n                </td>\n                <td>\n                  {{ candidate.category_candidate.name }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n                </td>\n                <td>\n                  {{ candidate.subcategory_candidate.name }}\n                </td>\n              </tr>\n            </table>\n          </div>\n        </div>\n\n        <ul class="nav nav-tabs">\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==1 }" @click="selectTab(1)">\n            <a>Formacion Academica</a>\n          </li>\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==2 }" @click="selectTab(2)">\n            <a>Experiencia Profesional</a>\n          </li>\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==3 }" @click="selectTab(3)">\n            <a>Experiencia en WTC</a>\n          </li>\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==4 }" @click="selectTab(4)">\n            <a>Expectativa Economica</a>\n          </li>\n        </ul>\n\n        <br>\n\n        <div class="panel panel-default" v-if="optionTab==1">\n          <div class="panel-body">\n            <mnt-academic :candidate="candidate"></mnt-academic>\n          </div>\n        </div>\n\n        <div class="panel panel-default" v-if="optionTab==2">\n          <div class="panel-body">\n            <mnt-experience :candidate="candidate"></mnt-experience>\n          </div>\n        </div>\n\n        <div class="panel panel-default" v-if="optionTab==3">\n          <div class="panel-body">\n            <mnt-experiencewtc :candidate="candidate"></mnt-experiencewtc>\n          </div>\n        </div>\n\n        <div class="panel panel-default" v-if="optionTab==4">\n          <div class="panel-body">\n            <mnt-economic :candidate="candidate"></mnt-economic>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <add-photo v-if="showModalPhoto" @close="showModalPhoto = false" :getphoto="getPhoto" :candidate="candidate.id"></add-photo>\n\n  </div>\n';
 },{}],54:[function(require,module,exports){
 'use strict';
@@ -23168,8 +23173,8 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-3f96b442", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/add-photo/add-photo.vue":62,"../../js/config-app/tables.js":63,"../../js/constants_restful.js":64,"../../js/translations.js":67,"../../js/utilities/filters.js":68,"../../js/utilities/service.js":69,"../../moduls/mnt-academic/mnt-academic.vue":80,"../../moduls/mnt-candidates/add-candidate/add-candidate.vue":84,"../../moduls/mnt-economic/mnt-economic.vue":96,"../../moduls/mnt-experience/mnt-experience.vue":104,"../../moduls/mnt-experiencewtc/mnt-experiencewtc.vue":112,"../../moduls/mnt-groups/add-candidate-to-group/add-candidate-to-group.vue":114,"../../moduls/mnt-idioms/mnt-idioms.vue":120,"../../moduls/mnt-languages/mnt-languages.vue":122,"./a-candidate.html":53,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],55:[function(require,module,exports){
-module.exports = '<div class="" >\n\n	<div class="row">\n		<div class="row col-sm-12">\n			<div class="pull-right">\n				<button type="button" name="button" class="btn btn-success"@click="showFormLogin()">\n					<i class="glyphicon glyphicon-user">  Acceso  </i>\n				</button>\n			</div>\n		</div>\n	</div>\n\n	<div v-if="!showLogin">\n\n		<div class="jumbotron">\n\n			<div class="row">\n				<div class="col-xs-6 col-md-8">\n					<img alt="" width="320" src="../img/keytalentwtc.png">\n\n				</div>\n\n				<div class="col-xs-6 col-md-4">\n					<img alt="" width="250" src="../img/logo.png">\n\n				</div>\n			</div>\n\n			<p align="justify" style="font-size: 18px">\n				Derivado de la necesidad de Talento que las organizaciones tiene hoy en día,\n				World Talent Consulting ha creado una Plataforma de Talento en la que podremos\n				encontrar a profesionales de las diversas ramas de la industria, a nivel global los cuales\n				cuentan con un proceso previo de Análisis tanto de potencial, como de su talento y trayectoria profesional.\n				Esta Plataforma ha sido diseñada por especialistas en Búsqueda de Talento,\n				cuya experiencia y trayectoria internacional en empresas Globales, garantizan un\n				exhaustivo, profundo y especializado filtro para nuestros Clientes y Asociados,\n				permitiéndoles identificar con una menor inversión de tiempo y recursos al talento que su organización requiere.\n			</p>\n\n		</div>\n\n		<h1 class="bg-info" style="padding: 7px; font-size: 17px;">		Nuestra plataforma pone a tu alcance las siguientes funciones:\n		</h1>\n\n		<ul>\n\n\n			<li>\n				Cantera de talento actualizada y filtrada\n			</li>\n			<li>\n				Herramienta de diagnóstico de personalidad de cada candidato\n\n			</li>\n\n			<li>\n				Filtro por área de especialidad, región, educativo, especialidades, nivel económico, tipo de industria y rama\n\n			</li>\n			<li>\n				Contar con la posibilidad de hacer uso de la base de datos en búsqueda especializadas\n			</li>\n			<li>\n				Garantía de los nadidatos han sido investigados y filtrados por wtc, desde el punto de vista profesional y socio económico.\n\n			</li>\n		</ul>\n	</div>\n\n	<div class="wrapper" v-if="showLogin">\n		<form class="login" @submit.prevent="null">\n\n			<div style="text-align: right">\n				<i @click="clearLogin()" class="btn btn-success glyphicon glyphicon-pencil"></i>\n			</div>\n\n			<p class="title">Log in</p>\n			<strong>{{ user.name }}</strong>\n			<input v-if="!flagEmailValid" type="email" placeholder="email" v-model="user.email" id="username"/>\n\n\n			<button type="button" v-if="!flagEmailValid && isValid" @click="validateUser()">\n				<i class="glyphicon glyphicon-arrow-right"></i></button>\n\n				<div v-if="flagEmailValid">\n					<input type="password" placeholder="Password" v-model="user.password" />\n\n					<!-- <i class="glyphicon glyphicon-cog"></i>	<a href="#">Forgot your password?</a>	-->\n					<button type="button" @click="loginAdmin()">\n						<span class="state">Log in</span>\n					</button>\n\n				</div>\n			</form>\n		</div>\n	</div>\n';
+},{"../../a-components/add-photo/add-photo.vue":62,"../../js/config-app/tables.js":63,"../../js/constants_restful.js":64,"../../js/translations.js":67,"../../js/utilities/filters.js":68,"../../js/utilities/service.js":69,"../../moduls/mnt-academic/mnt-academic.vue":80,"../../moduls/mnt-candidates/add-candidate/add-candidate.vue":84,"../../moduls/mnt-economic/mnt-economic.vue":96,"../../moduls/mnt-experience/mnt-experience.vue":104,"../../moduls/mnt-experiencewtc/mnt-experiencewtc.vue":112,"../../moduls/mnt-groups/add-candidate-to-group/add-candidate-to-group.vue":114,"../../moduls/mnt-idioms/mnt-idioms.vue":124,"../../moduls/mnt-languages/mnt-languages.vue":126,"./a-candidate.html":53,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],55:[function(require,module,exports){
+module.exports = '<div class="" >\n\n	<div class="row">\n		<div class="row col-sm-12">\n			<div class="pull-left">\n				<button type="button" name="button" class="btn btn-success"@click="showFormLogin()">\n					<i class="glyphicon glyphicon-user">  Acceso  </i>\n				</button>\n			</div>\n		</div>\n	</div>\n\n	<div v-if="!showLogin">\n\n		<div class="jumbotron">\n\n			<div class="row">\n				<div class="col-xs-6 col-md-8">\n					<img alt="" width="320" src="../img/keytalentwtc.png">\n\n				</div>\n\n				<div class="col-xs-6 col-md-4">\n					<img alt="" width="250" src="../img/logo.png">\n\n				</div>\n			</div>\n\n			<p align="justify" style="font-size: 18px">\n				Derivado de la necesidad de Talento que las organizaciones tiene hoy en día,\n				World Talent Consulting ha creado una Plataforma de Talento en la que podremos\n				encontrar a profesionales de las diversas ramas de la industria, a nivel global los cuales\n				cuentan con un proceso previo de Análisis tanto de potencial, como de su talento y trayectoria profesional.\n				Esta Plataforma ha sido diseñada por especialistas en Búsqueda de Talento,\n				cuya experiencia y trayectoria internacional en empresas Globales, garantizan un\n				exhaustivo, profundo y especializado filtro para nuestros Clientes y Asociados,\n				permitiéndoles identificar con una menor inversión de tiempo y recursos al talento que su organización requiere.\n			</p>\n\n		</div>\n\n		<h1 class="bg-info" style="padding: 7px; font-size: 17px;">		Nuestra plataforma pone a tu alcance las siguientes funciones:\n		</h1>\n\n		<ul>\n\n\n			<li>\n				Cantera de talento actualizada y filtrada\n			</li>\n			<li>\n				Herramienta de diagnóstico de personalidad de cada candidato\n\n			</li>\n\n			<li>\n				Filtro por área de especialidad, región, educativo, especialidades, nivel económico, tipo de industria y rama\n\n			</li>\n			<li>\n				Contar con la posibilidad de hacer uso de la base de datos en búsqueda especializadas\n			</li>\n			<li>\n				Garantía de los nadidatos han sido investigados y filtrados por wtc, desde el punto de vista profesional y socio económico.\n\n			</li>\n		</ul>\n	</div>\n\n	<div class="wrapper" v-if="showLogin">\n		<form class="login" @submit.prevent="null">\n\n			<div style="text-align: right">\n				<i @click="clearLogin()" class="btn btn-success glyphicon glyphicon-pencil"></i>\n			</div>\n\n			<p class="title">Log in</p>\n			<strong>{{ user.name }}</strong>\n			<input v-if="!flagEmailValid" type="email" placeholder="email" v-model="user.email" id="username"/>\n\n\n			<button type="button" v-if="!flagEmailValid && isValid" @click="validateUser()">\n				<i class="glyphicon glyphicon-arrow-right"></i></button>\n\n				<div v-if="flagEmailValid">\n					<input type="password" placeholder="Password" v-model="user.password" />\n\n					<!-- <i class="glyphicon glyphicon-cog"></i>	<a href="#">Forgot your password?</a>	-->\n					<button type="button" @click="loginAdmin()">\n						<span class="state">Log in</span>\n					</button>\n\n				</div>\n			</form>\n		</div>\n	</div>\n';
 },{}],56:[function(require,module,exports){
 'use strict';
 
@@ -23484,7 +23489,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../js/constants_restful.js":64,"../../js/runblock.js":65,"../../js/utilities/service.js":69,"./a-menu.html":57,"babel-runtime/core-js/json/stringify":1,"vue":50,"vue-hot-reload-api":45}],59:[function(require,module,exports){
-module.exports = '<div class="container-component">\n\n  <div class="row" v-if="showSearch">\n    <div class="col-sm-6">\n      <form  class="form" id="search" >\n        <div class="form-group">\n          <input type="text" class="form-control" placeholder="Search" v-model="filterKey">\n        </div>\n      </form>\n    </div>\n    <div class="col-sm-2">\n\n      <div>\n        <select v-model="pagination" class="form-control">\n          <option value="5">5</option>\n          <option value="10">10</option>\n          <option value="20">20</option>\n          <option value="40">40</option>\n        </select>\n      </div>\n    </div>\n\n  </div>\n\n  <div class="row">\n    <div class="col-sm-12">\n      <table class="table-a">\n        <thead>\n\n          <tr>\n            <th v-for="key in columns" style="color: white !important;"\n            @click="sortBy(key.key)"\n            :class="{ active: sortKey == key }">\n            {{ translate(\'people.\'+key.label) }}\n            <span class="arrow" :class="sortOrders[key.key] > 0 ? \'asc\' : \'dsc\'">\n            </span>\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">\n          <td v-for="key in columns">\n\n            <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'trueOrFalse\'" :style="key.styles">\n              {{entry[key.key] | trueOrFalse }}\n            </span>\n\n            <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'shortDate\'" :style="key.styles">\n              {{entry[key.key] | shortDate  }}\n            </span>\n\n            <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'customers\'" :style="key.styles">\n              {{entry[key.key] | customers }}\n            </span>\n\n            <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'admins\'" :style="key.styles">\n              {{entry[key.key] | admins }}\n            </span>\n\n            <span v-if="key.filter==null || key.filter==undefined" style="key.styles">\n              {{entry[key.key] }}\n            </span>\n\n\n\n          </td>\n        </tr>\n        <tr v-if="!filteredData.length>0">\n          <td style="text-align: center">\n            No existen registros\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n\n</div>\n';
+module.exports = '<div class="container-component">\n  <div class="shadow-key">\n    <table class="table-a">\n      <tr v-if="showSearch" style="background-color: white !important">\n        <td v-bind:colspan="columns.length" style="background-color: #f5f5f5">\n          <div style="width: 100%">\n            <input style="width: 40%" type="text" class="form-control" placeholder="Search" v-model="filterKey">\n          </div>\n        </td>\n      </tr>\n\n      <tr>\n        <th v-for="key in columns" style="color: white !important;"\n        @click="sortBy(key.key)"\n        :class="{ active: sortKey == key }">\n        {{ translate(\'people.\'+key.label) }}\n        <span class="arrow" :class="sortOrders[key.key] > 0 ? \'asc\' : \'dsc\'">\n        </span>\n      </th>\n    </tr>\n\n    <tbody>\n      <tr v-if="filteredData.length>0"v-for="entry in filteredData" @click="selectElement(entry)">\n        <td v-for="key in columns">\n\n          <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'trueOrFalse\'" :style="key.styles">\n            {{entry[key.key] | trueOrFalse }}\n          </span>\n\n          <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'shortDate\'" :style="key.styles">\n            {{entry[key.key] | shortDate  }}\n          </span>\n\n          <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'customers\'" :style="key.styles">\n            {{entry[key.key] | customers }}\n          </span>\n\n          <span v-if="key.filter!=undefined && key.filter!=null && key.filter==\'admins\'" :style="key.styles">\n            {{entry[key.key] | admins }}\n          </span>\n\n          <span v-if="key.filter==null || key.filter==undefined" style="key.styles">\n            {{entry[key.key] }}\n          </span>\n\n        </td>\n      </tr>\n      <tr v-if="!filteredData.length>0">\n        <td style="text-align: center">\n          No existen registros\n        </td>\n      </tr>\n    </tbody>\n    <tfoot>\n      <tr>\n        <td v-bind:colspan="columns.length-2">\n\n        </td>\n        <td>\n          <nav aria-label="pagination">\n            <ul class="pagination">\n              <li v-bind:class="{ \'disabled\' : init==0}" @click="paginate(\'previous\')">\n                <span>\n                  <span  aria-hidden="true">&laquo;</span>\n                </span>\n              </li>\n              <li class="active">\n                <span>{{ page }} / {{ totalPages }}<span class="sr-only">(current)</span></span>\n              </li>\n              <li @click="paginate(\'next\')" v-bind:class="{ \'disabled\' : end > data.length}">\n                <span>\n                  <span  aria-hidden="true">&raquo;</span>\n                </span>\n              </li>\n            </ul>\n          </nav>\n        </td>\n        <td>\n          <div>\n            <select  style="width: 50%"v-model="pagination" @change="paginate(\'no\')"class="form-control">\n              <option value="5">5</option>\n              <option value="10">10</option>\n              <option value="20">20</option>\n              <option value="40">40</option>\n            </select>\n          </div>\n        </td>\n      </tr>\n    </tfoot>\n  </table>\n</div>\n\n<div class="row" >\n  <div class="col-sm-6">\n    <form  class="form" id="search" >\n      <div class="form-group">\n\n      </div>\n    </form>\n  </div>\n</div>\n</div>\n';
 },{}],60:[function(require,module,exports){
 'use strict';
 
@@ -23528,7 +23533,11 @@ exports.default = {
     return {
       sortKey: '',
       sortOrders: sortOrders,
-      pagination: 10,
+      pagination: 5,
+      page: 1,
+      totalPages: 0,
+      init: 0,
+      end: 5,
       filterKey: '',
       start: 0,
       limit: 5,
@@ -23555,7 +23564,10 @@ exports.default = {
           return (a === b ? 0 : a > b ? 1 : -1) * order;
         });
       }
-      return data.slice(0, this.pagination);
+
+      this.totalPages = parseInt(data.length / this.pagination);
+
+      return data.slice(this.init, this.end);
       //return data;
     }
   },
@@ -23583,17 +23595,27 @@ exports.default = {
   },
   methods: {
     sortBy: function sortBy(key) {
+      console.log("-------------------------");
+      console.log(key);
+      console.log("-------------------------");
       this.sortKey = key;
       this.sortOrders[key] = this.sortOrders[key] * -1;
     },
     paginate: function paginate(direction) {
 
-      if (direction === 'next') {
-        this.start += parseInt(this.pagination);
-        this.limit += parseInt(this.pagination);
-      } else if (direction === 'previous') {
-        this.limit -= parseInt(this.pagination);
-        this.start -= parseInt(this.pagination);
+      console.log(direction);
+
+      if (direction === 'next' && this.end < this.data.length) {
+        this.init += parseInt(this.pagination);
+        this.end += parseInt(this.pagination);
+        this.page += 1;
+      } else if (direction === 'previous' && this.init != 0) {
+        this.init -= parseInt(this.pagination);
+        this.end -= parseInt(this.pagination);
+        this.page -= 1;
+      } else if (direction === 'no') {
+
+        this.end = parseInt(this.init + this.pagination);
       }
     },
 
@@ -23760,14 +23782,19 @@ var ECONOMIC_EDIT = exports.ECONOMIC_EDIT = "economic/edit";
 
 /*-----------------------------------GROUPS---------------------------------*/
 var GROUPS = exports.GROUPS = "groups";
-var GROUP_CANDIDATE_NEW = exports.GROUP_CANDIDATE_NEW = "group/candidate/new";
 var GROUP_NEW = exports.GROUP_NEW = "group/new";
+var GROUP_EDIT = exports.GROUP_EDIT = "group/edit";
+var GROUP_DELETE = exports.GROUP_DELETE = "group/delete{/id}";
+
+var GROUP_CANDIDATE_NEW = exports.GROUP_CANDIDATE_NEW = "group/candidate/new";
 var GROUPCANDIDATES = exports.GROUPCANDIDATES = "group/candidates{/id}";
 var DELETE_GROUP_CANDIDATE = exports.DELETE_GROUP_CANDIDATE = "group{/id_group}/candidate/delete{/id}";
 
+/*---------------------------------LANGUAGES-------------------------------*/
 var LANGUAGE_NEW = exports.LANGUAGE_NEW = "language/new";
 var LANGUAGE_DELETE = exports.LANGUAGE_DELETE = "language/delete{/id}";
 
+/*----------------------------------IDIOMS--------------------------------*/
 var IDIOM_NEW = exports.IDIOM_NEW = "idiom/new";
 var IDIOM_DELETE = exports.IDIOM_DELETE = "idiom/delete{/id}";
 
@@ -24292,6 +24319,15 @@ var translations = exports.translations = {
   }), _defineProperty(_people, 'groups', {
     en: 'Groups',
     es: 'Grupos'
+  }), _defineProperty(_people, 'add_group', {
+    en: 'Add Group',
+    es: 'Agregar Grupo'
+  }), _defineProperty(_people, 'edit_group', {
+    en: 'Edit Group',
+    es: 'Editar Grupo'
+  }), _defineProperty(_people, 'delete_group', {
+    en: 'Delete Group',
+    es: 'Eliminar Grupo'
   }), _people),
   general: {
     back: {
@@ -24472,13 +24508,24 @@ exports.default = {
 
   equals: function equals(context, x, y) {
 
+    console.log(Object.keys(x).length);
+    console.log(Object.keys(y).length);
+
     if (Object.keys(x).length != Object.keys(y).length) {
 
       return false;
     }
     for (var p in x) {
       if (x.hasOwnProperty(p) && y.hasOwnProperty(p)) {
-        if (x[p] != y[p]) {
+
+        if (x[p] instanceof Object) {
+
+          this.equals(this, x[p], y[p]);
+        } else if (x[p] != y[p]) {
+
+          console.log(x[p]);
+          console.log(y[p]);
+
           return false;
         }
       }
@@ -25706,7 +25753,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../../js/constants_restful.js":64,"../../../js/translations.js":67,"../../../js/utilities/service.js":69,"../../../js/utilities/validate.js":70,"./add-customer.html":87,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],89:[function(require,module,exports){
-module.exports = '<div class="container-a">\n  <div style="text-align: right">\n\n\n    <button v-if="!flagAddCustomer"id="show-modal" @click="addCustomer()" class="btn btn-info btn-options" data-tooltip="Agregar Nuevo Cliente" data-placement="left">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n    <button v-if="flagAddCustomer" id="show-modal" @click="cancelAddCustomer()" class="btn btn-danger btn-options" data-tooltip="Cancelar Registro Nuevo Cliente" data-placement="left">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n  </div>\n\n  <br>\n  <a-table v-if="flagShowTable":data="customers" :columns="columns" :total="customers.length" :select="select" :showSearch="false"></a-table>\n\n\n  <div v-if="flagDeatilSelect" class="panel panel-default shadow-key">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-1" @click="showTable">\n          <i  class="glyphicon glyphicon-menu-left"></i>\n        </div>\n        <div class="col-sm-9">\n          <label class="vcenter" v-text="translate(\'people.candidates.selected\')"></label>\n\n        </div>\n\n        <div class="col-sm-2">\n          <ul class="nav navbar-nav navbar-right">\n            <li class="dropdown">\n              <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>\n\n              &nbsp;\n              <ul class="dropdown-menu">\n                <li>\n                  <a data-toggle="modal" data-target="#addCandidateToGroup">\n                    <label class="label-a" v-text="translate(\'people.add_candidate_to_group\')"></label>\n                  </a>\n                </li>\n                <li>\n                  <a @click="addCandidateToGroup()">\n                    <label class="label-a" v-text="translate(\'people.add_language\')"></label>\n                  </a>\n                  <li>\n                    <a @click="addCandidateToGroup()">\n                      <label class="label-a" v-text="translate(\'people.add_idiom\')"></label>\n                    </a>\n                  </li>\n                  <li role="separator" class="divider"></li>\n                </ul>\n              </li>\n            </ul>\n          </div>\n\n        </div>\n      </div>\n      <div class="panel-body">\n        <div class="row">\n          <div class="col-sm-3">\n            <label class="label-a" v-text="translate(\'people.name\')"></label>\n            <div>\n              {{ selected.username }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.gender\')"></label>\n            <div >\n              {{ selected.gender }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.company\')"></label>\n            <div >\n              {{ selected.company }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.category\')"></label>\n            <div >\n              {{ selected.category_customer.name }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n            <div >\n              {{ selected.subcategory_customer.name }}\n            </div>\n          </div>\n\n          <div class="col-sm-1">\n            <label class="label-a" v-text="translate(\'people.type\')"></label>\n            <div >\n              {{ selected.type }}\n            </div>\n          </div>\n\n        </div>\n        <br>\n        <div class="row">\n          <div class="col-sm-3">\n            <label class="label-a" v-text="translate(\'people.comments\')"></label>\n            <div>\n              {{ selected.comments }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.created_at\')"></label>\n            <div >\n              {{ selected.created_at | date }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.updated_at\')"></label>\n            <div>\n              {{ selected.updated_at | shortDate }}\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <add-customer v-if="flagAddCustomer" :before="beforeAddCustomer"></add-customer>\n\n  </div>\n';
+module.exports = '<div class="container-a">\n  <div style="text-align: right">\n\n\n    <button v-if="!flagAddCustomer"id="show-modal" @click="addCustomer()" class="btn btn-info btn-options" data-tooltip="Agregar Nuevo Cliente" data-placement="left">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n    <button v-if="flagAddCustomer" id="show-modal" @click="cancelAddCustomer()" class="btn btn-danger btn-options" data-tooltip="Cancelar Registro Nuevo Cliente" data-placement="left">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n  </div>\n\n  <br>\n  <a-table v-if="flagShowTable":data="customers" :columns="columns" :total="customers.length" :select="select" :showSearch="false"></a-table>\n\n\n  <div v-if="flagDeatilSelect" class="panel panel-default shadow-key">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-1" @click="showTable">\n          <i  class="glyphicon glyphicon-menu-left"></i>\n        </div>\n        <div class="col-sm-9">\n          <label class="vcenter" v-text="translate(\'people.selected\')"></label>\n\n        </div>\n\n        <div class="col-sm-2">\n          <ul class="nav navbar-nav navbar-right">\n            <li class="dropdown">\n              <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>\n\n              &nbsp;\n              <ul class="dropdown-menu">\n                <li>\n                  <a data-toggle="modal" data-target="#addCandidateToGroup">\n                    <label class="label-a" v-text="translate(\'people.add_candidate_to_group\')"></label>\n                  </a>\n                </li>\n                <li>\n                  <a @click="addCandidateToGroup()">\n                    <label class="label-a" v-text="translate(\'people.add_language\')"></label>\n                  </a>\n                  <li>\n                    <a @click="addCandidateToGroup()">\n                      <label class="label-a" v-text="translate(\'people.add_idiom\')"></label>\n                    </a>\n                  </li>\n                  <li role="separator" class="divider"></li>\n                </ul>\n              </li>\n            </ul>\n          </div>\n\n        </div>\n      </div>\n      <div class="panel-body">\n        <div class="row">\n          <div class="col-sm-3">\n            <label class="label-a" v-text="translate(\'people.name\')"></label>\n            <div>\n              {{ selected.username }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.gender\')"></label>\n            <div >\n              {{ selected.gender }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.company\')"></label>\n            <div >\n              {{ selected.company }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.category\')"></label>\n            <div >\n              {{ selected.category_customer.name }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n            <div >\n              {{ selected.subcategory_customer.name }}\n            </div>\n          </div>\n\n          <div class="col-sm-1">\n            <label class="label-a" v-text="translate(\'people.type\')"></label>\n            <div >\n              {{ selected.type | customers }}\n            </div>\n          </div>\n\n        </div>\n        <br>\n        <div class="row">\n          <div class="col-sm-3">\n            <label class="label-a" v-text="translate(\'people.comments\')"></label>\n            <div>\n              {{ selected.comments }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.created_at\')"></label>\n            <div >\n              {{ selected.created_at | shortDate }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.updated_at\')"></label>\n            <div>\n              {{ selected.updated_at | shortDate }}\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <add-customer v-if="flagAddCustomer" :before="beforeAddCustomer"></add-customer>\n\n  </div>\n';
 },{}],90:[function(require,module,exports){
 'use strict';
 
@@ -25799,6 +25846,19 @@ exports.default = {
   },
   created: function created() {
     this.getCustomers();
+  }, filters: {
+    trueOrFalse: function trueOrFalse(value) {
+
+      return _filters2.default.trueOrFalse(this, value);
+    },
+    shortDate: function shortDate(value) {
+
+      return _filters2.default.shortDate(this, value);
+    },
+    customers: function customers(value) {
+
+      return _filters2.default.customers(this, value);
+    }
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
@@ -27233,8 +27293,200 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../../js/constants_restful.js":64,"../../../js/translations.js":67,"../../../js/utilities/service.js":69,"./add-group.html":115,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],117:[function(require,module,exports){
-module.exports = '<div class="container-a">\n\n\n<add-group v-if="flagAddGroup" :after="afterAddGroup"></add-group>\n\n\n  <div style="text-align: right">\n    <!--\n\n    <button  v-if="economicSelect!=null" id="show-modal" @click="editEconomic()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editEconomic">\n      <i class="glyphicon glyphicon-pencil"></i>\n    </button>\n\n  -->\n\n    <button id="show-modal" @click="beforeAddGroup()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addGroup">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n  </div>\n\n  <a-table v-if="flagShowTable" :data="groups" :columns="columns" :total="groups.length" :select="select">\n  </a-table>\n\n\n\n  <div class="panel panel-default shadow-key" v-if="flagDetailSelected">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-1" @click="showTable">\n          <i  class="glyphicon glyphicon-menu-left"></i>\n        </div>\n        <div class="col-sm-10">\n          <label v-text="translate(\'people.group.selected\')"></label>\n\n        </div>\n      </div>\n    </div>\n    <div class="panel-body">\n\n      <div class="row">\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.name_group\')"></label>\n          <div >\n            {{ groupSelect.name_group }}\n          </div>\n        </div>\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.category\')"></label>\n          <div >\n            {{ groupSelect.descrCategory }}\n\n\n          </div>\n        </div>\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n          <div >\n            {{ groupSelect.descrSubCategory }}\n          </div>\n        </div>\n\n      </div>\n\n\n    </div>\n  </div>\n\n  <a-table v-if="flagShowTableCandidates" :data="candidates" :columns="columnsCandidates" :total="candidates.length" :select="selectCandidate" :showSearch="false">\n  </a-table>\n\n\n  <br>\n\n\n  <a-candidate v-if="flagDetailSelectedCandidate" :candidate="candidateSelected" :show="showTableCandidates">\n  <a-candidate>\n\n\n\n\n</div>\n';
+module.exports = '<div class="container-component">\n  <div class="modal fade" id="deleteGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\n    <div class="modal-dialog" style="width: 40%" role="document">\n      <div class="modal-content" >\n        <div class="modal-header danger">\n          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n          <h4 class="modal-title" id="myModalLabel" v-text="translate(\'people.delete_group\')"></h4>\n        </div>\n\n        <div class="modal-body">\n\n          <div class="row">\n            <div class="col-sm-12">\n              <label class="label-a" v-text="translate(\'people.name_group\')"></label>\n              <div>\n                {{ group.name_group }}\n              </div>\n\n            </div>\n          </div>\n\n\n          <!--\n          <div class="row">\n            <div class="col-sm-8">\n              <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n\n            </div>\n\n            <div class="col-sm-4">\n              <label class="label-a" v-text="translate(\'people.name_job\')"></label>\n\n            </div>\n\n          </div>\n          <div class="row">\n            <div class="col-sm-8">\n\n              {{ experience.name_business }}\n\n            </div>\n            <div class="col-sm-4">\n\n              {{ experience.name_job }}\n            </div>\n          </div>\n        </div>\n      -->\n\n        <div class="modal-footer">\n\n\n          <button class="btn btn-success" @click="deleteGroup()" data-dismiss="modal">\n            <label v-text="translate(\'people.confirm\')"></label>\n          </button>\n\n\n\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n';
 },{}],118:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _translations = require('../../../js/translations.js');
+
+var _service = require('../../../js/utilities/service.js');
+
+var _service2 = _interopRequireDefault(_service);
+
+var _constants_restful = require('../../../js/constants_restful.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  template: require('./delete-group.html'),
+  translations: _translations.translations,
+  mixins: [require('vue-i18n-mixin')],
+  http: _constants_restful.HTTP,
+  data: function data() {
+    return {
+      locale: 'es'
+    };
+  },
+  props: {
+    after: Function,
+    group: Object
+  },
+  methods: {
+    deleteGroup: function deleteGroup() {
+
+      var resource = this.$resource(_constants_restful.GROUP_DELETE);
+      resource.delete({ id: this.group.id }).then(function (response) {
+        this.after(true);
+        _service2.default.showSuccess(this, 'Operacion Exitosa');
+      }, function (error) {
+        _service2.default.showError(this, error);
+        this.after(null);
+      });
+    }
+  }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-f5a72ab4", module.exports)
+  } else {
+    hotAPI.update("_v-f5a72ab4", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../../../js/constants_restful.js":64,"../../../js/translations.js":67,"../../../js/utilities/service.js":69,"./delete-group.html":117,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],119:[function(require,module,exports){
+module.exports = '<div class="container-component">\n  <div class="modal fade" id="editGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\n    <div class="modal-dialog" style="width: 50%" role="document">\n      <div class="modal-content" >\n        <div class="modal-header">\n          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n          <h4 class="modal-title" id="myModalLabel" v-text="translate(\'people.edit_group\')"></h4>\n        </div>\n\n        <div class="modal-body">\n\n          <div class="row">\n            <div class="col-sm-12">\n              <label v-bind:class="{ \'label-a\': validation.name_group, \'label-error\':  !validation.name_group}" v-text="translate(\'people.name_group\')"></label>\n\n              <input type="text" class="form-control" name="name" value="" v-model="group.name_group">\n            </div>\n          </div>\n\n          <div class="row">\n            <div class="col-sm-5">\n              <label v-bind:class="{ \'label-a\': validation.category, \'label-error\':  !validation.category}" v-text="translate(\'people.category\')"></label>\n              <select  class="form-control" @change="fetchSubCategories(true)" v-model="group.category">\n                <option v-for="category in categories" v-bind:value="category.id">\n                  {{ category.name }}\n                </option>\n              </select>\n            </div>\n\n            <div class="col-sm-5">\n              <label v-bind:class="{ \'label-a\': validation.subcategory, \'label-error\':  !validation.subcategory}" v-text="translate(\'people.subcategory\')"></label>\n              <select v-model="group.subcategory" class="form-control">\n                <option v-for="category in subcategories" v-bind:value="category.id">\n                  {{ category.name }}\n                </option>\n              </select>\n            </div>\n\n            <div class="col-sm-2 has-success">\n              <label class="label-a" v-text="translate(\'people.visible\')"></label>\n              <div class="">\n                <input type="checkbox" name="name" v-bind:true-value=1 v-bind:false-value=0 v-model="group.visible">\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <div class="modal-footer">\n\n          <button v-if="isValid && groupChange()" class="btn btn-success" @click="editGroup()" data-dismiss="modal">\n          <label v-text="translate(\'people.confirm\')"></label>\n        </button>\n\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n';
+},{}],120:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _translations = require('../../../js/translations.js');
+
+var _service = require('../../../js/utilities/service.js');
+
+var _service2 = _interopRequireDefault(_service);
+
+var _constants_restful = require('../../../js/constants_restful.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  template: require('./edit-group.html'),
+  props: {
+    after: Function,
+    group: Object,
+    groupnow: Object
+
+  },
+  translations: _translations.translations,
+  mixins: [require('vue-i18n-mixin')],
+  http: _constants_restful.HTTP,
+  data: function data() {
+    return {
+      locale: 'es',
+      categories: [],
+      subcategories: []
+    };
+  },
+  computed: {
+    validation: function validation() {
+      return {
+        category: !!this.group.category != '',
+        subcategory: !!this.group.subcategory != '',
+        name_group: !!this.group.name_group != ''
+      };
+    },
+    isValid: function isValid() {
+      var validation = this.validation;
+      return (0, _keys2.default)(validation).every(function (key) {
+        return validation[key];
+      });
+    }
+  },
+  methods: {
+
+    editGroup: function editGroup() {
+      var _this = this;
+
+      var group = new Object();
+
+      group.id = this.group.id;
+
+      if (this.group.name_group != this.groupnow.name_group) {
+        group.name_group = this.group.name_group;
+      }
+      if (this.group.category != this.groupnow.category) {
+        group.category = this.group.category;
+      }
+      if (this.group.subcategory != this.groupnow.subcategory) {
+        group.subcategory = this.group.subcategory;
+      }
+      if (this.group.visible != this.groupnow.visible) {
+        group.visible = this.group.visible;
+      }
+
+      var resource = this.$http.put(_constants_restful.GROUP_EDIT, group);
+      resource.then(function (response) {
+        _this.after(response.body);
+
+        _service2.default.showSuccess(_this, null);
+      }, function (error) {
+
+        _service2.default.showError(_this, error);
+
+        _this.after(null);
+      });
+    },
+    fetchCategories: function fetchCategories() {
+      var _this2 = this;
+
+      this.$http.get(_constants_restful.CATEGORIES).then(function (response) {
+        if (response) {
+          response.json();
+          _this2.categories = response.body;
+        }
+      }, function (error) {
+        _service2.default.showError(_this2, error);
+      });
+    },
+    fetchSubCategories: function fetchSubCategories(edit) {
+      var _this3 = this;
+
+      if (edit) {
+        this.group.subcategory = '';
+      }
+      var resource = this.$resource(_constants_restful.SUBCATEGORIES);
+      resource.get({ id: this.group.category }).then(function (response) {
+        _this3.subcategories = response.body;
+      }, function (error) {
+        _service2.default.showError(_this3, error);
+      });
+    },
+    groupChange: function groupChange() {
+      return !_service2.default.equals(this, this.groupnow, this.group);
+    }
+  }, created: function created() {
+    this.fetchCategories();
+    this.fetchSubCategories();
+  }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-68998d46", module.exports)
+  } else {
+    hotAPI.update("_v-68998d46", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../../../js/constants_restful.js":64,"../../../js/translations.js":67,"../../../js/utilities/service.js":69,"./edit-group.html":119,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],121:[function(require,module,exports){
+module.exports = '<div class="container-a">\n\n\n\n\n  <div style="text-align: right">\n\n\n    <button  v-if="groupSelect!=null" id="show-modal" @click="beforeEditGroup()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editGroup">\n      <i class="glyphicon glyphicon-pencil"></i>\n    </button>\n\n    <button  v-if="groupSelect!=null" id="show-modal" @click="beforeDeleteGroup()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteGroup">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n    <button id="show-modal" @click="beforeAddGroup()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addGroup">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n  </div>\n  <br>\n\n  <a-table v-if="flagShowTable" :data="groups" :columns="columns" :total="groups.length" :select="select">\n  </a-table>\n\n\n\n  <div class="panel panel-default shadow-key" v-if="flagDetailSelected">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-1" @click="showTable">\n          <i  class="glyphicon glyphicon-menu-left"></i>\n        </div>\n        <div class="col-sm-10">\n          <label v-text="translate(\'people.group.selected\')"></label>\n\n        </div>\n      </div>\n    </div>\n    <div class="panel-body">\n\n      <div class="row">\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.name_group\')"></label>\n          <div >\n            {{ groupSelect.name_group }}\n          </div>\n        </div>\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.category\')"></label>\n          <div >\n            {{ groupSelect.descrCategory }}\n\n\n          </div>\n        </div>\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n          <div >\n            {{ groupSelect.descrSubCategory }}\n          </div>\n        </div>\n\n        <div class="col-sm-2">\n          <label class="label-a" v-text="translate(\'people.visible\')"></label>\n          <div >\n            {{ groupSelect.visible | trueOrFalse }}\n          </div>\n        </div>\n\n      </div>\n\n\n    </div>\n  </div>\n\n  <a-table v-if="flagShowTableCandidates" :data="candidates" :columns="columnsCandidates" :total="candidates.length" :select="selectCandidate" :showSearch="false">\n  </a-table>\n\n\n  <br>\n\n\n  <a-candidate v-if="flagDetailSelectedCandidate" :candidate="candidateSelected" :show="showTableCandidates">\n  </a-candidate>\n\n\n\n      <add-group v-if="flagAddGroup" :after="afterAddGroup"></add-group>\n      <delete-group v-if="flagDeleteGroup" :group="groupSelect" :after="afterDeleteGroup"></delete-group>\n      <edit-group v-if="flagEditGroup" :group="groupClone" :groupnow="groupSelect" :after="afterEditGroup"></edit-group>\n\n\n\n</div>\n';
+},{}],122:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27267,6 +27519,14 @@ var _addGroup = require('./add-group/add-group.vue');
 
 var _addGroup2 = _interopRequireDefault(_addGroup);
 
+var _editGroup = require('./edit-group/edit-group.vue');
+
+var _editGroup2 = _interopRequireDefault(_editGroup);
+
+var _deleteGroup = require('./delete-group/delete-group.vue');
+
+var _deleteGroup2 = _interopRequireDefault(_deleteGroup);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -27277,7 +27537,9 @@ exports.default = {
   components: {
     'a-table': _aTable2.default,
     'a-candidate': _aCandidate2.default,
-    'add-group': _addGroup2.default
+    'add-group': _addGroup2.default,
+    'edit-group': _editGroup2.default,
+    'delete-group': _deleteGroup2.default
   },
   data: function data() {
     return {
@@ -27285,74 +27547,73 @@ exports.default = {
       columns: _tables.tableGroups,
       columnsCandidates: _tables.tableCandidates,
       groupSelect: null,
+      groupClone: null,
       flagShowTable: true,
       flagDetailSelected: false,
       flagDetailSelectedCandidate: false,
       flagShowTableCandidates: false,
       flagAddGroup: false,
+      flagEditGroup: false,
+      flagDeleteGroup: false,
       candidates: [],
       candidateSelected: {},
       locale: 'es'
     };
   },
   methods: {
-
     getGroups: function getGroups() {
-
       var resource = this.$resource(_constants_restful.GROUPS);
       resource.get().then(function (response) {
-
         response.body.forEach(function (entry) {
-
           entry.descrCategory = entry.category_group.name;
           entry.descrSubCategory = entry.subcategory_group.name;
-
           this.groups.push(entry);
         }, this);
       }, function (error) {
-
         _service2.default.showError(this, error);
       });
     },
+
     select: function select(entry) {
       this.candidates = [];
-
       this.flagDetailSelected = true;
       this.flagShowTableCandidates = true;
-
       this.flagShowTable = false;
-
       this.groupSelect = entry;
-
+      this.groupClone = _service2.default.clone(entry);
+      this.flagEditGroup = false;
       this.getCandidates(entry.id);
     },
+
     showTable: function showTable() {
-      this.groupSelect = {};
+      this.groupSelect = null;
       this.flagShowTable = true;
       this.flagDetailSelected = false;
       this.flagShowTableCandidates = false;
       this.flagDetailSelectedCandidate = false;
       this.flagShowTableCandidates = false;
     },
-    getCandidates: function getCandidates(id) {
 
+    getCandidates: function getCandidates(id) {
       var resource = this.$resource(_constants_restful.GROUPCANDIDATES);
       resource.get({ id: id }).then(function (response) {
-
         this.candidates = response.body.candidates;
       }, function (error) {
         _service2.default.showError(this, null);
       });
     },
+
     selectCandidate: function selectCandidate(entry) {
       this.flagDetailSelectedCandidate = true;
       this.flagShowTableCandidates = false;
       this.candidateSelected = entry;
     },
+
     showTableCandidates: function showTableCandidates() {
       this.flagDetailSelectedCandidate = false;
       this.flagShowTableCandidates = true;
     },
+
     beforeAddGroup: function beforeAddGroup() {
       this.flagAddGroup = true;
     },
@@ -27362,12 +27623,53 @@ exports.default = {
       entry.descrSubCategory = entry.subcategory_group.name;
 
       this.groups.push(entry);
+      this.select(entry);
+    },
+    beforeEditGroup: function beforeEditGroup() {
+      this.flagEditGroup = true;
+    },
+
+
+    afterEditGroup: function afterEditGroup(entry) {
+      if (entry != null) {
+        var index = _service2.default.getIndiceObject(this, this.groups, 'id', entry.id);
+        if (index > -1) {
+          entry.descrCategory = entry.category_group.name;
+          entry.descrSubCategory = entry.subcategory_group.name;
+          this.select(entry);
+          this.groups[index] = entry;
+        }
+      }
+    },
+    beforeDeleteGroup: function beforeDeleteGroup() {
+      this.flagDeleteGroup = true;
+    },
+    afterDeleteGroup: function afterDeleteGroup(valido) {
+
+      if (valido) {
+        var index = _service2.default.getIndiceObject(this, this.groups, 'id', this.groupSelect.id);
+        if (index > -1) {
+          this.groups.splice(index, 1);
+        }
+
+        this.showTable();
+      }
     }
   },
   created: function created() {
     this.getGroups();
-  }
+  },
+  filters: {
+    trueOrFalse: function trueOrFalse(value) {
 
+      return _filters2.default.trueOrFalse(this, value);
+    },
+
+    shortDate: function shortDate(value) {
+
+      return _filters2.default.shortDate(this, value);
+    }
+  }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
 if (module.hot) {(function () {  module.hot.accept()
@@ -27380,9 +27682,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-428a24a7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../a-components/a-candidate/a-candidate.vue":54,"../../a-components/a-table/a-table.vue":60,"../../js/config-app/tables.js":63,"../../js/constants_restful.js":64,"../../js/translations.js":67,"../../js/utilities/filters.js":68,"../../js/utilities/service.js":69,"./add-group/add-group.vue":116,"./mnt-groups.html":117,"vue":50,"vue-hot-reload-api":45}],119:[function(require,module,exports){
+},{"../../a-components/a-candidate/a-candidate.vue":54,"../../a-components/a-table/a-table.vue":60,"../../js/config-app/tables.js":63,"../../js/constants_restful.js":64,"../../js/translations.js":67,"../../js/utilities/filters.js":68,"../../js/utilities/service.js":69,"./add-group/add-group.vue":116,"./delete-group/delete-group.vue":118,"./edit-group/edit-group.vue":120,"./mnt-groups.html":121,"vue":50,"vue-hot-reload-api":45}],123:[function(require,module,exports){
 module.exports = '<div class="">\n\n  <div class="tab-header" data-toggle="modal" data-target="#mntIdioms">\n    idioms\n  </div>\n\n  <ul class="list-group">\n    <li class="list-group-item" v-for="idiom in candidate.idioms">\n      {{ idiom.name_idioma }}-{{ idiom.level_idioma }}\n    </li>\n  </ul>\n\n\n\n  <div class="container-component">\n    <div class="modal fade" id="mntIdioms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\n      <div class="modal-dialog" role="document">\n        <div class="modal-content">\n          <div class="modal-header">\n            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n            <h4 class="modal-title text-left" id="myModalLabel" v-text="translate(\'people.idioms\')"></h4>\n          </div>\n          <div class="modal-body">\n\n\n\n          <div class="row">\n            <table class="table table-condensed" v-if="candidate.idioms.length>0">\n\n              <tr class="text-left">\n                <td>\n                  <label class="label-a" v-text="translate(\'people.name_idioma\')"></label>\n                </td>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.level_idioma\')"></label>\n                </td>\n\n                <td>\n                  <label></label>\n                </td>\n              </tr>\n\n              <tr v-for="idiom in candidate.idioms" class="text-left">\n                <td>\n                  {{ idiom.name_idioma }}\n                </td>\n                <td>\n                  {{ idiom.level_idioma }}\n                </td>\n                <td>\n                  <button type="button" name="button" class="btn btn-danger" @click="deleteLanguage(idiom)">\n                  <i class="glyphicon glyphicon-trash"></i>\n                </button>\n                </td>\n              </tr>\n\n            </table>\n          </div>\n\n\n\n            <div class="row">\n\n              <div class="col-sm-6">\n                <div class="text-left">\n\n                  <label v-bind:class="{ \'label-a\': validation.name_idioma, \'label-error\':  !validation.name_idioma}" v-text="translate(\'people.name_idioma\')"></label>\n\n                </div>\n                <div class="">\n                  <input type="text" name="" class="form-control" v-model="idiom.name_idioma">\n\n                </div>\n\n              </div>\n\n              <div class="col-sm-6">\n\n                <div class="text-left">\n                  <label v-bind:class="{ \'label-a\': validation.level_idioma, \'label-error\':  !validation.level_idioma}" v-text="translate(\'people.level_idioma\')"></label>\n\n                </div>\n                <div class="">\n\n\n\n                  <select  class="form-control"  v-model="idiom.level_idioma">\n                    <option v-for="level in levels" v-bind:value="level.code">\n                      {{ level.description }}\n                    </option>\n                  </select>\n\n\n                </div>\n              </div>\n            </div>\n\n            <div class="modal-footer">\n\n              <button  v-if="isValid" class="btn btn-success" @click="addLanguage()" data-dismiss="modal">\n                <label v-text="translate(\'people.confirm\')"></label>\n              </button>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n';
-},{}],120:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27483,9 +27785,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-6c84fac7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/constants_restful.js":64,"../../js/translations.js":67,"../../js/utilities/service.js":69,"./mnt-idioms.html":119,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],121:[function(require,module,exports){
+},{"../../js/constants_restful.js":64,"../../js/translations.js":67,"../../js/utilities/service.js":69,"./mnt-idioms.html":123,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],125:[function(require,module,exports){
 module.exports = '<div class="">\n\n  <div class="tab-header" data-toggle="modal" data-target="#mntLanguages">\n    languages\n  </div>\n\n  <ul class="list-group">\n    <li class="list-group-item" v-for="language in candidate.languages">\n    {{ language.name_language}} - {{ language.level_language }}\n    </li>\n  </ul>\n\n\n  <div class="container-component">\n    <div class="modal fade" id="mntLanguages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\n      <div class="modal-dialog" role="document">\n        <div class="modal-content">\n          <div class="modal-header">\n            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n            <h4 class="modal-title text-left" id="myModalLabel" v-text="translate(\'people.languages\')"></h4>\n          </div>\n          <div class="modal-body">\n\n\n\n            <table class="table table-condensed" v-if="candidate.languages.length>0">\n\n              <tr class="text-left">\n                <td>\n                  <label class="label-a" v-text="translate(\'people.name_language\')"></label>\n                </td>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.level_language\')"></label>\n                </td>\n\n                <td>\n                  <label></label>\n                </td>\n              </tr>\n\n\n              <tr v-for="language in candidate.languages" class="text-left">\n                <td>\n                  {{ language.name_language }}\n                </td>\n                <td>\n                  {{ language.level_language }} <span>%</span>\n                </td>\n                <td>\n                  <button type="button" name="button" class="btn btn-danger" @click="deleteLanguage(language)">\n                  <i class="glyphicon glyphicon-trash"></i>\n                </button>\n                </td>\n              </tr>\n\n            </table>\n\n\n\n            <div class="row">\n\n              <div class="col-sm-6">\n                <div class="text-left">\n\n                  <label v-bind:class="{ \'label-a\': validation.name_language, \'label-error\':  !validation.name_language}" v-text="translate(\'people.name_language\')"></label>\n\n                </div>\n                <div class="">\n                  <input type="text" name="" class="form-control" v-model="language.name_language">\n\n                </div>\n\n              </div>\n\n              <div class="col-sm-6">\n\n                <div class="text-left">\n                  <label v-bind:class="{ \'label-a\': validation.level_language, \'label-error\':  !validation.level_language}" v-text="translate(\'people.level_language\')"></label>\n\n                </div>\n                <div class="">\n                  <input type="email" name="" class="form-control" v-model="language.level_language">\n                </div>\n              </div>\n            </div>\n\n            <div class="modal-footer">\n\n              <button  v-if="isValid" class="btn btn-success" @click="addLanguage()" data-dismiss="modal">\n                <label v-text="translate(\'people.confirm\')"></label>\n              </button>\n\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n\n</div>\n';
-},{}],122:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27583,6 +27885,6 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-9c08782a", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/constants_restful.js":64,"../../js/translations.js":67,"../../js/utilities/service.js":69,"./mnt-languages.html":121,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}]},{},[52]);
+},{"../../js/constants_restful.js":64,"../../js/translations.js":67,"../../js/utilities/service.js":69,"./mnt-languages.html":125,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}]},{},[52]);
 
 //# sourceMappingURL=app.js.map

@@ -68,6 +68,9 @@ export default {
 
   equals: function(context,x, y){
 
+    console.log(Object.keys(x).length);
+    console.log(Object.keys(y).length);
+
 
     if (Object.keys(x).length != Object.keys(y).length){
 
@@ -76,7 +79,16 @@ export default {
     for (var p in x)
     {
       if ( x.hasOwnProperty(p) && y.hasOwnProperty(p) ){
-        if( x[p] != y[p]){
+
+        if(x[p] instanceof Object){
+
+          this.equals(this, x[p], y[p]);
+        }
+        else if( x[p] != y[p]){
+
+          console.log(x[p]);
+          console.log(y[p]);
+
           return false;
         }
       }

@@ -206,6 +206,18 @@ Route::group(['prefix' => 'api'], function () {
       'as'   => 'group_create_path'
     ]);
 
+    Route::put('group/edit',[
+      'uses' => 'GroupsController@update',
+      'as'   => 'experience_update_path'
+    ]);
+
+
+    Route::delete('group/delete/{id}',[
+      'uses' => 'GroupsController@destroy',
+      'as'   => 'Language_destroy_path'
+    ]);
+
+
     Route::get('group/candidates/{id}',[
       'uses' => 'GroupsController@show',
       'as'   => 'groups_show_path'

@@ -11,8 +11,8 @@ import { tableGroups } from '../../js/config-app/tables.js';
 import { tableCandidates } from '../../js/config-app/tables.js';
 
 import AddGroup from './add-group/add-group.vue';
-
-
+import EditGroup from './edit-group/edit-group.vue';
+import DeleteGroup from './delete-group/delete-group.vue';
 
 export default {
   template: require('./mnt-groups.html'),
@@ -22,7 +22,9 @@ export default {
   components:{
     'a-table': ATable,
     'a-candidate': ACandidate,
-    'add-group': AddGroup
+    'add-group': AddGroup,
+    'edit-group': EditGroup,
+    'delete-group': DeleteGroup
   },
   data: function () {
     return {
@@ -30,105 +32,135 @@ export default {
       columns:tableGroups,
       columnsCandidates:tableCandidates,
       groupSelect:null,
+      groupClone :null,
       flagShowTable: true,
       flagDetailSelected: false,
       flagDetailSelectedCandidate: false,
       flagShowTableCandidates: false,
       flagAddGroup: false,
+      flagEditGroup: false,
+      flagDeleteGroup: false,
       candidates: [],
       candidateSelected: {},
       locale: 'es'
     }
   },
   methods: {
-
     getGroups: function(){
-
       var resource= this.$resource(GROUPS);
       resource.get().then(function(response){
-
         response.body.forEach(function(entry) {
-
           entry.descrCategory=entry.category_group.name;
           entry.descrSubCategory=entry.subcategory_group.name;
-
           this.groups.push(entry);
 
         }, this);
-
-
       }, function(error){
-
         service.showError(this, error);
-
-
       });
-
     },
+
     select: function(entry){
       this.candidates=[];
-
       this.flagDetailSelected=true;
       this.flagShowTableCandidates=true;
-
-
       this.flagShowTable=false;
-
-
-
       this.groupSelect=entry;
-
+      this.groupClone=service.clone(entry);
+      this.flagEditGroup=false;
       this.getCandidates(entry.id);
 
     },
+
     showTable: function(){
-      this.groupSelect={};
+      this.groupSelect=null;
       this.flagShowTable=true;
       this.flagDetailSelected=false;
       this.flagShowTableCandidates=false;
       this.flagDetailSelectedCandidate=false;
-        this.flagShowTableCandidates=false;
+      this.flagShowTableCandidates=false;
     },
+
     getCandidates: function(id){
-
-
       var resource= this.$resource(GROUPCANDIDATES);
       resource.get({id: id}).then(function(response){
-
-          this.candidates=response.body.candidates;
-
+        this.candidates=response.body.candidates;
       }, function(error){
         service.showError(this, null);
       });
-
-
-
     },
+
     selectCandidate: function(entry){
       this.flagDetailSelectedCandidate=true;
-        this.flagShowTableCandidates=false;
+      this.flagShowTableCandidates=false;
       this.candidateSelected=entry;
 
     },
+
     showTableCandidates: function(){
       this.flagDetailSelectedCandidate=false;
-        this.flagShowTableCandidates=true;
+      this.flagShowTableCandidates=true;
     },
+
     beforeAddGroup(){
       this.flagAddGroup=true;
     },
+
     afterAddGroup(entry){
 
       entry.descrCategory=entry.category_group.name;
       entry.descrSubCategory=entry.subcategory_group.name;
-      
-      this.groups.push(entry);
-    }
 
+      this.groups.push(entry);
+      this.select(entry);
+
+    },
+
+    beforeEditGroup(){
+      this.flagEditGroup=true;
+    },
+
+    afterEditGroup: function(entry){
+      if(entry!=null){
+        var index=service.getIndiceObject(this, this.groups, 'id', entry.id);
+        if(index>-1){
+          entry.descrCategory=entry.category_group.name;
+          entry.descrSubCategory=entry.subcategory_group.name;
+          this.select(entry);
+          this.groups[index]=entry;
+        }
+      }
+    },
+    beforeDeleteGroup: function(){
+      this.flagDeleteGroup=true;
+
+
+    },
+    afterDeleteGroup: function(valido){
+
+      if(valido){
+        var index=service.getIndiceObject(this, this.groups, 'id', this.groupSelect.id );
+        if(index>-1){
+          this.groups.splice(index, 1);
+        }
+
+        this.showTable();
+      }
+    }
   },
   created: function(){
     this.getGroups();
-  }
+  },
+  filters:{
+    trueOrFalse: function(value){
 
+      return filter.trueOrFalse(this,value);
+    },
+
+    shortDate: function(value){
+
+      return filter.shortDate(this,value);
+    }
+  }
 }
 </script>

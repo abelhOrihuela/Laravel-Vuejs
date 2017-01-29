@@ -29,7 +29,11 @@ export default{
     return {
       sortKey: '',
       sortOrders: sortOrders,
-      pagination: 10,
+      pagination: 5,
+      page: 1,
+      totalPages: 0,
+      init: 0,
+      end: 5,
       filterKey: '',
       start: 0,
       limit: 5,
@@ -56,7 +60,11 @@ export default{
           return (a === b ? 0 : a > b ? 1 : -1) * order
         })
       }
-      return data.slice(0,this.pagination);
+
+      this.totalPages=parseInt(data.length/this.pagination);
+
+
+      return data.slice(this.init,this.end);
       //return data;
     }
   },
@@ -85,19 +93,35 @@ export default{
   },
   methods: {
     sortBy: function (key) {
+      console.log("-------------------------");
+      console.log(key);
+      console.log("-------------------------");
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
     },
     paginate: function(direction) {
 
-      if(direction === 'next') {
-        this.start += parseInt(this.pagination);
-        this.limit += parseInt(this.pagination);
+      console.log(direction);
+
+
+
+      if(direction === 'next' && this.end<this.data.length) {
+        this.init += parseInt(this.pagination);
+        this.end += parseInt(this.pagination);
+        this.page+=1;
       }
-      else if(direction === 'previous') {
-        this.limit -= parseInt(this.pagination);
-        this.start -= parseInt(this.pagination);
+      else if(direction === 'previous' && this.init!=0) {
+        this.init -= parseInt(this.pagination);
+        this.end -= parseInt(this.pagination);
+        this.page-=1;
       }
+      else if(direction==='no'){
+
+        this.end=parseInt(this.init+this.pagination);
+
+
+      }
+
     },
 
     selectElement: function(entry){
