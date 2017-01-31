@@ -428,6 +428,10 @@ export const translations={
       en: 'Add Candidate',
       es: 'Agregar Nuevo Candidato'
     },
+    cancel_add_candidate:{
+      en: 'Add Customer',
+      es: 'Cancelar Agregar Candidato'
+    },
     dashboard:{
       en: 'Dashboard',
       es: 'Panel'
@@ -459,6 +463,10 @@ export const translations={
     delete_group:{
       en: 'Delete Group',
       es: 'Eliminar Grupo'
+    },
+    edit_customer:{
+      en: 'Edit Customer',
+      es: 'Editar Cliente'
     }
   },
   general:{

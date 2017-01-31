@@ -104,8 +104,8 @@ before: Function
       }
 
 
-    }
-    ,created: function(){
+    },
+    created: function(){
 
       this.fetchCategories();
 

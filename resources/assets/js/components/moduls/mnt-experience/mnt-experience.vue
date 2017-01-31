@@ -5,9 +5,11 @@ import  filter  from '../../js/utilities/filters.js';
 import DeleteExperience from './delete-experience/delete-experience.vue';
 import AddExperience from './add-experience/add-experience.vue';
 import EditExperience from './edit-experience/edit-experience.vue';
+import  runblock  from '../../js/runblock.js';
 
 
-import { HTTP, EXPERIENCE } from '../../js/constants_restful.js';
+
+import { HTTP, EXPERIENCE, USER_PERMISSIONS } from '../../js/constants_restful.js';
 
 
 import  service  from '../../js/utilities/service.js';
@@ -20,6 +22,7 @@ export default {
   data: function(){
     return{
       experienceSelect:null,
+      permissions:{},
       experienceOriginal:{},
       showModalEditExperience: false,
       showModalDeleteExperince: false,
@@ -85,6 +88,17 @@ export default {
       this.experienceOriginal=service.clone(entry);
 
 
+    },
+    getPermissions: function(){
+
+      var user=runblock.getUserSession();
+
+      var resource=this.$http.post(USER_PERMISSIONS, user);
+      resource.then(function(response){
+        this.permissions=response.body;
+      }, function (error){
+        service.showError(this, error);
+      });
     }
   },
   filters:{
@@ -93,6 +107,7 @@ export default {
     }
   },
   created: function(){
+    this.getPermissions();
   }
 }
 </script>

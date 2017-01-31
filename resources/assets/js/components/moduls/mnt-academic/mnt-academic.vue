@@ -5,8 +5,10 @@ import EditAcademic from './edit-academic/edit-academic.vue';
 import DeleteAcademic from './delete-academic/delete-academic.vue';
 import  service  from '../../js/utilities/service.js';
 import  filter  from '../../js/utilities/filters.js';
+import  runblock  from '../../js/runblock.js';
 
-import { HTTP, ACADEMIC } from '../../js/constants_restful.js';
+
+import { HTTP, ACADEMIC,USER_PERMISSIONS } from '../../js/constants_restful.js';
 
 
 
@@ -19,6 +21,7 @@ export default{
   data: function(){
     return{
       locale: 'es',
+      permissions:{},
       academicSelect: null,
       flagShowAddAcademic: false,
       showModalDeleteAcademic: false,
@@ -96,9 +99,21 @@ export default{
     resetSelect: function(){
       this.academicSelect=null;
         this.academicOriginal=null;
+    },
+    getPermissions: function(){
+
+      var user=runblock.getUserSession();
+
+      var resource=this.$http.post(USER_PERMISSIONS, user);
+      resource.then(function(response){
+        this.permissions=response.body;
+      }, function (error){
+        service.showError(this, error);
+      });
     }
   },
   created: function(){
+    this.getPermissions();
   }
 }
 </script>

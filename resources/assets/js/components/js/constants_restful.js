@@ -63,3 +63,4 @@ export const IDIOM_NEW="idiom/new"
 export const IDIOM_DELETE="idiom/delete{/id}"
 
 export const CUSTOMERS="customers"
+export const CUSTOMER_EDIT="customer/edit"

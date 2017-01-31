@@ -51,30 +51,23 @@ export default{
           return Object.keys(row).some(function (key) {
             return String(row[key]).toLowerCase().indexOf(filterKey) > -1
           })
-        })
+        });
       }
       if (sortKey) {
         data = data.slice().sort(function (a, b) {
           a = a[sortKey]
           b = b[sortKey]
           return (a === b ? 0 : a > b ? 1 : -1) * order
-        })
+        });
       }
-
-      this.totalPages=parseInt(data.length/this.pagination);
-
+      this.totalPages=parseInt(data.length/this.pagination)+1;
 
       return data.slice(this.init,this.end);
-      //return data;
     }
   },
   filters: {
     capitalize: function (str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
-    },
-    translateTable: function(column){
-      var text='';
-      return text;
     },
     trueOrFalse: function(value){
       return filter.trueOrFalse(this,value);
@@ -93,17 +86,10 @@ export default{
   },
   methods: {
     sortBy: function (key) {
-      console.log("-------------------------");
-      console.log(key);
-      console.log("-------------------------");
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
     },
     paginate: function(direction) {
-
-      console.log(direction);
-
-
 
       if(direction === 'next' && this.end<this.data.length) {
         this.init += parseInt(this.pagination);
@@ -116,12 +102,8 @@ export default{
         this.page-=1;
       }
       else if(direction==='no'){
-
         this.end=parseInt(this.init+this.pagination);
-
-
       }
-
     },
 
     selectElement: function(entry){

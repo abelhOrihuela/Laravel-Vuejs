@@ -1,17 +1,18 @@
 <div class="container-a">
 
+
   <div style="text-align: right">
 
 
-  <button  v-if="experienceSelect!=null" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperienceWtc">
+  <button  v-if="experienceSelect!=null && permissions.edit" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperienceWtc">
     <i class="glyphicon glyphicon-pencil"></i>
   </button>
 
-  <button  v-if="experienceSelect!=null" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteExperienceWtc">
+  <button  v-if="experienceSelect!=null && permissions.delete" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteExperienceWtc">
     <i class="glyphicon glyphicon glyphicon-remove"></i>
   </button>
 
-  <button id="show-modal" @click="addMoreExperience" class="btn btn-info btn-options" data-toggle="modal" data-target="#addExperienceWtc">
+  <button v-if="permissions.add" id="show-modal" @click="addMoreExperience" class="btn btn-info btn-options" data-toggle="modal" data-target="#addExperienceWtc">
     <i class="glyphicon glyphicon-plus"></i>
   </button>
 
@@ -72,8 +73,8 @@
       </li>
     </ul>
 
-    <div class="row" v-if="experienceSelect!=null">
-      <div class="col-sm-12" style="text-align: right">
+    <div class="row" >
+      <div v-if="experienceSelect!=null" class="col-sm-12" style="text-align: right">
 
           <label class="label-a" v-text="translate('people.selected')"></label>
           : {{ experienceSelect.name_company }}&nbsp;
@@ -94,9 +95,7 @@
 <!--
 
 
-
-
-
+v-if="academicSelect!=null"
 
 
 

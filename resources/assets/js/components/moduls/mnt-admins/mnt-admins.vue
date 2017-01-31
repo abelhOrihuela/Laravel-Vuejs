@@ -4,11 +4,13 @@
 */
 import { translations } from '../../js/translations.js';
 import { tableAdmins } from '../../js/config-app/tables.js';
+import  runblock  from '../../js/runblock.js';
+
 
 /*
 *Constants
 */
-import { ADMINS } from '../../js/constants_restful.js';
+import { ADMINS, USER_PERMISSIONS } from '../../js/constants_restful.js';
 
 /*
 *Components
@@ -54,6 +56,7 @@ export default{
   data: function(){
     return {
       admins: [],
+      permissions: {},
       columns: tableAdmins,
       searchQuery:'',
       flagTable: true,
@@ -97,10 +100,22 @@ export default{
       this.adminSelected={};
       this.flagTable=true;
       this.flagDetailSelected=false;
+    },
+    getPermissions: function(){
+
+      var user=runblock.getUserSession();
+
+      var resource=this.$http.post(USER_PERMISSIONS, user);
+      resource.then(function(response){
+        this.permissions=response.body;
+      }, function (error){
+        service.showError(this, error);
+      });
     }
   },
   created: function(){
     this.getAdmins();
+    this.getPermissions();
   },
   ready: function() {
   },

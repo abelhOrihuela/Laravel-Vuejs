@@ -259,6 +259,11 @@ Route::group(['prefix' => 'api'], function () {
       'as'   => 'customers_create_path'
     ]);
 
+    Route::put('customer/edit',[
+      'uses' => 'CustomersController@update',
+      'as'   => 'experience_update_path'
+    ]);
+
     //
   });
 

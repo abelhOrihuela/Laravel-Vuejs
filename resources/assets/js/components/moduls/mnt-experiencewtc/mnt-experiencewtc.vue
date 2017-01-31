@@ -6,7 +6,8 @@ import AddExperienceWtc from './add-experiencewtc/add-experiencewtc.vue';
 import DeleteExperienceWtc from './delete-experiencewtc/delete-experiencewtc.vue';
 import EditExperienceWtc from './edit-experiencewtc/edit-experiencewtc.vue';
 import  service  from '../../js/utilities/service.js';
-import { HTTP, EXPERIENCEWTC } from '../../js/constants_restful.js';
+import  runblock  from '../../js/runblock.js';
+import { HTTP, EXPERIENCEWTC , USER_PERMISSIONS} from '../../js/constants_restful.js';
 
 
 
@@ -18,6 +19,7 @@ export default {
   data: function(){
     return{
       experienceSelect:null,
+      permissions:{},
       experienceOriginal:{},
       showModalEditExperience: false,
       showModalDeleteExperince: false,
@@ -85,6 +87,17 @@ export default {
       this.experienceSelect=entry;
       this.experienceOriginal=service.clone(entry);
 
+    },
+    getPermissions: function(){
+
+      var user=runblock.getUserSession();
+
+      var resource=this.$http.post(USER_PERMISSIONS, user);
+      resource.then(function(response){
+        this.permissions=response.body;
+      }, function (error){
+        service.showError(this, error);
+      });
     }
   },
   filters:{
@@ -93,6 +106,7 @@ export default {
     }
   },
   created: function(){
+    this.getPermissions();
   }
 }
 </script>

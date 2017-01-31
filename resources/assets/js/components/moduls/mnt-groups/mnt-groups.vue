@@ -3,7 +3,9 @@
 import { translations } from '../../js/translations.js';
 import  filter  from '../../js/utilities/filters.js';
 import  service  from '../../js/utilities/service.js';
-import { HTTP , GROUPS, mixins, GROUPCANDIDATES} from '../../js/constants_restful.js';
+import  runblock  from '../../js/runblock.js';
+
+import { HTTP , GROUPS, mixins, GROUPCANDIDATES, USER_PERMISSIONS} from '../../js/constants_restful.js';
 
 import ATable from '../../a-components/a-table/a-table.vue';
 import ACandidate from '../../a-components/a-candidate/a-candidate.vue';
@@ -41,6 +43,7 @@ export default {
       flagEditGroup: false,
       flagDeleteGroup: false,
       candidates: [],
+      permissions: {},
       candidateSelected: {},
       locale: 'es'
     }
@@ -146,10 +149,22 @@ export default {
 
         this.showTable();
       }
+    },
+    getPermissions: function(){
+
+      var user=runblock.getUserSession();
+
+      var resource=this.$http.post(USER_PERMISSIONS, user);
+      resource.then(function(response){
+        this.permissions=response.body;
+      }, function (error){
+        service.showError(this, error);
+      });
     }
   },
   created: function(){
     this.getGroups();
+    this.getPermissions();
   },
   filters:{
     trueOrFalse: function(value){

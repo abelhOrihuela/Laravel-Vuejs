@@ -5,15 +5,21 @@ import  filter  from '../../js/utilities/filters.js';
 import EditEconomic from './edit-economic/edit-economic.vue';
 import AddEconomic from './add-economic/add-economic.vue';
 import  service  from '../../js/utilities/service.js';
+import  runblock  from '../../js/runblock.js';
+import { HTTP, USER_PERMISSIONS } from '../../js/constants_restful.js';
+
+
 
 export default {
   template: require('./mnt-economic.html'),
   translations: translations,
   mixins: [require('vue-i18n-mixin')],
+  http:HTTP,
   data: function(){
     return{
       economicSelect:null,
       economicNow: null,
+      permissions: {},
       showModalEditEconomic: false,
       showModalAddEconomic: false,
       locale: 'es'
@@ -61,8 +67,22 @@ export default {
     select: function(entry){
       this.economicSelect=entry;
       this.economicNow=service.clone(entry);
+    },
+    getPermissions: function(){
+
+      var user=runblock.getUserSession();
+
+      var resource=this.$http.post(USER_PERMISSIONS, user);
+      resource.then(function(response){
+        this.permissions=response.body;
+      }, function (error){
+        service.showError(this, error);
+      });
     }
 
+  },
+  created: function(){
+    this.getPermissions();
   },
   filters:{
     trueOrFalse: function(value){

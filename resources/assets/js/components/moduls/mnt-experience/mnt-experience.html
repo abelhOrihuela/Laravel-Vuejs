@@ -2,15 +2,15 @@
 
   <div style="text-align: right">
 
-    <button  v-if="experienceSelect!=null" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperience">
+    <button  v-if="experienceSelect!=null && permissions.edit" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperience">
       <i class="glyphicon glyphicon-pencil"></i>
     </button>
 
-    <button  v-if="experienceSelect!=null" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteExperience">
+    <button  v-if="experienceSelect!=null && permissions.delete" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteExperience">
       <i class="glyphicon glyphicon glyphicon-remove"></i>
     </button>
 
-    <button id="show-modal" @click="addMoreExperience()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addExperinece">
+    <button v-if="permissions.add" id="show-modal" @click="addMoreExperience()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addExperinece">
       <i class="glyphicon glyphicon-plus"></i>
     </button>
 
@@ -83,8 +83,8 @@
       </li>
     </ul>
 
-    <div class="row" v-if="experienceSelect!=null">
-      <div class="col-sm-12" style="text-align: right">
+    <div class="row" >
+      <div v-if="experienceSelect!=null" class="col-sm-12" style="text-align: right">
 
           <label class="label-a" v-text="translate('people.selected')"></label>
           : {{ experienceSelect.name_business }}&nbsp;

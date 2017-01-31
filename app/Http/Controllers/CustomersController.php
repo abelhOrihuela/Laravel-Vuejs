@@ -1,22 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Customer;
 use Hash;
 use Crypt;
 use Session;
 
-
 class CustomersController extends Controller
 {
 
   function index(){
     $customers=Customer::all();
-
+    
     foreach ($customers as $customer) {
       $customer->categoryCustomer;
       $customer->subcategoryCustomer;
@@ -28,10 +25,7 @@ class CustomersController extends Controller
   public function create(Request $request){
     $customer=new Customer();
 
-
     $token= password_hash($request->password, PASSWORD_DEFAULT);
-
-
 
     $customer->username=$request->username;
     $customer->gender=$request->gender;
@@ -44,22 +38,17 @@ class CustomersController extends Controller
     $customer->category=$request->category;
     $customer->subcategory=$request->subcategory;
 
-
     if($customer->save()){
-
       $customer->categoryCustomer;
       $customer->subcategoryCustomer;
-
       return  $customer;
     }else{
       abort(404);
     }
     return $request;
-
-
   }
-  public function store(Request $request){
 
+  public function store(Request $request){
     $user = Customer::where("email", "=" , $request->email)->first();
 
     if($user){
@@ -81,4 +70,20 @@ class CustomersController extends Controller
     }
   }
 
+  public function update(Request $request){
+
+    $input = $request->all();
+    $customer=Customer::where('id',  $request->id);
+
+    if($customer->update($input)){
+
+      return response()->json([
+        'status' => 200
+      ]);
+
+    }else{
+      abort(404);
+    }
+    return $request;
+  }
 }

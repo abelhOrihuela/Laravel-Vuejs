@@ -2,15 +2,15 @@
 
   <div style="text-align: right">
 
-    <button  id="show-modal" v-if="academicSelect!=null" @click="editAcademic()" class="btn btn-success btn-options"  data-toggle="modal" data-target="#editAcademic">
+    <button  id="show-modal" v-if="academicSelect!=null && permissions.edit" @click="editAcademic()" class="btn btn-success btn-options"  data-toggle="modal" data-target="#editAcademic">
       <i class="glyphicon glyphicon-pencil"></i>
     </button>
 
-    <button  id="show-modal" @click="deleteAcademic()" class="btn btn-danger btn-options" v-if="academicSelect!=null" data-toggle="modal" data-target="#deleteAcademic">
+    <button  id="show-modal" @click="deleteAcademic()" v-if="academicSelect!=null && permissions.delete" class="btn btn-danger btn-options"  data-toggle="modal" data-target="#deleteAcademic">
       <i class="glyphicon glyphicon glyphicon-remove"></i>
     </button>
 
-    <button id="show-modal" @click="addMoreAcademic" class="btn btn-info btn-options" data-toggle="modal" data-target="#addAcademic">
+    <button v-if="permissions.add" id="show-modal" @click="addMoreAcademic" class="btn btn-info btn-options" data-toggle="modal" data-target="#addAcademic">
       <i class="glyphicon glyphicon-plus"></i>
     </button>
 
@@ -75,8 +75,8 @@
       </li>
     </ul>
 
-    <div class="row" v-if="academicSelect!=null">
-      <div class="col-sm-12" style="text-align: right">
+    <div class="row" >
+      <div v-if="academicSelect!=null" class="col-sm-12" style="text-align: right">
 
           <label class="label-a" v-text="translate('people.selected')"></label>
           : {{ academicOriginal.name_academic }}&nbsp;

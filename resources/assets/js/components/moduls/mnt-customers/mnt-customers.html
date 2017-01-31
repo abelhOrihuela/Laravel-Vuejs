@@ -2,11 +2,11 @@
   <div style="text-align: right">
 
 
-    <button v-if="!flagAddCustomer"id="show-modal" @click="addCustomer()" class="btn btn-info btn-options" data-tooltip="Agregar Nuevo Cliente" data-placement="left">
+    <button v-if="!flagAddCustomer && permissions.add"id="show-modal" @click="addCustomer()" class="btn btn-info btn-options" data-tooltip="Agregar Nuevo Cliente" data-placement="left">
       <i class="glyphicon glyphicon-plus"></i>
     </button>
 
-    <button v-if="flagAddCustomer" id="show-modal" @click="cancelAddCustomer()" class="btn btn-danger btn-options" data-tooltip="Cancelar Registro Nuevo Cliente" data-placement="left">
+    <button v-if="flagAddCustomer && permissions.delete" id="show-modal" @click="cancelAddCustomer()" class="btn btn-danger btn-options" data-tooltip="Cancelar Registro Nuevo Cliente" data-placement="left">
       <i class="glyphicon glyphicon glyphicon-remove"></i>
     </button>
 
@@ -34,21 +34,13 @@
 
               &nbsp;
               <ul class="dropdown-menu">
-                <li>
-                  <a data-toggle="modal" data-target="#addCandidateToGroup">
-                    <label class="label-a" v-text="translate('people.add_candidate_to_group')"></label>
-                  </a>
-                </li>
-                <li>
-                  <a @click="addCandidateToGroup()">
-                    <label class="label-a" v-text="translate('people.add_language')"></label>
-                  </a>
+
+
                   <li>
-                    <a @click="addCandidateToGroup()">
-                      <label class="label-a" v-text="translate('people.add_idiom')"></label>
+                    <a @click="beforeEditCustomer()">
+                      <label class="label-a" v-text="translate('people.edit_customer')"></label>
                     </a>
                   </li>
-                  <li role="separator" class="divider"></li>
                 </ul>
               </li>
             </ul>
@@ -127,5 +119,6 @@
       </div>
     </div>
     <add-customer v-if="flagAddCustomer" :before="beforeAddCustomer"></add-customer>
+    <edit-customer v-if="flagEditCustomer" :customer="selected" :customernow="selectedClone"></edit-customer>
 
   </div>
