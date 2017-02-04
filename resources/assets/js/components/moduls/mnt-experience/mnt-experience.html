@@ -35,11 +35,11 @@
         </div>
         <div class="col-sm-2">
 
-          <label class="label-a" v-text="translate('people.admission_date')"></label>
+          <label class="label-a" v-text="translate('people.period')"></label>
         </div>
         <div class="col-sm-2">
 
-          <label class="label-a" v-text="translate('people.departure_date')"></label>
+          <label class="label-a" v-text="translate('people.comments')"></label>
         </div>
 
 
@@ -66,10 +66,10 @@
             {{ experience.turn_business }}
           </div>
           <div class="col-sm-2">
-            {{ experience.admission_date }}
+            {{ experience.admission_date }} /   {{ experience.departure_date }}
           </div>
           <div class="col-sm-2">
-            {{ experience.departure_date }}
+            {{ experience.comments }}
           </div>
 
           <div class="col-sm-1">

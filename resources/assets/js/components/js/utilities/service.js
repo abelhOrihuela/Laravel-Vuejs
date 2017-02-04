@@ -30,7 +30,7 @@ export default {
       message: message,
       position: 'success',
       iconClass: 'glyphicon glyphicon-ok',
-      duration: 4000
+      duration: 1000
     });
 
   },
@@ -68,9 +68,6 @@ export default {
 
   equals: function(context,x, y){
 
-    console.log(Object.keys(x).length);
-    console.log(Object.keys(y).length);
-
 
     if (Object.keys(x).length != Object.keys(y).length){
 
@@ -85,9 +82,6 @@ export default {
           this.equals(this, x[p], y[p]);
         }
         else if( x[p] != y[p]){
-
-          console.log(x[p]);
-          console.log(y[p]);
 
           return false;
         }

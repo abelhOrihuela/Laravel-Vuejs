@@ -167,13 +167,85 @@ class CandidatesController extends Controller
 		return $request;
 	}
 
+	public function getData()
+	{
+			$data =  [
+					'quantity'      => '1' ,
+					'description'   => 'some ramdom text',
+					'price'   => '500',
+					'total'     => '500'
+			];
+			return $data;
+	}
+
 	function getPdf($id){
 
-		$pdf=PDF::loadView('app.candidate')
+
+
+		/*
+
+		$data =  [
+	             'quantity'      => '1' ,
+	             'description'   => 'some ramdom text',
+	             'price'   => '500',
+	             'total'     => '500'
+	         ];
+
+        $date = date('Y-m-d');
+        $invoice = "2222";
+        $view =  \View::make('app.candidate', compact('data', 'date', 'invoice'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+					$pdf	->stream('download.pdf');
+
+//return $pdf->download('candidate');
+        //return $pdf->stream('invoice');
+
+
+
+
+		$pdf=PDF::loadView('app.candidate', $data)
 		->save(public_path().'/my_stored_file.pdf')
 		->stream('download.pdf');
 
 		return $pdf;
+*/
 
 	}
+
+	function pdf($id){
+		ob_start();
+    set_time_limit(0);
+
+
+		$candidate=Candidate::where("id", "=", $id)->first();
+		$candidate->experiences;
+		$candidate->academics;
+		$candidate->experiencesWtc;
+		$candidate->categoryCandidate;
+		$candidate->subcategoryCandidate;
+		$candidate->languages;
+		$candidate->idioms;
+		$candidate->economic;
+		$candidate->photo;
+		$candidate->groups;
+		$candidate->user;
+
+
+    $pdf =  \App::make('dompdf.wrapper');
+    $pdf->loadHTML("");
+
+
+$name=uniqid().'.pdf';
+    $view =  \View::make('pdf.invoice', compact('candidate'))->render();
+    $pdf->loadHTML("<h1>Test</h1>");
+    $pdf->loadHTML($view)
+		//		->save(public_path().'/'.uniqid().'.pdf')
+		->save(public_path().'/'.$name);
+
+		return $name;
+
+	}
+
+
 }

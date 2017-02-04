@@ -9,8 +9,7 @@ import { translations } from '../../../js/translations.js';
 export default{
   template: require('./edit-customer.html'),
   props:{
-    customer: Object,
-    customernow: Object
+    customer: Object
   },
   data: function(){
 
@@ -18,6 +17,7 @@ export default{
       locale: 'es',
       categories: [],
       subcategories:[],
+      customernow: {}
     }
 
   },
@@ -73,6 +73,9 @@ export default{
   changeCustomer: function(){
     return !service.equals(this, this.customer, this.customernow);
   },
+  activate: function(){
+    this.customernow=service.clone(this.customer);
+  },
   editCustomer: function(){
     var customer= new Object();
 
@@ -99,13 +102,10 @@ export default{
     if(this.customer.comments!= this.customernow.comments){
       customer.comments=this.customer.comments;
     }
-    console.log("---------------------------");
-    console.log(customer);
-    console.log("---------------------------");
 
     var resource=this.$http.put(CUSTOMER_EDIT, customer);
     resource.then(function(response){
-
+      this.customernow=service.clone(this.customer);
       service.showSuccess(this, null);
 
     }, function (error){
@@ -118,6 +118,7 @@ export default{
 created: function(){
 
   this.fetchCategories();
+  this.activate();
 
   this.genders=[
     {'description': this.translate('people.men'), 'code':'Hombre'},

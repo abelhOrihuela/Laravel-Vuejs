@@ -94,7 +94,7 @@ Route::group(['prefix' => 'api'], function () {
     ]);
     /* GET PDF FOR CANDIDATE */
     Route::get('pdf/{id}',[
-      'uses' => 'CandidatesController@getPdf',
+      'uses' => 'CandidatesController@pdf',
       'as'   => 'photo_create_path']
     );
 

@@ -51,7 +51,6 @@ export default{
       this.flagDeatilSelect=true;
       this.flagAddCustomer=false;
       this.selected=entry;
-      this.selectedClone=service.clone(entry);
 
     },
     showTable: function(){
@@ -63,8 +62,7 @@ export default{
       this.flagShowTable=false;
       this.flagDeatilSelect=false;
       this.flagAddCustomer=true;
-
-
+      this.flagEditCustomer=false;
     },
     cancelAddCustomer: function(){
       this.flagShowTable=true;
@@ -92,6 +90,12 @@ export default{
       }, function (error){
         service.showError(this, error);
       });
+    },
+    endEdit: function(){
+      this.flagEditCustomer=false;
+      this.flagShowTable=true;
+      this.getCustomers();
+
     }
 
   },

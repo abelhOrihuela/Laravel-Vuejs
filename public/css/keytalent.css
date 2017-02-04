@@ -97,12 +97,20 @@ tr{
   border-radius: 2px;
 }
 .container-detail-header{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
   width: 100%;
   background-color: #E5E7E9;
-  text-align: center;
-
+  text-align: left;
+  margin-bottom: 10px;
 }
-
+.text-description-fields{
+  padding: 3px;
+}
+.container-table-pdf{
+  margin: 10px;
+}
 .container-detail-section{
   padding:10px;
 }
@@ -118,14 +126,11 @@ tr{
 .label-error{
   color: red;
 }
-
 .container-a{
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-
 }
-
 .container-component{
   width: 100%;
 }
@@ -137,8 +142,6 @@ tr{
   z-index: 120;
   width: 100%;
 }
-
-
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -150,12 +153,10 @@ tr{
   display: table;
   transition: opacity .3sl ease;
 }
-
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
 }
-
 .modal-container {
   margin: 0px auto;
   background-color: #fff;
@@ -168,22 +169,18 @@ tr{
   background-color: #4261b9;
   color: white;
 }
-
 .danger{
   background-color: #d9534f;
   color: white;
 }
-
 .modal-header h3 {
   margin-top: 0;
   color: white;
 }
-
 .modal-body {
   margin: 20px 0;
   padding: 20px 30px;
 }
-
 .modal-default-button {
   float: right;
 }
@@ -507,9 +504,6 @@ footer a, footer a:link {
 }
 /**-----------------------------------------------------------------------------**/
 
-
-
-
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 }
 @import url(http://fonts.googleapis.com/css?family=Titillium+Web:300);
@@ -525,7 +519,6 @@ footer a, footer a:link {
 	vertical-align: middle;
 	font-size:20px;
 }
-
 
 .main-menu:hover,nav.main-menu.expanded {
 	width:250px;
@@ -556,7 +549,6 @@ footer a, footer a:link {
 	position:relative;
 	display:block;
 	width:250px;
-
 }
 
 .main-menu li>a {
@@ -571,7 +563,6 @@ footer a, footer a:link {
 	-webkit-transform:translateZ(0) scale(1,1);
 	-webkit-transition:all .1s linear;
 	transition:all .1s linear;
-
 }
 
 .main-menu .nav-icon {
@@ -655,8 +646,6 @@ nav ul,nav li {
   display: flex;
   justify-content: flex-start;
   width: auto;
-
-
 }
 .context:hover {
     text-decoration: none;
@@ -827,4 +816,55 @@ nav ul,nav li {
   top: 100%;
   left: 10px;
   margin-top: 4px;
+}
+.header-pdf{
+  display: inline-block;
+  width: 100%;
+  height: 250px;
+}
+.header-pdf-img{
+  width: 40%;
+  display: inline-block;
+}
+.header-pdf-img img{
+  width: 80%;
+  margin: 10px;
+  height: 230px
+}
+.header-pdf-text{
+  margin-left: 20px;
+  width: 60%;
+  display: inline-block;
+}
+.intro-profile-pdf{
+  background-color: red;
+  width: 100px;
+}
+.img-profile-pdf{
+  width: 100px;
+  display: inline-block;
+  background-color: white;
+}
+.img-profile-pdf img{
+  width: 150px;
+}
+.personal-information-pdf{
+  width: 300px;
+  display: inline-block;
+}
+.text-description-fields{
+  display: inline-block;
+  width: 100%;
+}
+.text-label{
+  width: 30%;
+  display: inline-block;
+}
+.text-description{
+    width: 60%;
+    display: inline-block;
+}
+.container-table-pdf table{
+  width: 100%;
+  text-align: left !important;
 }

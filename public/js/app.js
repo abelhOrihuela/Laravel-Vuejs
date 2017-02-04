@@ -22951,7 +22951,7 @@ var app = new Vue({
 }).$mount('#app');
 
 },{"./components/a-components/a-login/a-login.vue":56,"./components/a-components/a-menu/a-menu.vue":58,"./components/moduls/dashboard/dashboard.vue":72,"./components/moduls/mnt-admins/mnt-admins.vue":82,"./components/moduls/mnt-candidates/mnt-candidates.vue":86,"./components/moduls/mnt-customers/mnt-customers.vue":92,"./components/moduls/mnt-groups/mnt-groups.vue":124,"moment":42,"vue-filter/dist/vue-filter":44,"vue-i18n-mixin":46,"vue-resource/dist/vue-resource.js":47,"vue-router/dist/vue-router.js":48,"vue/dist/vue.js":51}],53:[function(require,module,exports){
-module.exports = '<div class="container-a">\n  <div class="panel panel-default shadow-key">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-1">\n          <i  class="glyphicon glyphicon-menu-left" @click="showTable()"></i>\n        </div>\n        <div class="col-sm-9">\n\n          <label class="vcenter"v-text="translate(\'people.candidate_selected\')"></label>\n\n        </div>\n        <div class="col-sm-2">\n          <ul class="nav navbar-nav navbar-right">\n            <li class="dropdown">\n              <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>\n\n              &nbsp;\n              <ul class="dropdown-menu">\n                <li>\n                  <a data-toggle="modal" data-target="#addCandidateToGroup">\n                    <label class="label-a" v-text="translate(\'people.add_candidate_to_group\')"></label>\n                  </a>\n                </li>\n                <li>\n                  <a @click="addCandidateToGroup()">\n                    <label class="label-a" v-text="translate(\'people.add_language\')"></label>\n                  </a>\n                  <li>\n                    <a @click="addCandidateToGroup()">\n                      <label class="label-a" v-text="translate(\'people.add_idiom\')"></label>\n                    </a>\n                  </li>\n                  <li role="separator" class="divider"></li>\n                </ul>\n              </li>\n            </ul>\n          </div>\n        </div>\n      </div>\n      <div class="panel-body">\n\n        <div class="row">\n          <div class="col-xs-6 col-md-4">\n            <figure class="snip1559 tumbnails">\n              <div v-if="candidate.photo"class="profile-image">\n                <img :src="candidate.photo.name_photo" alt="" />\n              </div>\n              <div v-if="!candidate.photo"class="profile-image">\n                <img src="../img/default.png" alt="" />\n              </div>\n              <figcaption>\n                <div class="icons">\n                  <i class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>\n                  <i class="glyphicon glyphicon-save-file" @click="downloadPdf()">\n                  </i>\n                </div>\n\n\n                <add-candidate-to-group :candidate="candidate" :add="addGroup"></add-candidate-to-group>\n\n                <mnt-languages :candidate="candidate"></mnt-languages>\n\n                <mnt-idioms :candidate="candidate"></mnt-idioms>\n\n\n              </figcaption>\n            </figure>\n          </div>\n\n          <div class="col-xs-6 col-md-8">\n            <div class="tab-header">\n              <h4>{{ candidate.username }}</h4>\n            </div>\n            <table class="table table-condensed">\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.position\')"></label>\n                </td>\n                <td>\n                  {{ candidate.position }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a"  v-text="translate(\'people.email\')"></label>\n                </td>\n                <td>\n                  {{ candidate.email }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a"  v-text="translate(\'people.gender\')"></label>\n                </td>\n                <td>\n                  {{ candidate.gender }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a"  v-text="translate(\'people.location\')"></label>\n                </td>\n                <td>\n                  {{ candidate.location }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.birthday\')"></label>\n                </td>\n                <td>\n                  {{ candidate.day }} /\n                  {{ candidate.month }} /\n                  {{ candidate.year }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.phone\')"></label>\n                </td>\n                <td>\n                  {{ candidate.code }} / {{ candidate.phone }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.category\')"></label>\n                </td>\n                <td>\n                  {{ candidate.category_candidate.name }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n                </td>\n                <td>\n                  {{ candidate.subcategory_candidate.name }}\n                </td>\n              </tr>\n            </table>\n          </div>\n        </div>\n\n        <ul class="nav nav-tabs">\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==1 }" @click="selectTab(1)">\n            <a>Formacion Academica</a>\n          </li>\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==2 }" @click="selectTab(2)">\n            <a>Experiencia Profesional</a>\n          </li>\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==3 }" @click="selectTab(3)">\n            <a>Experiencia en WTC</a>\n          </li>\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==4 }" @click="selectTab(4)">\n            <a>Expectativa Economica</a>\n          </li>\n        </ul>\n\n        <br>\n\n        <div class="panel panel-default" v-if="optionTab==1">\n          <div class="panel-body">\n            <mnt-academic :candidate="candidate"></mnt-academic>\n          </div>\n        </div>\n\n        <div class="panel panel-default" v-if="optionTab==2">\n          <div class="panel-body">\n            <mnt-experience :candidate="candidate"></mnt-experience>\n          </div>\n        </div>\n\n        <div class="panel panel-default" v-if="optionTab==3">\n          <div class="panel-body">\n            <mnt-experiencewtc :candidate="candidate"></mnt-experiencewtc>\n          </div>\n        </div>\n\n        <div class="panel panel-default" v-if="optionTab==4">\n          <div class="panel-body">\n            <mnt-economic :candidate="candidate"></mnt-economic>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <add-photo v-if="showModalPhoto" @close="showModalPhoto = false" :getphoto="getPhoto" :candidate="candidate.id"></add-photo>\n\n  </div>\n';
+module.exports = '<div class="container-a">\n  <div class="panel panel-default shadow-key">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-1">\n          <i  class="glyphicon glyphicon-menu-left" @click="showTable()"></i>\n        </div>\n        <div class="col-sm-9">\n\n          <label class="vcenter"v-text="translate(\'people.candidate_selected\')"></label>\n\n        </div>\n\n\n        </div>\n      </div>\n      <div class="panel-body">\n\n        <div class="row">\n          <div class="col-xs-6 col-md-4">\n            <figure class="snip1559 tumbnails">\n              <div v-if="candidate.photo"class="profile-image">\n                <img :src="candidate.photo.name_photo" alt="" />\n              </div>\n              <div v-if="!candidate.photo"class="profile-image">\n                <img src="../img/default.png" alt="" />\n              </div>\n              <figcaption>\n                <div class="icons">\n                  <i class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>\n                  <i class="glyphicon glyphicon-save-file" @click="downloadPdf()">\n                  </i>\n                </div>\n\n\n                <add-candidate-to-group :candidate="candidate" :add="addGroup"></add-candidate-to-group>\n\n                <mnt-languages :candidate="candidate"></mnt-languages>\n\n                <mnt-idioms :candidate="candidate"></mnt-idioms>\n\n\n              </figcaption>\n            </figure>\n          </div>\n\n          <div class="col-xs-6 col-md-8">\n            <div class="tab-header">\n              <h4>{{ candidate.username }}</h4>\n            </div>\n            <table class="table table-condensed">\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.position\')"></label>\n                </td>\n                <td>\n                  {{ candidate.position }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a"  v-text="translate(\'people.email\')"></label>\n                </td>\n                <td>\n                  {{ candidate.email }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a"  v-text="translate(\'people.gender\')"></label>\n                </td>\n                <td>\n                  {{ candidate.gender }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a"  v-text="translate(\'people.location\')"></label>\n                </td>\n                <td>\n                  {{ candidate.location }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.birthday\')"></label>\n                </td>\n                <td>\n                  {{ candidate.day }} /\n                  {{ candidate.month }} /\n                  {{ candidate.year }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.phone\')"></label>\n                </td>\n                <td>\n                  {{ candidate.code }} / {{ candidate.phone }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.category\')"></label>\n                </td>\n                <td>\n                  {{ candidate.category_candidate.name }}\n                </td>\n              </tr>\n              <tr>\n                <td>\n                  <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n                </td>\n                <td>\n                  {{ candidate.subcategory_candidate.name }}\n                </td>\n              </tr>\n            </table>\n          </div>\n        </div>\n\n        <ul class="nav nav-tabs">\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==1 }" @click="selectTab(1)">\n            <a>Formacion Academica</a>\n          </li>\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==2 }" @click="selectTab(2)">\n            <a>Experiencia Profesional</a>\n          </li>\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==3 }" @click="selectTab(3)">\n            <a>Experiencia en WTC</a>\n          </li>\n          <li role="presentation" v-bind:class="{ \'active\': optionTab==4 }" @click="selectTab(4)">\n            <a>Expectativa Economica</a>\n          </li>\n        </ul>\n\n        <br>\n\n        <div class="panel panel-default" v-if="optionTab==1">\n          <div class="panel-body">\n            <mnt-academic :candidate="candidate"></mnt-academic>\n          </div>\n        </div>\n\n        <div class="panel panel-default" v-if="optionTab==2">\n          <div class="panel-body">\n            <mnt-experience :candidate="candidate"></mnt-experience>\n          </div>\n        </div>\n\n        <div class="panel panel-default" v-if="optionTab==3">\n          <div class="panel-body">\n            <mnt-experiencewtc :candidate="candidate"></mnt-experiencewtc>\n          </div>\n        </div>\n\n        <div class="panel panel-default" v-if="optionTab==4">\n          <div class="panel-body">\n            <mnt-economic :candidate="candidate"></mnt-economic>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <add-photo v-if="showModalPhoto" @close="showModalPhoto = false" :getphoto="getPhoto" :candidate="candidate.id"></add-photo>\n\n  </div>\n';
 },{}],54:[function(require,module,exports){
 'use strict';
 
@@ -23151,9 +23151,11 @@ exports.default = {
       var resource = this.$resource('pdf{/id}');
       resource.get({ id: $id }).then(function (response) {
 
+        console.log(response);
+
         var link = document.createElement("a");
-        link.download = "PDF";
-        link.href = "../my_stored_file.pdf";
+        link.download = response.body;
+        link.href = "../" + response.body;
         link.click();
       }, function (error) {});
     }
@@ -23624,7 +23626,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../js/translations.js":67,"../../js/utilities/filters.js":68,"./a-table.html":59,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],61:[function(require,module,exports){
-module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 50%">\n          <div class="modal-header">\n            <div class="row">\n              <div class="col-sm-10">\n                <slot name="header">\n                  <label v-text="translate(\'people.add_photo\')"></label>\n                </slot>\n              </div>\n              <div class="col-sm-2">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n              <div class="row">\n                <div class="col-sm-12" v-if="!image">\n                  <label v-text="translate(\'people.select_image\')"></label>\n                </div>\n              </div>\n              <div class="row">\n                <div class="col-sm-12">\n                  <div v-if="!image">\n                    <input name="profile" class="form-control" type="file"\n                    accept="image/x-png,image/gif,image/jpeg" @change="onFileChange">\n                  </div>\n                  <div v-if="image" style="text-align: center">\n                    <img style="width: 300px; height: 300px" :src="image" enctype="" />\n                  </div>\n                </div>\n              </div>\n            </slot>\n          </div>\n\n          <div class="modal-footer" v-if="image">\n            <slot name="footer">\n              <button\n                class="btn btn-success"\n                @click="newPhoto">\n                Confirmar\n              </button>\n\n\n              <button\n                class="btn btn-danger"\n                @click="removeImage">\n                Cancelar\n              </button>\n            </slot>\n          </div>\n        </div>\n      </div>\n    </div>\n\n</transition>\n</div>\n';
+module.exports = '<div class="container-component">\n  <transition name="modal">\n\n    <div class="modal-mask">\n      <div class="modal-wrapper">\n        <div class="modal-container" style="width: 50%">\n          <div class="modal-header">\n            <div class="row">\n              <div class="col-sm-10">\n                <slot name="header">\n                  <label v-text="translate(\'people.add_photo\')"></label>\n                </slot>\n              </div>\n              <div class="col-sm-2">\n                <button class="btn btn-keytalent" @click="$emit(\'close\')">\n                  <i class="glyphicon glyphicon-remove"></i>\n                </button>\n              </div>\n            </div>\n          </div>\n          <div class="modal-body">\n            <slot name="body">\n              <div class="row">\n                <div class="col-sm-12" v-if="!image">\n                  <label v-text="translate(\'people.select_image\')"></label>\n                </div>\n              </div>\n              <div class="row">\n                <div class="col-sm-12">\n                  <div v-if="!image">\n                    <input name="profile" class="form-control" type="file"\n                    accept="image/x-png,image/gif,image/jpeg" @change="onFileChange">\n                  </div>\n                  <div v-if="image" style="text-align: center">\n                    <img style="width: 300px; height: 300px" :src="image" enctype="" />\n                  </div>\n                </div>\n              </div>\n            </slot>\n          </div>\n\n          <div class="modal-footer" v-if="image">\n            <slot name="footer">\n              <button\n                class="btn btn-success"\n                @click="newPhoto">\n                <label v-text="translate(\'people.confirm\')"></label>\n              </button>\n\n\n              <button\n                class="btn btn-danger"\n                @click="removeImage">\n                <label v-text="translate(\'people.cancel\')"></label>\n              </button>\n            </slot>\n          </div>\n        </div>\n      </div>\n    </div>\n\n</transition>\n</div>\n';
 },{}],62:[function(require,module,exports){
 'use strict';
 
@@ -23633,6 +23635,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _translations = require('../../js/translations.js');
+
+var _constants_restful = require('../../js/constants_restful.js');
 
 exports.default = {
   template: require('./add-photo.html'),
@@ -23649,12 +23653,7 @@ exports.default = {
       locale: 'es'
     };
   },
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
-    }
-  },
+  http: _constants_restful.HTTP,
   methods: {
     onFileChange: function onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
@@ -23684,7 +23683,7 @@ exports.default = {
         vm.image = e.target.result;
       };
 
-      this.$http.post('image/profile', { 'profile': vm.image, 'candidate': this.candidate }).then(function (response) {
+      this.$http.post(_constants_restful.IMAGE_PROFILE, { 'profile': vm.image, 'candidate': this.candidate }).then(function (response) {
         this.getphoto(response.body, true);
       }, function (error) {});
     }
@@ -23701,7 +23700,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-3f0e33fd", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../../js/translations.js":67,"./add-photo.html":61,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],63:[function(require,module,exports){
+},{"../../js/constants_restful.js":64,"../../js/translations.js":67,"./add-photo.html":61,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],63:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23743,6 +23742,8 @@ var CANDIDATES_SEARCH = exports.CANDIDATES_SEARCH = "candidates/search";
 var CATEGORIES = exports.CATEGORIES = "categories";
 var SUBCATEGORIES = exports.SUBCATEGORIES = "subcategories{/id}";
 var USER_PERMISSIONS = exports.USER_PERMISSIONS = "user/permissions";
+
+var IMAGE_PROFILE = exports.IMAGE_PROFILE = "image/profile";
 
 /*----------------------------CANDIDATE ACADEMIC-----------------------------*/
 
@@ -24055,6 +24056,9 @@ var translations = exports.translations = {
   }), _defineProperty(_people, 'username', {
     en: 'Username',
     es: 'Usuario'
+  }), _defineProperty(_people, 'period', {
+    en: 'Period',
+    es: 'Periodo'
   }), _defineProperty(_people, 'email', {
     en: 'Email',
     es: 'Correo Electronico'
@@ -24462,7 +24466,7 @@ exports.default = {
       message: message,
       position: 'success',
       iconClass: 'glyphicon glyphicon-ok',
-      duration: 4000
+      duration: 1000
     });
   },
 
@@ -24503,9 +24507,6 @@ exports.default = {
 
   equals: function equals(context, x, y) {
 
-    console.log(Object.keys(x).length);
-    console.log(Object.keys(y).length);
-
     if (Object.keys(x).length != Object.keys(y).length) {
 
       return false;
@@ -24517,9 +24518,6 @@ exports.default = {
 
           this.equals(this, x[p], y[p]);
         } else if (x[p] != y[p]) {
-
-          console.log(x[p]);
-          console.log(y[p]);
 
           return false;
         }
@@ -25812,15 +25810,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
   template: require('./edit-customer.html'),
   props: {
-    customer: Object,
-    customernow: Object
+    customer: Object
   },
   data: function data() {
 
     return {
       locale: 'es',
       categories: [],
-      subcategories: []
+      subcategories: [],
+      customernow: {}
     };
   },
   http: _constants_restful.HTTP,
@@ -25874,6 +25872,9 @@ exports.default = {
     changeCustomer: function changeCustomer() {
       return !_service2.default.equals(this, this.customer, this.customernow);
     },
+    activate: function activate() {
+      this.customernow = _service2.default.clone(this.customer);
+    },
     editCustomer: function editCustomer() {
       var customer = new Object();
 
@@ -25900,13 +25901,10 @@ exports.default = {
       if (this.customer.comments != this.customernow.comments) {
         customer.comments = this.customer.comments;
       }
-      console.log("---------------------------");
-      console.log(customer);
-      console.log("---------------------------");
 
       var resource = this.$http.put(_constants_restful.CUSTOMER_EDIT, customer);
       resource.then(function (response) {
-
+        this.customernow = _service2.default.clone(this.customer);
         _service2.default.showSuccess(this, null);
       }, function (error) {
 
@@ -25917,6 +25915,7 @@ exports.default = {
   created: function created() {
 
     this.fetchCategories();
+    this.activate();
 
     this.genders = [{ 'description': this.translate('people.men'), 'code': 'Hombre' }, { 'description': this.translate('people.women'), 'code': 'Mujer' }];
 
@@ -25935,7 +25934,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../../js/constants_restful.js":64,"../../../js/translations.js":67,"../../../js/utilities/filters.js":68,"../../../js/utilities/service.js":69,"./edit-customer.html":89,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],91:[function(require,module,exports){
-module.exports = '<div class="container-a">\n  <div style="text-align: right">\n\n\n    <button v-if="!flagAddCustomer && permissions.add"id="show-modal" @click="addCustomer()" class="btn btn-info btn-options" data-tooltip="Agregar Nuevo Cliente" data-placement="left">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n    <button v-if="flagAddCustomer && permissions.delete" id="show-modal" @click="cancelAddCustomer()" class="btn btn-danger btn-options" data-tooltip="Cancelar Registro Nuevo Cliente" data-placement="left">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n  </div>\n\n  <br>\n  <a-table v-if="flagShowTable":data="customers" :columns="columns" :total="customers.length" :select="select" :showSearch="false"></a-table>\n\n\n  <div v-if="flagDeatilSelect" class="panel panel-default shadow-key">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-1" @click="showTable">\n          <i  class="glyphicon glyphicon-menu-left"></i>\n        </div>\n        <div class="col-sm-9">\n          <label class="vcenter" v-text="translate(\'people.selected\')"></label>\n\n        </div>\n\n        <div class="col-sm-2">\n          <ul class="nav navbar-nav navbar-right">\n            <li class="dropdown">\n              <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>\n\n              &nbsp;\n              <ul class="dropdown-menu">\n\n\n                  <li>\n                    <a @click="beforeEditCustomer()">\n                      <label class="label-a" v-text="translate(\'people.edit_customer\')"></label>\n                    </a>\n                  </li>\n                </ul>\n              </li>\n            </ul>\n          </div>\n\n        </div>\n      </div>\n      <div class="panel-body">\n        <div class="row">\n          <div class="col-sm-3">\n            <label class="label-a" v-text="translate(\'people.name\')"></label>\n            <div>\n              {{ selected.username }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.gender\')"></label>\n            <div >\n              {{ selected.gender }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.company\')"></label>\n            <div >\n              {{ selected.company }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.category\')"></label>\n            <div >\n              {{ selected.category_customer.name }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n            <div >\n              {{ selected.subcategory_customer.name }}\n            </div>\n          </div>\n\n          <div class="col-sm-1">\n            <label class="label-a" v-text="translate(\'people.type\')"></label>\n            <div >\n              {{ selected.type | customers }}\n            </div>\n          </div>\n\n        </div>\n        <br>\n        <div class="row">\n          <div class="col-sm-3">\n            <label class="label-a" v-text="translate(\'people.comments\')"></label>\n            <div>\n              {{ selected.comments }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.created_at\')"></label>\n            <div >\n              {{ selected.created_at | shortDate }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.updated_at\')"></label>\n            <div>\n              {{ selected.updated_at | shortDate }}\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <add-customer v-if="flagAddCustomer" :before="beforeAddCustomer"></add-customer>\n    <edit-customer v-if="flagEditCustomer" :customer="selected" :customernow="selectedClone"></edit-customer>\n\n  </div>\n';
+module.exports = '<div class="container-a">\n  <div style="text-align: right">\n\n\n    <button v-if="!flagAddCustomer && permissions.add"id="show-modal" @click="addCustomer()" class="btn btn-info btn-options" data-tooltip="Agregar Nuevo Cliente" data-placement="left">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n    <button v-if="flagAddCustomer && permissions.delete" id="show-modal" @click="cancelAddCustomer()" class="btn btn-danger btn-options" data-tooltip="Cancelar Registro Nuevo Cliente" data-placement="left">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n    <button v-if="flagEditCustomer" id="show-modal" @click="endEdit()" class="btn btn-success btn-options">\n      <i class="glyphicon glyphicon-ok"></i>\n    </button>\n\n\n  </div>\n\n  <br>\n  <a-table v-if="flagShowTable":data="customers" :columns="columns" :total="customers.length" :select="select" :showSearch="false"></a-table>\n\n\n  <div v-if="flagDeatilSelect" class="panel panel-default shadow-key">\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-1" @click="showTable">\n          <i  class="glyphicon glyphicon-menu-left"></i>\n        </div>\n        <div class="col-sm-9">\n          <label class="vcenter" v-text="translate(\'people.selected\')"></label>\n\n        </div>\n\n        <div class="col-sm-2">\n          <ul class="nav navbar-nav navbar-right">\n            <li class="dropdown">\n              <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>\n\n              &nbsp;\n              <ul class="dropdown-menu">\n\n\n                  <li>\n                    <a @click="beforeEditCustomer()">\n                      <label class="label-a" v-text="translate(\'people.edit_customer\')"></label>\n                    </a>\n                  </li>\n                </ul>\n              </li>\n            </ul>\n          </div>\n\n        </div>\n      </div>\n      <div class="panel-body">\n        <div class="row">\n          <div class="col-sm-3">\n            <label class="label-a" v-text="translate(\'people.name\')"></label>\n            <div>\n              {{ selected.username }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.gender\')"></label>\n            <div >\n              {{ selected.gender }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.company\')"></label>\n            <div >\n              {{ selected.company }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.category\')"></label>\n            <div >\n              {{ selected.category_customer.name }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.subcategory\')"></label>\n            <div >\n              {{ selected.subcategory_customer.name }}\n            </div>\n          </div>\n\n          <div class="col-sm-1">\n            <label class="label-a" v-text="translate(\'people.type\')"></label>\n            <div >\n              {{ selected.type | customers }}\n            </div>\n          </div>\n\n        </div>\n        <br>\n        <div class="row">\n          <div class="col-sm-3">\n            <label class="label-a" v-text="translate(\'people.comments\')"></label>\n            <div>\n              {{ selected.comments }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.created_at\')"></label>\n            <div >\n              {{ selected.created_at | shortDate }}\n            </div>\n          </div>\n\n          <div class="col-sm-2">\n            <label class="label-a" v-text="translate(\'people.updated_at\')"></label>\n            <div>\n              {{ selected.updated_at | shortDate }}\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <add-customer v-if="flagAddCustomer" :before="beforeAddCustomer"></add-customer>\n    <edit-customer v-if="flagEditCustomer" :customer="selected" ></edit-customer>\n\n  </div>\n';
 },{}],92:[function(require,module,exports){
 'use strict';
 
@@ -26013,7 +26012,6 @@ exports.default = {
       this.flagDeatilSelect = true;
       this.flagAddCustomer = false;
       this.selected = entry;
-      this.selectedClone = _service2.default.clone(entry);
     },
     showTable: function showTable() {
       this.flagShowTable = true;
@@ -26024,6 +26022,7 @@ exports.default = {
       this.flagShowTable = false;
       this.flagDeatilSelect = false;
       this.flagAddCustomer = true;
+      this.flagEditCustomer = false;
     },
     cancelAddCustomer: function cancelAddCustomer() {
       this.flagShowTable = true;
@@ -26051,6 +26050,11 @@ exports.default = {
       }, function (error) {
         _service2.default.showError(this, error);
       });
+    },
+    endEdit: function endEdit() {
+      this.flagEditCustomer = false;
+      this.flagShowTable = true;
+      this.getCustomers();
     }
 
   },
@@ -26751,7 +26755,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../../js/constants_restful.js":64,"../../../js/translations.js":67,"../../../js/utilities/service.js":69,"../../../js/utilities/validate.js":70,"./edit-experience.html":103,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],105:[function(require,module,exports){
-module.exports = '<div class="container-a">\n\n  <div style="text-align: right">\n\n    <button  v-if="experienceSelect!=null && permissions.edit" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperience">\n      <i class="glyphicon glyphicon-pencil"></i>\n    </button>\n\n    <button  v-if="experienceSelect!=null && permissions.delete" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteExperience">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n    <button v-if="permissions.add" id="show-modal" @click="addMoreExperience()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addExperinece">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n  </div>\n\n  <br>\n\n  <div class="panel panel-default">\n\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-3">\n          <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.position\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.turn_business\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.admission_date\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.departure_date\')"></label>\n        </div>\n\n\n        <div class="col-sm-1">\n          <label class="label-a" v-text="translate(\'people.now\')"></label>\n        </div>\n\n\n\n      </div>\n\n    </div>\n\n    <ul class="list-group">\n      <li class="list-group-item" v-for="experience in candidate.experiences" @click="select(experience)">\n        <div class="row">\n          <div class="col-sm-3">\n            {{ experience.name_business }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.name_job }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.turn_business }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.admission_date }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.departure_date }}\n          </div>\n\n          <div class="col-sm-1">\n\n            <div style="font-size: 20px; text-align: center">\n              {{ experience.now | trueOrFalse }}\n            </div>\n          </div>\n\n        </div>\n      </li>\n    </ul>\n\n    <div class="row" >\n      <div v-if="experienceSelect!=null" class="col-sm-12" style="text-align: right">\n\n          <label class="label-a" v-text="translate(\'people.selected\')"></label>\n          : {{ experienceSelect.name_business }}&nbsp;\n\n      </div>\n    </div>\n\n  </div>\n\n\n  <delete-experience v-if="showModalDeleteExperince" :experience="experienceSelect" :remove="removeExperince" @close="showModalDeleteExperince = false">\n  </delete-experience>\n\n  <edit-experience v-if="showModalEditExperience" :experience="experienceOriginal" :experiencenow="experienceSelect" :update="update">\n  </edit-experience>\n\n\n  <add-experience v-if="showModalAddExperience" :candidate="candidate.id" :add="addExperience">\n  </add-experience>\n\n</div>\n';
+module.exports = '<div class="container-a">\n\n  <div style="text-align: right">\n\n    <button  v-if="experienceSelect!=null && permissions.edit" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperience">\n      <i class="glyphicon glyphicon-pencil"></i>\n    </button>\n\n    <button  v-if="experienceSelect!=null && permissions.delete" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteExperience">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n    <button v-if="permissions.add" id="show-modal" @click="addMoreExperience()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addExperinece">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n  </div>\n\n  <br>\n\n  <div class="panel panel-default">\n\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-3">\n          <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.position\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.turn_business\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.period\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.comments\')"></label>\n        </div>\n\n\n        <div class="col-sm-1">\n          <label class="label-a" v-text="translate(\'people.now\')"></label>\n        </div>\n\n\n\n      </div>\n\n    </div>\n\n    <ul class="list-group">\n      <li class="list-group-item" v-for="experience in candidate.experiences" @click="select(experience)">\n        <div class="row">\n          <div class="col-sm-3">\n            {{ experience.name_business }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.name_job }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.turn_business }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.admission_date }} /   {{ experience.departure_date }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.comments }}\n          </div>\n\n          <div class="col-sm-1">\n\n            <div style="font-size: 20px; text-align: center">\n              {{ experience.now | trueOrFalse }}\n            </div>\n          </div>\n\n        </div>\n      </li>\n    </ul>\n\n    <div class="row" >\n      <div v-if="experienceSelect!=null" class="col-sm-12" style="text-align: right">\n\n          <label class="label-a" v-text="translate(\'people.selected\')"></label>\n          : {{ experienceSelect.name_business }}&nbsp;\n\n      </div>\n    </div>\n\n  </div>\n\n\n  <delete-experience v-if="showModalDeleteExperince" :experience="experienceSelect" :remove="removeExperince" @close="showModalDeleteExperince = false">\n  </delete-experience>\n\n  <edit-experience v-if="showModalEditExperience" :experience="experienceOriginal" :experiencenow="experienceSelect" :update="update">\n  </edit-experience>\n\n\n  <add-experience v-if="showModalAddExperience" :candidate="candidate.id" :add="addExperience">\n  </add-experience>\n\n</div>\n';
 },{}],106:[function(require,module,exports){
 'use strict';
 

@@ -60,29 +60,14 @@ class AuthController extends Controller
     }else if (Customer::where("email", "=" , $request->username)->first()) {
       $user = Customer::where("email", "=" , $request->username)->first();
       $profile='C';
-
     }
 
-
-
-
     if($user){
-
-/*
-
       if(Session::get('profile')=='C'){
         return response()->json(['add' => false, 'edit' => false, 'delete' => false ]);
       }else{
         return response()->json(['add' => true, 'edit' => true, 'delete' => true ]);
-
       }
-      */
-
-      return response()->json(['add' => false, 'edit' => false, 'delete' => false ]);
-
-
-
-
     }else{
 
       Session::put('type_user', null);

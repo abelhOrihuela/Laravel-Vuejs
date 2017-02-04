@@ -1,5 +1,7 @@
 <script>
 import { translations } from '../../js/translations.js';
+import { HTTP, IMAGE_PROFILE,USER_PERMISSIONS } from '../../js/constants_restful.js';
+
 
 
 export default{
@@ -17,12 +19,7 @@ export default{
       locale: 'es'
     }
   },
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN' : document.querySelector('#token').getAttribute('value')
-    }
-  },
+  http: HTTP,
   methods: {
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
@@ -52,7 +49,7 @@ export default{
         vm.image = e.target.result;
       };
 
-      this.$http.post('image/profile', {'profile': vm.image , 'candidate': this.candidate })
+      this.$http.post(IMAGE_PROFILE, {'profile': vm.image , 'candidate': this.candidate })
       .then(function(response){
         this.getphoto(response.body, true);
       }, function (error){

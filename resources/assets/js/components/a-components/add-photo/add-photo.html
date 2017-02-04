@@ -44,14 +44,14 @@
               <button
                 class="btn btn-success"
                 @click="newPhoto">
-                Confirmar
+                <label v-text="translate('people.confirm')"></label>
               </button>
 
 
               <button
                 class="btn btn-danger"
                 @click="removeImage">
-                Cancelar
+                <label v-text="translate('people.cancel')"></label>
               </button>
             </slot>
           </div>

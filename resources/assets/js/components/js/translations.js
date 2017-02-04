@@ -112,6 +112,10 @@ export const translations={
       en: 'Username',
       es: 'Usuario'
     },
+    period:{
+      en: 'Period',
+      es: 'Periodo'
+    },
     email:{
       en: 'Email',
       es: 'Correo Electronico'

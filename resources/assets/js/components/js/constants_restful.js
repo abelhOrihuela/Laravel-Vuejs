@@ -19,6 +19,8 @@ export const CATEGORIES= "categories"
 export const SUBCATEGORIES= "subcategories{/id}"
 export const USER_PERMISSIONS= "user/permissions"
 
+export const IMAGE_PROFILE= "image/profile"
+
 /*----------------------------CANDIDATE ACADEMIC-----------------------------*/
 
 export const ACADEMIC="academic{/id}"

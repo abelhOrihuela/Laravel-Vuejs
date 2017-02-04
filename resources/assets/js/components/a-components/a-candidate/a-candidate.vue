@@ -188,9 +188,12 @@ export default{
       var resource= this.$resource('pdf{/id}');
       resource.get({id : $id }).then(function(response){
 
+        console.log(response);
+
+
         var link = document.createElement("a");
-        link.download = "PDF";
-        link.href = "../my_stored_file.pdf";
+        link.download = response.body;
+        link.href = "../"+response.body;
         link.click();
 
 
