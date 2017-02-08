@@ -51,6 +51,10 @@ export default{
     trueOrFalse: function(value){
       console.log(value);
       return filter.trueOrFalse(this,value);
+    },
+    shortDate: function(value){
+      console.log(value);
+      return filter.shortDate(this,value);
     }
   },
 
@@ -137,6 +141,7 @@ export default{
         this.optionTab= 1;
 
       }, function(error){
+        service.showError(this, error);
 
       });
 
@@ -147,6 +152,7 @@ export default{
       resource.get({id : candidate.id }).then(function(response){
         candidate.experiences=response.body;
       }, function(error){
+        service.showError(this, error);
 
       });
 
@@ -157,6 +163,7 @@ export default{
       resource.get({id : candidate.id }).then(function(response){
         candidate.experiences_wtc=response.body;
       }, function(error){
+        service.showError(this, error);
 
       });
 
@@ -169,6 +176,7 @@ export default{
 
 
       }, function(error){
+        service.showError(this, error);
 
       });
 
@@ -198,6 +206,7 @@ export default{
 
 
       }, function(error){
+        service.showError(this, error);
 
       });
 

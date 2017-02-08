@@ -23040,6 +23040,10 @@ exports.default = {
     trueOrFalse: function trueOrFalse(value) {
       console.log(value);
       return _filters2.default.trueOrFalse(this, value);
+    },
+    shortDate: function shortDate(value) {
+      console.log(value);
+      return _filters2.default.shortDate(this, value);
     }
   },
 
@@ -23114,28 +23118,36 @@ exports.default = {
       resource.get({ id: candidate.id }).then(function (response) {
         candidate.academics = response.body;
         this.optionTab = 1;
-      }, function (error) {});
+      }, function (error) {
+        _service2.default.showError(this, error);
+      });
     },
     getExperience: function getExperience(candidate) {
 
       var resource = this.$resource(_constants_restful.EXPERIENCE);
       resource.get({ id: candidate.id }).then(function (response) {
         candidate.experiences = response.body;
-      }, function (error) {});
+      }, function (error) {
+        _service2.default.showError(this, error);
+      });
     },
     getExperienceWtc: function getExperienceWtc(candidate) {
 
       var resource = this.$resource(_constants_restful.EXPERIENCEWTC);
       resource.get({ id: candidate.id }).then(function (response) {
         candidate.experiences_wtc = response.body;
-      }, function (error) {});
+      }, function (error) {
+        _service2.default.showError(this, error);
+      });
     },
     getEconomic: function getEconomic(candidate) {
 
       var resource = this.$resource(_constants_restful.ECONOMIC);
       resource.get({ id: candidate.id }).then(function (response) {
         candidate.economic = response.body;
-      }, function (error) {});
+      }, function (error) {
+        _service2.default.showError(this, error);
+      });
     },
     addCandidateToGroup: function addCandidateToGroup() {
       this.flagAddGroup = true;
@@ -23157,7 +23169,9 @@ exports.default = {
         link.download = response.body;
         link.href = "../" + response.body;
         link.click();
-      }, function (error) {});
+      }, function (error) {
+        _service2.default.showError(this, error);
+      });
     }
   },
   created: function created() {
@@ -26755,7 +26769,7 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"../../../js/constants_restful.js":64,"../../../js/translations.js":67,"../../../js/utilities/service.js":69,"../../../js/utilities/validate.js":70,"./edit-experience.html":103,"babel-runtime/core-js/object/keys":3,"vue":50,"vue-hot-reload-api":45,"vue-i18n-mixin":46}],105:[function(require,module,exports){
-module.exports = '<div class="container-a">\n\n  <div style="text-align: right">\n\n    <button  v-if="experienceSelect!=null && permissions.edit" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperience">\n      <i class="glyphicon glyphicon-pencil"></i>\n    </button>\n\n    <button  v-if="experienceSelect!=null && permissions.delete" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteExperience">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n    <button v-if="permissions.add" id="show-modal" @click="addMoreExperience()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addExperinece">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n  </div>\n\n  <br>\n\n  <div class="panel panel-default">\n\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-3">\n          <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.position\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.turn_business\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.period\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.comments\')"></label>\n        </div>\n\n\n        <div class="col-sm-1">\n          <label class="label-a" v-text="translate(\'people.now\')"></label>\n        </div>\n\n\n\n      </div>\n\n    </div>\n\n    <ul class="list-group">\n      <li class="list-group-item" v-for="experience in candidate.experiences" @click="select(experience)">\n        <div class="row">\n          <div class="col-sm-3">\n            {{ experience.name_business }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.name_job }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.turn_business }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.admission_date }} /   {{ experience.departure_date }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.comments }}\n          </div>\n\n          <div class="col-sm-1">\n\n            <div style="font-size: 20px; text-align: center">\n              {{ experience.now | trueOrFalse }}\n            </div>\n          </div>\n\n        </div>\n      </li>\n    </ul>\n\n    <div class="row" >\n      <div v-if="experienceSelect!=null" class="col-sm-12" style="text-align: right">\n\n          <label class="label-a" v-text="translate(\'people.selected\')"></label>\n          : {{ experienceSelect.name_business }}&nbsp;\n\n      </div>\n    </div>\n\n  </div>\n\n\n  <delete-experience v-if="showModalDeleteExperince" :experience="experienceSelect" :remove="removeExperince" @close="showModalDeleteExperince = false">\n  </delete-experience>\n\n  <edit-experience v-if="showModalEditExperience" :experience="experienceOriginal" :experiencenow="experienceSelect" :update="update">\n  </edit-experience>\n\n\n  <add-experience v-if="showModalAddExperience" :candidate="candidate.id" :add="addExperience">\n  </add-experience>\n\n</div>\n';
+module.exports = '<div class="container-a">\n\n  <div style="text-align: right">\n\n    <button  v-if="experienceSelect!=null && permissions.edit" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperience">\n      <i class="glyphicon glyphicon-pencil"></i>\n    </button>\n\n    <button  v-if="experienceSelect!=null && permissions.delete" id="show-modal" @click="deleteExperience()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteExperience">\n      <i class="glyphicon glyphicon glyphicon-remove"></i>\n    </button>\n\n    <button v-if="permissions.add" id="show-modal" @click="addMoreExperience()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addExperinece">\n      <i class="glyphicon glyphicon-plus"></i>\n    </button>\n\n  </div>\n\n  <br>\n\n  <div class="panel panel-default">\n\n    <div class="panel-heading">\n      <div class="row">\n        <div class="col-sm-3">\n          <label class="label-a" v-text="translate(\'people.name_business\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.position\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.turn_business\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.period\')"></label>\n        </div>\n        <div class="col-sm-2">\n\n          <label class="label-a" v-text="translate(\'people.comments\')"></label>\n        </div>\n\n\n        <div class="col-sm-1">\n          <label class="label-a" v-text="translate(\'people.now\')"></label>\n        </div>\n\n\n\n      </div>\n\n    </div>\n\n    <ul class="list-group">\n      <li class="list-group-item" v-for="experience in candidate.experiences" @click="select(experience)">\n        <div class="row">\n          <div class="col-sm-3">\n            {{ experience.name_business }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.name_job }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.turn_business }}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.admission_date | shortDate }}-{{ experience.departure_date | shortDate}}\n          </div>\n          <div class="col-sm-2">\n            {{ experience.comments }}\n          </div>\n\n          <div class="col-sm-1">\n\n            <div style="font-size: 20px; text-align: center">\n              {{ experience.now | trueOrFalse }}\n            </div>\n          </div>\n\n        </div>\n      </li>\n    </ul>\n\n    <div class="row" >\n      <div v-if="experienceSelect!=null" class="col-sm-12" style="text-align: right">\n\n          <label class="label-a" v-text="translate(\'people.selected\')"></label>\n          : {{ experienceSelect.name_business }}&nbsp;\n\n      </div>\n    </div>\n\n  </div>\n\n\n  <delete-experience v-if="showModalDeleteExperince" :experience="experienceSelect" :remove="removeExperince" @close="showModalDeleteExperince = false">\n  </delete-experience>\n\n  <edit-experience v-if="showModalEditExperience" :experience="experienceOriginal" :experiencenow="experienceSelect" :update="update">\n  </edit-experience>\n\n\n  <add-experience v-if="showModalAddExperience" :candidate="candidate.id" :add="addExperience">\n  </add-experience>\n\n</div>\n';
 },{}],106:[function(require,module,exports){
 'use strict';
 
@@ -26873,6 +26887,9 @@ exports.default = {
   filters: {
     trueOrFalse: function trueOrFalse(value) {
       return _filters2.default.trueOrFalse(this, value);
+    },
+    shortDate: function shortDate(value) {
+      return _filters2.default.shortDate(this, value);
     }
   },
   created: function created() {

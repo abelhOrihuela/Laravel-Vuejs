@@ -169,13 +169,13 @@ class CandidatesController extends Controller
 
 	public function getData()
 	{
-			$data =  [
-					'quantity'      => '1' ,
-					'description'   => 'some ramdom text',
-					'price'   => '500',
-					'total'     => '500'
-			];
-			return $data;
+		$data =  [
+			'quantity'      => '1' ,
+			'description'   => 'some ramdom text',
+			'price'   => '500',
+			'total'     => '500'
+		];
+		return $data;
 	}
 
 	function getPdf($id){
@@ -185,67 +185,65 @@ class CandidatesController extends Controller
 		/*
 
 		$data =  [
-	             'quantity'      => '1' ,
-	             'description'   => 'some ramdom text',
-	             'price'   => '500',
-	             'total'     => '500'
-	         ];
+		'quantity'      => '1' ,
+		'description'   => 'some ramdom text',
+		'price'   => '500',
+		'total'     => '500'
+	];
 
-        $date = date('Y-m-d');
-        $invoice = "2222";
-        $view =  \View::make('app.candidate', compact('data', 'date', 'invoice'))->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-					$pdf	->stream('download.pdf');
+	$date = date('Y-m-d');
+	$invoice = "2222";
+	$view =  \View::make('app.candidate', compact('data', 'date', 'invoice'))->render();
+	$pdf = \App::make('dompdf.wrapper');
+	$pdf->loadHTML($view);
+	$pdf	->stream('download.pdf');
 
-//return $pdf->download('candidate');
-        //return $pdf->stream('invoice');
-
-
+	//return $pdf->download('candidate');
+	//return $pdf->stream('invoice');
 
 
-		$pdf=PDF::loadView('app.candidate', $data)
-		->save(public_path().'/my_stored_file.pdf')
-		->stream('download.pdf');
-
-		return $pdf;
-*/
-
-	}
-
-	function pdf($id){
-		ob_start();
-    set_time_limit(0);
 
 
-		$candidate=Candidate::where("id", "=", $id)->first();
-		$candidate->experiences;
-		$candidate->academics;
-		$candidate->experiencesWtc;
-		$candidate->categoryCandidate;
-		$candidate->subcategoryCandidate;
-		$candidate->languages;
-		$candidate->idioms;
-		$candidate->economic;
-		$candidate->photo;
-		$candidate->groups;
-		$candidate->user;
+	$pdf=PDF::loadView('app.candidate', $data)
+	->save(public_path().'/my_stored_file.pdf')
+	->stream('download.pdf');
+
+	return $pdf;
+	*/
+
+}
+
+function pdf($id){
+	ob_start();
+	set_time_limit(0);
 
 
-    $pdf =  \App::make('dompdf.wrapper');
-    $pdf->loadHTML("");
+	$candidate=Candidate::where("id", "=", $id)->first();
+	$candidate->experiences;
+	$candidate->academics;
+	$candidate->experiencesWtc;
+	$candidate->categoryCandidate;
+	$candidate->subcategoryCandidate;
+	$candidate->languages;
+	$candidate->idioms;
+	$candidate->economic;
+	$candidate->photo;
+	$candidate->groups;
+	$candidate->user;
 
 
-$name=uniqid().'.pdf';
-    $view =  \View::make('pdf.invoice', compact('candidate'))->render();
-    $pdf->loadHTML("<h1>Test</h1>");
-    $pdf->loadHTML($view)
-		//		->save(public_path().'/'.uniqid().'.pdf')
-		->save(public_path().'/'.$name);
+	$pdf =  \App::make('dompdf.wrapper');
 
-		return $name;
 
-	}
+	$name=uniqid().'.pdf';
+	$view =  \View::make('pdf.invoice', compact('candidate'))->render();
+	$pdf->loadHTML($view)
+	//		->save(public_path().'/'.uniqid().'.pdf')
+	->save(public_path().'/'.$name);
+
+	return $name;
+
+}
 
 
 }

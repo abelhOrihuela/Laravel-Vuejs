@@ -66,7 +66,7 @@
             {{ experience.turn_business }}
           </div>
           <div class="col-sm-2">
-            {{ experience.admission_date }} /   {{ experience.departure_date }}
+            {{ experience.admission_date | shortDate }}-{{ experience.departure_date | shortDate}}
           </div>
           <div class="col-sm-2">
             {{ experience.comments }}
