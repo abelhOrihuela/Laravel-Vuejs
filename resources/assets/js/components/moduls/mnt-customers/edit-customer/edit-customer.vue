@@ -61,9 +61,13 @@ export default{
 
       }
     );
-    this.fetchSubCategories();
+    this.fetchSubCategories(true);
   },
-  fetchSubCategories: function(){
+  fetchSubCategories: function(edit){
+
+    if(!edit){
+       this.customer.subcategory='';
+    }
     var resource= this.$resource(SUBCATEGORIES);
 
     resource.get({id : this.customer.category }).then((response) => {

@@ -1,23 +1,28 @@
 <div class="container-a">
+  <div class="row">
+    <div class="col-sm-1">
+      <div class="">
+        <br><br>
+      </div>
+    </div>
+    <div class="col-sm-11">
+      <div style="text-align: right">
 
 
+        <button  v-if="groupSelect!=null && permissions.edit" id="show-modal" @click="beforeEditGroup()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editGroup">
+          <i class="glyphicon glyphicon-pencil"></i>
+        </button>
 
+        <button  v-if="groupSelect!=null && permissions.delete" id="show-modal" @click="beforeDeleteGroup()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteGroup">
+          <i class="glyphicon glyphicon glyphicon-remove"></i>
+        </button>
 
-  <div style="text-align: right">
+        <button v-if="permissions.add"id="show-modal" @click="beforeAddGroup()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addGroup">
+          <i class="glyphicon glyphicon-plus"></i>
+        </button>
 
-
-    <button  v-if="groupSelect!=null" id="show-modal" @click="beforeEditGroup()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editGroup">
-      <i class="glyphicon glyphicon-pencil"></i>
-    </button>
-
-    <button  v-if="groupSelect!=null" id="show-modal" @click="beforeDeleteGroup()" class="btn btn-danger btn-options" data-toggle="modal" data-target="#deleteGroup">
-      <i class="glyphicon glyphicon glyphicon-remove"></i>
-    </button>
-
-    <button id="show-modal" @click="beforeAddGroup()" class="btn btn-info btn-options" data-toggle="modal" data-target="#addGroup">
-      <i class="glyphicon glyphicon-plus"></i>
-    </button>
-
+      </div>
+    </div>
   </div>
   <br>
 

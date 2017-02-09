@@ -264,6 +264,12 @@ Route::group(['prefix' => 'api'], function () {
       'as'   => 'experience_update_path'
     ]);
 
+    Route::delete('customer/delete/{id}',[
+      'uses' => 'CustomersController@destroy',
+      'as'   => 'Language_destroy_path'
+    ]);
+
+
     //
   });
 

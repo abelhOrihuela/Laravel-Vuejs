@@ -64,9 +64,9 @@ class AuthController extends Controller
 
     if($user){
       if(Session::get('profile')=='C'){
-        return response()->json(['add' => false, 'edit' => false, 'delete' => false ]);
+        return response()->json(['add' => false, 'edit' => false, 'delete' => false, 'visible' => false ]);
       }else{
-        return response()->json(['add' => true, 'edit' => true, 'delete' => true ]);
+        return response()->json(['add' => true, 'edit' => true, 'delete' => true, 'visible' => true ]);
       }
     }else{
 

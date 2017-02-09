@@ -105,9 +105,7 @@ tr{
   text-align: left;
   margin-bottom: 10px;
 }
-.text-description-fields{
-  padding: 3px;
-}
+
 .container-table-pdf{
   margin: 10px;
 }
@@ -855,6 +853,7 @@ nav ul,nav li {
 .text-description-fields{
   display: inline-block;
   width: 100%;
+  padding: 3px;
 }
 .text-label{
   width: 30%;
@@ -867,4 +866,20 @@ nav ul,nav li {
 .container-table-pdf table{
   width: 100%;
   text-align: left !important;
+}
+
+
+.heder-key-img{
+  display: inline-block;
+  width: 100%;
+  padding: 3px;
+}
+.img{
+  width: 50%;
+  display: inline-block;
+}
+.img2{
+  width: 50%;
+  display: inline-block;
+  text-align: right;
 }

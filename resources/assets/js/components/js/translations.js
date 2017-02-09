@@ -471,6 +471,22 @@ export const translations={
     edit_customer:{
       en: 'Edit Customer',
       es: 'Editar Cliente'
+    },
+    edit_end:{
+      en: 'End Edit',
+      es: 'Edicion Terminada'
+    },
+    new_customer:{
+      en: 'New Customer',
+      es: 'Agregar Nuevo Cliente'
+    },
+    cancel_new_customer:{
+      en: 'Cancelar Registro Nuevo Cliente',
+      es: 'Cancelar Registro Nuevo Cliente'
+    },
+    delete_customer:{
+      en: 'Delete Customer',
+      es: 'Eliminar Cliente'
     }
   },
   general:{

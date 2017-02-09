@@ -5,11 +5,10 @@
     <div class="container">
 
       <div class="" v-if="loggedUser()">
-        <li>
+        
           <router-link :to="'dashboard'" class="navbar-brand">
             <img alt="" width="160" src="../img/keytalentwtc.png">
           </router-link>
-        </li>
       </div>
       <br><br>
       <br>
@@ -21,6 +20,6 @@
     </div>
   </div>
 
-  <script src="{{ elixir('js/app.js') }}"></script>
+  <script src="js/app.js"></script>
 
 @stop

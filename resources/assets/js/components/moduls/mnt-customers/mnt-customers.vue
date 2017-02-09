@@ -11,6 +11,7 @@ import { tableCustomers } from '../../js/config-app/tables.js';
 
 import AddCustomer from './add-customer/add-customer.vue';
 import EditCustomer from './edit-customer/edit-customer.vue';
+import DeleteCustomer from './delete-customer/delete-customer.vue';
 
 
 export default{
@@ -24,6 +25,7 @@ export default{
       flagDeatilSelect: false,
       flagAddCustomer: false,
       flagEditCustomer: false,
+      flagDeleteCustomer: false,
       selected: null,
       locale: 'es'
     }
@@ -34,7 +36,8 @@ export default{
   components:{
     'a-table': ATable,
     'add-customer': AddCustomer,
-    'edit-customer': EditCustomer
+    'edit-customer': EditCustomer,
+    'delete-customer': DeleteCustomer
   },
   methods:{
 
@@ -80,6 +83,23 @@ export default{
       this.flagDeatilSelect=false;
       this.flagAddCustomer=false;
     },
+    beforeDeleteCustomer: function(){
+      this.flagDeleteCustomer=true;
+      this.flagEditCustomer=false;
+      this.flagShowTable=false;
+    },
+    afterDeleteCustomer: function(){
+      this.flagDeleteCustomer=false;
+      this.flagEditCustomer=false;
+      this.flagDeatilSelect=false;
+
+      this.flagShowTable=true;
+      var index=service.getIndiceObject(this, this.customers, 'id' , this.selected.id);
+
+      if(index>-1){
+        this.customers.splice(index, 1);
+      }
+    },
     getPermissions: function(){
 
       var user=runblock.getUserSession();
@@ -95,7 +115,6 @@ export default{
       this.flagEditCustomer=false;
       this.flagShowTable=true;
       this.getCustomers();
-
     }
 
   },

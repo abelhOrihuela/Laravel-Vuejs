@@ -13,7 +13,7 @@ class CustomersController extends Controller
 
   function index(){
     $customers=Customer::all();
-    
+
     foreach ($customers as $customer) {
       $customer->categoryCustomer;
       $customer->subcategoryCustomer;
@@ -85,5 +85,18 @@ class CustomersController extends Controller
       abort(404);
     }
     return $request;
+  }
+
+  public function destroy($id){
+
+    $customer=Customer::where('id',$id);
+    if($customer->forceDelete()){
+      return response()->json([
+        'status' => 200
+      ]);
+    }else{
+      return $id;
+    }
+
   }
 }

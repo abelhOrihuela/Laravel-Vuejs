@@ -1,7 +1,13 @@
 <div class="">
-  <div class="tab-header" data-toggle="modal" data-target="#mntGroupsCandidate">
+
+
+  <div v-if="permissions.add"class="tab-header" data-toggle="modal" data-target="#mntGroupsCandidate">
     groups
   </div>
+  <div v-else class="tab-header">
+    groups
+  </div>
+
   <ul class="list-group">
     <li class="list-group-item" v-for="group in candidate.groups">
       {{ group.name_group }}

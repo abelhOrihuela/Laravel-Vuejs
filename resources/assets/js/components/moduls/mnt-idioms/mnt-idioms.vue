@@ -1,8 +1,10 @@
 <script>
 
 import { translations } from '../../js/translations.js';
-import { HTTP, IDIOM_DELETE, IDIOM_NEW } from '../../js/constants_restful.js';
+import { HTTP, IDIOM_DELETE, IDIOM_NEW, USER_PERMISSIONS } from '../../js/constants_restful.js';
 import  service  from '../../js/utilities/service.js';
+import  runblock  from '../../js/runblock.js';
+
 
 
 export default{
@@ -18,7 +20,8 @@ export default{
         name_idioma: '',
         level_idioma: ''
       },
-      levels:[]
+      levels:[],
+      permissions:{}
     }
   },
   translations: translations,
@@ -40,8 +43,6 @@ export default{
   },
   methods:{
     deleteLanguage: function(entry){
-      console.log("-------------------");
-      console.log(entry);
 
       var resource= this.$resource(IDIOM_DELETE);
       resource.delete({id : entry.idioma_id }).then(function(response){
@@ -59,29 +60,31 @@ export default{
     },
     addLanguage: function(){
 
-
       var idiom=this.idiom;
       idiom.candidate_id=this.candidate.id;
       var resource=this.$http.post(IDIOM_NEW, idiom);
       resource.then(function(response){
-
         this.candidate.idioms.push(response.body);
         this.idiom.name_idioma='';
         this.idiom.level_idioma='';
 
       }, function (error){
-
         service.showError(this, error);
-
       });
+    },
+    getPermissions: function(){
 
+      var user=runblock.getUserSession();
 
+      var resource=this.$http.post(USER_PERMISSIONS, user);
+      resource.then(function(response){
+        this.permissions=response.body;
+      }, function (error){
+        service.showError(this, error);
+      });
     }
   },
   created: function(){
-
-
-
     this.levels=[
       {'description':this.translate('people.read'), 'code':'Leido'},
       {'description':this.translate('people.write'), 'code':'Escrito'},
@@ -89,6 +92,8 @@ export default{
       {'description':this.translate('people.speak'), 'code':'Conversacional'},
       {'description':this.translate('people.speak_bussines'), 'code':'Conversacional de Negocios'}
     ];
+
+    this.getPermissions();
 
   }
 }

@@ -8,7 +8,13 @@ use Session;
 class GroupsController extends Controller
 {
   public function index(){
-    $groups=Group::all();
+
+
+    if(Session::get('profile')=='C'){
+      $groups=Group::where('visible', "=",0)->get();
+    }else{
+      $groups=Group::all();
+    }
 
     foreach ($groups as $group) {
       $group->categoryGroup;
@@ -84,13 +90,13 @@ class GroupsController extends Controller
     $group->candidates()->detach();
 
 
-      if($group->forceDelete()){
-        return response()->json([
-          'status' => 200
-        ]);
-      }else{
-        abort(403, 'Unauthorized action.');
-      }
+    if($group->forceDelete()){
+      return response()->json([
+        'status' => 200
+      ]);
+    }else{
+      abort(403, 'Unauthorized action.');
+    }
 
   }
 

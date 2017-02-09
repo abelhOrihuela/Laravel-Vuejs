@@ -1,7 +1,9 @@
 <script>
 import { translations } from '../../../js/translations.js';
-import { HTTP, GROUPS, GROUP_CANDIDATE_NEW, DELETE_GROUP_CANDIDATE} from '../../../js/constants_restful.js';
+import { HTTP, GROUPS, GROUP_CANDIDATE_NEW, DELETE_GROUP_CANDIDATE, USER_PERMISSIONS} from '../../../js/constants_restful.js';
 import  service  from '../../../js/utilities/service.js';
+import  runblock  from '../../../js/runblock.js';
+
 
 export default{
   template: require('./add-candidate-to-group.html'),
@@ -16,6 +18,7 @@ export default{
     return{
       groups: [],
       locale: 'es',
+      permissions:{},
       groupSelect:{
         id:''
       }
@@ -66,19 +69,24 @@ export default{
       var resource= this.$resource(DELETE_GROUP_CANDIDATE);
       resource.delete({id_group: group.id, id : group.pivot.candidate_id }).then(function(response){
         var index=service.getIndiceObject(this, this.candidate.groups, 'id',group.id );
-
         if(index>-1){
           this.candidate.groups.splice(index, 1);
         }
-        this.groupSelect={
-          id:''
-        }
-
+        this.groupSelect={id:''}
       }, function(error){
         service.showError(this, error);
-
       });
+    },
+    getPermissions: function(){
 
+      var user=runblock.getUserSession();
+
+      var resource=this.$http.post(USER_PERMISSIONS, user);
+      resource.then(function(response){
+        this.permissions=response.body;
+      }, function (error){
+        service.showError(this, error);
+      });
     }
   },
   computed: {
@@ -97,6 +105,7 @@ export default{
   },
   created: function(){
     this.getGroups();
+    this.getPermissions();
   }
 }
 </script>

@@ -1,6 +1,9 @@
 <div class="">
 
-  <div class="tab-header" data-toggle="modal" data-target="#mntIdioms">
+  <div v-if="permissions.add" class="tab-header" data-toggle="modal" data-target="#mntIdioms">
+    idioms
+  </div>
+  <div v-else class="tab-header">
     idioms
   </div>
 

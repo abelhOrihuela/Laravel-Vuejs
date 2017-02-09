@@ -1,6 +1,8 @@
 <div class="">
-
-  <div class="tab-header" data-toggle="modal" data-target="#mntLanguages">
+  <div v-if="permissions.add"class="tab-header" data-toggle="modal" data-target="#mntLanguages">
+    languages
+  </div>
+  <div v-else class="tab-header">
     languages
   </div>
 

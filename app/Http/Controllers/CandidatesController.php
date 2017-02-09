@@ -7,6 +7,7 @@ use App\Candidate;
 use Session;
 use PDF;
 use DB;
+use Constants;
 
 class CandidatesController extends Controller
 {
@@ -25,10 +26,15 @@ class CandidatesController extends Controller
 		foreach ($candidates as $candidate) {
 
 
+			if((Session::get('type_user')	==		1) &&
+				 (Session::get('profile')		==	 Constants::CUSTOMER)){
 
-			if(Session::get('type_user')==1 && Session::get('profile')=='C'){
-				$candidate->email='No disponible';
+				$candidate->email   = Constants::NOT_AVAILABE;
+				$candidate->code		= Constants::NOT_AVAILABE;
+				$candidate->phone		= Constants::NOT_AVAILABE;
+
 			}
+
 			$candidate->categoryCandidate;
 			$candidate->subcategoryCandidate;
 			$candidate->languages;
@@ -47,22 +53,21 @@ class CandidatesController extends Controller
 
 		$statement="SELECT `candidates`.`id` FROM `candidates`";
 
-		if($request->salary_expectation_min!=null && $request->salary_expectation_min!=''
-		&& $request->salary_expectation_max!=null && $request->salary_expectation_max!=''){
-			$statement=$statement.",`candidateeconomic`";
+		if($request->salary_expectation_min	!=	null && $request->salary_expectation_min	!=''
+		&& $request->salary_expectation_max	!=	null && $request->salary_expectation_max	!=''	){
+			$statement = $statement.",`candidateeconomic`";
 		}
 
 
 		$flagCategory=false;
 
-		if($request->category!='' && $request->category!=null){
+		if($request->category	!=	'' && $request->category	!=	null){
 			$statement=$statement.'WHERE';
-			$statement=$statement.'`category`='.$request->category;
+			$statement=$statement.'`category`	=	'.$request->category;
 			$flagCategory=true;
 		}
-		if($request->subcategory!='' && $request->subcategory!=null){
+		if($request->subcategory	!=	'' && $request->subcategory!=null){
 			if(!$flagCategory){
-
 				$statement=$statement.' WHERE ';
 			}else{
 				$statement=$statement.' AND ';
@@ -70,8 +75,8 @@ class CandidatesController extends Controller
 			$statement=$statement.'`subcategory`='.$request->subcategory;
 		}
 
-		if($request->salary_expectation_min!=null && $request->salary_expectation_min!=''
-		&& $request->salary_expectation_max!=null && $request->salary_expectation_max!=''){
+		if($request->salary_expectation_min	!=	null && $request->salary_expectation_min!=''
+		&& $request->salary_expectation_max	!=	null && $request->salary_expectation_max!=''){
 
 			if(!$flagCategory){
 				$statement=$statement.' WHERE ';
@@ -84,25 +89,13 @@ class CandidatesController extends Controller
 
 		$result=DB::select(DB::raw($statement));
 
-
 		foreach ($result as $candidate) {
-			$candidate=Candidate::where("id", "=", $candidate->id)->first();
 
+			$candidate=$this->show($candidate->id);
 
-			if(Session::get('type_user')==1 && Session::get('profile')=='C'){
-				$candidate->email='No disponible';
-			}
-
-			$candidate->categoryCandidate;
-			$candidate->subcategoryCandidate;
-			$candidate->languages;
-			$candidate->idioms;
-			$candidate->photo;
-			$candidate->groups;
 			array_push($candidates, $candidate);
 		}
 		return $candidates;
-
 	}
 
 	/**
@@ -123,6 +116,13 @@ class CandidatesController extends Controller
 		$candidate->photo;
 		$candidate->groups;
 		$candidate->user;
+
+		if(Session::get('type_user')	==	1 && Session::get('profile')	==	Constants::CUSTOMER){
+			$candidate->email  = Constants::NOT_AVAILABE;
+			$candidate->code   = Constants::NOT_AVAILABE;
+			$candidate->phone  = Constants::NOT_AVAILABE;
+		}
+
 
 		return $candidate;
 	}
@@ -145,18 +145,18 @@ class CandidatesController extends Controller
 		}
 
 		$candidate= new Candidate();
-		$candidate->username=$request->username;
-		$candidate->gender=$request->gender;
-		$candidate->email=$request->email;
-		$candidate->location=$request->location;
-		$candidate->user_id= Session::get('user_id');
-		$candidate->day=$day;
-		$candidate->month=$month;
-		$candidate->year=$year;
-		$candidate->code=$request->code;
-		$candidate->phone=$request->phone;
-		$candidate->position=$request->position;
-		$candidate->category=$request->category;
+		$candidate->username = $request->username;
+		$candidate->gender   = $request->gender;
+		$candidate->email    = $request->email;
+		$candidate->location = $request->location;
+		$candidate->user_id  = Session::get('user_id');
+		$candidate->day      =$day;
+		$candidate->month    =$month;
+		$candidate->year     =$year;
+		$candidate->code     =$request->code;
+		$candidate->phone    =$request->phone;
+		$candidate->position =$request->position;
+		$candidate->category =$request->category;
 		$candidate->subcategory=$request->subcategory;
 
 		if($candidate->save()){
@@ -167,83 +167,19 @@ class CandidatesController extends Controller
 		return $request;
 	}
 
-	public function getData()
-	{
-		$data =  [
-			'quantity'      => '1' ,
-			'description'   => 'some ramdom text',
-			'price'   => '500',
-			'total'     => '500'
-		];
-		return $data;
+
+
+	function pdf($id){
+		ob_start();
+		set_time_limit(0);
+
+		$candidate=$this->show($id);
+
+		$pdf =  \App::make('dompdf.wrapper');
+		$name=$id.'.pdf';
+		$view =  \View::make('pdf.invoice', compact('candidate'))->render();
+		$pdf->loadHTML($view)
+		->save('pdf/'.$name);
+		return $name;
 	}
-
-	function getPdf($id){
-
-
-
-		/*
-
-		$data =  [
-		'quantity'      => '1' ,
-		'description'   => 'some ramdom text',
-		'price'   => '500',
-		'total'     => '500'
-	];
-
-	$date = date('Y-m-d');
-	$invoice = "2222";
-	$view =  \View::make('app.candidate', compact('data', 'date', 'invoice'))->render();
-	$pdf = \App::make('dompdf.wrapper');
-	$pdf->loadHTML($view);
-	$pdf	->stream('download.pdf');
-
-	//return $pdf->download('candidate');
-	//return $pdf->stream('invoice');
-
-
-
-
-	$pdf=PDF::loadView('app.candidate', $data)
-	->save(public_path().'/my_stored_file.pdf')
-	->stream('download.pdf');
-
-	return $pdf;
-	*/
-
-}
-
-function pdf($id){
-	ob_start();
-	set_time_limit(0);
-
-
-	$candidate=Candidate::where("id", "=", $id)->first();
-	$candidate->experiences;
-	$candidate->academics;
-	$candidate->experiencesWtc;
-	$candidate->categoryCandidate;
-	$candidate->subcategoryCandidate;
-	$candidate->languages;
-	$candidate->idioms;
-	$candidate->economic;
-	$candidate->photo;
-	$candidate->groups;
-	$candidate->user;
-
-
-	$pdf =  \App::make('dompdf.wrapper');
-
-
-	$name=uniqid().'.pdf';
-	$view =  \View::make('pdf.invoice', compact('candidate'))->render();
-	$pdf->loadHTML($view)
-	//		->save(public_path().'/'.uniqid().'.pdf')
-	->save(public_path().'/'.$name);
-
-	return $name;
-
-}
-
-
 }

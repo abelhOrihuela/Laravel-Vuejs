@@ -27,7 +27,7 @@
               </div>
               <figcaption>
                 <div class="icons">
-                  <i class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>
+                  <i v-if="permissions.add" class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>
                   <i class="glyphicon glyphicon-save-file" @click="downloadPdf()">
                   </i>
                 </div>
@@ -126,7 +126,7 @@
           <li role="presentation" v-bind:class="{ 'active': optionTab==2 }" @click="selectTab(2)">
             <a>Experiencia Profesional</a>
           </li>
-          <li role="presentation" v-bind:class="{ 'active': optionTab==3 }" @click="selectTab(3)">
+          <li v-if="permissions.visible" role="presentation" v-bind:class="{ 'active': optionTab==3 }" @click="selectTab(3)">
             <a>Experiencia en WTC</a>
           </li>
           <li role="presentation" v-bind:class="{ 'active': optionTab==4 }" @click="selectTab(4)">

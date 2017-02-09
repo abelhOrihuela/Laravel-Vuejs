@@ -52,6 +52,7 @@
               </select>
             </div>
             <div class="col-sm-3">
+
               <label v-bind:class="{ 'label-a': validation.subcategory, 'label-error':  !validation.subcategory}" v-text="translate('people.subcategory')"></label>
               <select v-model="customer.subcategory" class="form-control">
                 <option v-for="category in subcategories" v-bind:value="category.id">

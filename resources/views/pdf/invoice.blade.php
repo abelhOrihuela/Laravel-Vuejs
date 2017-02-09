@@ -11,8 +11,19 @@
 
 </head>
 <body>
-  <div class="">
-    <img alt="" width="160" src="img/keytalentwtc.png">  </div>
+  <div class="heder-key-img">
+    <div class="img">
+      <img alt="" width="160" src="img/keytalentwtc.png">
+    </div>
+    <div class="img2">
+      <img alt="" width="160" src="img/logo.png">
+    </div>
+  </div>
+
+
+
+
+
 
     <div class="container-detail">
       <div class="container-detail-header">
