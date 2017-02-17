@@ -58,51 +58,61 @@ export default{
 
       return validate.valid(this,this.validation, this.experience.now==1 ?
         validate.countProperties(this,this.validation)-1 : validate.countProperties(this,this.validation));
-    },
-    addExperince: function(){
+      },
+      addExperince: function(){
 
-      var experience = this.experience;
-      experience.candidate_id=this.candidate;
+        var experience = this.experience;
+        experience.candidate_id=this.candidate;
 
-      this.$http.post(EXPERIENCE_NEW, experience)
-      .then(function(response){
+        this.$http.post(EXPERIENCE_NEW, experience)
+        .then(function(response){
 
-        this.experience={
-          name_business:'',
-          name_job: '',
-          turn_business:'',
-          now:0,
-          comments:'',
-          admission_date:'',
-          departure_date:'',
-          locale: 'es'
-        }
-        this.add(response.body);
-      }, function (error){
+          this.experience={
+            name_business:'',
+            name_job: '',
+            turn_business:'',
+            now:0,
+            comments:'',
+            admission_date:'',
+            departure_date:'',
+            locale: 'es'
+          }
+          this.add(response.body);
+        }, function (error){
 
-      });
+        });
 
-    },
-    experienceNow: function(){
-      if(this.experience.now==1){
+      },
+      experienceNow: function(){
+        if(this.experience.now==1){
 
-        this.flagShowDepartureDate=false;
-        this.experience.departure_date='';
-
-      }else{
-        this.flagShowDepartureDate=true;
-      }
-    }
-    ,
-    validateDates: function(){
-
-      var admission_date=new Date(this.experience.admission_date);
-      var departure_date=new Date(this.experience.departure_date);
-
-      if(departure_date<=admission_date){
+          this.flagShowDepartureDate=false;
           this.experience.departure_date='';
+
+        }else{
+          this.flagShowDepartureDate=true;
+        }
       }
+      ,
+      validateDates: function(){
+
+        var admission_date=new Date(this.experience.admission_date);
+        var departure_date=new Date(this.experience.departure_date);
+
+        if(departure_date<=admission_date){
+          this.experience.departure_date='';
+        }
+      }
+    },
+    created: function(){
+      $(function () {
+        $("#datepicker").datepicker({
+          autoclose: true,
+          todayHighlight: true,
+          format: 'dd/mm/yyyy',
+          locale:'es'
+        }).datepicker('update', new Date());
+      });
     }
   }
-}
-</script>
+  </script>

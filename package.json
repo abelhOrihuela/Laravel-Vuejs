@@ -17,9 +17,11 @@
   "dependencies": {
     "mini-toastr": "^0.3.10",
     "moment": "^2.17.1",
+    "vue-date-picker": "^1.0.2",
     "vue-filter": "^0.1.9",
     "vue-i18n-mixin": "^0.1.0",
     "vue-notifications": "^0.7.6",
+    "vue-pikaday": "^0.1.1",
     "vue-toast": "^2.0.3",
     "vue-toast-mobile": "^2.0.0"
   }

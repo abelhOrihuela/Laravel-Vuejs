@@ -7,7 +7,7 @@ import AddExperience from './add-experience/add-experience.vue';
 import EditExperience from './edit-experience/edit-experience.vue';
 import  runblock  from '../../js/runblock.js';
 
-
+import ADatepicker from '../../a-components/a-datepicker/a-datepicker.vue';
 
 import { HTTP, EXPERIENCE, USER_PERMISSIONS } from '../../js/constants_restful.js';
 
@@ -27,14 +27,16 @@ export default {
       showModalEditExperience: false,
       showModalDeleteExperince: false,
       showModalAddExperience: false,
-      locale: 'es'
+      locale: 'es',
+      date: '1984/12/30 08:32'
      }
   },
   components:{
     'delete-experience':DeleteExperience,
     'edit-experience':EditExperience,
-    'add-experience': AddExperience
-  },
+    'add-experience': AddExperience,
+    'a-datepicker': ADatepicker
+    },
   props:{
     candidate: Object
   },
@@ -91,6 +93,7 @@ export default {
     },
     getPermissions: function(){
 
+
       var user=runblock.getUserSession();
 
       var resource=this.$http.post(USER_PERMISSIONS, user);
@@ -111,6 +114,7 @@ export default {
   },
   created: function(){
     this.getPermissions();
+
   }
 }
 </script>

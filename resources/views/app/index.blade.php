@@ -5,7 +5,7 @@
     <div class="container">
 
       <div class="" v-if="loggedUser()">
-        
+
           <router-link :to="'dashboard'" class="navbar-brand">
             <img alt="" width="160" src="../img/keytalentwtc.png">
           </router-link>

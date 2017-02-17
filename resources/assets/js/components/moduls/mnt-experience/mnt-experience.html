@@ -1,5 +1,8 @@
 <div class="container-a">
 
+
+
+
   <div style="text-align: right">
 
     <button  v-if="experienceSelect!=null && permissions.edit" id="show-modal" @click="editExperience()" class="btn btn-success btn-options" data-toggle="modal" data-target="#editExperience">
@@ -47,11 +50,14 @@
           <label class="label-a" v-text="translate('people.now')"></label>
         </div>
 
-
-
       </div>
-
     </div>
+
+
+    <a-datepicker :date.sync="date"></a-datepicker>
+
+    <input id="datetimepicker" type="text" >
+
 
     <ul class="list-group">
       <li class="list-group-item" v-for="experience in candidate.experiences" @click="select(experience)">
