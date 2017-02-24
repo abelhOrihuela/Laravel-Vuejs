@@ -100,6 +100,7 @@ export default{
 
     },
     showTable: function(){
+      console.log("------------------------------------------------");
       this.show()
     },
     addCandidate: function(){

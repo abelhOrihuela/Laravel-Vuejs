@@ -21,6 +21,9 @@ export const USER_PERMISSIONS= "user/permissions"
 
 export const IMAGE_PROFILE= "image/profile"
 
+export const CANDIDATE_SHOW= "candidate{/id}"
+
+
 /*----------------------------CANDIDATE ACADEMIC-----------------------------*/
 
 export const ACADEMIC="academic{/id}"

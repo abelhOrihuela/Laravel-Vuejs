@@ -1,4 +1,6 @@
 <div class="container-a">
+{{ candidate.name_photo }}
+
   <div class="panel panel-default shadow-key">
     <div class="panel-heading">
       <div class="row">
@@ -19,25 +21,29 @@
         <div class="row">
           <div class="col-xs-6 col-md-4">
             <figure class="snip1559 tumbnails">
-              <div v-if="candidate.photo"class="profile-image">
-                <img :src="candidate.photo.name_photo" alt="" />
+              <div v-if="candidate.name_photo"class="profile-image">
+                <img :src="candidate.name_photo" alt="" />
               </div>
-              <div v-if="!candidate.photo"class="profile-image">
+              <div v-if="!candidate.name_photo"class="profile-image">
                 <img src="../img/default.png" alt="" />
               </div>
               <figcaption>
                 <div class="icons">
-                  <i v-if="permissions.add" class="glyphicon glyphicon-picture" @click="showModalPhoto = true"></i>
+                  <i v-if="permissions.add" class="glyphicon glyphicon-picture"
+                        @click="showModalPhoto = true"></i>
                   <i class="glyphicon glyphicon-save-file" @click="downloadPdf()">
                   </i>
                 </div>
 
 
-                <add-candidate-to-group :candidate="candidate" :add="addGroup"></add-candidate-to-group>
 
+                <add-candidate-to-group :candidate="candidate" :add="addGroup"></add-candidate-to-group>
+<!--
                 <mnt-languages :candidate="candidate"></mnt-languages>
 
                 <mnt-idioms :candidate="candidate"></mnt-idioms>
+-->
+
 
 
               </figcaption>
@@ -104,7 +110,7 @@
                   <label class="label-a" v-text="translate('people.category')"></label>
                 </td>
                 <td>
-                  {{ candidate.category_candidate.name }}
+                 {{ candidate.name_category }}
                 </td>
               </tr>
               <tr>
@@ -112,7 +118,7 @@
                   <label class="label-a" v-text="translate('people.subcategory')"></label>
                 </td>
                 <td>
-                  {{ candidate.subcategory_candidate.name }}
+                  {{ candidate.name_subactegory }}
                 </td>
               </tr>
             </table>
@@ -150,7 +156,7 @@
 
         <div class="panel panel-default" v-if="optionTab==3">
           <div class="panel-body">
-            <mnt-experiencewtc :candidate="candidate"></mnt-experiencewtc>
+           <mnt-experiencewtc :candidate="candidate"></mnt-experiencewtc>
           </div>
         </div>
 
@@ -163,5 +169,7 @@
     </div>
 
     <add-photo v-if="showModalPhoto" @close="showModalPhoto = false" :getphoto="getPhoto" :candidate="candidate.id"></add-photo>
+
+
 
   </div>

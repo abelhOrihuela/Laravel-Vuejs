@@ -46,6 +46,7 @@ export default{
       subcategories: [],
       columns: tableCandidates,
       flagTable: false,
+      reloadTable: true,
       flagDetailSelected: false,
       locale: 'es',
       showModal: false,
@@ -74,12 +75,14 @@ export default{
     },
     search: function(){
       this.flagDetailSelected=false;
+      this.reloadTable=false;
 
       var search_cand=this.searchCand;
 
       this.$http.post(CANDIDATES_SEARCH, search_cand)
       .then(function(response){
 
+this.reloadTable=true;
         this.candidates=response.body;
         this.flagTable=true;
         service.showSuccess(this, "Se encontraron : "+this.candidates.length + " resultados");

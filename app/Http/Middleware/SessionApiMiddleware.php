@@ -17,7 +17,7 @@ class SessionApiMiddleware
     public function handle($request, Closure $next)
     {
 
-      if(Session::get('type_user')==''){
+      if(!Session::get('type_user')){
         return redirect('/');
       }
       return $next($request);

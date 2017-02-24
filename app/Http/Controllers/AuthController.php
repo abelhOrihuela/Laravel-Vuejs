@@ -40,8 +40,8 @@ class AuthController extends Controller
 
   public function destroy()
   {
-    Session::put('type_user', '');
-    Session::put('profile', '');
+    Session::flush();
+
     return response()->json([
       'status' => 200
     ]);
@@ -70,9 +70,7 @@ class AuthController extends Controller
       }
     }else{
 
-      Session::put('type_user', null);
-      Session::put('profile', null);
-
+      Session::flush();
       abort(404);
     }
   }

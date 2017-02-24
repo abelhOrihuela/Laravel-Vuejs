@@ -19,8 +19,12 @@ export default{
       var router= this.$router;
       router.push({name: 'login'});
 
+
       var resource= this.$resource(LOGOUT);
       resource.delete().then(function(response){
+
+        location.reload();
+
       }, function(error){
         service.showError(this, error);
 
@@ -83,7 +87,7 @@ export default{
     }
     var groups={
       name: 'groups',
-      class: 'glyphicon-modal-window',
+      class: 'glyphicon glyphicon-list-alt',
       description: 'groups',
       style: 'color: #23AE89 !important;',
       dashboard:{

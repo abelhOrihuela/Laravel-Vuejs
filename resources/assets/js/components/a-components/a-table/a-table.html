@@ -53,50 +53,54 @@
     </tbody>
     <tfoot>
       <tr>
-        <td v-bind:colspan="columns.length-2">
+        <td v-bind:colspan="columns.length">
+
+          <div class="row" style="width: 100%">
+
+            <div class="col-sm-3 pull-right">
+
+              <nav aria-label="pagination">
+                <ul class="pagination">
+                  <li v-bind:class="{ 'disabled' : init==0}" @click="paginate('previous')">
+                    <span>
+                      <span  aria-hidden="true">&laquo;</span>
+                    </span>
+                  </li>
+                  <li class="active">
+                    <span>{{ page }} / {{ totalPages }}<span class="sr-only">(current)</span></span>
+                  </li>
+                  <li @click="paginate('next')" v-bind:class="{ 'disabled' : end > data.length}">
+                    <span>
+                      <span  aria-hidden="true">&raquo;</span>
+                    </span>
+                  </li>
+                </ul>
+              </nav>
+
+            </div>
+            <div class="col-sm-3 pull-right">
+            <div class="">
+            <br>
+            </div>
+              <div class="" style="display: inline-block">
+                <select  style="width: 100%"v-model="pagination" @change="paginate('no')"class="form-control">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="40">40</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
 
         </td>
-        <td>
-          <nav aria-label="pagination">
-            <ul class="pagination">
-              <li v-bind:class="{ 'disabled' : init==0}" @click="paginate('previous')">
-                <span>
-                  <span  aria-hidden="true">&laquo;</span>
-                </span>
-              </li>
-              <li class="active">
-                <span>{{ page }} / {{ totalPages }}<span class="sr-only">(current)</span></span>
-              </li>
-              <li @click="paginate('next')" v-bind:class="{ 'disabled' : end > data.length}">
-                <span>
-                  <span  aria-hidden="true">&raquo;</span>
-                </span>
-              </li>
-            </ul>
-          </nav>
-        </td>
-        <td>
-          <div>
-            <select  style="width: 50%"v-model="pagination" @change="paginate('no')"class="form-control">
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="40">40</option>
-            </select>
-          </div>
-        </td>
+
+
       </tr>
     </tfoot>
   </table>
 </div>
 
-<div class="row" >
-  <div class="col-sm-6">
-    <form  class="form" id="search" >
-      <div class="form-group">
 
-      </div>
-    </form>
-  </div>
-</div>
 </div>

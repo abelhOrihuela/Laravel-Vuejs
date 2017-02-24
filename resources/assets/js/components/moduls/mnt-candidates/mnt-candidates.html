@@ -74,10 +74,12 @@
 		</div>
 	</div>
 
-	<div v-show="flagTable">
-		<a-table :data="candidates" :columns="columns" :total="candidates.length" :select="select">
+	<div v-if="reloadTable">
+		<a-table v-show="flagTable" :data="candidates" :columns="columns" :total="candidates.length" :select="select">
 		</a-table>
 	</div>
+
+
 	<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate"></add-candidate>
 	<a-candidate v-if="flagDetailSelected" :show="showTable" :candidate="candidateSelected"><a-candidate>
 

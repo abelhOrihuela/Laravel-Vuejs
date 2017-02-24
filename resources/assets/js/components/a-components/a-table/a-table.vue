@@ -107,6 +107,10 @@ export default{
     },
 
     selectElement: function(entry){
+      console.log("-----------------------------------------------");
+      console.log(entry);
+      console.log("-----------------------------------------------");
+
       this.select(entry);
     }
   }

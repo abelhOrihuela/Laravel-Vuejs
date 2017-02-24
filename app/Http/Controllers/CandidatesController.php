@@ -8,6 +8,7 @@ use Session;
 use PDF;
 use DB;
 use Constants;
+use Response;
 
 class CandidatesController extends Controller
 {
@@ -51,11 +52,37 @@ class CandidatesController extends Controller
 
 		$candidates = array();
 
-		$statement="SELECT `candidates`.`id` FROM `candidates`";
+		$statement="SELECT
+    candidates.id,
+    candidates.user_id,
+    candidates.username,
+    candidates.url,
+    candidates.gender,
+    candidates.email,
+    candidates.location,
+    candidates.day,
+    candidates.month,
+    candidates.year,
+    candidates.code,
+    candidates.phone,
+    candidates.position,
+    candidates.category,
+    candidates.subcategory,
+    candidates.created_at,
+    candidates.updated_at,
+    photos.name_photo,
+    category.name as name_category,
+    subcategories.name as name_subactegory
+    FROM photos, candidates, category, subcategories
+    WHERE photos.candidate_id=candidates.id
+	 AND candidates.category=category.id
+     AND candidates.subcategory=subcategories.id";
+/*
+		$statement="SELECT * FROM `candidates`";
 
 		if($request->salary_expectation_min	!=	null && $request->salary_expectation_min	!=''
 		&& $request->salary_expectation_max	!=	null && $request->salary_expectation_max	!=''	){
-			$statement = $statement.",`candidateeconomic`";
+			$statement = $statement.",`candidateeconomic` ";
 		}
 
 
@@ -85,16 +112,18 @@ class CandidatesController extends Controller
 			}
 			$statement=$statement.'`candidates`.`id`= `candidateeconomic`.`candidate_id` AND `candidateeconomic`.`salary_expectation`>'.$request->salary_expectation_min;
 			$statement=$statement.' AND `candidateeconomic`.`salary_expectation`<'.$request->salary_expectation_max;
-		}
+		}*/
 
 		$result=DB::select(DB::raw($statement));
 
 		foreach ($result as $candidate) {
 
-			$candidate=$this->show($candidate->id);
+		//	$candidate=$this->show($candidate->id);
 
 			array_push($candidates, $candidate);
 		}
+		//return Response::json($candidates);
+		//return $statement;
 		return $candidates;
 	}
 
