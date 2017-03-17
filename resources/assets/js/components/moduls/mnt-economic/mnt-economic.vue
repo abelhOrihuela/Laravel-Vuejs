@@ -6,7 +6,7 @@ import EditEconomic from './edit-economic/edit-economic.vue';
 import AddEconomic from './add-economic/add-economic.vue';
 import  service  from '../../js/utilities/service.js';
 import  runblock  from '../../js/runblock.js';
-import { HTTP, USER_PERMISSIONS } from '../../js/constants_restful.js';
+import { HTTP,ECONOMIC, USER_PERMISSIONS } from '../../js/constants_restful.js';
 
 
 
@@ -22,7 +22,8 @@ export default {
       permissions: {},
       showModalEditEconomic: false,
       showModalAddEconomic: false,
-      locale: 'es'
+      locale: 'es',
+      economics: []
     }
   },
   components:{
@@ -34,6 +35,16 @@ export default {
     candidate: Object
   },
   methods:{
+    getEconomic: function(){
+
+      var resource= this.$resource(ECONOMIC);
+      resource.get({id : this.candidate.id }).then(function(response){
+        this.economics=response.body;
+
+      }, function(error){
+        service.showError(this, error);
+      });
+    },
 
     addMoreEconomic: function (){
       this.showModalAddEconomic=true;
@@ -44,7 +55,7 @@ export default {
       this.showModalAddEconomic=false;
 
       if(entry!=null){
-        this.candidate.economic.push(entry);
+        this.economics.push(entry);
       }
 
     },
@@ -55,9 +66,9 @@ export default {
     update: function(entry){
 
       if(entry!=null){
-        var index=service.getIndiceObject(this, this.candidate.economic, 'id', entry.id);
+        var index=service.getIndiceObject(this, this.economics, 'id', entry.id);
         if(index>-1){
-          this.candidate.economic[index]=entry;
+          this.economic[index]=entry;
         }
 
       }
@@ -83,6 +94,7 @@ export default {
   },
   created: function(){
     this.getPermissions();
+    this.getEconomic();
   },
   filters:{
     trueOrFalse: function(value){

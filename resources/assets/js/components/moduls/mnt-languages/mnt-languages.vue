@@ -1,6 +1,6 @@
 <script>
 import { translations } from '../../js/translations.js';
-import { HTTP, LANGUAGE_DELETE, LANGUAGE_NEW, USER_PERMISSIONS } from '../../js/constants_restful.js';
+import { HTTP, LANGUAGE_DELETE, LANGUAGE_NEW, LANGUAGE_CANDIDATE, USER_PERMISSIONS } from '../../js/constants_restful.js';
 import  service  from '../../js/utilities/service.js';
 import  runblock  from '../../js/runblock.js';
 
@@ -14,6 +14,7 @@ export default{
     return {
       locale: 'es',
       permissions: {},
+      languages:[],
       language:{
         name_language: '',
         level_language: ''
@@ -43,9 +44,9 @@ export default{
     deleteLanguage: function(entry){
       var resource= this.$resource(LANGUAGE_DELETE);
       resource.delete({id : entry.id }).then(function(response){
-        var index=service.getIndiceObject(this,this.candidate.languages,'id', entry.id );
+        var index=service.getIndiceObject(this,this.languages,'id', entry.id );
         if(index>-1){
-          this.candidate.languages.splice(index, 1);
+          this.languages.splice(index, 1);
         }
       }, function(error){
 
@@ -57,7 +58,7 @@ export default{
       var resource=this.$http.post(LANGUAGE_NEW, language);
       resource.then(function(response){
 
-        this.candidate.languages.push(response.body);
+        this.getLanguages();
         this.language.name_language='';
         this.language.level_language='';
 
@@ -68,6 +69,19 @@ export default{
       });
 
 
+    },
+    getLanguages: function(candidate){
+
+      var resource= this.$resource(LANGUAGE_CANDIDATE);
+      resource.get({id : this.candidate.id }).then(function(response){
+
+        this.languages=response.body;
+
+      }, function(error){
+
+        service.showError(this, error);
+
+      });
     },
     getPermissions: function(){
       var user=runblock.getUserSession();
@@ -81,6 +95,7 @@ export default{
   },
   created: function(){
     this.getPermissions();
+    this.getLanguages();
   }
 }
 </script>

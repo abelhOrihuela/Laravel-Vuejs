@@ -77,9 +77,33 @@ export default {
     {
       if ( x.hasOwnProperty(p) && y.hasOwnProperty(p) ){
 
-        if(x[p] instanceof Object){
+        console.log("-----------EXISTEN------------");
 
-          this.equals(this, x[p], y[p]);
+
+
+        if(x[p] instanceof Object || y[p] instanceof Object){
+
+          console.log("-----------OBJECT------------");
+
+          console.log(x[p]);
+          console.log(y[p]);
+
+
+          if(x[p] instanceof Object && y[p] instanceof Object){
+            this.equals(this, x[p], y[p]);
+
+          }else{
+            return false;
+
+          }
+
+
+        }else if(x[p] instanceof Date || y[p] instanceof Date){
+
+
+          console.log("-----------DATE------------");
+          console.log(x[p]);
+          console.log(y[p]);
         }
         else if( x[p] != y[p]){
 

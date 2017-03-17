@@ -23,6 +23,7 @@
     "vue-notifications": "^0.7.6",
     "vue-pikaday": "^0.1.1",
     "vue-toast": "^2.0.3",
-    "vue-toast-mobile": "^2.0.0"
+    "vue-toast-mobile": "^2.0.0",
+    "vuejs-datepicker": "^0.6.3"
   }
 }

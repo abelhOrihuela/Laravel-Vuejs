@@ -194,6 +194,11 @@ Route::group(['prefix' => 'api'], function () {
       'as'   => 'groups_index_path'
     ]);
 
+    Route::get('groups/candidate/{id}',[
+      'uses' => 'GroupsController@groups_candidate',
+      'as'   => 'groups_show_path'
+    ]);
+
     /* DELETE EXPERIENCE FOR CANDIDATE */
     Route::post('group/candidate/new',[
       'uses' => 'GroupsController@candidate_group',
@@ -217,7 +222,6 @@ Route::group(['prefix' => 'api'], function () {
       'as'   => 'Language_destroy_path'
     ]);
 
-
     Route::get('group/candidates/{id}',[
       'uses' => 'GroupsController@show',
       'as'   => 'groups_show_path'
@@ -226,6 +230,12 @@ Route::group(['prefix' => 'api'], function () {
     Route::delete('group/{id_group}/candidate/delete/{id}',[
       'uses' => 'GroupsController@delete_candidate',
       'as'   => 'groups_show_path'
+    ]);
+
+
+    Route::get('language/candidate/{id}',[
+      'uses' => 'LanguagesController@index',
+      'as'   => 'language_index_path'
     ]);
 
 
@@ -239,6 +249,10 @@ Route::group(['prefix' => 'api'], function () {
       'as'   => 'Language_create_path'
     ]);
 
+    Route::get('idioms/candidate/{id}',[
+      'uses' => 'IdiomsController@index',
+      'as'   => 'language_index_path'
+    ]);
     Route::delete('idiom/delete/{id}',[
       'uses' => 'IdiomsController@destroy',
       'as'   => 'Language_destroy_path'
@@ -268,6 +282,8 @@ Route::group(['prefix' => 'api'], function () {
       'uses' => 'CustomersController@destroy',
       'as'   => 'Language_destroy_path'
     ]);
+
+
 
 
     //

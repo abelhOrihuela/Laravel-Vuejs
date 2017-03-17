@@ -67,7 +67,7 @@ export default{
     deleteGroup: function(group){
 
       var resource= this.$resource(DELETE_GROUP_CANDIDATE);
-      resource.delete({id_group: group.id, id : group.pivot.candidate_id }).then(function(response){
+      resource.delete({id_group: group.id, id : this.candidate.id }).then(function(response){
         var index=service.getIndiceObject(this, this.candidate.groups, 'id',group.id );
         if(index>-1){
           this.candidate.groups.splice(index, 1);

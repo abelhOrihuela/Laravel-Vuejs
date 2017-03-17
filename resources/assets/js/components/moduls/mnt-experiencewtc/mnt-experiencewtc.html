@@ -50,7 +50,7 @@
     </div>
 
     <ul class="list-group">
-      <li class="list-group-item" v-for="experiencewtc in candidate.experiences_wtc" @click="select(experiencewtc)">
+      <li class="list-group-item" v-for="experiencewtc in experiences_wtc" @click="select(experiencewtc)">
 
         <div class="row" >
     			<div class="col-sm-3">
@@ -92,13 +92,5 @@
   <edit-experiencewtc v-if="showModalEditExperience" :experience="experienceOriginal" :experiencenow="experienceSelect" :update="update" @close="showModalEditExperience = false">
   </edit-experiencewtc>
 
-<!--
-
-
-v-if="academicSelect!=null"
-
-
-
--->
 
 </div>

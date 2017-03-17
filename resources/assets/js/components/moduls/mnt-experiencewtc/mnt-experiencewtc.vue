@@ -38,6 +38,17 @@ export default {
     candidate: Object
   },
   methods:{
+    getExperienceWtc: function(candidate){
+
+      var resource= this.$resource(EXPERIENCEWTC);
+      resource.get({id : this.candidate.id }).then(function(response){
+        this.experiences_wtc=response.body;
+      }, function(error){
+        service.showError(this, error);
+
+      });
+
+    },
 
     editExperience: function(){
       this.showModalEditExperience= true;
@@ -46,9 +57,9 @@ export default {
     update: function(entry){
 
       if(entry!=null){
-        var index=service.getIndiceObject(this, this.candidate.experiences_wtc, 'wtc_id', entry.wtc_id);
+        var index=service.getIndiceObject(this, this.experiences_wtc, 'wtc_id', entry.wtc_id);
         if(index>-1){
-          this.candidate.experiences_wtc[index]=entry;
+          this.experiences_wtc[index]=entry;
         }
       }
       this.showModalEditExperience= false;
@@ -62,9 +73,9 @@ export default {
     },
     removeExperince: function(id){
       this.showModalDeleteExperince=false;
-      var index=service.getIndiceObject(this, this.candidate.experiences_wtc, 'wtc_id', id);
+      var index=service.getIndiceObject(this, this.experiences_wtc, 'wtc_id', id);
       if(index>-1){
-        this.candidate.experiences_wtc.splice(index,1);
+        this.experiences_wtc.splice(index,1);
       }
 
       this.experienceSelect=null;
@@ -79,7 +90,7 @@ export default {
       entry.wtc_id=entry.id;
       this.showModalAddExperience=false;
 
-      this.candidate.experiences_wtc.push(entry);
+      this.experiences_wtc.push(entry);
 
     },
     select: function(entry){
@@ -107,6 +118,7 @@ export default {
   },
   created: function(){
     this.getPermissions();
+    this.getExperienceWtc();
   }
 }
 </script>

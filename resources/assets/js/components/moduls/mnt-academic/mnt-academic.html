@@ -44,7 +44,7 @@
     </div>
 
     <ul class="list-group">
-      <li class="list-group-item" v-for="academic in candidate.academics">
+      <li class="list-group-item" v-for="academic in academics">
         <div class="row" @click="select(academic)">
           <div class="col-sm-3">
             {{ academic.name_academic }}
@@ -88,7 +88,7 @@
     <delete-academic v-if="showModalDeleteAcademic":academic="academicOriginal" :remove="removeAcademic">
     </delete-academic>
 
-    <add-academic  v-if="flagShowAddAcademic":candidate="candidate.id" :add="addAcademic">
+    <add-academic  v-if="flagShowAddAcademic":candidate="candidate" :add="addAcademic">
     </add-academic>
 
     <edit-academic v-if="flagShowEditAcademic" :academic="academicOriginal" :academicnow="academicSelect" :update="updateAcademic">

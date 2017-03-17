@@ -7,11 +7,7 @@ import AddExperience from './add-experience/add-experience.vue';
 import EditExperience from './edit-experience/edit-experience.vue';
 import  runblock  from '../../js/runblock.js';
 
-import ADatepicker from '../../a-components/a-datepicker/a-datepicker.vue';
-
 import { HTTP, EXPERIENCE, USER_PERMISSIONS } from '../../js/constants_restful.js';
-
-
 import  service  from '../../js/utilities/service.js';
 
 export default {
@@ -28,19 +24,29 @@ export default {
       showModalDeleteExperince: false,
       showModalAddExperience: false,
       locale: 'es',
-      date: '1984/12/30 08:32'
-     }
+      experiences:[]
+    }
   },
   components:{
     'delete-experience':DeleteExperience,
     'edit-experience':EditExperience,
-    'add-experience': AddExperience,
-    'a-datepicker': ADatepicker
-    },
+    'add-experience': AddExperience
+  },
   props:{
     candidate: Object
   },
   methods:{
+    getExperience: function(){
+
+      var resource= this.$resource(EXPERIENCE);
+      resource.get({id : this.candidate.id }).then(function(response){
+        this.experiences=response.body;
+      }, function(error){
+        service.showError(this, error);
+
+      });
+
+    },
 
     editExperience: function(){
       this.showModalEditExperience= true;
@@ -48,26 +54,32 @@ export default {
     },
     update: function(entry){
 
+      console.log("UPDATE");
+      console.log(entry);
+
       if(entry!=null){
-        var index=service.getIndiceObject(this, this.candidate.experiences, 'experience_id', entry.experience_id);
-        if(index>-1){
-          this.candidate.experiences[index]=entry;
-        }
+
+        this.getExperience();
+        this.experienceSelect=null;
+        this.experienceOriginal=null;
 
       }
-          this.showModalEditExperience= false;
+      this.showModalEditExperience= false;
 
     },
     deleteExperience: function(){
+
 
       this.showModalDeleteExperince=true;
 
     },
     removeExperince: function(id){
       this.showModalDeleteExperince=false;
-      var index=service.getIndiceObject(this, this.candidate.experiences, 'experience_id', id);
+      var index=service.getIndiceObject(this, this.experiences, 'experience_id', id);
       if(index>-1){
-        this.candidate.experiences.splice(index,1);
+        this.experiences.splice(index,1);
+        this.experienceSelect=null;
+        this.experienceOriginal=null;
       }
     },
     addMoreExperience: function(){
@@ -75,25 +87,19 @@ export default {
       this.showModalAddExperience=true;
 
     },
+    
     addExperience: function(entry){
 
       entry.experience_id=entry.id;
       this.showModalAddExperience=false;
-      this.candidate.experiences.push(entry);
-
-
+      this.experiences.push(entry);
 
     },
     select: function(entry){
-
       this.experienceSelect=entry;
       this.experienceOriginal=service.clone(entry);
-
-
     },
     getPermissions: function(){
-
-
       var user=runblock.getUserSession();
 
       var resource=this.$http.post(USER_PERMISSIONS, user);
@@ -114,6 +120,7 @@ export default {
   },
   created: function(){
     this.getPermissions();
+    this.getExperience();
 
   }
 }

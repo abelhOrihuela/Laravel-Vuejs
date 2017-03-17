@@ -5,6 +5,8 @@ import  service  from '../../../js/utilities/service.js';
 import { translations } from '../../../js/translations.js';
 import { HTTP, EXPERIENCE_EDIT} from '../../../js/constants_restful.js';
 
+import ADatepicker from '../../../a-components/a-datepicker/a-datepicker.vue';
+
 
 export default{
 
@@ -15,6 +17,9 @@ export default{
     experience: Object,
     experiencenow: Object,
     update: Function
+  },
+  components:{
+    'a-datepicker': ADatepicker
   },
   data: function(){
     return {

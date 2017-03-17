@@ -5,6 +5,7 @@ import  validate  from '../../../js/utilities/validate.js';
 import  service  from '../../../js/utilities/service.js';
 import { translations } from '../../../js/translations.js';
 import { HTTP,EXPERIENCEWTC_NEW,ADMINS } from '../../../js/constants_restful.js';
+import Datepicker from 'vuejs-datepicker';
 
 
 
@@ -16,6 +17,9 @@ export default{
   props:{
     add: Function,
     candidate: Number
+  },
+  components:{
+    'datepicker': Datepicker
   },
   data: function(){
     return{

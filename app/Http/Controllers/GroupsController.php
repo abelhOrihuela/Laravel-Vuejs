@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Group;
 use Session;
+use DB;
 
 class GroupsController extends Controller
 {
@@ -24,18 +25,58 @@ class GroupsController extends Controller
   }
 
   public function show($id){
-    $group=Group::where('id',  $id)->first();
-    $group->candidates;
 
-    foreach ($group->candidates as $candidate) {
-      $candidate->categoryCandidate;
-      $candidate->subcategoryCandidate;
-      $candidate->languages;
-      $candidate->idioms;
-      $candidate->photo;
-      $candidate->groups;
-    }
-    return $group;
+
+    $statement="SELECT
+		candidates.id,
+		candidates.user_id,
+		candidates.username,
+		candidates.url,
+		candidates.gender,
+		candidates.email,
+		candidates.location,
+		candidates.day,
+		candidates.month,
+		candidates.year,
+		candidates.code,
+		candidates.phone,
+		candidates.position,
+		candidates.category,
+		candidates.subcategory,
+		candidates.created_at,
+		candidates.updated_at,
+		photos.name_photo,
+		category.name as name_category,
+		subcategories.name as name_subactegory
+		FROM photos, candidates, category, subcategories, relationgroup
+		WHERE photos.candidate_id=candidates.id
+		AND candidates.category=category.id
+		AND candidates.subcategory=subcategories.id
+        AND relationgroup.candidate_id=candidates.id
+        AND relationgroup.group_id=
+".$id;
+
+        $result=DB::select(DB::raw($statement));
+
+        return $result;
+  }
+
+  public function groups_candidate($id){
+    $statement="SELECT groups.id,
+	   groups.user_id,
+       groups.name_group,
+       groups.url,
+       groups.category,
+       groups.subcategory,
+       groups.visible
+       FROM groups , relationgroup
+WHERE groups.id=relationgroup.group_id
+AND relationgroup.candidate_id=".$id;
+
+	$result=DB::select(DB::raw($statement));
+
+
+  return $result;
   }
 
   public function create(Request $request){

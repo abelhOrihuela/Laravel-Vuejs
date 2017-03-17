@@ -10,6 +10,12 @@ use App\Language;
 class LanguagesController extends Controller
 {
 
+  public function index($id){
+      $languages = Language::where("candidate_id", "=", $id)->get();
+
+      return $languages;
+
+  }
 
   public function create(Request $request){
 
@@ -34,14 +40,14 @@ class LanguagesController extends Controller
       abort(404);
     }
   }
-    public function destroy($id){
-      $language = Language::where("id", "=", $id);
-      if($language->forceDelete()){
-        return response()->json([
-          'status' => 200
-        ]);
-      }else{
-        return $id;
-      }
+  public function destroy($id){
+    $language = Language::where("id", "=", $id);
+    if($language->forceDelete()){
+      return response()->json([
+        'status' => 200
+      ]);
+    }else{
+      return $id;
     }
+  }
 }

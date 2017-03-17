@@ -26,7 +26,8 @@ export default{
       flagShowAddAcademic: false,
       showModalDeleteAcademic: false,
       flagShowEditAcademic: false,
-      academicOriginal:{}
+      academicOriginal:{},
+      academics:[]
     }
   },
   props:{
@@ -50,6 +51,20 @@ export default{
   ,
   methods:{
 
+    getAcademic: function(candidate){
+
+      var resource= this.$resource(ACADEMIC);
+      resource.get({id : this.candidate.id }).then(function(response){
+        this.academics=response.body;
+        this.optionTab= 1;
+
+      }, function(error){
+        service.showError(this, error);
+
+      });
+
+    },
+
     addMoreAcademic: function(){
       this.flagShowAddAcademic=true;
     },
@@ -58,9 +73,9 @@ export default{
     },
     updateAcademic(entry){
       if(entry!=null){
-        var index=service.getIndiceObject(this, this.candidate.academics, 'academic_id', entry.academic_id);
+        var index=service.getIndiceObject(this, this.academics, 'academic_id', entry.academic_id);
         if(index>-1){
-          this.candidate.academics[index]=entry;
+          this.academics[index]=entry;
         }
       }
       this.flagShowEditAcademic=false;
@@ -72,9 +87,9 @@ export default{
     removeAcademic: function(id){
       this.showModalDeleteAcademic=false;
       if(id!=null){
-        var index=service.getIndiceObject(this, this.candidate.academics, 'academic_id', id);
+        var index=service.getIndiceObject(this, this.academics, 'academic_id', id);
         if(index>-1){
-          this.candidate.academics.splice(index,1);
+          this.academics.splice(index,1);
         }
       }
 
@@ -84,7 +99,7 @@ export default{
 
       if (entry!=null) {
         entry.academic_id=entry.id;
-        this.candidate.academics.push(entry);
+        this.academics.push(entry);
 
       }
       this.flagShowAddAcademic=false;
@@ -114,6 +129,7 @@ export default{
   },
   created: function(){
     this.getPermissions();
+    this.getAcademic();
   }
 }
 </script>

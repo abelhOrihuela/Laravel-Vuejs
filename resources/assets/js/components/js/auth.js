@@ -32,10 +32,6 @@ export default {
     },
 
     signinAdmin(email, password){
-        console.log("Signin admin");
-
-        console.log(email);
-        console.log(password);
 
         var admin ={
             email:email,

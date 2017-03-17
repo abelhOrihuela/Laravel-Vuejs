@@ -53,14 +53,8 @@
       </div>
     </div>
 
-
-    <a-datepicker :date.sync="date"></a-datepicker>
-
-    <input id="datetimepicker" type="text" >
-
-
     <ul class="list-group">
-      <li class="list-group-item" v-for="experience in candidate.experiences" @click="select(experience)">
+      <li class="list-group-item" v-for="experience in experiences" @click="select(experience)">
         <div class="row">
           <div class="col-sm-3">
             {{ experience.name_business }}
@@ -108,7 +102,7 @@
   </edit-experience>
 
 
-  <add-experience v-if="showModalAddExperience" :candidate="candidate.id" :add="addExperience">
+  <add-experience v-if="showModalAddExperience" :candidate="candidate" :add="addExperience">
   </add-experience>
 
 </div>

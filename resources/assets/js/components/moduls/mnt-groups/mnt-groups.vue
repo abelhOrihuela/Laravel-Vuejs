@@ -87,7 +87,7 @@ export default {
     getCandidates: function(id){
       var resource= this.$resource(GROUPCANDIDATES);
       resource.get({id: id}).then(function(response){
-        this.candidates=response.body.candidates;
+        this.candidates=response.body;
       }, function(error){
         service.showError(this, null);
       });

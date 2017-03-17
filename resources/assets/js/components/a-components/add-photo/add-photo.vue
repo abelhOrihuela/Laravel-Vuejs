@@ -1,14 +1,13 @@
 <script>
 import { translations } from '../../js/translations.js';
 import { HTTP, IMAGE_PROFILE,USER_PERMISSIONS } from '../../js/constants_restful.js';
-
-
+import  service  from '../../js/utilities/service.js';
 
 export default{
   template: require('./add-photo.html'),
   props:{
     getphoto: Function,
-    candidate: Number
+    candidate: Object
   },
 
     translations: translations,
@@ -49,9 +48,15 @@ export default{
         vm.image = e.target.result;
       };
 
-      this.$http.post(IMAGE_PROFILE, {'profile': vm.image , 'candidate': this.candidate })
+      this.$http.post(IMAGE_PROFILE, {'profile': vm.image , 'candidate': this.candidate.id })
       .then(function(response){
-        this.getphoto(response.body, true);
+        this.getphoto();
+
+        this.candidate.name_photo=response.body.name_photo;
+
+        service.showSuccess(this, 'Operacion Exitosa');
+
+
       }, function (error){
 
 

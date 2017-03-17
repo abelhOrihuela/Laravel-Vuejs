@@ -7,7 +7,7 @@
   </div>
 
   <ul class="list-group">
-    <li class="list-group-item" v-for="language in candidate.languages">
+    <li class="list-group-item" v-for="language in languages">
     {{ language.name_language}} - {{ language.level_language }}
     </li>
   </ul>
@@ -25,7 +25,7 @@
 
 
 
-            <table class="table table-condensed" v-if="candidate.languages.length>0">
+            <table class="table table-condensed" v-if="languages.length>0">
 
               <tr class="text-left">
                 <td>
@@ -41,7 +41,7 @@
               </tr>
 
 
-              <tr v-for="language in candidate.languages" class="text-left">
+              <tr v-for="language in languages" class="text-left">
                 <td>
                   {{ language.name_language }}
                 </td>

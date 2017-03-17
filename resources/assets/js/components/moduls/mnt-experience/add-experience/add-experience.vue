@@ -4,6 +4,7 @@ import  validate  from '../../../js/utilities/validate.js';
 import  service  from '../../../js/utilities/service.js';
 import { translations } from '../../../js/translations.js';
 import { HTTP, EXPERIENCE_NEW} from '../../../js/constants_restful.js';
+import ADatepicker from '../../../a-components/a-datepicker/a-datepicker.vue';
 
 
 export default{
@@ -14,7 +15,10 @@ export default{
   mixins: [require('vue-i18n-mixin')],
   props:{
     add: Function,
-    candidate: Number
+    candidate: Object
+  },
+  components:{
+    'a-datepicker': ADatepicker
   },
   data: function(){
     return {
@@ -24,11 +28,14 @@ export default{
         turn_business:'',
         now:0,
         comments:'',
-        admission_date:'',
-        departure_date:'',
+        admission_date: null,
+        departure_date: null,
         locale: 'es'
       },
-      flagShowDepartureDate: true
+      flagShowDepartureDate: true,
+      price: '',
+      price2: ''
+
     }
   },
   http: HTTP,
@@ -41,8 +48,8 @@ export default{
         name_business: !!this.experience.name_business.trim(),
         turn_business: !!this.experience.turn_business.trim(),
         name_job: !!this.experience.name_job.trim(),
-        admission_date:date.test(this.experience.admission_date),
-        departure_date:date.test(this.experience.departure_date),
+        admission_date: true,
+        departure_date: true,
       }
     },
     isValid: function () {
@@ -63,7 +70,7 @@ export default{
     addExperince: function(){
 
       var experience = this.experience;
-      experience.candidate_id=this.candidate;
+      experience.candidate_id=this.candidate.id;
 
       this.$http.post(EXPERIENCE_NEW, experience)
       .then(function(response){
@@ -76,7 +83,14 @@ export default{
           comments:'',
           admission_date:'',
           departure_date:'',
-          locale: 'es'
+          locale: 'es',
+          state:{
+            highlighted:{
+        to: new Date(2016, 0, 5), // Highlight all dates up to specific date
+        from: new Date(2016, 0, 26), // Highlight all dates after specific date
+
+            }
+          }
         }
         this.add(response.body);
       }, function (error){
@@ -97,11 +111,14 @@ export default{
     ,
     validateDates: function(){
 
+
       var admission_date=new Date(this.experience.admission_date);
       var departure_date=new Date(this.experience.departure_date);
 
+
       if(departure_date<=admission_date){
-          this.experience.departure_date='';
+          this.experience.departure_date=null;
+
       }
     }
   }

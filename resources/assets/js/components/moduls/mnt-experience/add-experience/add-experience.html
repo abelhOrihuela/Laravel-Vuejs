@@ -46,28 +46,27 @@
 
             <div class="col-sm-3">
               <label v-bind:class="{ 'label-a': validation.admission_date, 'label-error':  !validation.admission_date}" v-text="translate('people.admission_date')"></label>
-              <input type="date" name="" class="form-control" v-model="experience.admission_date">
+
+
+              <a-datepicker v-model="experience.admission_date" :id="1"></a-datepicker>
             </div>
 
             <div class="col-sm-3"  v-if="flagShowDepartureDate">
               <label v-bind:class="{ 'label-a': validation.departure_date,
               'label-error':  !validation.departure_date}" v-text="translate('people.departure_date')"></label>
-              <input type="date"  name="" class="form-control" @change="validateDates()" v-model="experience.departure_date">
+              <a-datepicker v-model="experience.departure_date" :id="2"></a-datepicker>
+
             </div>
           </div>
         </div>
 
         <div class="modal-footer">
-
           <button v-if="formIsValid()" class="btn btn-success" @click="addExperince()" data-dismiss="modal">
-            Confirmar
+            <label v-text="translate('people.confirm')"></label>
           </button>
-
         </div>
 
       </div>
-
-
     </div>
   </div>
 </div>

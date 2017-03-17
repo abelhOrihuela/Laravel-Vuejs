@@ -27,8 +27,8 @@ class CandidatesController extends Controller
 		foreach ($candidates as $candidate) {
 
 
-			if((Session::get('type_user')	==		1) &&
-				 (Session::get('profile')		==	 Constants::CUSTOMER)){
+			if((Session::get('type_user')	==   1) &&
+			(Session::get('profile')		==	 Constants::CUSTOMER)){
 
 				$candidate->email   = Constants::NOT_AVAILABE;
 				$candidate->code		= Constants::NOT_AVAILABE;
@@ -53,78 +53,46 @@ class CandidatesController extends Controller
 		$candidates = array();
 
 		$statement="SELECT
-    candidates.id,
-    candidates.user_id,
-    candidates.username,
-    candidates.url,
-    candidates.gender,
-    candidates.email,
-    candidates.location,
-    candidates.day,
-    candidates.month,
-    candidates.year,
-    candidates.code,
-    candidates.phone,
-    candidates.position,
-    candidates.category,
-    candidates.subcategory,
-    candidates.created_at,
-    candidates.updated_at,
-    photos.name_photo,
-    category.name as name_category,
-    subcategories.name as name_subactegory
-    FROM photos, candidates, category, subcategories
-    WHERE photos.candidate_id=candidates.id
-	 AND candidates.category=category.id
-     AND candidates.subcategory=subcategories.id";
-/*
-		$statement="SELECT * FROM `candidates`";
-
-		if($request->salary_expectation_min	!=	null && $request->salary_expectation_min	!=''
-		&& $request->salary_expectation_max	!=	null && $request->salary_expectation_max	!=''	){
-			$statement = $statement.",`candidateeconomic` ";
-		}
-
-
-		$flagCategory=false;
+		candidates.id,
+		candidates.user_id,
+		candidates.username,
+		candidates.url,
+		candidates.gender,
+		candidates.email,
+		candidates.location,
+		candidates.day,
+		candidates.month,
+		candidates.year,
+		candidates.code,
+		candidates.phone,
+		candidates.position,
+		candidates.category,
+		candidates.subcategory,
+		candidates.created_at,
+		candidates.updated_at,
+		photos.name_photo,
+		category.name as name_category,
+		subcategories.name as name_subactegory
+		FROM photos, candidates, category, subcategories
+		WHERE photos.candidate_id=candidates.id
+		AND candidates.category=category.id
+		AND candidates.subcategory=subcategories.id";
 
 		if($request->category	!=	'' && $request->category	!=	null){
-			$statement=$statement.'WHERE';
-			$statement=$statement.'`category`	=	'.$request->category;
-			$flagCategory=true;
+			$statement=$statement.' AND ';
+			$statement=$statement.'category.id	=	'.$request->category;
 		}
+
 		if($request->subcategory	!=	'' && $request->subcategory!=null){
-			if(!$flagCategory){
-				$statement=$statement.' WHERE ';
-			}else{
-				$statement=$statement.' AND ';
-			}
-			$statement=$statement.'`subcategory`='.$request->subcategory;
+			$statement=$statement.' AND ';
+			$statement=$statement.'subcategories.id = '.$request->subcategory;
 		}
 
-		if($request->salary_expectation_min	!=	null && $request->salary_expectation_min!=''
-		&& $request->salary_expectation_max	!=	null && $request->salary_expectation_max!=''){
 
-			if(!$flagCategory){
-				$statement=$statement.' WHERE ';
-			}else{
-				$statement=$statement.' AND ';
-			}
-			$statement=$statement.'`candidates`.`id`= `candidateeconomic`.`candidate_id` AND `candidateeconomic`.`salary_expectation`>'.$request->salary_expectation_min;
-			$statement=$statement.' AND `candidateeconomic`.`salary_expectation`<'.$request->salary_expectation_max;
-		}*/
 
 		$result=DB::select(DB::raw($statement));
 
-		foreach ($result as $candidate) {
-
-		//	$candidate=$this->show($candidate->id);
-
-			array_push($candidates, $candidate);
-		}
-		//return Response::json($candidates);
-		//return $statement;
-		return $candidates;
+		return $result;
 	}
 
 	/**

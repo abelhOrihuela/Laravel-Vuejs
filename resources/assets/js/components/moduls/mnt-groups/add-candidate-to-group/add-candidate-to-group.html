@@ -8,11 +8,12 @@
     groups
   </div>
 
-  <ul class="list-group">
+  <ul class="list-group" v-if="candidate.groups.length>0">
     <li class="list-group-item" v-for="group in candidate.groups">
       {{ group.name_group }}
     </li>
   </ul>
+
 
   <div class="container-component">
     <div class="modal fade" id="mntGroupsCandidate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -71,4 +72,5 @@
       </div>
     </div>
   </div>
+
 </div>

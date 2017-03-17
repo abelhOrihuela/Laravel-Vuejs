@@ -1,7 +1,7 @@
 <script>
 
 import { translations } from '../../js/translations.js';
-import { HTTP, IDIOM_DELETE, IDIOM_NEW, USER_PERMISSIONS } from '../../js/constants_restful.js';
+import { HTTP, IDIOM_DELETE, IDIOM_NEW, IDIOMS_CANDIDATE, USER_PERMISSIONS } from '../../js/constants_restful.js';
 import  service  from '../../js/utilities/service.js';
 import  runblock  from '../../js/runblock.js';
 
@@ -21,6 +21,7 @@ export default{
         level_idioma: ''
       },
       levels:[],
+      idioms:[],
       permissions:{}
     }
   },
@@ -44,13 +45,21 @@ export default{
   methods:{
     deleteLanguage: function(entry){
 
+      console.log("entry");
+      console.log(entry);
+      console.log(this.candidate);
+
+
       var resource= this.$resource(IDIOM_DELETE);
       resource.delete({id : entry.idioma_id }).then(function(response){
 
-        var index=service.getIndiceObject(this,this.candidate.idioms,'idioma_id', entry.idioma_id );
+        var index=service.getIndiceObject(this,this.idioms,'idioma_id', entry.idioma_id );
+        console.log("index");
+            console.log(index);
 
         if(index>-1){
-          this.candidate.idioms.splice(index, 1);
+          console.log("mayor");
+          this.idioms.splice(index, 1);
         }
       }, function(error){
 
@@ -64,7 +73,8 @@ export default{
       idiom.candidate_id=this.candidate.id;
       var resource=this.$http.post(IDIOM_NEW, idiom);
       resource.then(function(response){
-        this.candidate.idioms.push(response.body);
+
+        this.getIdioms();
         this.idiom.name_idioma='';
         this.idiom.level_idioma='';
 
@@ -82,6 +92,19 @@ export default{
       }, function (error){
         service.showError(this, error);
       });
+    },
+    getIdioms: function(){
+
+      var resource= this.$resource(IDIOMS_CANDIDATE);
+      resource.get({id : this.candidate.id }).then(function(response){
+
+        this.idioms=response.body;
+
+      }, function(error){
+        service.showError(this, error);
+
+      });
+
     }
   },
   created: function(){
@@ -94,6 +117,7 @@ export default{
     ];
 
     this.getPermissions();
+    this.getIdioms();
 
   }
 }

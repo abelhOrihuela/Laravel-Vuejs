@@ -32,7 +32,6 @@ export default{
   },
   filters:{
     trueOrFalse: function(value){
-      console.log(value);
       return filter.trueOrFalse(this,value);
     }
   },

@@ -8,7 +8,7 @@
   </div>
 
   <ul class="list-group">
-    <li class="list-group-item" v-for="idiom in candidate.idioms">
+    <li class="list-group-item" v-for="idiom in idioms">
       {{ idiom.name_idioma }}-{{ idiom.level_idioma }}
     </li>
   </ul>
@@ -28,7 +28,7 @@
 
 
           <div class="row">
-            <table class="table table-condensed" v-if="candidate.idioms.length>0">
+            <table class="table table-condensed" v-if="idioms.length>0">
 
               <tr class="text-left">
                 <td>
@@ -42,8 +42,7 @@
                   <label></label>
                 </td>
               </tr>
-
-              <tr v-for="idiom in candidate.idioms" class="text-left">
+              <tr v-for="idiom in idioms" class="text-left">
                 <td>
                   {{ idiom.name_idioma }}
                 </td>

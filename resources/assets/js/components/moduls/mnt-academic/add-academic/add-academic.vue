@@ -11,7 +11,7 @@ export default{
   mixins: [require('vue-i18n-mixin')],
   props:{
     add: Function,
-    candidate: Number
+    candidate: Object
   },
   data: function(){
     return {
@@ -70,7 +70,7 @@ export default{
       addAcademic: function(){
 
         var academic = this.academic;
-        academic.candidate_id=this.candidate;
+        academic.candidate_id=this.candidate.id;
 
         var resource=this.$http.post(ACADEMIC_NEW, academic);
         resource.then(function(response){

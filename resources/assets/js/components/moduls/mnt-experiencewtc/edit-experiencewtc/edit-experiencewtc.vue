@@ -5,6 +5,7 @@ import  validate  from '../../../js/utilities/validate.js';
 import  service  from '../../../js/utilities/service.js';
 import { translations } from '../../../js/translations.js';
 import { HTTP,EXPERIENCEWTC_EDIT,ADMINS } from '../../../js/constants_restful.js';
+import Datepicker from 'vuejs-datepicker';
 
 
 
@@ -18,6 +19,9 @@ export default{
     experience: Object,
     experiencenow: Object,
     update: Function
+  },
+  components:{
+    'datepicker': Datepicker
   },
   data: function(){
     return{
@@ -33,7 +37,7 @@ export default{
         name_company: !!this.experience.name_company.trim(),
         name_job: !!this.experience.name_job.trim(),
         consultant: !!this.experience.consultant.trim(),
-        date:date.test(this.experience.date),
+        date:this.experience.date!='',
       }
     },
     isValid: function () {

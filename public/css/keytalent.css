@@ -48,7 +48,7 @@ tr{
 }
 
 .table-a th, td {
-  min-width: 120px;
+  /*min-width: 120px;*/
   padding: 10px 20px;
 }
 
@@ -882,4 +882,22 @@ nav ul,nav li {
   width: 50%;
   display: inline-block;
   text-align: right;
+}
+.datepicker {
+  display: flex;
+}
+.datepicker__icon {
+  background-color: #eee;
+  border-radius: 3px 0 0 3px;
+  color: #222;
+}
+.datepicker__icon, .datepicker__input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+}
+.datepicker__input {
+  flex: 1;
+  border-left: 0;
+  border-radius: 0 3px 3px 0;
+  color: #777;
 }

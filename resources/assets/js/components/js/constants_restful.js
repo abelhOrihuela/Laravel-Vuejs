@@ -54,16 +54,20 @@ export const GROUP_NEW="group/new"
 export const GROUP_EDIT="group/edit"
 export const GROUP_DELETE="group/delete{/id}"
 
+export const GROUPS_CANDIDATE="groups/candidate{/id}"
+
 
 export const GROUP_CANDIDATE_NEW="group/candidate/new"
 export const GROUPCANDIDATES="group/candidates{/id}"
 export const DELETE_GROUP_CANDIDATE="group{/id_group}/candidate/delete{/id}"
 
 /*---------------------------------LANGUAGES-------------------------------*/
+export const LANGUAGE_CANDIDATE="language/candidate{/id}"
 export const LANGUAGE_NEW="language/new"
 export const LANGUAGE_DELETE="language/delete{/id}"
 
 /*----------------------------------IDIOMS--------------------------------*/
+export const IDIOMS_CANDIDATE="idioms/candidate{/id}"
 export const IDIOM_NEW="idiom/new"
 export const IDIOM_DELETE="idiom/delete{/id}"
 

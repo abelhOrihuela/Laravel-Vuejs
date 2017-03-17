@@ -12,7 +12,7 @@ import  runblock  from '../../js/runblock.js';
 import { translations } from '../../js/translations.js';
 import  service  from '../../js/utilities/service.js';
 import  filter  from '../../js/utilities/filters.js';
-import { HTTP, EXPERIENCE, ACADEMIC, EXPERIENCEWTC, ECONOMIC, USER_PERMISSIONS } from '../../js/constants_restful.js';
+import { HTTP, EXPERIENCE, ACADEMIC, EXPERIENCEWTC, ECONOMIC, GROUPS_CANDIDATE , LANGUAGE_CANDIDATE, IDIOMS_CANDIDATE ,USER_PERMISSIONS } from '../../js/constants_restful.js';
 import { tableCandidates , tableExperience} from '../../js/config-app/tables.js';
 
 
@@ -43,11 +43,9 @@ export default{
   },
   filters:{
     trueOrFalse: function(value){
-      console.log(value);
       return filter.trueOrFalse(this,value);
     },
     shortDate: function(value){
-      console.log(value);
       return filter.shortDate(this,value);
     }
   },
@@ -55,7 +53,6 @@ export default{
   data: function(){
     return {
       searchQuery: '',
-      experiences: [],
       candidates: [],
       columns: tableCandidates,
       columnsExperience: tableExperience,
@@ -77,30 +74,17 @@ export default{
   methods:{
     select: function(data){
 
-
-      this.getAcademic(data);
-      this.getExperience(data);
-      this.getExperienceWtc(data);
-      this.getEconomic(data);
-
+      this.getGroups(data);
 
       this.flagTable=false;
       this.flagDetailSelected=true;
       this.candidate=data;
 
-
-      setTimeout(function(){
-
         this.optionTab= 1;
-
-      });
-
-
 
 
     },
     showTable: function(){
-      console.log("------------------------------------------------");
       this.show()
     },
     addCandidate: function(){
@@ -119,23 +103,24 @@ export default{
       this.showNewCandidate=false;
       this.select(data);
     },
-    getPhoto: function(data, status){
+    getPhoto: function(){
       this.showModalPhoto=false;
-      this.candidate.photo=data;
 
-      service.showSuccess(this, 'Operacion Exitosa');
     },
 
     selectTab: function(option){
       this.optionTab=option;
 
     },
-    getAcademic: function(candidate){
 
-      var resource= this.$resource(ACADEMIC);
+
+
+    getGroups: function(candidate){
+
+      var resource= this.$resource(GROUPS_CANDIDATE);
       resource.get({id : candidate.id }).then(function(response){
-        candidate.academics=response.body;
-        this.optionTab= 1;
+
+        this.candidate.groups=response.body;
 
       }, function(error){
         service.showError(this, error);
@@ -143,41 +128,7 @@ export default{
       });
 
     },
-    getExperience: function(candidate){
 
-      var resource= this.$resource(EXPERIENCE);
-      resource.get({id : candidate.id }).then(function(response){
-        candidate.experiences=response.body;
-      }, function(error){
-        service.showError(this, error);
-
-      });
-
-    },
-    getExperienceWtc: function(candidate){
-
-      var resource= this.$resource(EXPERIENCEWTC);
-      resource.get({id : candidate.id }).then(function(response){
-        candidate.experiences_wtc=response.body;
-      }, function(error){
-        service.showError(this, error);
-
-      });
-
-    },
-    getEconomic: function(candidate){
-
-      var resource= this.$resource(ECONOMIC);
-      resource.get({id : candidate.id }).then(function(response){
-        candidate.economic=response.body;
-
-
-      }, function(error){
-        service.showError(this, error);
-
-      });
-
-    },
     addCandidateToGroup: function(){
       this.flagAddGroup=true;
     },
