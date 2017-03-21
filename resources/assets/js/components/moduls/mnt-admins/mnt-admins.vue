@@ -5,6 +5,7 @@
 import { translations } from '../../js/translations.js';
 import { tableAdmins } from '../../js/config-app/tables.js';
 import  runblock  from '../../js/runblock.js';
+import  service  from '../../js/utilities/service.js';
 
 
 /*
@@ -86,9 +87,16 @@ export default{
     *
     */
     getAdmins: function(){
+      service.loading(true);
+
       var resource= this.$resource(ADMINS);
-      resource.get().then((response) => {
+      resource.get().then(function(response)  {
         this.admins=response.body;
+        service.loading(false);
+
+      }, function(error){
+        service.loading(false);
+        service.showError(this, error);
       });
     },
     select: function(entry){

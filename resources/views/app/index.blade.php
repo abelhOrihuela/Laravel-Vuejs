@@ -2,6 +2,8 @@
 
 @section('content')
   <div id="app">
+    <a-loading v-if="loading()"></a-loading>
+
     <div class="container">
 
       <div class="" v-if="loggedUser()">
@@ -19,6 +21,7 @@
 
     </div>
   </div>
+
 
   <script src="js/app.js"></script>
 

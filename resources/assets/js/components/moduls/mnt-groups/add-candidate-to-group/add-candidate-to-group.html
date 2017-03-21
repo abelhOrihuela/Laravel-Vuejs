@@ -8,8 +8,8 @@
     groups
   </div>
 
-  <ul class="list-group" v-if="candidate.groups.length>0">
-    <li class="list-group-item" v-for="group in candidate.groups">
+  <ul class="list-group" v-if="groups_candidate.length>0">
+    <li class="list-group-item" v-for="group in groups_candidate">
       {{ group.name_group }}
     </li>
   </ul>
@@ -26,7 +26,7 @@
           <div class="modal-body">
 
             <div class="row">
-              <table class="table table-condensed" v-if="candidate.groups.length>0">
+              <table class="table table-condensed" v-if="groups_candidate.length>0">
 
                 <tr class="text-left">
                   <td>
@@ -38,7 +38,7 @@
                     <label></label>
                   </td>
                 </tr>
-                <tr v-for="group in candidate.groups" class="text-left">
+                <tr v-for="group in groups_candidate" class="text-left">
                   <td>
                     {{ group.name_group }}
                   </td>

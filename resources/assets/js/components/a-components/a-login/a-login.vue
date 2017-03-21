@@ -117,16 +117,16 @@ export default{
 
           router.push({name: 'dashboard'});
 
-          service.showSuccess(this, 'Welcome');
+          service.showSuccess(this, 'Bienvenido');
 
           runblock.loadUserSession(response.body);
 
         }else if(response.body.password_incorrect){
-          service.showWarning(this, 'Password Incorrect ! ');
+          service.showWarning(this, 'Password Incorrecto ! ');
         }
       },
       function (error){
-        service.showError(this, 'User not exist ! ');
+        service.showError(this, 'Usuario no existe ! ');
       });
     },
     clearLogin: function(){

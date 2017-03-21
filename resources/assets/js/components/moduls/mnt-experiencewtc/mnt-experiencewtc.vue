@@ -39,12 +39,17 @@ export default {
   },
   methods:{
     getExperienceWtc: function(candidate){
+      service.loading(true);
 
       var resource= this.$resource(EXPERIENCEWTC);
       resource.get({id : this.candidate.id }).then(function(response){
         this.experiences_wtc=response.body;
+        service.loading(false);
+
       }, function(error){
         service.showError(this, error);
+        service.loading(false);
+
 
       });
 
@@ -56,12 +61,8 @@ export default {
     },
     update: function(entry){
 
-      if(entry!=null){
-        var index=service.getIndiceObject(this, this.experiences_wtc, 'wtc_id', entry.wtc_id);
-        if(index>-1){
-          this.experiences_wtc[index]=entry;
-        }
-      }
+      this.getExperienceWtc();
+
       this.showModalEditExperience= false;
       this.experienceSelect=null;
 
@@ -73,10 +74,8 @@ export default {
     },
     removeExperince: function(id){
       this.showModalDeleteExperince=false;
-      var index=service.getIndiceObject(this, this.experiences_wtc, 'wtc_id', id);
-      if(index>-1){
-        this.experiences_wtc.splice(index,1);
-      }
+      this.getExperienceWtc();
+
 
       this.experienceSelect=null;
     },
@@ -114,7 +113,15 @@ export default {
   filters:{
     trueOrFalse: function(value){
       return filter.trueOrFalse(this,value);
-    }
+    },
+
+
+      shortDate: function(value){
+        return filter.shortDate(this,value);
+      }
+
+
+
   },
   created: function(){
     this.getPermissions();

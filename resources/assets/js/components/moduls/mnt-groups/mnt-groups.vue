@@ -50,6 +50,8 @@ export default {
   },
   methods: {
     getGroups: function(){
+      service.loading(true);
+
       var resource= this.$resource(GROUPS);
       resource.get().then(function(response){
         response.body.forEach(function(entry) {
@@ -58,8 +60,12 @@ export default {
           this.groups.push(entry);
 
         }, this);
+        service.loading(false);
+
       }, function(error){
         service.showError(this, error);
+        service.loading(false);
+
       });
     },
 
@@ -85,10 +91,16 @@ export default {
     },
 
     getCandidates: function(id){
+      service.loading(true);
+
       var resource= this.$resource(GROUPCANDIDATES);
       resource.get({id: id}).then(function(response){
         this.candidates=response.body;
+        service.loading(false);
+
       }, function(error){
+        service.loading(false);
+
         service.showError(this, null);
       });
     },

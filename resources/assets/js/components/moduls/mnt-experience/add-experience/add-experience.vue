@@ -42,14 +42,18 @@ export default{
   computed: {
     validation: function () {
 
+
       var date = /(\d+)(-|\/)(\d+)(?:-|\/)(?:(\d+)\s+(\d+):(\d+)(?::(\d+))?(?:\.(\d+))?)?/
 
       return {
         name_business: !!this.experience.name_business.trim(),
         turn_business: !!this.experience.turn_business.trim(),
         name_job: !!this.experience.name_job.trim(),
-        admission_date: true,
-        departure_date: true,
+        admission_date: date.test(this.experience.admission_date),
+        departure_date: date.test(this.experience.departure_date)
+
+
+
       }
     },
     isValid: function () {

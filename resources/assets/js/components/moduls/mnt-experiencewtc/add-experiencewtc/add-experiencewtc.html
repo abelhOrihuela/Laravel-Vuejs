@@ -24,8 +24,8 @@
 
             <div class="col-sm-3">
               <label v-bind:class="{ 'label-a': validation.date, 'label-error':  !validation.date}" v-text="translate('people.date')"></label>
-              <datepicker v-model="experience.date" input-class="form-control"	format="dd MMM yyyy" language="es">
-              </datepicker>
+              <a-datepicker v-model="experience.date" :format="'DD/MM/YYYY'" :id="1"></a-datepicker>
+
 
             </div>
           </div>

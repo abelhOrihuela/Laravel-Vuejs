@@ -23,8 +23,8 @@
 
             <div class="col-sm-3">
               <label v-bind:class="{ 'label-a': validation.date, 'label-error':  !validation.date}" v-text="translate('people.date')"></label>
-              <datepicker v-model="experience.date" input-class="form-control"	format="d MM yyyy" language="es">
-              </datepicker>
+              <a-datepicker v-model="experience.date" :id="1" :format="'DD/MM/YYYY'"></a-datepicker>
+
             </div>
           </div>
 

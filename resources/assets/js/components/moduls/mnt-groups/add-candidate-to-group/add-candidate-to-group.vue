@@ -1,6 +1,6 @@
 <script>
 import { translations } from '../../../js/translations.js';
-import { HTTP, GROUPS, GROUP_CANDIDATE_NEW, DELETE_GROUP_CANDIDATE, USER_PERMISSIONS} from '../../../js/constants_restful.js';
+import { HTTP, GROUPS,GROUPS_CANDIDATE, GROUP_CANDIDATE_NEW, DELETE_GROUP_CANDIDATE, USER_PERMISSIONS} from '../../../js/constants_restful.js';
 import  service  from '../../../js/utilities/service.js';
 import  runblock  from '../../../js/runblock.js';
 
@@ -17,6 +17,7 @@ export default{
   data: function(){
     return{
       groups: [],
+      groups_candidate: [],
       locale: 'es',
       permissions:{},
       groupSelect:{
@@ -38,6 +39,19 @@ export default{
         service.showError(this, error);
       });
     },
+    getGroupsCandidate: function(){
+
+
+      var resource= this.$resource(GROUPS_CANDIDATE);
+      resource.get({id : this.candidate.id }).then(function(response){
+
+        this.groups_candidate=response.body;
+
+      }, function(error){
+        service.showError(this, error);
+
+      });
+    },
     addCandidate: function(){
 
       var group=this.groupSelect;
@@ -45,32 +59,27 @@ export default{
       var resource=this.$http.post(GROUP_CANDIDATE_NEW, group);
       resource.then(function(response){
 
-        console.log(response);
         var body=response.body;
         body.pivot={
           candidate_id: this.candidate.id
         }
 
-        this.candidate.groups.push(body);
-
+        this.groups_candidate.push(body);
         this.groupSelect={
           id:''
         }
 
-        //service.showSuccess(this, null);
       }, function (error){
-        console.log(error);
         service.showError(this, error);
-
       });
     },
     deleteGroup: function(group){
 
       var resource= this.$resource(DELETE_GROUP_CANDIDATE);
       resource.delete({id_group: group.id, id : this.candidate.id }).then(function(response){
-        var index=service.getIndiceObject(this, this.candidate.groups, 'id',group.id );
+        var index=service.getIndiceObject(this, this.groups_candidate, 'id',group.id );
         if(index>-1){
-          this.candidate.groups.splice(index, 1);
+          this.groups_candidate.splice(index, 1);
         }
         this.groupSelect={id:''}
       }, function(error){
@@ -105,6 +114,7 @@ export default{
   },
   created: function(){
     this.getGroups();
+    this.getGroupsCandidate();
     this.getPermissions();
   }
 }

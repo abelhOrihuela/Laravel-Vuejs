@@ -8,6 +8,8 @@ import MntEconomic from '../../moduls/mnt-economic/mnt-economic.vue';
 import AddCandidateToGroup from '../../moduls/mnt-groups/add-candidate-to-group/add-candidate-to-group.vue';
 import MntLanguages from '../../moduls/mnt-languages/mnt-languages.vue';
 import MntIdioms from '../../moduls/mnt-idioms/mnt-idioms.vue';
+import ALoading from '../../a-components/a-loading/a-loading.vue';
+
 import  runblock  from '../../js/runblock.js';
 import { translations } from '../../js/translations.js';
 import  service  from '../../js/utilities/service.js';
@@ -39,7 +41,8 @@ export default{
     'mnt-economic': MntEconomic,
     'add-candidate-to-group': AddCandidateToGroup,
     'mnt-languages': MntLanguages,
-    'mnt-idioms': MntIdioms
+    'mnt-idioms': MntIdioms,
+    'a-loading': ALoading
   },
   filters:{
     trueOrFalse: function(value){
@@ -66,15 +69,14 @@ export default{
       flagAddGroup: false,
       optionTab: 0,
       experienceSelect:{},
-      permissions: {}
+      permissions: {},
+      loading: false
 
 
     }
   },
   methods:{
     select: function(data){
-
-      this.getGroups(data);
 
       this.flagTable=false;
       this.flagDetailSelected=true;
@@ -115,19 +117,6 @@ export default{
 
 
 
-    getGroups: function(candidate){
-
-      var resource= this.$resource(GROUPS_CANDIDATE);
-      resource.get({id : candidate.id }).then(function(response){
-
-        this.candidate.groups=response.body;
-
-      }, function(error){
-        service.showError(this, error);
-
-      });
-
-    },
 
     addCandidateToGroup: function(){
       this.flagAddGroup=true;
@@ -140,13 +129,18 @@ export default{
     downloadPdf: function(){
 
       var $id=this.candidate.id;
+      this.loading=true;
 
       var resource= this.$resource('pdf{/id}');
       resource.get({id : $id }).then(function(response){
+        service.showSuccess(this, "Operacion exitosa");
+
         var link = document.createElement("a");
         link.download = response.body;
         link.href = "../pdf/"+response.body;
         link.click();
+        this.loading=false;
+
 
       }, function(error){
         service.showError(this, error);

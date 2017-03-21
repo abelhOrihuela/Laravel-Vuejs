@@ -5,7 +5,7 @@ import  validate  from '../../../js/utilities/validate.js';
 import  service  from '../../../js/utilities/service.js';
 import { translations } from '../../../js/translations.js';
 import { HTTP,EXPERIENCEWTC_EDIT,ADMINS } from '../../../js/constants_restful.js';
-import Datepicker from 'vuejs-datepicker';
+import ADatepicker from '../../../a-components/a-datepicker/a-datepicker.vue';
 
 
 
@@ -21,7 +21,7 @@ export default{
     update: Function
   },
   components:{
-    'datepicker': Datepicker
+    'a-datepicker': ADatepicker
   },
   data: function(){
     return{

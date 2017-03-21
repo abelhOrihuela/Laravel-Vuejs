@@ -1,12 +1,12 @@
 <script>
 import moment from 'moment'
-
 export default{
   template: require('./a-datepicker.html'),
   props: ['value', 'id', 'format'],
   data: function(){
     return{
-      dateInput: ''
+      dateInput: '',
+      formatDatePicker:''
     }
   },
   methods: {
@@ -15,30 +15,27 @@ export default{
     }
   },
   created: function(){
-
-    console.log("--------value--------");
-    console.log(this.value);
-
-  if(this.value!=null && this.value!=undefined && this.value!=''){
-    this.dateInput = moment(this.value).format("DD/MM/YYYY");
-    this.$emit('input',this.dateInput)
-  }
-
-
-
+    if(this.value!=null && this.value!=undefined && this.value!=''){
+      this.dateInput = moment(this.value).format(this.format);
+      this.$emit('input',this.dateInput)
+    }
+    if(this.format){
+      if(this.format=="DD/MM/YYYY"){
+        this.formatDatePicker="dd/mm/yy";
+      }else if(this.format=="YYYY"){
+        this.formatDatePicker="yy";
+      }
+    }
   },
   mounted: function() {
-
     var here=this;
 
     $(this.$refs.input).datepicker({
-      dateFormat: "dd/mm/yy",
+      dateFormat: here.formatDatePicker,
+      monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'], // set month names
       onClose:  function (date) {
-
         here.updateValue(date);
-
       }
-
     });
   }
 }

@@ -15,6 +15,18 @@ class Utils
 
   }
 
+  public static function validateValue($value){
+
+    if($value !='' && $value!=null){
+
+      return true;
+
+    }else{
+      return false;
+    }
+
+  }
+
 }
 
 ?>

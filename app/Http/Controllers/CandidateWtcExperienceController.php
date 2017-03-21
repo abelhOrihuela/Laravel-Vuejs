@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\CandidateWtcExperience;
+use Utils;
+
 
 class CandidateWtcExperienceController extends Controller
 {
@@ -32,7 +34,7 @@ class CandidateWtcExperienceController extends Controller
         $experience->comments=$request->comments;
       }
       if($request->date){
-        $experience->date=$request->date;
+        $experience->date=Utils::formatDate($request->date);
       }
 
       if($request->consultant){
@@ -50,19 +52,37 @@ class CandidateWtcExperienceController extends Controller
     public function update(Request $request){
 
 
-      $input = $request->all();
       $experience=CandidateWtcExperience::where('wtc_id',  $request->wtc_id);
 
+      $input = array("wtc_id" => $request->wtc_id);
+
+
+      if($request->name_company){
+        $input["name_company"]=$request->name_company;
+      }
+
+      if($request->name_job){
+        $input["name_job"]=$request->name_job;
+      }
+      if($request->comments){
+        $input["comments"]=$request->comments;
+      }
+      if($request->date){
+        $input["date"]=Utils::formatDate($request->date);
+
+      }
+
+      if($request->consultant){
+        $input["consultant"]=$request->consultant;
+
+      }
+
       if($experience->update($input)){
-
-        return response()->json([
-          'status' => 200
-        ]);
-
+        $experience=CandidateWtcExperience::where('wtc_id',  $request->wtc_id)->first();
+        return $experience;
       }else{
         abort(404);
       }
-
     }
 
     public function destroy($id){

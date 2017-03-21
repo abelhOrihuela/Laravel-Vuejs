@@ -17,12 +17,8 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 
 
-Vue.config.debug = false;
-
+Vue.config.debug = true;
 const dev=true;
-
-import moment from 'moment'
-
 
 
 /*----------------------------IMPORT MODULS-----------------------------*/
@@ -39,9 +35,10 @@ import MntGroups from './components/moduls/mnt-groups/mnt-groups.vue';
 Vue.component('mnt-groups', MntGroups);
 import MntCustomers from './components/moduls/mnt-customers/mnt-customers.vue';
 Vue.component('mnt-customers', MntCustomers);
-
 import Dashboard from './components/moduls/dashboard/dashboard.vue';
 Vue.component('dashboard', Dashboard);
+import ALoading from './components/a-components/a-loading/a-loading.vue';
+Vue.component('a-loading', ALoading);
 
 
 
@@ -167,22 +164,34 @@ const app = new Vue({
 	data:{
 		message: 'Keytalent',
 		locale: 'es',
-		logged: false
-	},
+		logged: false,
+		loading: false
+		},
 	translations: {
 
 	},
 	methods: {
 		loggedUser: function(){
-
 			const authUser=sessionStorage.getItem('id_token');
-
 			if(authUser){
 				return true;
 			}
-
 			return false;
 		},
+		loading: function(){
+			var load=sessionStorage.getItem('loading');
+
+			if(load==true){
+				return true;
+			}else{
+				return false;
+			}
+
+		}
+
+	},
+	mounted: function(){
+		sessionStorage.setItem('loading', false);
 
 	}
 }).$mount('#app');

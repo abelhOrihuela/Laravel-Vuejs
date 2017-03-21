@@ -52,14 +52,18 @@ export default{
   methods:{
 
     getAcademic: function(candidate){
+      service.loading(true);
 
       var resource= this.$resource(ACADEMIC);
       resource.get({id : this.candidate.id }).then(function(response){
         this.academics=response.body;
         this.optionTab= 1;
+        service.loading(false);
+
 
       }, function(error){
         service.showError(this, error);
+        service.loading(false);
 
       });
 

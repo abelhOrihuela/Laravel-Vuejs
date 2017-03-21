@@ -72,6 +72,7 @@ export default{
   },
   methods: {
     fetchCategories: function(){
+      service.loading(true);
 
       this.$http.get('categories' )
       .then((response) => {
@@ -80,40 +81,53 @@ export default{
           this.categories= response.body;
 
         }
-      },(response) => {
+        service.loading(false);
+
+      },(error) => {
+        service.loading(false);
 
 
       }
     );
   },
   fetchSubCategories: function(){
+    service.loading(true);
 
     var resource= this.$resource('subcategories{/id}');
 
     resource.get({id : this.candidate.category }).then((response) => {
       this.subcategories= response.body;
+      service.loading(false);
+
     });
 
   },
   newCandidate: function(){
     var candidate = this.candidate;
+    service.loading(true);
 
     this.$http.post('candidate/new', candidate)
     .then(function(response){
 
       this.getCandidateNew(response.body);
+      service.loading(false);
 
 
     }, function (error){
+      service.loading(false);
+
 
     });
   },
   getCandidateNew: function($id){
+    service.loading(true);
 
     var resource= this.$resource('candidate{/id}');
 
     resource.get({id : $id }).then((response) => {
       this.getcandidate(response.body);
+      service.loading(false);
+
     });
 
   },
@@ -130,9 +144,6 @@ created: function(){
     {'description': this.translate('people.men'), 'code':'Hombre'},
     {'description':this.translate('people.women'), 'code':'Mujer'}
   ];
-
 }
-
-
 }
 </script>

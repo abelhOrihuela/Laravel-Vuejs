@@ -31,15 +31,17 @@ export default{
   computed: {
     validation: function () {
 
-      var date = /(\d+)(-|\/)(\d+)(?:-|\/)(?:(\d+)\s+(\d+):(\d+)(?::(\d+))?(?:\.(\d+))?)?/
+      //var date = /(\d+)(-|\/)(\d+)(?:-|\/)(?:(\d+)\s+(\d+):(\d+)(?::(\d+))?(?:\.(\d+))?)?/
+      var date = /^\d{4}$/;
+
       var numberEx=/^[0-9\b]+$/;
 
       return {
         name_academic: this.academic.name_academic!='',
         career: this.academic.career!='',
         level_academic: this.academic.level_academic!='',
-        year_entry: numberEx.test(this.academic.year_entry),
-        year_exit: numberEx.test(this.academic.year_exit)
+        year_entry: date.test(this.academic.year_entry),
+        year_exit: date.test(this.academic.year_exit)
       }
     },
     isValid: function () {
@@ -74,6 +76,7 @@ export default{
 
       },
       editAcademic: function(){
+        service.loading(true);
 
         var academic = new Object();
         academic.academic_id=this.academic.academic_id;
@@ -109,9 +112,11 @@ export default{
         var resource=this.$http.put(ACADEMIC_EDIT, academic);
         resource.then(function(response){
           this.update(this.academic);
+          service.loading(false);
 
           service.showSuccess(this, null);
         }, function (error){
+          service.loading(false);
 
           service.showError(this, error);
 

@@ -46,15 +46,13 @@
 
             <div class="col-sm-3">
               <label v-bind:class="{ 'label-a': validation.admission_date, 'label-error':  !validation.admission_date}" v-text="translate('people.admission_date')"></label>
-
-
-              <a-datepicker v-model="experience.admission_date" :id="1"></a-datepicker>
+              <a-datepicker v-model="experience.admission_date" :format="'DD/MM/YYYY'" :id="1"></a-datepicker>
             </div>
 
             <div class="col-sm-3"  v-if="flagShowDepartureDate">
               <label v-bind:class="{ 'label-a': validation.departure_date,
               'label-error':  !validation.departure_date}" v-text="translate('people.departure_date')"></label>
-              <a-datepicker v-model="experience.departure_date" :id="2"></a-datepicker>
+              <a-datepicker v-model="experience.departure_date" :format="'DD/MM/YYYY'" :id="2"></a-datepicker>
 
             </div>
           </div>

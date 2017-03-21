@@ -1,6 +1,8 @@
 <script>
 /*-----------------------------------------------------------*/
 import ATable from '../../a-components/a-table/a-table.vue';
+import ALoading from '../../a-components/a-loading/a-loading.vue';
+
 import AddCandidate from './add-candidate/add-candidate.vue';
 import ACandidate from '../../a-components/a-candidate/a-candidate.vue';
 
@@ -28,7 +30,9 @@ export default{
   components:{
     'a-candidate': ACandidate,
     'a-table': ATable,
-    'add-candidate': AddCandidate
+    'add-candidate': AddCandidate,
+    'a-loading': ALoading
+
   },
   filters:{
     trueOrFalse: function(value){
@@ -57,6 +61,7 @@ export default{
       showSearchContainer:true,
       showSearch:true,
       permissions:{},
+      loading: false,
       searchCand:{
         category: '',
         subcategory: ''
@@ -75,6 +80,7 @@ export default{
     search: function(){
       this.flagDetailSelected=false;
       this.reloadTable=false;
+      service.loading(true);
 
       var search_cand=this.searchCand;
 
@@ -85,9 +91,13 @@ this.reloadTable=true;
         this.candidates=response.body;
         this.flagTable=true;
         service.showSuccess(this, "Se encontraron : "+this.candidates.length + " resultados");
+        service.loading(false);
+
 
       }, function (error){
         service.showError(this, error);
+        service.loading(false);
+
       });
 
     }
@@ -124,15 +134,22 @@ this.reloadTable=true;
       this.optionTab=option;
     },
     fetchCategories: function(){
+      service.loading(true);
+
 
       this.$http.get(CATEGORIES)
       .then(function(response) {
+        service.loading(false);
+
+
         if(response){
           response.json();
           this.categories= response.body;
         }
       },function(error) {
         service.showError(this, error);
+        service.loading(false);
+
       }
     );
   },
@@ -142,13 +159,21 @@ this.reloadTable=true;
 
     var resource= this.$resource(SUBCATEGORIES);
     var category=this.searchCand.category;
+    service.loading(true);
+
 
     if(service.validateValue(this,category)){
 
       resource.get({id : this.searchCand.category })
       .then(function(response){
+        service.loading(false);
+
+
         this.subcategories= response.body;
       }, function(error){
+        service.loading(false);
+
+
         service.showError(this, error);
       });
 
@@ -172,12 +197,17 @@ this.reloadTable=true;
   getPermissions: function(){
 
     var user=runblock.getUserSession();
+    service.loading(true);
 
     var resource=this.$http.post(USER_PERMISSIONS, user);
     resource.then(function(response){
+      service.loading(false);
+
       this.permissions=response.body;
     }, function (error){
       service.showError(this, error);
+      service.loading(false);
+
     });
   }
 },

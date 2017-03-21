@@ -37,12 +37,17 @@ export default {
   },
   methods:{
     getExperience: function(){
+      service.loading(true);
 
       var resource= this.$resource(EXPERIENCE);
       resource.get({id : this.candidate.id }).then(function(response){
         this.experiences=response.body;
+        service.loading(false);
+
       }, function(error){
         service.showError(this, error);
+        service.loading(false);
+
 
       });
 
@@ -87,12 +92,12 @@ export default {
       this.showModalAddExperience=true;
 
     },
-    
+
     addExperience: function(entry){
 
       entry.experience_id=entry.id;
       this.showModalAddExperience=false;
-      this.experiences.push(entry);
+      this.getExperience();
 
     },
     select: function(entry){

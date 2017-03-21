@@ -9,6 +9,7 @@ use PDF;
 use DB;
 use Constants;
 use Response;
+use Utils;
 
 class CandidatesController extends Controller
 {
@@ -52,42 +53,38 @@ class CandidatesController extends Controller
 
 		$candidates = array();
 
-		$statement="SELECT
-		candidates.id,
-		candidates.user_id,
-		candidates.username,
-		candidates.url,
-		candidates.gender,
-		candidates.email,
-		candidates.location,
-		candidates.day,
-		candidates.month,
-		candidates.year,
-		candidates.code,
-		candidates.phone,
-		candidates.position,
-		candidates.category,
-		candidates.subcategory,
-		candidates.created_at,
-		candidates.updated_at,
-		photos.name_photo,
-		category.name as name_category,
-		subcategories.name as name_subactegory
-		FROM photos, candidates, category, subcategories
-		WHERE photos.candidate_id=candidates.id
-		AND candidates.category=category.id
-		AND candidates.subcategory=subcategories.id";
+		$statement="";
+		$economic=false;
 
-		if($request->category	!=	'' && $request->category	!=	null){
+		if(Utils::validateValue($request->salary_expectation_min)
+		&& Utils::validateValue($request->salary_expectation_max)){
+			$statement=$statement.Constants::SEARCH_ECONOMIC;
+			$economic=true;
+		}else{
+			$statement=$statement.Constants::SEARCH;
+		}
+
+		if(Utils::validateValue($request->category)){
 			$statement=$statement.' AND ';
 			$statement=$statement.'category.id	=	'.$request->category;
 		}
 
-		if($request->subcategory	!=	'' && $request->subcategory!=null){
+
+
+		if(Utils::validateValue($request->subcategory)){
 			$statement=$statement.' AND ';
 			$statement=$statement.'subcategories.id = '.$request->subcategory;
 		}
 
+		if($economic){
+
+			$statement=$statement.' AND ';
+			$statement=$statement.'(candidateeconomic.salary_expectation * 1) BETWEEN ';
+			$statement=$statement.$request->salary_expectation_min;
+			$statement=$statement.' AND ';
+			$statement=$statement.$request->salary_expectation_max;
+
+		}
 
 
 		$result=DB::select(DB::raw($statement));

@@ -60,7 +60,7 @@
     				{{ experiencewtc.name_job }}
     			</div>
     			<div class="col-sm-2">
-    				{{ experiencewtc.date }}
+    				{{ experiencewtc.date  | shortDate }}
     			</div>
     			<div class="col-sm-2">
     				{{ experiencewtc.consultant }}
@@ -75,7 +75,6 @@
 
     <div class="row" >
       <div v-if="experienceSelect!=null" class="col-sm-12" style="text-align: right">
-
           <label class="label-a" v-text="translate('people.selected')"></label>
           : {{ experienceSelect.name_company }}&nbsp;
 

@@ -36,13 +36,18 @@ export default {
   },
   methods:{
     getEconomic: function(){
+      service.loading(true);
 
       var resource= this.$resource(ECONOMIC);
       resource.get({id : this.candidate.id }).then(function(response){
         this.economics=response.body;
+        service.loading(false);
+
 
       }, function(error){
         service.showError(this, error);
+        service.loading(false);
+
       });
     },
 
