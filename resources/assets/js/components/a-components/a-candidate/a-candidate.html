@@ -13,6 +13,30 @@
           <label class="vcenter"v-text="translate('people.candidate_selected')"></label>
         </div>
 
+        <div class="col-sm-2">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <i class="glyphicon glyphicon-th-list" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></i>
+
+              &nbsp;
+              <ul class="dropdown-menu">
+                  <li v-if="permissions.edit">
+                    <a @click="beforeEditCandidate()">
+                      <label class="label-a" v-text="translate('people.edit_customer')"></label>
+                    </a>
+                  </li>
+
+                  <li v-if="permissions.delete">
+                    <a @click="beforeDeleteCandidate()" data-toggle="modal" data-target="#deleteCandidate">
+                      <label class="label-a" v-text="translate('people.delete_customer')"></label>
+                    </a>
+                  </li>
+
+                </ul>
+              </li>
+            </ul>
+          </div>
+
       </div>
     </div>
     <div class="panel-body">

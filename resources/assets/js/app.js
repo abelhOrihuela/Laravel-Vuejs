@@ -40,6 +40,10 @@ Vue.component('dashboard', Dashboard);
 import ALoading from './components/a-components/a-loading/a-loading.vue';
 Vue.component('a-loading', ALoading);
 
+import ADatepicker from './components/a-components/a-datepicker/a-datepicker.vue';
+Vue.component('a-datepicker', ADatepicker);
+
+
 
 
 

@@ -28,7 +28,8 @@ export default{
   /*PROPERTIES*/
   props:{
     candidate: Object,
-    show: Function
+    show: Function,
+    edit: Function
   },
   /*COMPONENTS*/
   components:{
@@ -133,6 +134,9 @@ export default{
         service.showError(this, error);
         this.loading=false;
       });
+    },
+    beforeEditCandidate: function(){
+      this.edit();
     },
     getPermissions: function(){
 

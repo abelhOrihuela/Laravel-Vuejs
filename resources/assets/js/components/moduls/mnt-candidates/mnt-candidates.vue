@@ -3,6 +3,7 @@
 import ATable from '../../a-components/a-table/a-table.vue';
 
 import AddCandidate from './add-candidate/add-candidate.vue';
+import EditCandidate from './edit-candidate/edit-candidate.vue';
 import ACandidate from '../../a-components/a-candidate/a-candidate.vue';
 
 import  service  from '../../js/utilities/service.js';
@@ -29,7 +30,8 @@ export default{
   components:{
     'a-candidate': ACandidate,
     'a-table': ATable,
-    'add-candidate': AddCandidate
+    'add-candidate': AddCandidate,
+    'edit-candidate': EditCandidate
   },
   filters:{
     trueOrFalse: function(value){
@@ -51,6 +53,7 @@ export default{
       locale: 'es',
       showModal: false,
       showNewCandidate: false,
+      showEditCandidate: false,
       showPersonalInformation: false,
       showModalPhoto: false,
       optionTab: 0,
@@ -114,6 +117,16 @@ export default{
       this.flagDetailSelected=false;
       this.showNewCandidate=true;
       this.showSearchContainer=false;
+
+    },
+    beforeEditCandidate: function(){
+      console.log("#######################################");
+
+      this.flagTable=false;
+      this.flagDetailSelected=false;
+      this.showNewCandidate=false;
+      this.showSearchContainer=false;
+      this.showEditCandidate=true;
 
     },
     cancelAddCandidate:  function(){

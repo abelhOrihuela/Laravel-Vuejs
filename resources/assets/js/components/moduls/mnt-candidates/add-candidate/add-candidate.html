@@ -52,7 +52,9 @@
             <div class="col-sm-3">
 
               <label v-bind:class="{ 'label-a': validation.birthday, 'label-error':  !validation.birthday}" v-text="translate('people.birthday')"></label>
-              <input type="date" name="" class="form-control" v-model="candidate.birthday">
+              <a-datepicker v-model="candidate.birthday" :format="'DD/MM/YYYY'" :id="1"></a-datepicker>
+
+
             </div>
 
             <div class="col-sm-3">

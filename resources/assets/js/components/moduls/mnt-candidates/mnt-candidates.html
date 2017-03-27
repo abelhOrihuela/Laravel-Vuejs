@@ -16,7 +16,6 @@
 	<div class="col-sm-11">
 		<div style="text-align: right">
 
-
 			<button v-if="!showNewCandidate && permissions.add" id="show-modal" @click="addCandidate()" class="btn btn-info btn-options" v-bind:data-tooltip="translate('people.add_candidate')" data-placement="left">
 				<i class="glyphicon glyphicon-plus"></i>
 			</button>
@@ -24,6 +23,7 @@
 			<button v-if="showNewCandidate && permissions.add" id="show-modal" @click="cancelAddCandidate" class="btn btn-danger btn-options" v-bind:data-tooltip="translate('people.cancel_add_candidate')" data-placement="left">
 				<i class="glyphicon glyphicon glyphicon-remove"></i>
 			</button>
+
 		</div>
 	</div>
 </div>
@@ -84,6 +84,8 @@
 
 
 	<add-candidate v-if="showNewCandidate" :getcandidate="getNewCandidate"></add-candidate>
-	<a-candidate v-if="flagDetailSelected" :show="showTable" :candidate="candidateSelected"><a-candidate>
+	<edit-candidate v-if="showEditCandidate" :candidate="candidateSelected"></edit-candidate>
+	<a-candidate v-if="flagDetailSelected" :show="showTable" :candidate="candidateSelected" :edit="beforeEditCandidate">
+	<a-candidate>
 
 </div>

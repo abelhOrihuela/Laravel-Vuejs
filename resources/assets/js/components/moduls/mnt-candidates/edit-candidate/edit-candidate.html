@@ -1,0 +1,149 @@
+<div class="container-a">
+  <br>
+
+  <div class="panel panel-default shadow-key">
+
+    <div class="panel-heading header-key">
+      <label style="color: white !important;"v-text="translate('people.add_candidate')"></label>
+    </div>
+
+
+    <div class="panel-body">
+
+      <div class="">
+        <form name="form" method="post" @submit.prevent="newCandidate">
+
+          <div class="row">
+            <div class="col-sm-5">
+
+              <label v-bind:class="{ 'label-a': validation.username, 'label-error':  !validation.username}" v-text="translate('people.name')"></label>
+              <input type="text" name="" class="form-control" v-model="candidate.username">
+
+            </div>
+
+            <div class="col-sm-5">
+
+              <label v-bind:class="{ 'label-a': validation.email, 'label-error':  !validation.email}" v-text="translate('people.email')"></label>
+              <input type="email" name="" class="form-control" v-model="candidate.email">
+
+            </div>
+
+            <div class="col-sm-2">
+
+              <label v-bind:class="{ 'label-a': validation.gender, 'label-error':  !validation.gender}" v-text="translate('people.gender')"></label>
+
+              <div style="diplay: inline-block">
+
+
+                <select  class="form-control" v-model="candidate.gender">
+                  <option v-for="gender in genders" v-bind:value="gender.code">
+                    {{ gender.description }}
+                  </option>
+                </select>
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-sm-3">
+
+              <label v-bind:class="{ 'label-a': validation.birthday, 'label-error':  !validation.birthday}" v-text="translate('people.birthday')"></label>
+              <a-datepicker v-model="candidate.birthday" :format="'DD/MM/YYYY'" :id="1"></a-datepicker>
+
+            </div>
+
+            <div class="col-sm-3">
+              <label v-bind:class="{ 'label-a': validation.location, 'label-error':  !validation.location}" v-text="translate('people.location')"></label>
+              <select name="location" id="location" class="form-control input-sm" v-model="candidate.location">
+                <option value="Aguascalientes">Aguascalientes</option>
+                <option value="Baja California">Baja California</option>
+                <option value="Baja California Sur">Baja California Sur</option>
+                <option value="Campeche">Campeche</option>
+                <option value="Chiapas">Chiapas</option>
+                <option value="Chihuahua">Chihuahua</option>
+                <option value="Coahuila">Coahuila</option>
+                <option value="Colima">Colima</option>
+                <option value="Distrito Federal">Distrito Federal</option>
+                <option value="Durango">Durango</option>
+                <option value="Estado de México">Estado de México</option>
+                <option value="Guanajuato">Guanajuato</option>
+                <option value="Guerrero">Guerrero</option>
+                <option value="Hidalgo">Hidalgo</option>
+                <option value="Jalisco">Jalisco</option>
+                <option value="Michoacán">Michoacán</option>
+                <option value="Morelos">Morelos</option>
+                <option value="Nayarit">Nayarit</option>
+                <option value="Nuevo León">Nuevo León</option>
+                <option value="Oaxaca">Oaxaca</option>
+                <option value="Puebla">Puebla</option>
+                <option value="Querétaro">Querétaro</option>
+                <option value="Quintana Roo">Quintana Roo</option>
+                <option value="San Luis Potosí">San Luis Potosí</option>
+                <option value="Sinaloa">Sinaloa</option>
+                <option value="Sonora">Sonora</option>
+                <option value="Tabasco">Tabasco</option>
+                <option value="Tamaulipas">Tamaulipas</option>
+                <option value="Tlaxcala">Tlaxcala</option>
+                <option value="Veracruz">Veracruz</option>
+                <option value="Yucatán">Yucatán</option>
+                <option value="Zacatecas">Zacatecas</option>
+              </select>
+
+            </div>
+
+            <div class="col-sm-3">
+              <label v-bind:class="{ 'label-a': validation.phone, 'label-error':  !validation.phone}" v-text="translate('people.phone')"></label>
+              <input type="text" name="" class="form-control" v-model="candidate.phone">
+
+            </div>
+
+            <div class="col-sm-3">
+              <label v-bind:class="{ 'label-a': validation.code, 'label-error':  !validation.code}" v-text="translate('people.code')"></label>
+              <input type="text" name="" class="form-control" v-model="candidate.code">
+
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm-3">
+              <label v-bind:class="{ 'label-a': validation.position, 'label-error':  !validation.position}" v-text="translate('people.position')"></label>
+              <input type="text" name="" class="form-control" v-model="candidate.position">
+
+            </div>
+
+            <div class="col-sm-3">
+              <label v-bind:class="{ 'label-a': validation.category, 'label-error':  !validation.category}" v-text="translate('people.category')"></label>
+              <select  class="form-control" @change="fetchSubCategories()" v-model="candidate.category">
+                <option v-for="category in categories" v-bind:value="category.id">
+                  {{ category.name }}
+                </option>
+              </select>
+
+            </div>
+
+            <div class="col-sm-3">
+              <label v-bind:class="{ 'label-a': validation.subcategory, 'label-error':  !validation.subcategory}" v-text="translate('people.subcategory')"></label>
+              <select v-model="candidate.subcategory" class="form-control">
+                <option v-for="category in subcategories" v-bind:value="category.id">
+                  {{ category.name }}
+                </option>
+              </select>
+
+            </div>
+
+          </div>
+
+          <div class="modal-footer" v-if="isValid">
+            <input type="submit" name="" value="send" class="btn btn-success">
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
