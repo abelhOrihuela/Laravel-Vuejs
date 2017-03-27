@@ -11,16 +11,13 @@ import  service  from '../../js/utilities/service.js';
 /*
 *Constants
 */
-import { ADMINS, USER_PERMISSIONS } from '../../js/constants_restful.js';
+import { HTTP, ADMINS, USER_PERMISSIONS } from '../../js/constants_restful.js';
 
 /*
 *Components
 */
 
 import  ATable from '../../a-components/a-table/a-table.vue';
-
-
-
 
 export default{
   /*--Tenplate--*/
@@ -64,21 +61,13 @@ export default{
       flagDetailSelected: false,
       adminSelected: {},
       adminCandidatesRegisters:0,
-      locale: 'es'
+      locale: 'es',
+      loading: false
     }
 
   },
 
-  http: {
-    root: '/api',
-    headers: {
-      'X-CSRF-TOKEN' : document.querySelector('#token').getAttribute('value')
-    }
-  },
-  attached() {
-        this.resetOptions()
-      },
-
+  http:HTTP,
   methods:{
 
     /*function: fetchImageProfile
@@ -87,15 +76,15 @@ export default{
     *
     */
     getAdmins: function(){
-      service.loading(true);
+      this.loading=true;
 
       var resource= this.$resource(ADMINS);
       resource.get().then(function(response)  {
         this.admins=response.body;
-        service.loading(false);
+        this.loading=false;
 
       }, function(error){
-        service.loading(false);
+        this.loading=false;
         service.showError(this, error);
       });
     },

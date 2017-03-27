@@ -10,7 +10,9 @@ export default{
   data: function(){
     return{
       menu:[],
-      menu_dashboard:[],}
+      loadingV: false,
+      menu_dashboard:[],
+    }
   },
   methods: {
     logout: function(){
@@ -29,10 +31,21 @@ export default{
         service.showError(this, error);
 
       });
+    },
+
+    loadingView: function(){
+      console.log("----");
+      if(sessionStorage.getItem('loading')){
+        service.showError(this, "");
+
+        return true;
+      }
+      service.showError(this, "error");
+
+        return false;
 
 
-
-    }
+    },
   }
   ,created: function(){
     var user=runblock.getUserSession();

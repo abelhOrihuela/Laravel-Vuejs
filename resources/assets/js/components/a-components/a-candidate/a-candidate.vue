@@ -8,7 +8,6 @@ import MntEconomic from '../../moduls/mnt-economic/mnt-economic.vue';
 import AddCandidateToGroup from '../../moduls/mnt-groups/add-candidate-to-group/add-candidate-to-group.vue';
 import MntLanguages from '../../moduls/mnt-languages/mnt-languages.vue';
 import MntIdioms from '../../moduls/mnt-idioms/mnt-idioms.vue';
-import ALoading from '../../a-components/a-loading/a-loading.vue';
 
 import  runblock  from '../../js/runblock.js';
 import { translations } from '../../js/translations.js';
@@ -41,8 +40,7 @@ export default{
     'mnt-economic': MntEconomic,
     'add-candidate-to-group': AddCandidateToGroup,
     'mnt-languages': MntLanguages,
-    'mnt-idioms': MntIdioms,
-    'a-loading': ALoading
+    'mnt-idioms': MntIdioms
   },
   filters:{
     trueOrFalse: function(value){
@@ -77,14 +75,10 @@ export default{
   },
   methods:{
     select: function(data){
-
       this.flagTable=false;
       this.flagDetailSelected=true;
       this.candidate=data;
-
-        this.optionTab= 1;
-
-
+      this.optionTab= 1;
     },
     showTable: function(){
       this.show()
@@ -109,22 +103,14 @@ export default{
       this.showModalPhoto=false;
 
     },
-
     selectTab: function(option){
       this.optionTab=option;
-
     },
-
-
-
-
     addCandidateToGroup: function(){
       this.flagAddGroup=true;
     },
     addGroup: function(entry){
-
-          this.flagAddGroup=false;
-
+      this.flagAddGroup=false;
     },
     downloadPdf: function(){
 
@@ -135,6 +121,7 @@ export default{
       resource.get({id : $id }).then(function(response){
         service.showSuccess(this, "Operacion exitosa");
 
+        this.loading=false;
         var link = document.createElement("a");
         link.download = response.body;
         link.href = "../pdf/"+response.body;
@@ -144,12 +131,12 @@ export default{
 
       }, function(error){
         service.showError(this, error);
+        this.loading=false;
       });
     },
     getPermissions: function(){
 
       var user=runblock.getUserSession();
-
       var resource=this.$http.post(USER_PERMISSIONS, user);
       resource.then(function(response){
         this.permissions=response.body;

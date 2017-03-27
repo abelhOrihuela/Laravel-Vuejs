@@ -58,7 +58,12 @@ export default {
   },
 
   loading(value){
-    sessionStorage.setItem('loading', value);
+    if(value==true){
+      sessionStorage.setItem('loading', true);
+    }else {
+      sessionStorage.removeItem('loading');
+
+    }
   },
   /**
   *validate value data

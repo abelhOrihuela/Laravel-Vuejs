@@ -9,9 +9,8 @@ export default{
     getphoto: Function,
     candidate: Object
   },
-
-    translations: translations,
-    mixins: [require('vue-i18n-mixin')],
+  translations: translations,
+  mixins: [require('vue-i18n-mixin')],
   data: function(){
     return {
       image: '',
@@ -51,15 +50,11 @@ export default{
       this.$http.post(IMAGE_PROFILE, {'profile': vm.image , 'candidate': this.candidate.id })
       .then(function(response){
         this.getphoto();
-
         this.candidate.name_photo=response.body.name_photo;
-
         service.showSuccess(this, 'Operacion Exitosa');
-
-
-      }, function (error){
-
-
+      },
+      function (error){
+        service.showError(error);
       });
     }
   }

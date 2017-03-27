@@ -97,12 +97,9 @@ router.beforeEach((to, from, next)=>{
 		sessionStorage.clear();
 	}
 
-
-
 	var menu=[];
 	var menuSession=JSON.parse(sessionStorage.getItem('menu'));
 	const authUser=sessionStorage.getItem('id_token');
-
 
 	if(menuSession){
 		menu=menuSession;
@@ -111,31 +108,20 @@ router.beforeEach((to, from, next)=>{
 	var existInMenu=false;
 
 	if(to.meta.requiresAuth){
-
 		if(menu.length>0){
 			for (var i = 0; i < menu.length; i++) {
-
 				if(to.name==menu[i].name){
-
 					existInMenu=true;
 					break;
-
 				}
 			}
-
 			if(authUser && existInMenu){
-
 				next();
-
 			}else if(authUser && !existInMenu){
-
 				next({
 					name: 'dashboard'
 				});
-
 			}
-
-
 		}else{
 
 			next({
@@ -164,34 +150,20 @@ const app = new Vue({
 	data:{
 		message: 'Keytalent',
 		locale: 'es',
-		logged: false,
-		loading: false
-		},
+		logged: false
+	},
 	translations: {
 
 	},
 	methods: {
 		loggedUser: function(){
 			const authUser=sessionStorage.getItem('id_token');
+
 			if(authUser){
 				return true;
 			}
 			return false;
-		},
-		loading: function(){
-			var load=sessionStorage.getItem('loading');
-
-			if(load==true){
-				return true;
-			}else{
-				return false;
-			}
-
 		}
-
-	},
-	mounted: function(){
-		sessionStorage.setItem('loading', false);
 
 	}
 }).$mount('#app');

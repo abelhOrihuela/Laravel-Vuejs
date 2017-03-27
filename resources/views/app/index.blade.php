@@ -2,7 +2,7 @@
 
 @section('content')
   <div id="app">
-    <a-loading v-if="loading()"></a-loading>
+
 
     <div class="container">
 
@@ -17,7 +17,9 @@
 
       <a-menu v-if="loggedUser()">
       </a-menu>
+
       <router-view></router-view>
+
 
     </div>
   </div>

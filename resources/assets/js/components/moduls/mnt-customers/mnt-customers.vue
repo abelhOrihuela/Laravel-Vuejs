@@ -27,7 +27,8 @@ export default{
       flagEditCustomer: false,
       flagDeleteCustomer: false,
       selected: null,
-      locale: 'es'
+      locale: 'es',
+      loading: false
     }
   },
   http: HTTP,
@@ -42,10 +43,16 @@ export default{
   methods:{
 
     getCustomers: function(){
+      this.loading=true;
 
       var resource= this.$resource(CUSTOMERS);
       resource.get().then((response) => {
         this.customers=response.body;
+        this.loading=false;
+
+      }, (error)=>{
+        this.loading=false;
+
       });
 
     },

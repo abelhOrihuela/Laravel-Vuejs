@@ -1,7 +1,6 @@
 <script>
 /*-----------------------------------------------------------*/
 import ATable from '../../a-components/a-table/a-table.vue';
-import ALoading from '../../a-components/a-loading/a-loading.vue';
 
 import AddCandidate from './add-candidate/add-candidate.vue';
 import ACandidate from '../../a-components/a-candidate/a-candidate.vue';
@@ -30,9 +29,7 @@ export default{
   components:{
     'a-candidate': ACandidate,
     'a-table': ATable,
-    'add-candidate': AddCandidate,
-    'a-loading': ALoading
-
+    'add-candidate': AddCandidate
   },
   filters:{
     trueOrFalse: function(value){
@@ -80,23 +77,23 @@ export default{
     search: function(){
       this.flagDetailSelected=false;
       this.reloadTable=false;
-      service.loading(true);
+      this.loading=true;
 
       var search_cand=this.searchCand;
 
       this.$http.post(CANDIDATES_SEARCH, search_cand)
       .then(function(response){
 
-this.reloadTable=true;
+        this.reloadTable=true;
         this.candidates=response.body;
         this.flagTable=true;
         service.showSuccess(this, "Se encontraron : "+this.candidates.length + " resultados");
-        service.loading(false);
+        this.loading=false;
 
 
       }, function (error){
         service.showError(this, error);
-        service.loading(false);
+        this.loading=false;
 
       });
 

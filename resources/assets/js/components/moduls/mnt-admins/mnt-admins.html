@@ -1,4 +1,8 @@
 <div class="container-a">
+
+	<a-loading v-if="loading"></a-loading>
+
+
 	<div class="row" v-show="flagTable">
 		<a-table :data="admins" :columns="columns" :total="admins.length" :select="select" :showSearch="false">
 		</a-table>
